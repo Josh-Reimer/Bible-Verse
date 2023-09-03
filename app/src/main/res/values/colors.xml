@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+<!--new colors-->
+<!--primary-->
+<color name="green_700_primary">#388e3c</color>
+<color name="green_light_primary">#6abf69</color>
+<color name="green_dark_primary">#00600f</color>
+
+<!--secondary-->
+<color name="green_900_secondary">#1b5e20</color>
+<color name="green_dark_secondary">#003300</color>
+<color name="green_light_secondary">#4c8c4a</color>
+
+<!--text on primary-->
+<color name="yellow_on_primary">#fff59d</color>
+
+<!--text on secondary-->
+<color name="teal_on_secondary">#e3f2fd</color>
+
+</resources>

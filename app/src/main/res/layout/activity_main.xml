@@ -1,0 +1,115 @@
+<androidx.drawerlayout.widget.DrawerLayout
+	
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	
+	xmlns:tools="http://schemas.android.com/tools"
+	
+	android:id="@+id/my_drawer_layout"
+	
+	android:layout_width="match_parent"
+	
+	android:layout_height="match_parent"
+	
+	tools:context=".MainActivity"
+	
+	tools:ignore="HardcodedText"
+	>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/mainLayoutView"
+    xmlns:tools="http://schemas.android.com/tools"
+	android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/book"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/titletext"
+        android:textSize="45dp" />
+
+    <TextView
+        android:id="@+id/verse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        android:text="In the beginning, God created the heaven and the earth."
+        android:textSize="20dp" />
+		
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id="@+id/menu_fab"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		android:layout_margin="19dp"
+		android:layout_width="wrap_content"
+		app:fabSize="auto"
+		android:layout_height="wrap_content"
+		android:src="@drawable/more_vert_36"
+		/>
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+	android:id="@+id/verselookup"
+	app:fabSize="auto"
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+	app:layout_constraintRight_toRightOf="parent"
+	app:layout_constraintBottom_toTopOf="@+id/bookmark_fab"
+	android:layout_margin="19dp"
+	android:src="@drawable/open_in_new_48"
+/>
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id="@+id/bookmark_fab"
+	app:fabSize="auto"
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+	app:layout_constraintRight_toRightOf="parent"
+	app:layout_constraintBottom_toTopOf="@+id/menu_fab"
+	android:layout_margin="19dp"
+	android:src="@drawable/bookmark_border_24"
+	/>
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+	android:src="@drawable/dice_48"
+	android:id="@+id/newverse"
+	app:fabSize="auto"
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+	android:layout_margin="19dp"
+	app:layout_constraintRight_toRightOf="parent"
+	app:layout_constraintBottom_toTopOf="@+id/verselookup"
+	/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+<com.google.android.material.navigation.NavigationView
+	
+	android:layout_width="wrap_content"
+	
+	android:layout_height="match_parent"
+	app:headerLayout="@layout/header"
+	android:layout_gravity="start"
+	android:id="@+id/nv"
+	app:menu="@menu/navigation_menu"
+	android:fitsSystemWindows="true"
+	 />
+
+	
+	
+</androidx.drawerlayout.widget.DrawerLayout>
