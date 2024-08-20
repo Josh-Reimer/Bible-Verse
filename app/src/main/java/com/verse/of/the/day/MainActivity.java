@@ -20,6 +20,8 @@ import android.widget.TextView;
 import android.content.res.AssetManager;
 import android.content.Context;
 import android.util.Log;
+
+import java.util.Objects;
 import java.util.Scanner;
 import android.content.SharedPreferences;
 
@@ -28,9 +30,8 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 	public DrawerLayout drawerLayout;
 	public ActionBarDrawerToggle actionBarDrawerToggle;
-	private NavigationView navigationView;
-	Verse verse_displayed;
-	
+    Verse verse_displayed;
+
 	FloatingActionButton menu_fab;
 	FloatingActionButton bookmark_fab;
 	FloatingActionButton verselookup_fab;
@@ -92,7 +93,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		
 		newverse_fab.setOnClickListener(View ->{
 			if(fabs_visible){
-				verseview.setText(vod.getRandomVerse(mainScanner,tools,thisapp,bible));
+				verse_displayed = vod.getRandomRef(bible,tools, thisapp);
+				verseview.setText(verse_displayed.full_text);
 				verselookup_fab.setVisibility(View.GONE);
 				newverse_fab.setVisibility(View.GONE);
 				bookmark_fab.setVisibility(View.GONE);
@@ -107,19 +109,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		});
 		verselookup_fab.setOnClickListener(View ->{
 			if(fabs_visible){
-				//goToVerseLookUpActivity();
-				verselookup_fab.setVisibility(View.GONE);
-				newverse_fab.setVisibility(View.GONE);
-				bookmark_fab.setVisibility(View.GONE);
+				goToVerseLookUpActivity(verse_displayed.reference);
+				verselookup_fab.setVisibility(android.view.View.GONE);
+				newverse_fab.setVisibility(android.view.View.GONE);
+				bookmark_fab.setVisibility(android.view.View.GONE);
 				menu_fab.setImageResource(R.drawable.more_vert_36);
 				fabs_visible = false;
 			}
 		});
 		
 		mainLayoutView.setOnClickListener(View ->{
-			verselookup_fab.setVisibility(View.GONE);
-				newverse_fab.setVisibility(View.GONE);
-				bookmark_fab.setVisibility(View.GONE);
+			verselookup_fab.setVisibility(android.view.View.GONE);
+				newverse_fab.setVisibility(android.view.View.GONE);
+				bookmark_fab.setVisibility(android.view.View.GONE);
 				fabs_visible = false;
 		});
 		
@@ -127,21 +129,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          
          drawerLayout = findViewById(R.id.my_drawer_layout);
 		actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.nav_open,R.string.nav_close);
-         
-         navigationView = findViewById(R.id.nv);
+
+        NavigationView navigationView = findViewById(R.id.nv);
 		drawerLayout.addDrawerListener(actionBarDrawerToggle);
 		navigationView.setItemIconTintList(null);
 actionBarDrawerToggle.syncState();
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-         
-         
-         
-		    thisapp = getApplicationContext();
-		    vod = new VerseOfTheDay(mainScanner,thisapp);
-        //String verseofday = vod.getVerseFromFile(mainScanner,thisapp,tools);
-		String verseofday = vod.getRandomVerse(mainScanner,tools,thisapp,bible);
-		//verse_displayed = new Verse();
-		    verseview.setText(verseofday);
+		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+
+
+		thisapp = getApplicationContext();
+		vod = new VerseOfTheDay(mainScanner,thisapp);
+		//String verseofday = vod.getVerseFromFile(mainScanner,thisapp,tools);
+		//String verseofday = vod.getRandomVerse(mainScanner,tools,thisapp,bible);
+		verse_displayed = vod.getRandomRef(bible,tools,thisapp);
+		verseview.setText(verse_displayed.full_text);
 	}		//end of oncreate method
 	
 	@Override
@@ -161,7 +163,7 @@ actionBarDrawerToggle.syncState();
 		Log.i("verse-main","onResume method was called!");
 	drawerLayout.closeDrawers();
 		SharedPreferences shared_preferences = getSharedPreferences("settings",MODE_PRIVATE);
-		Boolean theme = shared_preferences.getBoolean("theme",false);	
+		boolean theme = shared_preferences.getBoolean("theme",false);
 		//true is dark theme on
 		//false is light theme on	
 		//second parameter is the defualt value if there is no theme value in shaded preferences
@@ -187,16 +189,11 @@ actionBarDrawerToggle.syncState();
 		
 		@Override
 		public boolean onNavigationItemSelected(@NonNull MenuItem item){
-		  switch(item.getItemId()){
-		    case R.id.settings: {
-		      goToSettings();
-		      break;
-			  }
-			case R.id.bookmarks: {
-				break;
-		    }
-			
-		  }
+            int itemId = item.getItemId();
+            if (itemId == R.id.settings) {
+                goToSettings();
+            } else if (itemId == R.id.bookmarks) {
+            }
 		  drawerLayout.closeDrawers();
 		  return true;
 		}

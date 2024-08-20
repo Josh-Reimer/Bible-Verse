@@ -52,7 +52,7 @@ Verse getRandomRef(Bible bible,Tools tools,Context context){
 	int randomChapter = dice.nextInt(bible.getBookLength(tools,context, bible.books[randomBook])) + 1;
 	int randomVerse = dice.nextInt(bible.getChapterLength(context,tools, bible.books[randomBook], randomChapter)) + 1;
 	
-	return new Verse(randomBook,randomChapter,randomVerse);
+	return new Verse(context,randomBook,randomChapter,randomVerse);
 }
 
 	public String getVerseFromFile(Scanner sc, Context context, Tools tools) {
