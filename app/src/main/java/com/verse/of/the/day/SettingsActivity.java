@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.CompoundButton;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NavUtils;
 
 public class SettingsActivity extends AppCompatActivity{
@@ -39,15 +41,20 @@ SharedPreferences.Editor spEditor = sp.edit();
 	darkThemeSwitch = findViewById(R.id.darkThemeOn);
 	if(tools.isNightMode(this)){
 		darkThemeSwitch.setChecked(true);
+
 	} else if(!tools.isNightMode(this)){
 		darkThemeSwitch.setChecked(false);
+
 	}
 	darkThemeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		
        if(darkThemeSwitch.isChecked()){
 				darkThemeOn = true;
-			}
+		   AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+			} else {
+		   AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+	   }
 saveDarkThemePref(spEditor,darkThemeOn);
     }
 });
