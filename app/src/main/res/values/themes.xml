@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/green_700_primary</item>
         <item name="colorPrimaryVariant">@color/green_dark_primary</item>
@@ -8,12 +9,13 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/green_900_secondary</item>
         <item name="colorSecondaryVariant">@color/green_dark_secondary</item>
-        <item name="colorOnSecondary">@color/teal_on_secondary</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:icon">@color/black</item>
     </style>
 	<style name="verse_light" parent="Theme.MyApplication">
-		
+
 	</style>
 </resources>

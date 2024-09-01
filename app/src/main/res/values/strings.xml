@@ -3,4 +3,6 @@
 	<string name = "titletext">Todays Verse</string>
 	<string name="nav_close">Close</string>
 	<string name="nav_open">Open</string>
+    <string name="bookmarks">Bookmarks</string>
+	<string name="settings">Settings</string>
 </resources>
