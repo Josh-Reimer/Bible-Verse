@@ -38,27 +38,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	FloatingActionButton newverse_fab;
 	private TextView verseview;
 	private ConstraintLayout mainLayoutView;
-    private Scanner mainScanner = new Scanner(System.in);
+    private final Scanner mainScanner = new Scanner(System.in);
     private Context thisapp;
     private VerseOfTheDay vod;
-    private Tools tools = new Tools();
-    private Bible bible = new Bible();
+    private final Tools tools = new Tools();
+    private final Bible bible = new Bible();
     boolean fabs_visible;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 		SharedPreferences shared_preferences = getSharedPreferences("settings",MODE_PRIVATE);
-		Boolean theme = shared_preferences.getBoolean("theme",false);
+		boolean theme = shared_preferences.getBoolean("theme",false);
 		//true is dark theme on
 		//false is light theme on
-		//second parameter is the defualt value if there is no theme value in shaded preferences
-		
+		//second parameter is the default value if there is no theme value in shaded preferences
+
 		if(theme){
 			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 		} else{
 			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 		}
+
+
         setContentView(R.layout.activity_main);
 		//drawerLayout.closeDrawers();
 		mainLayoutView = findViewById(R.id.mainLayoutView);
@@ -83,9 +85,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			//menu_fab.setImageResource(R.drawable.something);
 			fabs_visible = true;
 		} else if(fabs_visible){
-			verselookup_fab.setVisibility(View.GONE);
-			newverse_fab.setVisibility(View.GONE);
-			bookmark_fab.setVisibility(View.GONE);
+			verselookup_fab.setVisibility(android.view.View.GONE);
+			newverse_fab.setVisibility(android.view.View.GONE);
+			bookmark_fab.setVisibility(android.view.View.GONE);
 			menu_fab.setImageResource(R.drawable.more_vert_36);
 			fabs_visible = false;
 		}	
@@ -95,9 +97,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			if(fabs_visible){
 				verse_displayed = vod.getRandomRef(bible,tools, thisapp);
 				verseview.setText(verse_displayed.full_text);
-				verselookup_fab.setVisibility(View.GONE);
-				newverse_fab.setVisibility(View.GONE);
-				bookmark_fab.setVisibility(View.GONE);
+				verselookup_fab.setVisibility(android.view.View.GONE);
+				newverse_fab.setVisibility(android.view.View.GONE);
+				bookmark_fab.setVisibility(android.view.View.GONE);
 				menu_fab.setImageResource(R.drawable.more_vert_36);
 				fabs_visible = false;
 			}

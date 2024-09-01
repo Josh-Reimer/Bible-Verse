@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.content.Context.*;
 import android.util.Log;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+
 import android.content.res.*;
 import android.content.*;
 
@@ -32,7 +34,7 @@ int size = inputstream.available();
 byte[] buffer = new byte[size];
 inputstream.read(buffer);
 inputstream.close();
-filetext = new String(buffer, "UTF-8");
+filetext = new String(buffer, StandardCharsets.UTF_8);
 
 } catch (IOException ex) {
 ex.printStackTrace();
@@ -112,10 +114,7 @@ String[] sp = str.split(" ");
 if (sp.length == 2 && isDigit(sp[1]) && !isDigit(sp[0])) {
 isAligned = true;
 }
-if (containsdigit && containsbook && containsspace && isTwoArgs && isAligned) {
-return true;
-}
-return false;
+    return containsdigit && containsbook && containsspace && isTwoArgs && isAligned;
 }
 
 public boolean isBookChapterVerse(String str, Bible bible) {
@@ -138,10 +137,7 @@ if (sp.length == 3 && isDigit(sp[2]) && isDigit(sp[1]) && !isDigit(sp[0])) {
 isAligned = true;
 }
 boolean containsspace = str.contains(" ");
-if (isAligned && containsbook && containsspace) {
-return true;
-}
-return false;
+    return isAligned && containsbook && containsspace;
 }
 
 public String replaceFirstSpace(String str) {
