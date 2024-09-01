@@ -195,6 +195,8 @@ actionBarDrawerToggle.syncState();
             if (itemId == R.id.settings) {
                 goToSettings();
             } else if (itemId == R.id.bookmarks) {
+				Intent i = new Intent(this, bookmarks.class);
+				startActivity(i);
             }
 		  drawerLayout.closeDrawers();
 		  return true;
