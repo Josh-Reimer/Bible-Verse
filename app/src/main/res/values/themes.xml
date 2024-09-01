@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/green_700_primary</item>
         <item name="colorPrimaryVariant">@color/green_dark_primary</item>
@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/green_dark_secondary</item>
         <item name="colorOnSecondary">@color/teal_on_secondary</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 	<style name="verse_light" parent="Theme.MyApplication">

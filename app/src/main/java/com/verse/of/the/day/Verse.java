@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Verse {
 	private Scanner scanner;
-	private Context context;
+	private final Context context;
 	Bible bible = new Bible();
 	Tools toolbox = new Tools();
 
