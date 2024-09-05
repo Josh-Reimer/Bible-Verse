@@ -1,6 +1,5 @@
 package com.verse.of.the.day;
 
-import android.graphics.drawable.Drawable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,19 +7,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.room.Room;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import android.content.Intent;
 import android.view.MenuItem;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import android.widget.TextView;
-import android.content.res.AssetManager;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 import android.content.SharedPreferences;
@@ -60,7 +57,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 		}
 
-
+		bookmark_database db = Room.databaseBuilder(getApplicationContext(),
+				bookmark_database.class,"bookmarks-database").allowMainThreadQueries().build();
         setContentView(R.layout.activity_main);
 		//drawerLayout.closeDrawers();
 		mainLayoutView = findViewById(R.id.mainLayoutView);
@@ -107,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		bookmark_fab.setOnClickListener(View ->{
 		if(fabs_visible){
 			bookmark_fab.setImageResource(R.drawable.bookmark_solid_48);
+			bookmark new_bookmark = new bookmark(verse_displayed.full_text);
+			db.bookmark_dao().insertAll(new_bookmark);
 		}	
 		});
 		verselookup_fab.setOnClickListener(View ->{
@@ -195,7 +195,7 @@ actionBarDrawerToggle.syncState();
             if (itemId == R.id.settings) {
                 goToSettings();
             } else if (itemId == R.id.bookmarks) {
-				Intent i = new Intent(this, bookmarks.class);
+				Intent i = new Intent(this, bookmarks_activity.class);
 				startActivity(i);
             }
 		  drawerLayout.closeDrawers();
