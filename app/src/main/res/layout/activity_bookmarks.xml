@@ -9,12 +9,12 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="218dp"
-        android:layout_height="75dp"
+        android:layout_width="266dp"
+        android:layout_height="73dp"
         android:gravity="center_vertical"
         android:text="@string/bookmarks"
         android:textAlignment="center"
-        android:textSize="34sp"
+        android:textSize="45sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
