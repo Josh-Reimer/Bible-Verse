@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".bookmarks"
+            android:name=".bookmarks_activity"
             android:exported="false">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
