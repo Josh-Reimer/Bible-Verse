@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.room.Query;
 import androidx.room.Room;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		if(fabs_visible){
 			bookmark_fab.setImageResource(R.drawable.bookmark_solid_48);
 			bookmark new_bookmark = new bookmark(verse_displayed.full_text);
+			new_bookmark.bible_reference = verse_displayed.reference;
 			db.bookmark_dao().insertAll(new_bookmark);
 		}	
 		});
