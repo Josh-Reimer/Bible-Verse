@@ -43,7 +43,7 @@
             android:id="@+id/bookmarks_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your bookmarks will appear here." />
+           />
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
