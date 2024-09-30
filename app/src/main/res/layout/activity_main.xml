@@ -71,16 +71,15 @@
 		app:fabSize="auto"
 		app:layout_constraintBottom_toTopOf="@+id/bookmark_fab"
 		app:layout_constraintRight_toRightOf="parent" />
-<com.google.android.material.floatingactionbutton.FloatingActionButton
+
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
 		android:id="@+id/bookmark_fab"
-	app:fabSize="auto"
-	android:layout_height="wrap_content"
-	android:layout_width="wrap_content"
-	app:layout_constraintRight_toRightOf="parent"
-	app:layout_constraintBottom_toTopOf="@+id/menu_fab"
-	android:layout_margin="19dp"
-	android:src="@drawable/bookmark_border_24"
-	/>
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="19dp"
+		app:fabSize="auto"
+		app:layout_constraintBottom_toTopOf="@+id/menu_fab"
+		app:layout_constraintRight_toRightOf="parent" />
 <com.google.android.material.floatingactionbutton.FloatingActionButton
 	android:src="@drawable/dice_48"
 	android:id="@+id/newverse"

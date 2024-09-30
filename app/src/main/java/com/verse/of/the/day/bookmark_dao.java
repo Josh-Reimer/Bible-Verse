@@ -14,4 +14,7 @@ public interface bookmark_dao {
 
     @Query("SELECT * FROM bookmarks")
     List<bookmark> getAllBookmarks();
+
+    @Query("SELECT * FROM bookmarks WHERE bible_reference==:bible_reference")
+    List<bookmark> getBookmark(String bible_reference);
 }
