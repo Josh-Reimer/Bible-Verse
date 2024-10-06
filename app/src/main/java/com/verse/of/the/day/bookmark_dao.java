@@ -1,6 +1,7 @@
 package com.verse.of.the.day;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -17,4 +18,8 @@ public interface bookmark_dao {
 
     @Query("SELECT * FROM bookmarks WHERE bible_reference==:bible_reference")
     List<bookmark> getBookmark(String bible_reference);
+
+    @Query("DELETE FROM bookmarks WHERE bible_reference = :bible_reference")
+    void deleteBookmark(String bible_reference);
+
 }
