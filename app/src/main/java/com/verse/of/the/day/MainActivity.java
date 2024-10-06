@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final Tools tools = new Tools();
     private final Bible bible = new Bible();
     boolean fabs_visible;
+    boolean verse_displayed_is_bookmarked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bookmark_fab.setVisibility(View.GONE);
 
         fabs_visible = false;
+        verse_displayed_is_bookmarked = false;
 
         menu_fab.setOnClickListener(View -> {
             if (fabs_visible) {
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     bookmark_fab.setImageResource(R.drawable.bookmark_border_48);
                     bookmark_fab.show();
                 } else {
+                    verse_displayed_is_bookmarked = true;
                     bookmark_fab.setImageResource(R.drawable.bookmark_solid_48);
                     bookmark_fab.show();
                 }
@@ -110,10 +113,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         bookmark_fab.setOnClickListener(View -> {
             if (fabs_visible) {
-					bookmark_fab.setImageResource(R.drawable.bookmark_solid_48);
-					bookmark new_bookmark = new bookmark(verse_displayed.full_text);
-					new_bookmark.bible_reference = verse_displayed.reference;
-					db.bookmark_dao().insertAll(new_bookmark);
+                if(verse_displayed_is_bookmarked){
+                    bookmark_fab.setImageResource(R.drawable.bookmark_border_48);
+                    //delete bookmark
+                    db.bookmark_dao().deleteBookmark(verse_displayed.reference);
+                } else {
+                    bookmark_fab.setImageResource(R.drawable.bookmark_solid_48);
+                    bookmark new_bookmark = new bookmark(verse_displayed.full_text);
+                    new_bookmark.bible_reference = verse_displayed.reference;
+                    db.bookmark_dao().insertAll(new_bookmark);
+                }
             }
         });
         verselookup_fab.setOnClickListener(View -> {
