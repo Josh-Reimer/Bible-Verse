@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.view.GravityCompat;
+import androidx.customview.widget.ViewDragHelper;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.room.Room;
 
@@ -20,12 +22,15 @@ import android.widget.TextView;
 import android.content.Context;
 import android.util.Log;
 
+import java.lang.reflect.Field;
 import java.util.Objects;
 import java.util.Scanner;
 
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public DrawerLayout drawerLayout;
@@ -44,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final Bible bible = new Bible();
     boolean fabs_visible;
     boolean verse_displayed_is_bookmarked;
-
+    private GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         bookmark_fab.setOnClickListener(View -> {
             if (fabs_visible) {
-                if(verse_displayed_is_bookmarked){
+                if (verse_displayed_is_bookmarked) {
                     bookmark_fab.setImageResource(R.drawable.bookmark_border_48);
                     //delete bookmark
                     db.bookmark_dao().deleteBookmark(verse_displayed.reference);
@@ -153,6 +158,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionBarDrawerToggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        // Set up the gesture detector to detect swipes
+        gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            private static final int SWIPE_THRESHOLD_VELOCITY = 100; // Velocity threshold
+            private static final int SWIPE_THRESHOLD_DISTANCE = 100; // Distance threshold
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                // Detect left-to-right swipe (open drawer)
+                if (e1.getX() < e2.getX() && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY &&
+                        Math.abs(e1.getX() - e2.getX()) > SWIPE_THRESHOLD_DISTANCE) {
+                    // Open the drawer if swipe is detected
+                    drawerLayout.openDrawer(GravityCompat.START);
+                    return true;
+                }
+                return super.onFling(e1, e2, velocityX, velocityY);
+            }
+        });
+
+        // Set up the content view's touch listener to detect swipes
+        View contentView = findViewById(R.id.mainLayoutView);
+        contentView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
 
         thisapp = getApplicationContext();
         vod = new VerseOfTheDay(mainScanner, thisapp);
@@ -234,5 +265,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = new Intent(this, VerseLookUpActivity.class);
         intent.putExtra("verse_ref", verse);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onTouchEvent(@NonNull MotionEvent event) {
+        // Let the gesture detector handle touch events
+        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event);
     }
 }
