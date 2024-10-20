@@ -12,7 +12,7 @@
 	
 	android:layout_height="match_parent"
 	
-	tools:context=".MainActivity"
+	tools:context=".MainActivity$MainActivity"
 	
 	tools:ignore="HardcodedText"
 	>
