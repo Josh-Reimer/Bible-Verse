@@ -37,21 +37,24 @@
         android:text="@string/titletext"
         android:textSize="45sp" />
 
-    <TextView
-        android:id="@+id/verse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        android:text="In the beginning, God created the heaven and the earth."
-        android:textSize="20dp" />
-		
-		<com.google.android.material.floatingactionbutton.FloatingActionButton
+	<TextView
+		android:id="@+id/verse"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="60dp"
+		android:layout_marginTop="5dp"
+		android:layout_marginRight="60dp"
+		android:layout_marginBottom="24dp"
+		android:text="In the beginning, God created the heaven and the earth."
+		android:textSize="20dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/title"
+		app:layout_constraintVertical_bias="0.428" />
+
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
 		android:id="@+id/menu_fab"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintRight_toRightOf="parent"
