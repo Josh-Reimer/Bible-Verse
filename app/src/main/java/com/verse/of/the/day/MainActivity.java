@@ -81,7 +81,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bookmark_fab.setVisibility(View.GONE);
 
         fabs_visible = false;
-        verse_displayed_is_bookmarked = false;
+
+        thisapp = getApplicationContext();
+        vod = new VerseOfTheDay(mainScanner, thisapp);
+        //String verseofday = vod.getVerseFromFile(mainScanner,thisapp,tools);
+        //String verseofday = vod.getRandomVerse(mainScanner,tools,thisapp,bible);
+        verse_displayed = vod.getRandomRef(bible, tools, thisapp);
+        verseview.setText(verse_displayed.full_text);
+
+
+        verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
+
 
         menu_fab.setOnClickListener(View -> {
             if (fabs_visible) {
@@ -91,12 +101,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fabs_visible = false;
 
             } else {
-                if (db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]")) {
-                    bookmark_fab.setImageResource(R.drawable.bookmark_border_48);
+
+                if (verse_displayed_is_bookmarked) {
+                    //verse_displayed_is_bookmarked = false;
+                    bookmark_fab.setImageResource(R.drawable.bookmark_solid_48);
                     bookmark_fab.show();
                 } else {
-                    verse_displayed_is_bookmarked = true;
-                    bookmark_fab.setImageResource(R.drawable.bookmark_solid_48);
+                    //verse_displayed_is_bookmarked = true;
+                    bookmark_fab.setImageResource(R.drawable.bookmark_border_48);
                     bookmark_fab.show();
                 }
                 newverse_fab.show();
@@ -110,6 +122,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (fabs_visible) {
                 verse_displayed = vod.getRandomRef(bible, tools, thisapp);
                 verseview.setText(verse_displayed.full_text);
+                if (db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]")){
+                    verse_displayed_is_bookmarked = false;
+
+                } else {
+                    verse_displayed_is_bookmarked = true;
+
+                }
                 verselookup_fab.setVisibility(android.view.View.GONE);
                 newverse_fab.setVisibility(android.view.View.GONE);
                 bookmark_fab.setVisibility(android.view.View.GONE);
@@ -122,11 +141,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     bookmark_fab.setImageResource(R.drawable.bookmark_border_48);
                     //delete bookmark
                     db.bookmark_dao().deleteBookmark(verse_displayed.reference);
+                    verse_displayed_is_bookmarked = false;
                 } else {
                     bookmark_fab.setImageResource(R.drawable.bookmark_solid_48);
-                    bookmark new_bookmark = new bookmark(verse_displayed.full_text);
-                    new_bookmark.bible_reference = verse_displayed.reference;
+                    bookmark new_bookmark = new bookmark(verse_displayed.full_text,verse_displayed.reference,verse_displayed.proper_book,verse_displayed.scripture_text);
                     db.bookmark_dao().insertAll(new_bookmark);
+                    verse_displayed_is_bookmarked = true;
                 }
             }
         });
@@ -177,20 +197,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         // Set up the content view's touch listener to detect swipes
-        View contentView = findViewById(R.id.mainLayoutView);
-        contentView.setOnTouchListener(new View.OnTouchListener() {
+
+        mainLayoutView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return gestureDetector.onTouchEvent(event);
             }
         });
 
-        thisapp = getApplicationContext();
-        vod = new VerseOfTheDay(mainScanner, thisapp);
-        //String verseofday = vod.getVerseFromFile(mainScanner,thisapp,tools);
-        //String verseofday = vod.getRandomVerse(mainScanner,tools,thisapp,bible);
-        verse_displayed = vod.getRandomRef(bible, tools, thisapp);
-        verseview.setText(verse_displayed.full_text);
+
     }        //end of oncreate method
 
     @Override
