@@ -11,12 +11,20 @@
     android:layout_height="wrap_content"
     android:padding="8dp"
     >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bookview"
+        android:text="hello world"
+        >
+
+    </TextView>
 <TextView
     android:id="@+id/text_view_priority"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="false"
-
+    android:layout_below="@+id/bookview"
     android:text="This will get replaced by later">
 </TextView>
 </RelativeLayout>

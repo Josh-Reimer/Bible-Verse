@@ -14,10 +14,19 @@ public class bookmark {
     @ColumnInfo
     public String bible_reference;
 
-    @ColumnInfo(name = "bookmark")
-    public String bookmark;
+    @ColumnInfo
+    public String book;
 
-    public bookmark(String bookmark){
-        this.bookmark = bookmark;
+    @ColumnInfo
+    public String scripture_text;
+
+    @ColumnInfo(name = "full_text")
+    public String full_text;
+
+    public bookmark(String full_text, String bible_reference, String book, String scripture_text){
+        this.full_text = full_text;
+        this.bible_reference = bible_reference;
+        this.book = book;
+        this.scripture_text = scripture_text;
     }
 }
