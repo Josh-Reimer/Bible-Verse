@@ -52,6 +52,7 @@ public class VerseLookUpActivity extends AppCompatActivity{
 
         assert intentExtras != null;
         verse_for_lookup = getVerseFromMainActivity(this,intentExtras);
+		setTitle(verse_for_lookup.proper_book+" "+verse_for_lookup.chapter);
 
 		String chapter = bible.getChapter(this,tools,verse_for_lookup.book, verse_for_lookup.chapter);
 		String[] str_verses = chapter.split("\n");
