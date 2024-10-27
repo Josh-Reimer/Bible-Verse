@@ -17,12 +17,16 @@
         android:theme="@style/Theme.MyApplication">
         <activity
             android:name=".bookmarks_activity"
-            android:exported="false">
+            android:exported="false"
+            android:label="@string/bookmarks"
+            >
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity" />
             </activity>
-        <activity android:name=".SettingsActivity">
+        <activity android:name=".SettingsActivity"
+            android:label="@string/settings"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -35,7 +39,9 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:label="@string/titletext"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
