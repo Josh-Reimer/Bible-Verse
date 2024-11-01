@@ -174,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nv);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        navigationView.setItemIconTintList(null);
         actionBarDrawerToggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 

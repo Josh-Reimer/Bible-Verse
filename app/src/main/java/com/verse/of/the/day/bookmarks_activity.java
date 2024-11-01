@@ -3,6 +3,7 @@ package com.verse.of.the.day;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,7 +35,7 @@ when a bookmark in the bookmark page is short tapped, open that verse in the ver
  */
 
         for(bookmark list:bookmarks_list){
-            data.add(new Bookmark_recyclerview_model(list.scripture_text,list.book));
+            data.add(new Bookmark_recyclerview_model(list.scripture_text,list.book,list.bible_reference));
         }
         bookmark_recyclerview.setAdapter(adapter);
         bookmark_recyclerview.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
