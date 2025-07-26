@@ -1,5 +1,7 @@
 package com.verse.of.the.day;
 
+import static androidx.core.view.WindowCompat.enableEdgeToEdge;
+
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.view.View;
