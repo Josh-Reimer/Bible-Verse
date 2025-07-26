@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.enableEdgeToEdge(getWindow());
+        enableEdgeToEdge();
         SharedPreferences shared_preferences = getSharedPreferences("settings", MODE_PRIVATE);
         boolean theme = shared_preferences.getBoolean("theme", false);
         //true is dark theme on
