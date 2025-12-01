@@ -14,7 +14,9 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/bible"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication">
+        android:theme="@style/Theme.MyApplication"
+        android:enableOnBackInvokedCallback="true"
+        >
         <activity
             android:name=".bookmarks_activity"
             android:exported="false"
