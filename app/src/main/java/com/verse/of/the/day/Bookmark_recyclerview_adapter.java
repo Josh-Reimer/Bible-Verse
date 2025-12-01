@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,7 +36,13 @@ public class Bookmark_recyclerview_adapter extends
         return data.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public onBookmarkLongClickListener bookmarkLongClickListener;
+
+    public interface onBookmarkLongClickListener{
+        void onBookmarkLongClicked(int position, String str);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
         TextView verse;
         TextView book;
         public ViewHolder(@NonNull View itemView){
@@ -53,10 +60,20 @@ public class Bookmark_recyclerview_adapter extends
                     startActivity(itemView.getContext(),intent,null);
                 }
             });
+            itemView.setOnLongClickListener(new View.OnLongClickListener(){
+                @Override
+                public boolean onLongClick(View v){
+                    Toast toast=Toast.makeText(v.getContext(),"long clicked!"+data.get(getAdapterPosition()).ref,Toast.LENGTH_LONG);
+                    //toast.show();
+                    bookmarkLongClickListener.onBookmarkLongClicked(getAdapterPosition(),data.get(getAdapterPosition()).ref);
+                    return true;
+                }
+            });
     }
     }
-    public Bookmark_recyclerview_adapter(ArrayList<Bookmark_recyclerview_model> data) {
+    public Bookmark_recyclerview_adapter(ArrayList<Bookmark_recyclerview_model> data, onBookmarkLongClickListener bookmarkLongClickListener) {
         this.data = data;
+        this.bookmarkLongClickListener = bookmarkLongClickListener;
     }
 
 }
