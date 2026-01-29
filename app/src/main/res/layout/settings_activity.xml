@@ -22,23 +22,28 @@
 	<!-- Dark Theme label -->
     <TextView
         android:id="@+id/settingsThemeTitle"
-        android:layout_width="235dp"
-        android:layout_height="28dp"
+        android:layout_width="120dp"
+        android:layout_height="31dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:text="Dark Theme"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/darkThemeOn"
+        app:layout_constraintEnd_toStartOf="@+id/darkThemeOn"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBar" />
 
 	<!-- Switch -->
-	<com.google.android.material.switchmaterial.SwitchMaterial
-		android:id="@+id/darkThemeOn"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:layout_constraintTop_toTopOf="@id/settingsThemeTitle"
-		app:layout_constraintBottom_toBottomOf="@id/settingsThemeTitle"
-		app:layout_constraintEnd_toEndOf="parent" />
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/darkThemeOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toBottomOf="@id/settingsThemeTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/settingsThemeTitle"
+        app:layout_constraintTop_toTopOf="@id/settingsThemeTitle"
+        app:layout_constraintVertical_bias="0.45" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
