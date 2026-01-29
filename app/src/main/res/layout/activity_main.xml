@@ -1,113 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout
-	
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	
 	xmlns:tools="http://schemas.android.com/tools"
-	
 	android:id="@+id/my_drawer_layout"
-	
 	android:layout_width="match_parent"
-	
 	android:layout_height="match_parent"
-	
-	tools:context=".MainActivity$"
-	
-	tools:ignore="HardcodedText"
-	>
-
-
-<androidx.constraintlayout.widget.ConstraintLayout
-	android:id="@+id/mainLayoutView"
-	android:clickable="true"
-	android:focusable="true"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity" >
-<!--
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/titletext"
-        android:textSize="45sp" />
--->
-	<TextView
-		android:id="@+id/verse"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="60dp"
-		android:layout_marginTop="5dp"
-		android:layout_marginRight="60dp"
-		android:layout_marginBottom="24dp"
-		android:text="In the beginning, God created the heaven and the earth."
-		android:textSize="20sp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintHorizontal_bias="1.0"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintVertical_bias="0.428" />
-
-	<com.google.android.material.floatingactionbutton.FloatingActionButton
-		android:id="@+id/menu_fab"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		android:layout_margin="19dp"
-		android:layout_width="wrap_content"
-		app:fabSize="auto"
-		android:layout_height="wrap_content"
-		android:src="@drawable/more_vert_36"
-		/>
-
-	<com.google.android.material.floatingactionbutton.FloatingActionButton
-		android:id="@+id/verselookup"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_margin="19dp"
-		android:src="@drawable/open_in_new_48"
-		app:fabSize="auto"
-		app:layout_constraintBottom_toTopOf="@+id/bookmark_fab"
-		app:layout_constraintRight_toRightOf="parent" />
-
-	<com.google.android.material.floatingactionbutton.FloatingActionButton
-		android:id="@+id/bookmark_fab"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_margin="19dp"
-		app:fabSize="auto"
-		app:layout_constraintBottom_toTopOf="@+id/menu_fab"
-		app:layout_constraintRight_toRightOf="parent" />
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-	android:src="@drawable/dice_48"
-	android:id="@+id/newverse"
-	app:fabSize="auto"
-	android:layout_height="wrap_content"
-	android:layout_width="wrap_content"
-	android:layout_margin="19dp"
-	app:layout_constraintRight_toRightOf="parent"
-	app:layout_constraintBottom_toTopOf="@+id/verselookup"
-	/>
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-<com.google.android.material.navigation.NavigationView
-	
-	android:layout_width="wrap_content"
-	android:layout_height="match_parent"
-	android:layout_gravity="start"
-	android:id="@+id/nv"
-	app:menu="@menu/navigation_menu"
-	app:headerLayout="@layout/header"
 	android:fitsSystemWindows="true"
-	 />
+	tools:context=".MainActivity">
 
-	
-	
+	<!-- MAIN SCREEN CONTENT -->
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/mainLayoutView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<!-- TOP APP BAR (no icon, because you use only original drawables) -->
+		<com.google.android.material.appbar.MaterialToolbar
+			android:id="@+id/main_toolbar"
+			android:layout_width="0dp"
+
+			android:layout_height="?attr/actionBarSize"
+			android:title="@string/app_name"
+			app:titleCentered="true"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent" />
+
+		<!-- VERSE TEXT -->
+		<TextView
+			android:id="@+id/verse"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="60dp"
+			android:layout_marginEnd="60dp"
+			android:layout_marginTop="32dp"
+			android:text="Sample verse goes here"
+			android:textSize="20sp"
+			app:layout_constraintTop_toBottomOf="@id/main_toolbar"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent" />
+
+		<!-- MAIN MENU FAB (CENTER BUTTON) -->
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/menu_fab"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="19dp"
+			android:src="@drawable/more_vert_36"
+			app:fabSize="auto"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent" />
+
+		<!-- BOOKMARK FAB -->
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/bookmark_fab"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="19dp"
+			android:src="@drawable/bookmark_border_48"
+			android:visibility="gone"
+			app:fabSize="auto"
+			app:layout_constraintBottom_toTopOf="@id/menu_fab"
+			app:layout_constraintEnd_toEndOf="parent" />
+
+		<!-- VERSE LOOKUP FAB -->
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/verselookup"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="19dp"
+			android:src="@drawable/open_in_new_48"
+			android:visibility="gone"
+			app:fabSize="auto"
+			app:layout_constraintBottom_toTopOf="@id/bookmark_fab"
+			app:layout_constraintEnd_toEndOf="parent" />
+
+		<!-- NEW VERSE FAB -->
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/newverse"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="19dp"
+			android:src="@drawable/dice_48"
+			android:visibility="gone"
+			app:fabSize="auto"
+			app:layout_constraintBottom_toTopOf="@id/verselookup"
+			app:layout_constraintEnd_toEndOf="parent" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+	<!-- NAVIGATION DRAWER -->
+	<com.google.android.material.navigation.NavigationView
+		android:id="@+id/nv"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_gravity="start"
+		android:fitsSystemWindows="true"
+		app:menu="@menu/navigation_menu"
+		app:headerLayout="@layout/header" />
+
 </androidx.drawerlayout.widget.DrawerLayout>

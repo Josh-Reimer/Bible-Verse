@@ -2,13 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="app_surface">#FFFFFF</color>
+    <color name="app_on_surface">#000000</color>
 
 <!--new colors-->
 <!--primary-->
 <color name="green_700_primary">#388e3c</color>
 <color name="green_light_primary">#6abf69</color>
 <color name="green_dark_primary">#00600f</color>
-
 <!--secondary-->
 <color name="green_900_secondary">#1b5e20</color>
 <color name="green_dark_secondary">#003300</color>

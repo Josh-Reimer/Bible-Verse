@@ -2,7 +2,9 @@ package com.verse.of.the.day;
 
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Switch;
+
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import androidx.appcompat.app.ActionBar;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +15,12 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NavUtils;
 
 public class SettingsActivity extends AppCompatActivity{
+	SwitchMaterial darkThemeSwitch;
 
-Switch darkThemeSwitch;
 
-boolean darkThemeOn = false;
+
+
+	boolean darkThemeOn = false;
    
 
 public void saveDarkThemePref(SharedPreferences.Editor spE,boolean onoff){
@@ -29,9 +33,12 @@ public Tools tools = new Tools();
 
 @Override
 protected void onCreate(Bundle savedInstanceState) {
-	
+
 super.onCreate(savedInstanceState);	
 	setContentView(R.layout.settings_activity);
+	MaterialToolbar toolbar = findViewById(R.id.topBar);
+	setSupportActionBar(toolbar);
+	toolbar.setNavigationOnClickListener(v -> finish());
 	SharedPreferences sp = getSharedPreferences("settings",MODE_PRIVATE);   
 // Creating an Editor object to edit(write to the file) 
 SharedPreferences.Editor spEditor = sp.edit();

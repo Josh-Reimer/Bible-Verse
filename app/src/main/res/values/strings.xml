@@ -7,4 +7,5 @@
     <string name="settings">Settings</string>
     <string name="bookmark_delete_content_description">delete bookmark</string>
     <string name="bookmark_share_content_description">share bookmark</string>
+    <string name="dark_theme_label">Dark theme</string>
 </resources>

@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.util.TypedValue;
 import android.widget.ScrollView;
@@ -37,9 +38,8 @@ public class VerseLookUpActivity extends AppCompatActivity{
 
 		verse_textview.setTextSize(21f);
 		verse_textview.setTypeface(verse_textview.getTypeface(), Typeface.BOLD);
-		TypedValue typedValue = new TypedValue();
-		getTheme().resolveAttribute(android.R.attr.colorPrimary, typedValue, true);
-		int color = typedValue.data;
+
+		int color = ContextCompat.getColor(this, R.color.green_700_primary);
 		verse_textview.setTextColor(color);
 
 		post_verse_textview.setTextSize(20f);
