@@ -1,21 +1,33 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- -->
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/green_700_primary</item>
-        <item name="colorPrimaryVariant">@color/green_dark_primary</item>
-        <item name="colorOnPrimary">@color/yellow_on_primary</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/green_900_secondary</item>
-        <item name="colorSecondaryVariant">@color/green_dark_secondary</item>
-        <item name="colorOnSecondary">@color/white</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="android:icon">@color/black</item>
-    </style>
-	<style name="verse_light" parent="Theme.MyApplication">
+<resources>
+    <style name="Theme.VerseApp" parent="Theme.Material3.DayNight.NoActionBar">
 
-	</style>
+        <!-- Use surface as the primary so the toolbar isn't purple -->
+        <item name="colorPrimary">@color/app_surface</item>
+        <item name="colorOnPrimary">@color/app_on_surface</item>
+
+        <!-- Make all surfaces match your app’s background -->
+        <item name="colorSurface">@color/app_surface</item>
+        <item name="colorOnSurface">@color/app_on_surface</item>
+
+        <!-- Transparent system bars so toolbar + status bar match -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- Disable Material3 status bar tint -->
+        <item name="statusBarForeground">@null</item>
+        <!-- Auto-adjust system bar icons -->
+
+        <item name="android:windowLightNavigationBar">?attr/isLightTheme</item>
+        <!-- Light mode status bar -->
+
+        <item name="android:windowLightStatusBar">true</item>
+
+
+
+
+
+        <!-- AppCompat requirements -->
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+
+    </style>
 </resources>

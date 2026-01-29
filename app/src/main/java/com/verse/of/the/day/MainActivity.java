@@ -9,10 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.customview.widget.ViewDragHelper;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.room.Room;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,9 +37,12 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
     Verse verse_displayed;
+
+    MaterialToolbar toolbar; // declare only – DO NOT call findViewById here
 
     FloatingActionButton menu_fab;
     FloatingActionButton bookmark_fab;
@@ -50,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     boolean fabs_visible;
     boolean verse_displayed_is_bookmarked;
     private GestureDetector gestureDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +76,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bookmark_database db = Room.databaseBuilder(getApplicationContext(),
                 bookmark_database.class, "bookmarks-database").allowMainThreadQueries().build();
         setContentView(R.layout.activity_main);
+        // ----- MATERIAL TOOLBAR SETUP -----
+        toolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+
+
+        MaterialToolbar toolbar = findViewById(R.id.main_toolbar);
+
+        ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> {
+            int topInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
+            v.setPadding(0, topInset, 0, 0);
+            return insets;
+        });
+
+
         //drawerLayout.closeDrawers();
         ConstraintLayout mainLayoutView = findViewById(R.id.mainLayoutView);
         verseview = findViewById(R.id.verse);
@@ -75,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bookmark_fab = findViewById(R.id.bookmark_fab);
         verselookup_fab = findViewById(R.id.verselookup);
         newverse_fab = findViewById(R.id.newverse);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         verselookup_fab.setVisibility(View.GONE);
         newverse_fab.setVisibility(View.GONE);

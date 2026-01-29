@@ -1,39 +1,44 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-	<!--
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:text="Settings"
-		android:textSize="45sp"
-		>
-	</TextView>
-	-->
-	<LinearLayout
-		android:layout_marginTop="65sp"
-		android:orientation="horizontal"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		>
-<TextView
-	android:id="@+id/settingsThemeTitle"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="dark theme"
-	android:textSize="25sp"
-	android:layout_marginLeft="65sp"
-/>
-<Switch
-android:id="@+id/darkThemeOn"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:checked="false"
-android:layout_marginLeft="65sp"
-/>
-</LinearLayout>
+	android:layout_height="match_parent"
+	android:padding="24dp"
+	android:fitsSystemWindows="true">
 
-</LinearLayout>
+	<!-- Material3 Top App Bar (NO navigation icon) -->
+	<com.google.android.material.appbar.MaterialToolbar
+		android:id="@+id/topBar"
+		android:layout_width="0dp"
+		android:layout_height="?attr/actionBarSize"
+		android:title="Settings"
+		app:titleCentered="true"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent" />
+
+	<!-- Dark Theme label -->
+    <TextView
+        android:id="@+id/settingsThemeTitle"
+        android:layout_width="235dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:text="Dark Theme"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@id/darkThemeOn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
+
+	<!-- Switch -->
+	<com.google.android.material.switchmaterial.SwitchMaterial
+		android:id="@+id/darkThemeOn"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:layout_constraintTop_toTopOf="@id/settingsThemeTitle"
+		app:layout_constraintBottom_toBottomOf="@id/settingsThemeTitle"
+		app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
