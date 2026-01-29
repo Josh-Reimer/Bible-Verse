@@ -27,6 +27,8 @@ public class bookmarks_activity extends AppCompatActivity {
     ArrayList<Bookmark_recyclerview_model> data = new ArrayList<>();
     FloatingActionButton share_bookmark;
     FloatingActionButton delete_bookmark;
+
+    TextView noBookmarksIndicator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class bookmarks_activity extends AppCompatActivity {
         bookmark_recyclerview = findViewById(R.id.bookmark_recyclerview);
         share_bookmark = findViewById(R.id.bookmark_share);
         delete_bookmark = findViewById(R.id.bookmark_delete);
+        noBookmarksIndicator = findViewById(R.id.isbookmarksempty);
 
         share_bookmark.setVisibility(View.GONE);
         delete_bookmark.setVisibility(View.GONE);
@@ -62,6 +65,10 @@ when a bookmark in the bookmark page is short tapped, open that verse in the ver
 
         Bookmark_recyclerview_adapter adapter = new Bookmark_recyclerview_adapter(data,listener);
         List<bookmark> bookmarks_list = db.bookmark_dao().getAllBookmarks();
+
+        if (bookmarks_list.isEmpty()){
+            noBookmarksIndicator.setVisibility(View.VISIBLE);
+        }
 
         for(bookmark list:bookmarks_list){
             data.add(new Bookmark_recyclerview_model(list.scripture_text,list.book,list.bible_reference));
