@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             private static final int SWIPE_THRESHOLD_DISTANCE = 100; // Distance threshold
 
             @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+          public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 // Detect left-to-right swipe (open drawer)
                 if (e1.getX() < e2.getX() && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY &&
                         Math.abs(e1.getX() - e2.getX()) > SWIPE_THRESHOLD_DISTANCE) {
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return true;
                 }
                 return super.onFling(e1, e2, velocityX, velocityY);
-            }
+           }
         });
 
         // Set up the content view's touch listener to detect swipes
@@ -247,7 +247,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onResume() {
         super.onResume();
         Log.i("verse-main", "onResume method was called!");
-        drawerLayout.closeDrawers();
         SharedPreferences shared_preferences = getSharedPreferences("settings", MODE_PRIVATE);
         boolean theme = shared_preferences.getBoolean("theme", false);
         //true is dark theme on
@@ -282,7 +281,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent i = new Intent(this, bookmarks_activity.class);
             startActivity(i);
         }
-        drawerLayout.closeDrawers();
         return true;
     }
 
