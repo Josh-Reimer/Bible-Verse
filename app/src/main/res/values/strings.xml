@@ -8,4 +8,13 @@
     <string name="bookmark_delete_content_description">delete bookmark</string>
     <string name="bookmark_share_content_description">share bookmark</string>
     <string name="dark_theme_label">Dark theme</string>
+    <string name="sample_verse_goes_here">Sample verse goes here</string>
+    <string name="roll_the_die_and_pick_a_new_verse">roll the die and pick a new verse!</string>
+    <string name="look_up_this_verse_in_its_chapter">look up this verse in its chapter</string>
+    <string name="bookmark_this_verse">bookmark this verse</string>
+    <string name="view_more_options_for_what_you_can_do_with_the_verse_on_screen">view more options for what you can do with the verse on screen</string>
+    <string name="no_bookmarks_yet">No bookmarks yet...</string>
+    <string name="settings_title">Settings</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="the_logo_of_the_app_a_black_bible_with_a_green_letter_v_over_it">the logo of the app, a black bible with a green letter V over it</string>
 </resources>

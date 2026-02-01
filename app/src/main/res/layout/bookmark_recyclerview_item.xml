@@ -1,6 +1,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
@@ -20,14 +21,14 @@
             android:id="@+id/bookview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="hello world" />
+            tools:text="hello world" />
 
         <TextView
             android:id="@+id/text_view_priority"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/bookview"
-            android:text="This will get replaced later" />
+            tools:text="hello world again" />
 
     </RelativeLayout>
 

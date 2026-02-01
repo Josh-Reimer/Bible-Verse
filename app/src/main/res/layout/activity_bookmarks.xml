@@ -43,7 +43,7 @@
         android:id="@+id/isbookmarksempty"
         android:layout_width="149dp"
         android:layout_height="32dp"
-        android:text="No bookmarks yet..."
+        android:text="@string/no_bookmarks_yet"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
