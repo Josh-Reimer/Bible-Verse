@@ -10,6 +10,7 @@
         android:id="@+id/headpic"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:contentDescription="@string/the_logo_of_the_app_a_black_bible_with_a_green_letter_v_over_it"
         android:src="@drawable/bible" />
 
     <TextView
