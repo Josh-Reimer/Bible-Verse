@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         SharedPreferences shared_preferences = getSharedPreferences("settings", MODE_PRIVATE);
         boolean theme = shared_preferences.getBoolean("theme", false);
         //true is dark theme on
@@ -97,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bookmark_fab = findViewById(R.id.bookmark_fab);
         verselookup_fab = findViewById(R.id.verselookup);
         newverse_fab = findViewById(R.id.newverse);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         verselookup_fab.setVisibility(View.GONE);
         newverse_fab.setVisibility(View.GONE);
