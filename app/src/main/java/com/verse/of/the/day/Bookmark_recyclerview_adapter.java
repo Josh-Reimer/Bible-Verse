@@ -63,8 +63,6 @@ public class Bookmark_recyclerview_adapter extends
             itemView.setOnLongClickListener(new View.OnLongClickListener(){
                 @Override
                 public boolean onLongClick(View v){
-                    Toast toast=Toast.makeText(v.getContext(),"long clicked!"+data.get(getAdapterPosition()).ref,Toast.LENGTH_LONG);
-                    //toast.show();
                     bookmarkLongClickListener.onBookmarkLongClicked(getAdapterPosition(),data.get(getAdapterPosition()).ref);
                     return true;
                 }

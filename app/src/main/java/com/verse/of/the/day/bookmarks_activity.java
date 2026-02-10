@@ -14,8 +14,6 @@ import androidx.room.Room;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +25,23 @@ public class bookmarks_activity extends AppCompatActivity {
     ArrayList<Bookmark_recyclerview_model> data = new ArrayList<>();
     FloatingActionButton share_bookmark;
     FloatingActionButton delete_bookmark;
-
+    int bookmarkPosition;
     TextView noBookmarksIndicator;
+    List<bookmark> bookmarks_list;
+    void deleteBookmark(int position){
+        //delete from database
+        bookmark_database db = Room.databaseBuilder(getApplicationContext(),
+                bookmark_database.class,"bookmarks-database").allowMainThreadQueries().build();
+        db.bookmark_dao().deleteBookmark(bookmarks_list.get(position).bible_reference);
+        //remove from ui
+        data.remove(position);
+        assert bookmark_recyclerview.getAdapter() != null;
+        bookmark_recyclerview.getAdapter().notifyItemRemoved(position);
+    }
+    void shareBookmark(int position){
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,13 +71,12 @@ when a bookmark in the bookmark page is short tapped, open that verse in the ver
             public void onBookmarkLongClicked(int position, String str) {
                 share_bookmark.setVisibility(View.VISIBLE);
                 delete_bookmark.setVisibility(View.VISIBLE);
-                Toast toast=Toast.makeText(getApplicationContext(),"showing fabs",Toast.LENGTH_LONG);
-                //toast.show();
+                bookmarkPosition = position;
             }
         };
 
         Bookmark_recyclerview_adapter adapter = new Bookmark_recyclerview_adapter(data,listener);
-        List<bookmark> bookmarks_list = db.bookmark_dao().getAllBookmarks();
+        bookmarks_list = db.bookmark_dao().getAllBookmarks();
 
         if (bookmarks_list.isEmpty()){
             noBookmarksIndicator.setVisibility(View.VISIBLE);
@@ -76,7 +88,16 @@ when a bookmark in the bookmark page is short tapped, open that verse in the ver
 
         bookmark_recyclerview.setAdapter(adapter);
         bookmark_recyclerview.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
+        delete_bookmark.setOnClickListener(View ->{
+            deleteBookmark(bookmarkPosition);
+        });
 
-
+        share_bookmark.setOnClickListener(
+                View -> {
+                    Toast toast=Toast.makeText(getApplicationContext(),"sharing bookmark",Toast.LENGTH_LONG);
+                    toast.show();
+                    shareBookmark(bookmarkPosition);
+                }
+        );
     }
 }
