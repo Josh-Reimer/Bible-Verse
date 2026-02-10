@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import android.content.Intent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +37,24 @@ public class bookmarks_activity extends AppCompatActivity {
         data.remove(position);
         assert bookmark_recyclerview.getAdapter() != null;
         bookmark_recyclerview.getAdapter().notifyItemRemoved(position);
+
+        if(data.isEmpty()){
+            noBookmarksIndicator.setVisibility(View.VISIBLE);
+            //as the user deletes bookmarks, check to see if there are any left and show the no bookmarks text if there are none
+        }
+        // hide share and delete buttons
+        share_bookmark.setVisibility(View.GONE);
+        delete_bookmark.setVisibility(View.GONE);
     }
     void shareBookmark(int position){
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, bookmarks_list.get(position).full_text);
+        startActivity(android.content.Intent.createChooser(sharingIntent, "Share via"));
 
+        // hide share and delete buttons
+        share_bookmark.setVisibility(View.GONE);
+        delete_bookmark.setVisibility(View.GONE);
     }
 
     @Override
@@ -66,6 +81,11 @@ public class bookmarks_activity extends AppCompatActivity {
 /*
 when a bookmark in the bookmark page is short tapped, open that verse in the verselookup page. If it is long tapped, open a menu to offer to delete or share
  */
+
+        bookmark_activity_main_layout.setOnClickListener(v-> {
+            share_bookmark.setVisibility(android.view.View.GONE);
+            delete_bookmark.setVisibility(android.view.View.GONE);
+        });
 
         Bookmark_recyclerview_adapter.onBookmarkLongClickListener listener = new Bookmark_recyclerview_adapter.onBookmarkLongClickListener(){
             public void onBookmarkLongClicked(int position, String str) {
@@ -94,8 +114,6 @@ when a bookmark in the bookmark page is short tapped, open that verse in the ver
 
         share_bookmark.setOnClickListener(
                 View -> {
-                    Toast toast=Toast.makeText(getApplicationContext(),"sharing bookmark",Toast.LENGTH_LONG);
-                    toast.show();
                     shareBookmark(bookmarkPosition);
                 }
         );
