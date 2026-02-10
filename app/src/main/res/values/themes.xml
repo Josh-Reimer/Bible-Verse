@@ -4,7 +4,8 @@
         <!-- Use surface as the primary so the toolbar isn't purple -->
         <item name="colorPrimary">@color/app_surface</item>
         <item name="colorOnPrimary">@color/app_on_surface</item>
-
+        <item name="colorPrimaryContainer">@color/green_700_primary</item>
+        <item name="colorOnPrimaryContainer">@color/black</item>
         <!-- Make all surfaces match your app’s background -->
         <item name="colorSurface">@color/app_surface</item>
         <item name="colorOnSurface">@color/app_on_surface</item>
