@@ -25,6 +25,7 @@ public class bookmarks_activity extends AppCompatActivity {
     ArrayList<Bookmark_recyclerview_model> data = new ArrayList<>();
     FloatingActionButton share_bookmark;
     FloatingActionButton delete_bookmark;
+    FloatingActionButton hide_fabs;
     int bookmarkPosition;
     TextView noBookmarksIndicator;
     List<bookmark> bookmarks_list;
@@ -57,6 +58,18 @@ public class bookmarks_activity extends AppCompatActivity {
         delete_bookmark.setVisibility(View.GONE);
     }
 
+    void hideFabs(){
+        share_bookmark.hide();
+        delete_bookmark.hide();
+        hide_fabs.hide();
+    }
+    // using the .hide() and .show() functions instead of View.visible and View.Gone makes those fabs animate up and down nicely  (yes the simpler functions are better :)
+    void showFabs(){
+        share_bookmark.show();
+        delete_bookmark.show();
+        hide_fabs.show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,29 +81,23 @@ public class bookmarks_activity extends AppCompatActivity {
         bookmark_recyclerview = findViewById(R.id.bookmark_recyclerview);
         share_bookmark = findViewById(R.id.bookmark_share);
         delete_bookmark = findViewById(R.id.bookmark_delete);
+        hide_fabs = findViewById(R.id.hidefabs);
         noBookmarksIndicator = findViewById(R.id.isbookmarksempty);
 
-        share_bookmark.setVisibility(View.GONE);
-        delete_bookmark.setVisibility(View.GONE);
+        hideFabs();
 
         bookmark_recyclerview.setOnClickListener(View -> {
-            share_bookmark.setVisibility(android.view.View.GONE);
-            delete_bookmark.setVisibility(android.view.View.GONE);
+            hideFabs();
         });
 
 /*
 when a bookmark in the bookmark page is short tapped, open that verse in the verselookup page. If it is long tapped, open a menu to offer to delete or share
  */
 
-        bookmark_activity_main_layout.setOnClickListener(v-> {
-            share_bookmark.setVisibility(android.view.View.GONE);
-            delete_bookmark.setVisibility(android.view.View.GONE);
-        });
 
         Bookmark_recyclerview_adapter.onBookmarkLongClickListener listener = new Bookmark_recyclerview_adapter.onBookmarkLongClickListener(){
             public void onBookmarkLongClicked(int position, String str) {
-                share_bookmark.setVisibility(View.VISIBLE);
-                delete_bookmark.setVisibility(View.VISIBLE);
+                showFabs();
                 bookmarkPosition = position;
             }
         };
@@ -110,12 +117,18 @@ when a bookmark in the bookmark page is short tapped, open that verse in the ver
         bookmark_recyclerview.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
         delete_bookmark.setOnClickListener(View ->{
             deleteBookmark(bookmarkPosition);
+            hideFabs();
         });
 
         share_bookmark.setOnClickListener(
                 View -> {
                     shareBookmark(bookmarkPosition);
+                    hideFabs();
                 }
         );
+
+        hide_fabs.setOnClickListener(View -> {
+            hideFabs();
+        });
     }
 }

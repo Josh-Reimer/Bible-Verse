@@ -17,4 +17,5 @@
     <string name="settings_title">Settings</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="the_logo_of_the_app_a_black_bible_with_a_green_letter_v_over_it">the logo of the app, a black bible with a green letter V over it</string>
+    <string name="hide_the_buttons">hide the buttons</string>
 </resources>
