@@ -29,6 +29,8 @@
         android:contentDescription="@string/bookmark_delete_content_description"
         android:src="@drawable/baseline_delete_24"
         app:fabSize="auto"
+        android:clickable="true"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/hidefabs"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -42,6 +44,8 @@
         android:contentDescription="@string/bookmark_share_content_description"
         android:src="@drawable/baseline_share_24"
         app:fabSize="auto"
+        android:clickable="true"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/bookmark_delete"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -53,6 +57,7 @@
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="88dp"
         android:clickable="true"
+        android:visibility="invisible"
         android:contentDescription="@string/hide_the_buttons"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

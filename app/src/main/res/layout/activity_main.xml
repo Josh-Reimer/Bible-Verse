@@ -62,7 +62,7 @@
 			android:layout_margin="19dp"
             android:contentDescription="@string/bookmark_this_verse"
             android:src="@drawable/bookmark_border_48"
-			android:visibility="gone"
+			android:visibility="invisible"
 			app:fabSize="auto"
 			app:layout_constraintBottom_toTopOf="@id/menu_fab"
 			app:layout_constraintEnd_toEndOf="parent" />
@@ -75,7 +75,7 @@
 			android:layout_margin="19dp"
             android:contentDescription="@string/look_up_this_verse_in_its_chapter"
             android:src="@drawable/open_in_new_48"
-			android:visibility="gone"
+			android:visibility="invisible"
 			app:fabSize="auto"
 			app:layout_constraintBottom_toTopOf="@id/bookmark_fab"
 			app:layout_constraintEnd_toEndOf="parent" />
@@ -88,7 +88,7 @@
 			android:layout_margin="19dp"
             android:contentDescription="@string/roll_the_die_and_pick_a_new_verse"
             android:src="@drawable/dice_48"
-			android:visibility="gone"
+			android:visibility="invisible"
 			app:fabSize="auto"
 			app:layout_constraintBottom_toTopOf="@id/verselookup"
 			app:layout_constraintEnd_toEndOf="parent" />

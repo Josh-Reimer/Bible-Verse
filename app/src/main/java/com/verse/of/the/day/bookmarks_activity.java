@@ -86,9 +86,6 @@ public class bookmarks_activity extends AppCompatActivity {
 
         hideFabs();
 
-        bookmark_recyclerview.setOnClickListener(View -> {
-            hideFabs();
-        });
 
 /*
 when a bookmark in the bookmark page is short tapped, open that verse in the verselookup page. If it is long tapped, open a menu to offer to delete or share

@@ -58,6 +58,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     boolean verse_displayed_is_bookmarked;
     private GestureDetector gestureDetector;
 
+    void hideFabs(){
+        verselookup_fab.hide();
+        newverse_fab.hide();
+        bookmark_fab.hide();
+        fabs_visible = false;
+    }
+
+    void showFabs(){
+        newverse_fab.show();
+        verselookup_fab.show();
+        bookmark_fab.show();
+        fabs_visible = true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-        //drawerLayout.closeDrawers();
         ConstraintLayout mainLayoutView = findViewById(R.id.mainLayoutView);
         verseview = findViewById(R.id.verse);
         menu_fab = findViewById(R.id.menu_fab);
@@ -100,45 +113,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         verselookup_fab = findViewById(R.id.verselookup);
         newverse_fab = findViewById(R.id.newverse);
 
-        verselookup_fab.setVisibility(View.GONE);
-        newverse_fab.setVisibility(View.GONE);
-        bookmark_fab.setVisibility(View.GONE);
-
-        fabs_visible = false;
-
         thisapp = getApplicationContext();
         vod = new VerseOfTheDay(mainScanner, thisapp);
-        //String verseofday = vod.getVerseFromFile(mainScanner,thisapp,tools);
-        //String verseofday = vod.getRandomVerse(mainScanner,tools,thisapp,bible);
+
         verse_displayed = vod.getRandomRef(bible, tools, thisapp);
         verseview.setText(verse_displayed.full_text);
 
 
         verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
 
+        menu_fab.post(new Runnable() {
+            @Override
+            public void run() {
+                hideFabs();
+            }
+        });
 
         menu_fab.setOnClickListener(View -> {
             if (fabs_visible) {
-                verselookup_fab.setVisibility(android.view.View.GONE);
-                newverse_fab.setVisibility(android.view.View.GONE);
-                bookmark_fab.setVisibility(android.view.View.GONE);
-                fabs_visible = false;
-
+                hideFabs();
             } else {
 
                 if (verse_displayed_is_bookmarked) {
-                    //verse_displayed_is_bookmarked = false;
                     bookmark_fab.setImageResource(R.drawable.bookmark_solid_48);
                     bookmark_fab.show();
                 } else {
-                    //verse_displayed_is_bookmarked = true;
                     bookmark_fab.setImageResource(R.drawable.bookmark_border_48);
                     bookmark_fab.show();
                 }
-                newverse_fab.show();
-                verselookup_fab.show();
-
-                fabs_visible = true;
+                showFabs();
             }
         });
 
@@ -153,10 +156,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     verse_displayed_is_bookmarked = true;
 
                 }
-                verselookup_fab.setVisibility(android.view.View.GONE);
-                newverse_fab.setVisibility(android.view.View.GONE);
-                bookmark_fab.setVisibility(android.view.View.GONE);
-                fabs_visible = false;
+                hideFabs();
             }
         });
         bookmark_fab.setOnClickListener(View -> {
@@ -177,18 +177,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         verselookup_fab.setOnClickListener(View -> {
             if (fabs_visible) {
                 goToVerseLookUpActivity(verse_displayed.reference);
-                verselookup_fab.setVisibility(android.view.View.GONE);
-                newverse_fab.setVisibility(android.view.View.GONE);
-                bookmark_fab.setVisibility(android.view.View.GONE);
-                fabs_visible = false;
+                hideFabs();
             }
         });
 
         mainLayoutView.setOnClickListener(View -> {
-            verselookup_fab.setVisibility(android.view.View.GONE);
-            newverse_fab.setVisibility(android.view.View.GONE);
-            bookmark_fab.setVisibility(android.view.View.GONE);
-            fabs_visible = false;
+            hideFabs();
         });
 
         setNavigationViewListener();
@@ -259,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-
+// also check if the bookmark displayed is still a bookmark; it could have been deleted
 
     }
 
