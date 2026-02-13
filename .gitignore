@@ -16,3 +16,4 @@ local.properties
 *.jks
 app/release
 *.png
+.idea/misc.xml
