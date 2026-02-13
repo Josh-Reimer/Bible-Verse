@@ -52,10 +52,6 @@ public class bookmarks_activity extends AppCompatActivity {
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(Intent.EXTRA_TEXT, bookmarks_list.get(position).full_text);
         startActivity(android.content.Intent.createChooser(sharingIntent, "Share via"));
-
-        // hide share and delete buttons
-        share_bookmark.setVisibility(View.GONE);
-        delete_bookmark.setVisibility(View.GONE);
     }
 
     void hideFabs(){

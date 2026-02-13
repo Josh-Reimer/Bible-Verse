@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FloatingActionButton bookmark_fab;
     FloatingActionButton verselookup_fab;
     FloatingActionButton newverse_fab;
+    FloatingActionButton share_button;
     private TextView verseview;
     private final Scanner mainScanner = new Scanner(System.in);
     private Context thisapp;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         verselookup_fab.hide();
         newverse_fab.hide();
         bookmark_fab.hide();
+        share_button.hide();
         fabs_visible = false;
     }
 
@@ -69,7 +71,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         newverse_fab.show();
         verselookup_fab.show();
         bookmark_fab.show();
+        share_button.show();
         fabs_visible = true;
+    }
+
+    void shareVerse(Verse verse){
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, verse.full_text);
+        startActivity(android.content.Intent.createChooser(sharingIntent, "Share via"));
     }
 
     @Override
@@ -112,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bookmark_fab = findViewById(R.id.bookmark_fab);
         verselookup_fab = findViewById(R.id.verselookup);
         newverse_fab = findViewById(R.id.newverse);
+        share_button = findViewById(R.id.verse_share);
 
         thisapp = getApplicationContext();
         vod = new VerseOfTheDay(mainScanner, thisapp);
@@ -180,7 +191,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 hideFabs();
             }
         });
-
+        share_button.setOnClickListener(
+                View -> {
+                    shareVerse(verse_displayed);
+                    hideFabs();
+                }
+        );
         mainLayoutView.setOnClickListener(View -> {
             hideFabs();
         });

@@ -47,7 +47,9 @@
 			android:id="@+id/menu_fab"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_margin="19dp"
+			android:layout_marginTop="19dp"
+            android:layout_marginEnd="19dp"
+            android:layout_marginBottom="50dp"
             android:contentDescription="@string/view_more_options_for_what_you_can_do_with_the_verse_on_screen"
             android:src="@drawable/more_vert_36"
 			app:fabSize="auto"
@@ -93,6 +95,20 @@
 			app:layout_constraintBottom_toTopOf="@id/verselookup"
 			app:layout_constraintEnd_toEndOf="parent" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/verse_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="19dp"
+            android:layout_marginBottom="50dp"
+            android:contentDescription="@string/bookmark_share_content_description"
+            android:src="@drawable/baseline_share_24"
+            app:fabSize="auto"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible"
+            app:layout_constraintRight_toLeftOf="@+id/menu_fab"
+            />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 	<!-- NAVIGATION DRAWER -->
