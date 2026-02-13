@@ -133,12 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
 
-        menu_fab.post(new Runnable() {
-            @Override
-            public void run() {
-                hideFabs();
-            }
-        });
+
 
         menu_fab.setOnClickListener(View -> {
             if (fabs_visible) {
@@ -187,8 +182,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         verselookup_fab.setOnClickListener(View -> {
             if (fabs_visible) {
-                goToVerseLookUpActivity(verse_displayed.reference);
                 hideFabs();
+                goToVerseLookUpActivity(verse_displayed.reference);
             }
         });
         share_button.setOnClickListener(
@@ -244,6 +239,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onDestroy() {
         super.onDestroy();
+        hideFabs();
         mainScanner.close();
         Log.i("verse-main", "onDestroy method was called!");
     }
