@@ -58,7 +58,7 @@ public class VerseLookUpActivity extends AppCompatActivity{
 		String[] str_verses = chapter.split("\n");
 
 		for(int i = 0; i < str_verses.length; i++){
-			Verse current_verse = new Verse(this,verse_for_lookup.book_int,str_verses[i]);
+			Verse current_verse = new Verse(this,verse_for_lookup.book_int+":"+str_verses[i]);
 			if (current_verse.verse < verse_for_lookup.verse){
 				pre_verse_textview_text += "\n"+str_verses[i];
 			}

@@ -58,7 +58,7 @@ public int getBookLength(Tools tools,Context context, String book) {
 String bookObject = tools.getFile(context,book);
 
 String lastline = bookObject.substring(bookObject.lastIndexOf("\n"));
-Log.i("verse: Bible class",lastline);
+
 return Integer.parseInt(lastline.split(":")[0].trim());
 }
 

@@ -127,13 +127,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         thisapp = getApplicationContext();
         vod = new VerseOfTheDay(mainScanner, thisapp);
 
-        verse_displayed = vod.getRandomRef(bible, tools, thisapp);
-        verseview.setText(verse_displayed.full_text);
-
-
-        verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
-
-
+            if(savedInstanceState == null) {
+                verse_displayed = vod.getRandomRef(bible, tools, thisapp);  // generate new verse if the savedInstanceState is null (when the app cold starts)
+            } else {
+                verse_displayed = new Verse(
+                        thisapp,
+                        Objects.requireNonNull(savedInstanceState.getString("verse_ref"))
+                );
+                // retrieve verse displayed from before the app paused
+            }
+            verseview.setText(verse_displayed.full_text);
+            verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
 
         menu_fab.setOnClickListener(View -> {
             if (fabs_visible) {
@@ -241,13 +245,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onDestroy();
         hideFabs();
         mainScanner.close();
-        Log.i("verse-main", "onDestroy method was called!");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.i("verse-main", "onPause method was called!");
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState){
+        Log.i("verse","onSavedInstanceState fired");
+        outState.putString("verse_displayed",verse_displayed.full_text);
+        outState.putString("verse_ref",verse_displayed.reference);
+
+        super.onSaveInstanceState(outState);
     }
 
     @Override

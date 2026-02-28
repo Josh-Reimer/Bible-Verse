@@ -1,5 +1,7 @@
 package com.verse.of.the.day;
 import android.content.Context;
+import android.util.Log;
+
 import java.util.Scanner;
 
 
@@ -27,14 +29,13 @@ public class Verse {
 		finish();
 	}
 
-	public Verse(Context con,int book_of_bible,String verse_str) {
+	public Verse(Context con,String verse_str) {
 		String[] split = verse_str.split(":");
-		book = bible.books[book_of_bible];
-		book_int = book_of_bible;
-		chapter = Integer.parseInt(split[0]);
-		verse = Integer.parseInt(split[1]);
+		book_int = Integer.parseInt(split[0]);
+        book = bible.books[book_int];
+		chapter = Integer.parseInt(split[1]);
+		verse = Integer.parseInt(split[2]);
 		context = con;
-		book_int = book_of_bible;
 		finish();
 	}
 
