@@ -10,8 +10,6 @@ import android.util.TypedValue;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.LinearLayout;
-import java.util.ArrayList;
-import java.util.Objects;
 
 public class VerseLookUpActivity extends AppCompatActivity{
 
@@ -58,14 +56,12 @@ public class VerseLookUpActivity extends AppCompatActivity{
 		String[] str_verses = chapter.split("\n");
 
 		for(int i = 0; i < str_verses.length; i++){
-			Verse current_verse = new Verse(this,verse_for_lookup.book_int+":"+str_verses[i]);
-			if (current_verse.verse < verse_for_lookup.verse){
+			int verseNum = Integer.parseInt(str_verses[i].split(":")[1]);
+			if (verseNum < verse_for_lookup.verse){
 				pre_verse_textview_text += "\n"+str_verses[i];
-			}
-			if(Objects.equals(verse_for_lookup.reference, current_verse.reference)) {
+			} else if (verseNum == verse_for_lookup.verse) {
 				verse_textview_text += str_verses[i];
-			}
-			if (current_verse.verse > verse_for_lookup.verse){
+			} else {
 				post_verse_textview_text += str_verses[i]+"\n";
 			}
 		}
