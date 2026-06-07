@@ -39,7 +39,7 @@ A `Verse` is identified by the string `"bookIndex:chapter:verse"` (e.g. `"0:1:1"
 
 ### Activities
 - **`MainActivity`** — entry point. On cold start (`savedInstanceState == null`) generates a new random verse; on restore (rotation, dark-mode toggle) reconstructs the same `Verse` from the saved reference string. FABs are hidden by default and revealed by a menu FAB tap. Drawer navigation (swipe right or hamburger) opens settings/bookmarks.
-- **`VerseLookUpActivity`** — receives a verse reference via `Intent` extra `"verse_ref"`, loads the full chapter, and renders it in three `TextView`s: verses before, the target verse (bolded, green), and verses after. The chapter loop parses verse numbers directly from the raw asset lines (`split(":")[1]`) rather than constructing `Verse` objects, avoiding redundant file reads per line.
+- **`VerseLookUpActivity`** — receives a verse reference via `Intent` extra `"verse_ref"` (`"bookIndex:chapter:verse"`), splits it directly to extract book/chapter/verse integers without constructing a `Verse` object, then calls `getChapter()` once. The loop partitions lines into before/target/after `TextView`s by parsing the verse number from each raw asset line (`split(":")[1]`). Total: one file read per activity launch.
 - **`bookmarks_activity`** — RecyclerView list of bookmarked verses backed by the Room DB.
 - **`SettingsActivity`** — dark/light mode toggle stored in `SharedPreferences("settings")` under key `"theme"` (true = dark).
 
