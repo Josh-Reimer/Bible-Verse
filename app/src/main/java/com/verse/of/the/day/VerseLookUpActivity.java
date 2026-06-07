@@ -2,19 +2,15 @@ package com.verse.of.the.day;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import android.util.TypedValue;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.LinearLayout;
 
 public class VerseLookUpActivity extends AppCompatActivity{
 
 	LinearLayout linear_layout;
-	Verse verse_for_lookup;
 
 	@Override
 	protected void onCreate(Bundle SavedInstanceState){
@@ -47,19 +43,23 @@ public class VerseLookUpActivity extends AppCompatActivity{
 		String post_verse_textview_text = "";
 
 		String intentExtras = getIntent().getStringExtra("verse_ref");
+		assert intentExtras != null;
+		String[] parts = intentExtras.split(":");
+		int bookIndex = Integer.parseInt(parts[0]);
+		int chapterNum = Integer.parseInt(parts[1]);
+		int targetVerse = Integer.parseInt(parts[2]);
+		String book = bible.books[bookIndex];
+		String properBook = book.replace(".txt", "").replace("_", " ").toUpperCase();
 
-        assert intentExtras != null;
-        verse_for_lookup = getVerseFromMainActivity(this,intentExtras);
-		setTitle(verse_for_lookup.proper_book+" "+verse_for_lookup.chapter);
+		setTitle(properBook + " " + chapterNum);
 
-		String chapter = bible.getChapter(this,tools,verse_for_lookup.book, verse_for_lookup.chapter);
-		String[] str_verses = chapter.split("\n");
+		String[] str_verses = bible.getChapter(this, tools, book, chapterNum).split("\n");
 
 		for(int i = 0; i < str_verses.length; i++){
 			int verseNum = Integer.parseInt(str_verses[i].split(":")[1]);
-			if (verseNum < verse_for_lookup.verse){
+			if (verseNum < targetVerse){
 				pre_verse_textview_text += "\n"+str_verses[i];
-			} else if (verseNum == verse_for_lookup.verse) {
+			} else if (verseNum == targetVerse) {
 				verse_textview_text += str_verses[i];
 			} else {
 				post_verse_textview_text += str_verses[i]+"\n";
@@ -68,13 +68,6 @@ public class VerseLookUpActivity extends AppCompatActivity{
 		pre_verse_textview.setText(pre_verse_textview_text);
 		verse_textview.setText(verse_textview_text);
 		post_verse_textview.setText(post_verse_textview_text);
-	}
-
-	Verse getVerseFromMainActivity(Context c,String intent_extras){
-		String[] thirds;
-		thirds = intent_extras.split(":");
-		Verse v = new Verse(c,Integer.parseInt(thirds[0]),Integer.parseInt(thirds[1]),Integer.parseInt(thirds[2]));
-		return v;
 	}
 
 }
