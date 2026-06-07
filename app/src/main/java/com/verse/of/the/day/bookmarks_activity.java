@@ -27,12 +27,10 @@ public class bookmarks_activity extends AppCompatActivity {
     FloatingActionButton delete_bookmark;
     FloatingActionButton hide_fabs;
     int bookmarkPosition;
+    bookmark_database db;
     TextView noBookmarksIndicator;
     List<bookmark> bookmarks_list;
     void deleteBookmark(int position){
-        //delete from database
-        bookmark_database db = Room.databaseBuilder(getApplicationContext(),
-                bookmark_database.class,"bookmarks-database").allowMainThreadQueries().build();
         db.bookmark_dao().deleteBookmark(bookmarks_list.get(position).bible_reference);
         //remove from ui
         data.remove(position);
@@ -70,7 +68,7 @@ public class bookmarks_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmarks);
-        bookmark_database db = Room.databaseBuilder(getApplicationContext(),
+        db = Room.databaseBuilder(getApplicationContext(),
                 bookmark_database.class,"bookmarks-database").allowMainThreadQueries().build();
 
         bookmark_activity_main_layout = findViewById(R.id.mainBookmarkLayout);

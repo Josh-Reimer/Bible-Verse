@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final Tools tools = new Tools();
     private final Bible bible = new Bible();
     boolean fabs_visible;
+    private bookmark_database db;
     boolean verse_displayed_is_bookmarked;
     private GestureDetector gestureDetector;
 
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
-        bookmark_database db = Room.databaseBuilder(getApplicationContext(),
+        db = Room.databaseBuilder(getApplicationContext(),
                 bookmark_database.class, "bookmarks-database").allowMainThreadQueries().build();
         setContentView(R.layout.activity_main);
         // ----- MATERIAL TOOLBAR SETUP -----
@@ -276,8 +277,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-        bookmark_database db = Room.databaseBuilder(getApplicationContext(),
-                bookmark_database.class, "bookmarks-database").allowMainThreadQueries().build();
 // also check if the bookmark displayed is still a bookmark; it could have been deleted
         verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
         if(verse_displayed_is_bookmarked){
