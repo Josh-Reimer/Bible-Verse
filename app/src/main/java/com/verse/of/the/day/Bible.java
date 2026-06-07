@@ -30,8 +30,8 @@ String chapnumstring = Integer.toString(chapter);
 
 if (chapnum.equals(chapnumstring)) {
 chap = chap + line + "\n";
-} else {
-continue;
+} else if (!chap.isEmpty()) {
+break;
 }
 }
 try{bf.close();}catch(IOException e){return "io exception";}
