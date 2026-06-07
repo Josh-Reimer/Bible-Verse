@@ -256,7 +256,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState){
         Log.i("verse","onSavedInstanceState fired");
-        outState.putString("verse_displayed",verse_displayed.full_text);
         outState.putString("verse_ref",verse_displayed.reference);
 
         super.onSaveInstanceState(outState);
