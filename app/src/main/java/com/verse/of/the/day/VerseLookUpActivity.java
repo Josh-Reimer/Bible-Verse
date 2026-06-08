@@ -55,7 +55,12 @@ public class VerseLookUpActivity extends AppCompatActivity{
 
 		String[] str_verses = bible.getChapter(this, tools, book, chapterNum).split("\n");
 
+		boolean pastTarget = false;
 		for(int i = 0; i < str_verses.length; i++){
+			if (pastTarget) {
+				post_verse_textview_text += str_verses[i]+"\n";
+				continue;
+			}
 			String[] lineParts = str_verses[i].split(":");
 			if (lineParts.length < 2) continue;
 			int verseNum = Integer.parseInt(lineParts[1]);
@@ -63,6 +68,7 @@ public class VerseLookUpActivity extends AppCompatActivity{
 				pre_verse_textview_text += "\n"+str_verses[i];
 			} else if (verseNum == targetVerse) {
 				verse_textview_text += str_verses[i];
+				pastTarget = true;
 			} else {
 				post_verse_textview_text += str_verses[i]+"\n";
 			}
