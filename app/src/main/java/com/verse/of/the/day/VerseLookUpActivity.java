@@ -4,9 +4,14 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.LinearLayout;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class VerseLookUpActivity extends AppCompatActivity{
 
@@ -15,7 +20,25 @@ public class VerseLookUpActivity extends AppCompatActivity{
 	@Override
 	protected void onCreate(Bundle SavedInstanceState){
 		super.onCreate(SavedInstanceState);
+		WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 		setContentView(R.layout.verse_lookup_activity);
+
+		MaterialToolbar toolbar = findViewById(R.id.topBar);
+		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+		ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> {
+			int topInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
+			v.setPadding(0, topInset, 0, 0);
+			return insets;
+		});
+
+		ScrollView scrollView = findViewById(R.id.verse_lookup_scroll_view);
+		ViewCompat.setOnApplyWindowInsetsListener(scrollView, (v, insets) -> {
+			int bottomInset = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+			v.setPadding(0, 0, 0, bottomInset);
+			return insets;
+		});
 		Bible bible = new Bible();
 		Tools tools = new Tools();
 		linear_layout = findViewById(R.id.ll);
@@ -76,6 +99,12 @@ public class VerseLookUpActivity extends AppCompatActivity{
 		pre_verse_textview.setText(pre_verse_textview_text);
 		verse_textview.setText(verse_textview_text);
 		post_verse_textview.setText(post_verse_textview_text);
+	}
+
+	@Override
+	public boolean onSupportNavigateUp() {
+		finish();
+		return true;
 	}
 
 }
