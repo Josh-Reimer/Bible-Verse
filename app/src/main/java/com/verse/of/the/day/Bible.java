@@ -35,7 +35,12 @@ String chapnumstring = Integer.toString(chapter);
 if (chapnum.equals(chapnumstring)) {
 chap = chap + line + "\n";
 } else if (!chap.isEmpty()) {
-break;
+try {
+Integer.parseInt(chapnum.trim());
+break; // valid chapter number that isn't ours — we've passed the target chapter
+} catch (NumberFormatException e) {
+// blank line or non-verse annotation — skip and keep reading
+}
 }
 }
 try{bf.close();}catch(IOException e){return "io exception";}
