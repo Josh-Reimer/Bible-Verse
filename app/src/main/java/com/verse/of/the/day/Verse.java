@@ -40,7 +40,7 @@ public class Verse {
 	}
 
 	void finish(){
-		proper_book = book.replace(".txt","").replace("_"," ").toUpperCase();
+		proper_book = Bible.getProperName(book);
 		scripture_text = bible.getVerse(toolbox,context,book,chapter,verse);
 		full_text = proper_book + "\n" + scripture_text;
 		reference = book_int+":"+chapter+":"+verse;

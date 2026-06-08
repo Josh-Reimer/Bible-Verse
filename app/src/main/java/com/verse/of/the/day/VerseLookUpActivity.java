@@ -49,7 +49,7 @@ public class VerseLookUpActivity extends AppCompatActivity{
 		int chapterNum = Integer.parseInt(parts[1]);
 		int targetVerse = Integer.parseInt(parts[2]);
 		String book = bible.books[bookIndex];
-		String properBook = book.replace(".txt", "").replace("_", " ").toUpperCase();
+		String properBook = Bible.getProperName(book);
 
 		setTitle(properBook + " " + chapterNum);
 
