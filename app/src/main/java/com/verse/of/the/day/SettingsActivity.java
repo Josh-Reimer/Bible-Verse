@@ -2,6 +2,10 @@ package com.verse.of.the.day;
 
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.Spinner;
+import android.view.View;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -71,7 +75,27 @@ if(ab != null){
 	ab.setDisplayHomeAsUpEnabled(true);
 }
 
-} 
+String[] translations = {"KJV", "ASV"};
+Spinner translationSpinner = findViewById(R.id.translationSpinner);
+ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, translations);
+adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+translationSpinner.setAdapter(adapter);
+
+String currentTranslation = sp.getString("translation", "kjv");
+translationSpinner.setSelection(currentTranslation.equals("asv") ? 1 : 0);
+
+translationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+	boolean firstCall = true;
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+		if (firstCall) { firstCall = false; return; }
+		spEditor.putString("translation", translations[position].toLowerCase()).apply();
+	}
+	@Override
+	public void onNothingSelected(AdapterView<?> parent) {}
+});
+
+}
 
 
 

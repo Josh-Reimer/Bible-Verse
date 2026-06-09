@@ -66,7 +66,8 @@ public int getBookLength(Tools tools,Context context, String book) {
 //this function returns the number of chapters in the book asked for
 String bookObject = tools.getFile(context,book);
 
-String lastline = bookObject.substring(bookObject.lastIndexOf("\n"));
+String stripped = bookObject.stripTrailing();
+String lastline = stripped.substring(stripped.lastIndexOf("\n") + 1);
 
 return Integer.parseInt(lastline.split(":")[0].trim());
 }

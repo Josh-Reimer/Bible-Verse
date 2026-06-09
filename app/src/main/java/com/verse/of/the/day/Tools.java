@@ -23,24 +23,19 @@ return theme;
 }
 
 String getFile(Context context, String filename) {
-//NOTE To self:
-//wondering about the efficiency of loading an entire book of the Bible into a single string
-String filetext = "";
-InputStream inputstream = null;
+SharedPreferences sp = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
+String translation = sp.getString("translation", "kjv");
+String path = translation + "/" + filename;
 try {
 AssetManager manager = context.getAssets();
-inputstream = manager.open(filename);
-int size = inputstream.available();
-byte[] buffer = new byte[size];
-inputstream.read(buffer);
+InputStream inputstream = manager.open(path);
+byte[] bytes = inputstream.readAllBytes();
 inputstream.close();
-filetext = new String(buffer, StandardCharsets.UTF_8);
-
+return new String(bytes, StandardCharsets.UTF_8);
 } catch (IOException ex) {
 ex.printStackTrace();
 return "could not load file";
 }
-return filetext;
 }
 
 public boolean isDigit(String letters) {

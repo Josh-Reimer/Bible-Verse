@@ -276,6 +276,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+        verse_displayed = new Verse(thisapp, verse_displayed.reference);
+        verseview.setText(verse_displayed.full_text);
+
 // also check if the bookmark displayed is still a bookmark; it could have been deleted
         verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
         if(verse_displayed_is_bookmarked){
