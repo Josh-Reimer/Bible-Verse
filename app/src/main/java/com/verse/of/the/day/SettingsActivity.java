@@ -75,7 +75,7 @@ if(ab != null){
 	ab.setDisplayHomeAsUpEnabled(true);
 }
 
-String[] translations = {"KJV", "ASV"};
+String[] translations = {"KJV", "ASV", "BSB"};
 Spinner translationSpinner = findViewById(R.id.translationSpinner);
 ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, translations);
 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
