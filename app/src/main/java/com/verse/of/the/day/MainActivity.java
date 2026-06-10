@@ -21,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import android.content.Intent;
+import android.text.Spanned;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.content.Context;
@@ -59,6 +60,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private bookmark_database db;
     boolean verse_displayed_is_bookmarked;
     private GestureDetector gestureDetector;
+    private final RedLetter redLetter = new RedLetter();
+
+    void showVerse(Verse v) {
+        Spanned spanned = redLetter.getSpanned(thisapp, v.reference);
+        if (spanned != null) {
+            verseview.setText(v.proper_book + "\n" + v.chapter + ":" + v.verse + ": ");
+            verseview.append(spanned);
+        } else {
+            verseview.setText(v.full_text);
+        }
+    }
 
     void hideFabs(){
         verselookup_fab.hide();
@@ -137,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 );
                 // retrieve verse displayed from before the app paused
             }
-            verseview.setText(verse_displayed.full_text);
+            showVerse(verse_displayed);
             verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
 
         menu_fab.setOnClickListener(View -> {
@@ -159,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         newverse_fab.setOnClickListener(View -> {
             if (fabs_visible) {
                 verse_displayed = vod.getRandomRef(bible, tools, thisapp);
-                verseview.setText(verse_displayed.full_text);
+                showVerse(verse_displayed);
                 if (db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]")){
                     verse_displayed_is_bookmarked = false;
 
@@ -277,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         verse_displayed = new Verse(thisapp, verse_displayed.reference);
-        verseview.setText(verse_displayed.full_text);
+        showVerse(verse_displayed);
 
 // also check if the bookmark displayed is still a bookmark; it could have been deleted
         verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");

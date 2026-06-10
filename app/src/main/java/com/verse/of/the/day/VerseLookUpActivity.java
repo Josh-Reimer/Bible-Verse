@@ -2,6 +2,8 @@ package com.verse.of.the.day;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spanned;
+import android.text.SpannableStringBuilder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
@@ -61,10 +63,6 @@ public class VerseLookUpActivity extends AppCompatActivity{
 
 		post_verse_textview.setTextSize(20f);
 
-		String pre_verse_textview_text = "";
-		String verse_textview_text = "";
-		String post_verse_textview_text = "";
-
 		String intentExtras = getIntent().getStringExtra("verse_ref");
 		assert intentExtras != null;
 		String[] parts = intentExtras.split(":");
@@ -76,29 +74,51 @@ public class VerseLookUpActivity extends AppCompatActivity{
 
 		setTitle(properBook + " " + chapterNum);
 
+		RedLetter redLetter = new RedLetter();
 		String[] str_verses = bible.getChapter(this, tools, book, chapterNum).split("\n");
 
+		SpannableStringBuilder preBuilder = new SpannableStringBuilder();
+		SpannableStringBuilder postBuilder = new SpannableStringBuilder();
+		String verse_textview_text = "";
 		boolean pastTarget = false;
-		for(int i = 0; i < str_verses.length; i++){
-			if (pastTarget) {
-				post_verse_textview_text += str_verses[i]+"\n";
+
+		for (String line : str_verses) {
+			String[] lineParts = line.split(":");
+			if (lineParts.length < 2) continue;
+			int verseNum;
+			try { verseNum = Integer.parseInt(lineParts[1]); } catch (NumberFormatException e) { continue; }
+
+			if (!pastTarget && verseNum == targetVerse) {
+				verse_textview_text = line;
+				pastTarget = true;
 				continue;
 			}
-			String[] lineParts = str_verses[i].split(":");
-			if (lineParts.length < 2) continue;
-			int verseNum = Integer.parseInt(lineParts[1]);
-			if (verseNum < targetVerse){
-				pre_verse_textview_text += "\n"+str_verses[i];
-			} else if (verseNum == targetVerse) {
-				verse_textview_text += str_verses[i];
-				pastTarget = true;
+
+			SpannableStringBuilder target = pastTarget ? postBuilder : preBuilder;
+			String ref = bookIndex + ":" + chapterNum + ":" + verseNum;
+			Spanned spanned = redLetter.getSpanned(this, ref);
+			if (!pastTarget) target.append("\n");
+			if (spanned != null) {
+				target.append(chapterNum + ":" + verseNum + ": ");
+				target.append(spanned);
 			} else {
-				post_verse_textview_text += str_verses[i]+"\n";
+				target.append(line);
 			}
+			if (pastTarget) target.append("\n");
 		}
-		pre_verse_textview.setText(pre_verse_textview_text);
-		verse_textview.setText(verse_textview_text);
-		post_verse_textview.setText(post_verse_textview_text);
+
+		// Target verse
+		String targetRef = bookIndex + ":" + chapterNum + ":" + targetVerse;
+		Spanned targetSpanned = redLetter.getSpanned(this, targetRef);
+		if (targetSpanned != null) {
+			verse_textview.setText(chapterNum + ":" + targetVerse + ": ");
+			verse_textview.append(targetSpanned);
+		} else {
+			verse_textview.setText(verse_textview_text);
+		}
+
+		pre_verse_textview.setText(preBuilder);
+		post_verse_textview.setText(postBuilder);
 	}
 
 	@Override
