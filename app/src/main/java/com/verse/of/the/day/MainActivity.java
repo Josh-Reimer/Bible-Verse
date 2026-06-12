@@ -62,6 +62,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private GestureDetector gestureDetector;
     private final RedLetter redLetter = new RedLetter();
 
+    void applyTheme(SharedPreferences sp) {
+        String mode = sp.getString("theme_mode", "system");
+        switch (mode) {
+            case "dark":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case "light":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            default:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+        }
+    }
+
     void showVerse(Verse v) {
         Spanned spanned = redLetter.getSpanned(thisapp, v.reference);
         if (spanned != null) {
@@ -101,16 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         SharedPreferences shared_preferences = getSharedPreferences("settings", MODE_PRIVATE);
-        boolean theme = shared_preferences.getBoolean("theme", false);
-        //true is dark theme on
-        //false is light theme on
-        //second parameter is the default value if there is no theme value in shaded preferences
-
-        if (theme) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        applyTheme(shared_preferences);
 
         db = Room.databaseBuilder(getApplicationContext(),
                 bookmark_database.class, "bookmarks-database").allowMainThreadQueries().build();
@@ -278,16 +284,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         Log.i("verse-main", "onResume method was called!");
         SharedPreferences shared_preferences = getSharedPreferences("settings", MODE_PRIVATE);
-        boolean theme = shared_preferences.getBoolean("theme", false);
-        //true is dark theme on
-        //false is light theme on
-        //second parameter is the defualt value if there is no theme value in shaded preferences
-
-        if (theme) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        applyTheme(shared_preferences);
         verse_displayed = new Verse(thisapp, verse_displayed.reference);
         showVerse(verse_displayed);
 
