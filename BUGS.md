@@ -33,17 +33,20 @@ onboarding doc itself perpetuated the special case rather than generalizing it.
 ---
 
 ## Issue #16 — Duplicate spinner shape drawables
-**Effort: Low**
+**Status: DONE**
 
 `app/src/main/res/drawable/spinner_box.xml` and
-`app/src/main/res/drawable/spinner_popup_background.xml` are byte-for-byte
-identical (same git blob hash). They're referenced separately as the Spinner's
-`android:background` (wrapped in `spinner_background.xml`) and
+`app/src/main/res/drawable/spinner_popup_background.xml` were byte-for-byte
+identical (same git blob hash). They were referenced separately as the
+Spinner's `android:background` (wrapped in `spinner_background.xml`) and
 `android:popupBackground`.
 
-**Fix:** delete one and point both references at the same file, or rename
-`spinner_box.xml` to something shared like `spinner_surface.xml` and use it in
-both places.
+**What was done:**
+- Renamed `spinner_box.xml` to `spinner_surface.xml`
+- Deleted `spinner_popup_background.xml`
+- Updated `spinner_background.xml`'s layer-list item and both Spinners'
+  `android:popupBackground` in `settings_activity.xml` to reference
+  `@drawable/spinner_surface`
 
 ---
 
