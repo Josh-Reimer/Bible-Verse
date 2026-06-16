@@ -28,7 +28,9 @@
         android:layout_marginStart="24dp"
         android:text="@string/dark_theme"
         android:textSize="20sp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/themeSpinner"
         app:layout_constraintTop_toBottomOf="@id/topBar" />
 
 	<!-- Theme Spinner -->
@@ -55,7 +57,9 @@
 		android:layout_marginStart="24dp"
 		android:text="Translation"
 		android:textSize="20sp"
+		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/translationSpinner"
 		app:layout_constraintTop_toBottomOf="@id/settingsThemeTitle" />
 
 	<!-- Translation Spinner -->

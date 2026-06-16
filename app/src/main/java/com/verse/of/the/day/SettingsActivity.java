@@ -23,6 +23,7 @@ import androidx.core.app.NavUtils;
 public class SettingsActivity extends AppCompatActivity {
 
     public Tools tools = new Tools();
+    private AlertDialog bsbWarningDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +54,14 @@ public class SettingsActivity extends AppCompatActivity {
             if (themeValues[i].equals(currentTheme)) { themeIndex = i; break; }
         }
         themeSpinner.setSelection(themeIndex);
+        final int initialThemeIndex = themeIndex;
 
         themeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            boolean firstCall = true;
+            int committedIndex = initialThemeIndex;
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (firstCall) { firstCall = false; return; }
+                if (position == committedIndex) return;
+                committedIndex = position;
                 String selected = themeValues[position];
                 spEditor.putString("theme_mode", selected).apply();
                 switch (selected) {
@@ -123,7 +126,7 @@ public class SettingsActivity extends AppCompatActivity {
                     return;
                 }
 
-                AlertDialog dialog = new AlertDialog.Builder(SettingsActivity.this)
+                bsbWarningDialog = new AlertDialog.Builder(SettingsActivity.this)
                         .setTitle("BSB Red-Letter Accuracy")
                         .setMessage("Red-letter highlighting in BSB is algorithmically generated and may occasionally be inaccurate.")
                         .setCancelable(false)
@@ -133,17 +136,26 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("Cancel", (d, which) -> translationSpinner.setSelection(committedIndex))
                         .create();
-                dialog.show();
-                // colorPrimary is repurposed app-wide to match the surface color (so the
-                // toolbar isn't tinted), which would otherwise make these buttons invisible
-                // against the dialog's surface-colored background — force a visible color.
+                bsbWarningDialog.show();
+                // colorPrimary is repurposed app-wide to match colorSurface in light theme (so
+                // the toolbar isn't tinted), making default AlertDialog button text invisible
+                // there; dark theme uses a distinct green colorPrimary so default text is
+                // already visible, but forcing the color here keeps both themes consistent.
                 int buttonColor = ContextCompat.getColor(SettingsActivity.this, R.color.app_on_surface);
-                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(buttonColor);
-                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor);
+                bsbWarningDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(buttonColor);
+                bsbWarningDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (bsbWarningDialog != null && bsbWarningDialog.isShowing()) {
+            bsbWarningDialog.dismiss();
+        }
+        super.onDestroy();
     }
 
     @Override
