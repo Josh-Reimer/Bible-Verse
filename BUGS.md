@@ -9,20 +9,26 @@ These are lower-severity cleanup/altitude items, left open for later.
 ---
 
 ## Issue #15 — BSB-only hardcoded special case in translation listener
-**Effort: Low**
+**Status: DONE**
 
-`SettingsActivity.java`'s translation listener gates the accuracy-warning dialog
+`SettingsActivity.java`'s translation listener gated the accuracy-warning dialog
 with a single hardcoded `if (!selected.equals("bsb"))` check instead of a
-data-driven flag (e.g. a `Set<String>` of translation codes whose red-letter data
-is algorithmically derived). `ADDING_TRANSLATIONS.md` documents extending this by
-hand with another `&& !selected.equals("web")` clause per future translation,
-meaning the onboarding doc itself perpetuates the special case rather than
-generalizing it.
+data-driven flag. `ADDING_TRANSLATIONS.md` documented extending this by hand with
+another `&& !selected.equals("web")` clause per future translation, meaning the
+onboarding doc itself perpetuated the special case rather than generalizing it.
 
-**Fix:** replace the boolean check with something like a static
-`Set.of("bsb")` (grown per translation) or — better — derive it at runtime from
-whether `RedLetter` data for that translation came from `scripts/generate_red_letter.py`
-vs. a real source.
+**What was done:**
+- Added a `private static final Set<String> ALGORITHMIC_RED_LETTER_TRANSLATIONS`
+  constant (currently `Set.of("bsb")`) and replaced the `equals("bsb")` check with
+  `ALGORITHMIC_RED_LETTER_TRANSLATIONS.contains(selected)`
+- Dialog title/message now interpolate the selected translation's display name
+  instead of hardcoding "BSB", so the dialog reads correctly for any translation
+  added to the set
+- Renamed `bsbWarningDialog` field to `redLetterWarningDialog` since it's no
+  longer BSB-specific
+- Updated `ADDING_TRANSLATIONS.md`'s "Accuracy warning dialog" section to show
+  adding a translation code to the `Set.of(...)` instead of hand-extending an
+  `if` chain
 
 ---
 

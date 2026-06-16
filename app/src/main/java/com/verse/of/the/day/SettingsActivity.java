@@ -20,10 +20,17 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NavUtils;
 
+import java.util.Set;
+
 public class SettingsActivity extends AppCompatActivity {
 
+    // Translations whose red_letter_<code>.json was derived algorithmically from KJV
+    // (scripts/generate_red_letter.py) rather than parsed from a genuine red-letter
+    // source edition — these get the one-time accuracy warning dialog below.
+    private static final Set<String> ALGORITHMIC_RED_LETTER_TRANSLATIONS = Set.of("bsb");
+
     public Tools tools = new Tools();
-    private AlertDialog bsbWarningDialog;
+    private AlertDialog redLetterWarningDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,20 +122,20 @@ public class SettingsActivity extends AppCompatActivity {
                 // Selecting the already-committed translation is a no-op. This guards both
                 // the initial programmatic selection in onCreate and any spurious repeat
                 // callbacks Spinner can fire during activity recreation (e.g. a theme change),
-                // which would otherwise re-show the BSB warning dialog.
+                // which would otherwise re-show the red-letter accuracy warning dialog.
                 if (position == committedIndex) return;
 
                 String selected = translations[position].toLowerCase();
 
-                if (!selected.equals("bsb")) {
+                if (!ALGORITHMIC_RED_LETTER_TRANSLATIONS.contains(selected)) {
                     spEditor.putString("translation", selected).apply();
                     committedIndex = position;
                     return;
                 }
 
-                bsbWarningDialog = new AlertDialog.Builder(SettingsActivity.this)
-                        .setTitle("BSB Red-Letter Accuracy")
-                        .setMessage("Red-letter highlighting in BSB is algorithmically generated and may occasionally be inaccurate.")
+                redLetterWarningDialog = new AlertDialog.Builder(SettingsActivity.this)
+                        .setTitle(translations[position] + " Red-Letter Accuracy")
+                        .setMessage("Red-letter highlighting in " + translations[position] + " is algorithmically generated and may occasionally be inaccurate.")
                         .setCancelable(false)
                         .setPositiveButton("OK", (d, which) -> {
                             spEditor.putString("translation", selected).apply();
@@ -136,14 +143,14 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("Cancel", (d, which) -> translationSpinner.setSelection(committedIndex))
                         .create();
-                bsbWarningDialog.show();
+                redLetterWarningDialog.show();
                 // colorPrimary is repurposed app-wide to match colorSurface in light theme (so
                 // the toolbar isn't tinted), making default AlertDialog button text invisible
                 // there; dark theme uses a distinct green colorPrimary so default text is
                 // already visible, but forcing the color here keeps both themes consistent.
                 int buttonColor = ContextCompat.getColor(SettingsActivity.this, R.color.app_on_surface);
-                bsbWarningDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(buttonColor);
-                bsbWarningDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor);
+                redLetterWarningDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(buttonColor);
+                redLetterWarningDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
@@ -152,8 +159,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (bsbWarningDialog != null && bsbWarningDialog.isShowing()) {
-            bsbWarningDialog.dismiss();
+        if (redLetterWarningDialog != null && redLetterWarningDialog.isShowing()) {
+            redLetterWarningDialog.dismiss();
         }
         super.onDestroy();
     }

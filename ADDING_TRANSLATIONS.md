@@ -143,22 +143,20 @@ spot-checking only; they are not read by the app and don't need to ship.
 
 ### Accuracy warning dialog (recommended for algorithmically-derived translations)
 
-`SettingsActivity`'s translation listener special-cases BSB to show a one-time
-confirmation dialog ("Red-letter highlighting ... is algorithmically generated and
-may occasionally be inaccurate") before committing the switch, since BSB's spans are
-derived rather than sourced. If the new translation's red-letter data also comes from
-step 4b, extend the same check rather than adding a parallel special case:
+`SettingsActivity` shows a one-time confirmation dialog ("Red-letter highlighting in
+<TRANSLATION> is algorithmically generated and may occasionally be inaccurate") before
+committing a switch to any translation listed in its `ALGORITHMIC_RED_LETTER_TRANSLATIONS`
+constant, since those translations' spans are derived rather than sourced. If the new
+translation's red-letter data also comes from step 4b, add its code to that set —
+the dialog title/message already interpolate the selected translation's display name,
+so no other code changes are needed:
 
 ```java
-if (!selected.equals("bsb") && !selected.equals("web")) {
-    spEditor.putString("translation", selected).apply();
-    committedIndex = position;
-    return;
-}
+private static final Set<String> ALGORITHMIC_RED_LETTER_TRANSLATIONS = Set.of("bsb", "web");
 ```
 
 A translation with a genuine source-derived `red_letter_<code>.json` (step 4a) — or
-no red-letter file at all — doesn't need this warning.
+no red-letter file at all — doesn't need to be added to this set.
 
 ## 5. Build and verify
 
