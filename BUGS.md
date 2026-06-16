@@ -86,18 +86,22 @@ values.
 ---
 
 ## Issue #18 — Redundant tint + fillColor on dropdown arrow
-**Effort: Low**
+**Status: DONE**
 
-`app/src/main/res/drawable/ic_dropdown_arrow.xml` sets both
+`app/src/main/res/drawable/ic_dropdown_arrow.xml` set both
 `android:tint="?attr/colorOnSurface"` on the vector root and a hardcoded
-`android:fillColor="@android:color/white"` on its path. Tint overrides the
-rendered color of all opaque pixels, so the literal fillColor value has no
+`android:fillColor="@android:color/white"` on its path. Tint overrode the
+rendered color of all opaque pixels, so the literal fillColor value had no
 visible effect and could mislead a future editor into thinking it controls the
 color.
 
-**Fix:** drop the tint attribute and set `fillColor="?attr/colorOnSurface"`
-directly, or drop the fillColor override and leave a comment that tint is the
-only thing that matters.
+**What was done:**
+- Dropped the `android:tint` attribute on the vector root
+- Set the path's `android:fillColor` directly to `?attr/colorOnSurface`
+- Confirmed `minSdk` is 33 (theme-attribute references in vector paths need
+  API 24+) and that the drawable has no other (programmatic) consumers
+- Verified visually identical chevron color in both light and dark theme on
+  device
 
 ---
 
