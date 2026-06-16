@@ -20,10 +20,6 @@
     "reason": "fallback"
   },
   {
-    "ref": "39:26:25",
-    "reason": "fallback"
-  },
-  {
     "ref": "39:26:50",
     "reason": "fallback"
   },
@@ -120,10 +116,6 @@
     "reason": "fallback"
   },
   {
-    "ref": "42:18:7",
-    "reason": "fallback"
-  },
-  {
     "ref": "43:18:9",
     "reason": "fallback"
   },
@@ -133,10 +125,6 @@
   },
   {
     "ref": "65:1:11",
-    "reason": "fallback"
-  },
-  {
-    "ref": "65:22:20",
     "reason": "fallback"
   }
 ]
