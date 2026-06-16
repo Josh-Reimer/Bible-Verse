@@ -18,7 +18,6 @@
         <item name="colorOnSurface">@color/app_on_surface</item>
 
         <item name="colorControlActivated">@color/green_700_primary</item>
-"
 
         <item name="android:windowLightNavigationBar">false</item>
 

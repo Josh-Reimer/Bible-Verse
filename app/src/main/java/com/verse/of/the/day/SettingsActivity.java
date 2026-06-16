@@ -1,5 +1,6 @@
 package com.verse.of.the.day;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -103,14 +105,15 @@ public class SettingsActivity extends AppCompatActivity {
         final int initialTranslationIndex = translationIndex;
 
         translationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            boolean firstCall = true;
-            boolean suppressNext = false;
             int committedIndex = initialTranslationIndex;
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (firstCall) { firstCall = false; return; }
-                if (suppressNext) { suppressNext = false; return; }
+                // Selecting the already-committed translation is a no-op. This guards both
+                // the initial programmatic selection in onCreate and any spurious repeat
+                // callbacks Spinner can fire during activity recreation (e.g. a theme change),
+                // which would otherwise re-show the BSB warning dialog.
+                if (position == committedIndex) return;
 
                 String selected = translations[position].toLowerCase();
 
@@ -120,19 +123,23 @@ public class SettingsActivity extends AppCompatActivity {
                     return;
                 }
 
-                new AlertDialog.Builder(SettingsActivity.this)
+                AlertDialog dialog = new AlertDialog.Builder(SettingsActivity.this)
                         .setTitle("BSB Red-Letter Accuracy")
                         .setMessage("Red-letter highlighting in BSB is algorithmically generated and may occasionally be inaccurate.")
                         .setCancelable(false)
-                        .setPositiveButton("OK", (dialog, which) -> {
+                        .setPositiveButton("OK", (d, which) -> {
                             spEditor.putString("translation", selected).apply();
                             committedIndex = position;
                         })
-                        .setNegativeButton("Cancel", (dialog, which) -> {
-                            suppressNext = true;
-                            translationSpinner.setSelection(committedIndex);
-                        })
-                        .show();
+                        .setNegativeButton("Cancel", (d, which) -> translationSpinner.setSelection(committedIndex))
+                        .create();
+                dialog.show();
+                // colorPrimary is repurposed app-wide to match the surface color (so the
+                // toolbar isn't tinted), which would otherwise make these buttons invisible
+                // against the dialog's surface-colored background — force a visible color.
+                int buttonColor = ContextCompat.getColor(SettingsActivity.this, R.color.app_on_surface);
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(buttonColor);
+                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
