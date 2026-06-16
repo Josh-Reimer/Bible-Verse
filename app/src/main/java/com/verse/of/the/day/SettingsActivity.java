@@ -4,10 +4,13 @@ import android.content.SharedPreferences;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -74,8 +77,20 @@ public class SettingsActivity extends AppCompatActivity {
 
         // Translation spinner
         String[] translations = {"KJV", "ASV", "BSB"};
+        String[] translationFullNames = {
+                "KJV — King James Version",
+                "ASV — American Standard Version",
+                "BSB — Berean Standard Bible"
+        };
         Spinner translationSpinner = findViewById(R.id.translationSpinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, translations);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, translations) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                TextView itemView = (TextView) super.getDropDownView(position, convertView, parent);
+                itemView.setText(translationFullNames[position]);
+                return itemView;
+            }
+        };
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         translationSpinner.setAdapter(adapter);
 
@@ -85,13 +100,39 @@ public class SettingsActivity extends AppCompatActivity {
             if (translations[i].toLowerCase().equals(currentTranslation)) { translationIndex = i; break; }
         }
         translationSpinner.setSelection(translationIndex);
+        final int initialTranslationIndex = translationIndex;
 
         translationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             boolean firstCall = true;
+            boolean suppressNext = false;
+            int committedIndex = initialTranslationIndex;
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (firstCall) { firstCall = false; return; }
-                spEditor.putString("translation", translations[position].toLowerCase()).apply();
+                if (suppressNext) { suppressNext = false; return; }
+
+                String selected = translations[position].toLowerCase();
+
+                if (!selected.equals("bsb")) {
+                    spEditor.putString("translation", selected).apply();
+                    committedIndex = position;
+                    return;
+                }
+
+                new AlertDialog.Builder(SettingsActivity.this)
+                        .setTitle("BSB Red-Letter Accuracy")
+                        .setMessage("Red-letter highlighting in BSB is algorithmically generated and may occasionally be inaccurate.")
+                        .setCancelable(false)
+                        .setPositiveButton("OK", (dialog, which) -> {
+                            spEditor.putString("translation", selected).apply();
+                            committedIndex = position;
+                        })
+                        .setNegativeButton("Cancel", (dialog, which) -> {
+                            suppressNext = true;
+                            translationSpinner.setSelection(committedIndex);
+                        })
+                        .show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
