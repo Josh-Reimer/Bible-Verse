@@ -7,34 +7,35 @@ import android.text.Spanned;
 import org.json.JSONObject;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 
 public class RedLetter {
 
-    private JSONObject data = null;
-    private boolean loaded = false;
+    private final HashMap<String, JSONObject> cache = new HashMap<>();
 
-    private void load(Context context) {
-        if (loaded) return;
-        loaded = true;
+    private JSONObject load(Context context, String translation) {
+        if (cache.containsKey(translation)) return cache.get(translation);
+        JSONObject data = null;
         try {
-            InputStream is = context.getAssets().open("red_letter_kjv.json");
+            InputStream is = context.getAssets().open("red_letter_" + translation + ".json");
             byte[] bytes = is.readAllBytes();
             is.close();
             data = new JSONObject(new String(bytes, StandardCharsets.UTF_8));
         } catch (Exception e) {
-            data = null;
+            // no red-letter file for this translation
         }
+        cache.put(translation, data);
+        return data;
     }
 
-    private boolean isKjv(Context context) {
+    private String getTranslation(Context context) {
         SharedPreferences sp = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
-        return "kjv".equals(sp.getString("translation", "kjv"));
+        return sp.getString("translation", "kjv");
     }
 
     // Returns a Spanned (HTML) if this verse has red-letter markup, null otherwise.
     public Spanned getSpanned(Context context, String verseRef) {
-        if (!isKjv(context)) return null;
-        load(context);
+        JSONObject data = load(context, getTranslation(context));
         if (data == null) return null;
         String html = data.optString(verseRef, null);
         if (html == null) return null;

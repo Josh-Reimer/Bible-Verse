@@ -1,0 +1,142 @@
+[
+  {
+    "ref": "39:9:22",
+    "reason": "fallback"
+  },
+  {
+    "ref": "39:15:16",
+    "reason": "fallback"
+  },
+  {
+    "ref": "39:20:22",
+    "reason": "fallback"
+  },
+  {
+    "ref": "39:21:19",
+    "reason": "fallback"
+  },
+  {
+    "ref": "39:22:21",
+    "reason": "fallback"
+  },
+  {
+    "ref": "39:26:25",
+    "reason": "fallback"
+  },
+  {
+    "ref": "39:26:50",
+    "reason": "fallback"
+  },
+  {
+    "ref": "39:27:11",
+    "reason": "fallback"
+  },
+  {
+    "ref": "39:28:9",
+    "reason": "fallback"
+  },
+  {
+    "ref": "40:10:51",
+    "reason": "fallback"
+  },
+  {
+    "ref": "40:10:52",
+    "reason": "fallback"
+  },
+  {
+    "ref": "40:13:5",
+    "reason": "fallback"
+  },
+  {
+    "ref": "40:15:2",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:7:43",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:8:54",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:9:55",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:11:46",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:17:37",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:18:41",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:20:23",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:20:25",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:22:31",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:22:51",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:23:3",
+    "reason": "fallback"
+  },
+  {
+    "ref": "42:2:16",
+    "reason": "fallback"
+  },
+  {
+    "ref": "42:5:6",
+    "reason": "fallback"
+  },
+  {
+    "ref": "42:5:14",
+    "reason": "fallback"
+  },
+  {
+    "ref": "42:6:67",
+    "reason": "fallback"
+  },
+  {
+    "ref": "42:8:34",
+    "reason": "fallback"
+  },
+  {
+    "ref": "42:13:7",
+    "reason": "fallback"
+  },
+  {
+    "ref": "42:18:7",
+    "reason": "fallback"
+  },
+  {
+    "ref": "43:18:9",
+    "reason": "fallback"
+  },
+  {
+    "ref": "43:22:18",
+    "reason": "fallback"
+  },
+  {
+    "ref": "65:1:11",
+    "reason": "fallback"
+  },
+  {
+    "ref": "65:22:20",
+    "reason": "fallback"
+  }
+]

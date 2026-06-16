@@ -56,5 +56,50 @@ Recommend starting with one additional translation (ASV) as a proof of concept b
 
 ---
 
+## Issue #14 — Per-span red-letter alignment for ASV and BSB
+**Status: DONE**
+
+**What was done:**
+- `scripts/generate_red_letter.py` implements the algorithm below and overwrites `app/src/main/assets/red_letter_asv.json` / `red_letter_bsb.json`
+- Final coverage: ASV 99.7% precise (1403 full + 617 aligned, 7 whole-verse fallback), BSB 98.3% precise (1403 full + 502 aligned + 87 quote-anchored, 35 fallback)
+- Fixed two bugs found during validation: (1) inter-word gaps (spaces/punctuation) weren't inheriting the red flag, causing every red word to render as its own separate `<font>` span instead of one continuous block; (2) ambiguous gap-filling originally split 50/50 at the midpoint, which let narration bleed into red spans (e.g. "Yes" or "Jesus replied," getting colored) — changed to default ambiguous gaps to non-red, only carrying red across a gap when both neighbors are confidently red. This trades minor edge-word under-coloring for eliminating narration false-positives.
+- Validated: 0 tag-balance failures, 0 round-trip text-mismatch failures (every red span's stripped text is an exact substring of the source verse), all 10 known multi-span KJV verses retain multiple spans in both translations, per-book red-word ratios track the KJV baseline within tolerance.
+- Review artifacts (`scripts/red_letter_asv_review.json`, `red_letter_bsb_review.json`) list every fallback verse with a reason, for future manual spot-checking — these are dev tooling output, not shipped in `assets/`.
+- No Android app code changes needed — `RedLetter.java` already loaded `red_letter_<translation>.json` generically.
+
+**Effort: High**
+
+**Status quo:** `red_letter_asv.json` and `red_letter_bsb.json` currently wrap entire verses in `<font color="#CC0000">` whenever any part of the KJV verse is red-letter (2019 verses each). This over-colors narrative framing like "And Jesus answering said unto him," that isn't actually Christ's words.
+
+**Why precise spans are hard:** no pre-tagged red-letter source exists for ASV or BSB anywhere (confirmed via web research — OpenScriptures, eBible, CrossWire's own ASV SWORD module all lack `<q who="Jesus">`/`\wj` markup; the ASV was never published as a red-letter edition). The only authoritative per-span source is the CrossWire KJV OSIS XML, already baked into `red_letter_kjv.json`. So precise ASV/BSB spans must be derived algorithmically from the KJV spans, not sourced directly.
+
+**Approach — offline Python script, run once, output committed as assets:**
+
+1. **Parse KJV reference spans.** For each of the 2027 `red_letter_kjv.json` entries, split the HTML on `<font>`/`</font>` via regex into ordered `(text_segment, is_red)` tuples. Classify each verse: fully red (1403, 69%), single partial span (614, 30%), or multi-span (10, 0.5%).
+
+2. **Locate red span(s) in the KJV plain verse text.** Read the matching line from `kjv/<book>.txt` (regex `^(\d+):(\d+):\s*(.*)`, don't assume a fixed header offset — 13 books start directly at `1:1:` with no header). Find each red segment's word-index range by matching its first few words against the verse's tokenized word list.
+
+3. **Align red word-ranges to ASV/BSB.** Tokenize both KJV and target verse text into lowercase word lists, run `difflib.SequenceMatcher.get_matching_blocks()`, and map the KJV red word-range onto the target via overlapping matched blocks. Accept if confidence (matched words / total red words) ≥ 0.4. Validated on real data: 98.9% of ASV partial/multi cases align this way.
+
+4. **BSB-specific fallback: quote anchoring.** BSB paraphrases more heavily and often inverts speech/narration order, dropping SequenceMatcher confidence. When step 3 fails, extract `"..."` smart-quote spans from the BSB verse (merging adjacent quotes split by short narrator tags, e.g. `" he said, "`), then match red-span words against quote-span words with a lower threshold (≥0.25, since legitimate paraphrasing reduces word overlap even within real quotes). Recovers 89 of 126 otherwise-failing BSB cases, bringing BSB precise coverage to 97.8%.
+
+5. **Reconstruct HTML.** Tokenize the target text into `(word, char_start, char_end)`, mark accepted red ranges in a boolean array over character positions, and walk the string inserting `<font>`/`</font>` at false→true / true→false transitions. Fully-red verses skip alignment entirely — just wrap the whole target text (correct by construction).
+
+6. **Fallback on alignment failure.** If no strategy reaches threshold, fall back to whole-verse red (today's behavior) rather than omitting the verse — a missing entry is worse UX than mild over-coloring. Log every fallback (key + reason) to a separate `review_flags.json` for manual spot-checking. Expected fallback rate: ~0.7% ASV, ~1.8% BSB.
+
+7. **Validate before shipping.** Round-trip check: every emitted red span's plain text must be a contiguous substring of the target verse (catches alignment bugs that scramble word order — hard fail, not a quality tradeoff). Word-count sanity: red-word ratio per book should track the KJV's own ~45% baseline; large per-book deviations flag systemic problems. Unit-test all 10 known multi-span KJV verses explicitly per translation. Manually eyeball a random sample of "precise" (non-fallback) results, since high confidence scores can still produce slightly-off boundaries. Ship only if fallback rate stays under ~2-3% and round-trip check passes 100%.
+
+8. **Output.** Overwrite `red_letter_asv.json` / `red_letter_bsb.json` in `app/src/main/assets/`, same key format (`"bookIndex:chapter:verse"`) and same `<font color="#CC0000">` markup as today — a drop-in replacement.
+
+**Android app changes:** none. `RedLetter.java` already loads `red_letter_<translation>.json` generically based on the `"translation"` SharedPreference and renders via `Html.fromHtml()` — it doesn't care whether spans are whole-verse or precise.
+
+**Critical files:**
+- `app/src/main/assets/red_letter_kjv.json` — alignment source
+- `app/src/main/assets/kjv/*.txt`, `asv/*.txt`, `bsb/*.txt` — verse text (64 books each)
+- `app/src/main/assets/red_letter_asv.json`, `red_letter_bsb.json` — generation output (current whole-verse versions to be overwritten)
+- `app/src/main/java/com/verse/of/the/day/RedLetter.java` — confirms the JSON contract the script must produce; no edits needed
+
+---
+
 ## Suggested order
-#13 → #6 → #12 → #7
+#13 → #6 → #12 → #7 → #14

@@ -1,0 +1,30 @@
+[
+  {
+    "ref": "40:8:21",
+    "reason": "fallback"
+  },
+  {
+    "ref": "40:8:26",
+    "reason": "fallback"
+  },
+  {
+    "ref": "40:9:33",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:9:55",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:11:2",
+    "reason": "fallback"
+  },
+  {
+    "ref": "41:20:23",
+    "reason": "fallback"
+  },
+  {
+    "ref": "43:9:5",
+    "reason": "fallback"
+  }
+]
