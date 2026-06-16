@@ -106,16 +106,28 @@ color.
 ---
 
 ## Issue #19 — Parallel translations[] / translationFullNames[] arrays
-**Effort: Low**
+**Status: DONE**
 
-`SettingsActivity.java`'s translation spinner setup uses two parallel
+`SettingsActivity.java`'s translation spinner setup used two parallel
 `String[]` arrays (`translations`, `translationFullNames`) indexed by position,
 with no check that they stay the same length/order.
-`getDropDownView()` indexes `translationFullNames[position]` directly.
+`getDropDownView()` indexed `translationFullNames[position]` directly. The
+translation *code* (e.g. `"kjv"`) was also derived from the label via
+`.toLowerCase()` rather than being explicit.
 
-**Fix:** replace with a single array/list of small `Translation { code, label,
-fullName }` records, or at minimum assert the two arrays' lengths match in
-`onCreate()`.
+**What was done:**
+- Added a `private record Translation(String code, String label, String
+  fullName) {}` and a single `TRANSLATIONS` array of three entries
+- Translation codes are now explicit fields instead of being derived from
+  `label.toLowerCase()`
+- `getDropDownView()`, the current-translation lookup, and the listener (incl.
+  the warning dialog's title/message) all index into the one `TRANSLATIONS`
+  array instead of two separate arrays
+- Updated `ADDING_TRANSLATIONS.md`'s step 3 to show adding one `Translation`
+  entry instead of editing two parallel arrays
+- Verified on device: dropdown shows correct full names, selecting ASV
+  persists `"asv"` and is reflected on the main screen, and the BSB warning
+  dialog still works correctly
 
 ---
 

@@ -48,22 +48,20 @@ Notes that affect parsing:
 
 ## 3. Wire the translation into Settings
 
-In `SettingsActivity.java`, add the new code to all three parallel arrays/values in
-the translation spinner section:
+In `SettingsActivity.java`, add a `Translation` entry to the `TRANSLATIONS` array:
 
 ```java
-String[] translations = {"KJV", "ASV", "BSB", "WEB"};
-String[] translationFullNames = {
-        "KJV — King James Version",
-        "ASV — American Standard Version",
-        "BSB — Berean Standard Bible",
-        "WEB — World English Bible"
+private static final Translation[] TRANSLATIONS = {
+        new Translation("kjv", "KJV", "KJV — King James Version"),
+        new Translation("asv", "ASV", "ASV — American Standard Version"),
+        new Translation("bsb", "BSB", "BSB — Berean Standard Bible"),
+        new Translation("web", "WEB", "WEB — World English Bible"),
 };
 ```
 
-`translations[i].toLowerCase()` must equal the asset folder name from step 1 — the
-spinner's selection-matching and the value written to `SharedPreferences` both derive
-the pref string this way, there's no separate code mapping.
+`Translation.code()` must equal the asset folder name from step 1 — the spinner's
+selection-matching and the value written to `SharedPreferences` both use this code
+directly, there's no separate mapping.
 
 That's it for a translation with no red-letter content — `RedLetter.load()` will
 fail to find `red_letter_web.json`, catch the exception, cache `null`, and
