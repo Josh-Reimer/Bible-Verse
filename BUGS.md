@@ -51,18 +51,37 @@ Spinner's `android:background` (wrapped in `spinner_background.xml`) and
 ---
 
 ## Issue #17 — spinner_fill/spinner_border duplicate colorSurfaceVariant/colorOutline
-**Effort: Medium**
+**Status: DONE**
 
-`values/colors.xml` and `values-night/colors.xml` add new `spinner_fill`/
-`spinner_border` colors for contrast. `values-night/themes.xml` already defines
+`values/colors.xml` and `values-night/colors.xml` added standalone `spinner_fill`/
+`spinner_border` colors for contrast. `values-night/themes.xml` already defined
 `colorSurfaceVariant` (#444444) and `colorOutline` (#888888) — close in intent to
-the new night-mode `spinner_fill`/`spinner_border` (#3A3A3A/#8A8A8A) — but
-`values/themes.xml` (light) never defines those Material3 attributes at all.
+the night-mode `spinner_fill`/`spinner_border` (#3A3A3A/#8A8A8A) — but
+`values/themes.xml` (light) never defined those Material3 attributes at all.
 
-**Fix:** define `colorSurfaceVariant`/`colorOutline` for light theme too, and
-have `spinner_box.xml` reference `?attr/colorSurfaceVariant`/`?attr/colorOutline`
-directly instead of the new standalone colors — fixes the gap app-wide instead
-of just for spinners.
+Note: an earlier version of `spinner_background.xml` (pre-dating this contrast
+fix, see commit `29ad16d`) *did* reference `?attr/colorSurfaceVariant`/
+`?attr/colorOutline` directly, and was deliberately switched to standalone
+colors because the then-current theme values read too close to the screen
+background in dark mode. So the fix here updates the *values* of
+`colorSurfaceVariant`/`colorOutline` to match the already-verified-good
+`spinner_fill`/`spinner_border` numbers, rather than reverting to the old
+values.
+
+**What was done:**
+- `values/themes.xml`: added `colorSurfaceVariant` (#EAEAEA) and `colorOutline`
+  (#9E9E9E) — previously undefined for light theme
+- `values-night/themes.xml`: changed `colorSurfaceVariant`/`colorOutline` from
+  #444444/#888888 to #3A3A3A/#8A8A8A (the values already verified to give good
+  dark-theme contrast)
+- `spinner_surface.xml`: now references `?attr/colorSurfaceVariant`/
+  `?attr/colorOutline` instead of `@color/spinner_fill`/`@color/spinner_border`
+- Deleted the now-unused `spinner_fill`/`spinner_border` colors from both
+  `colors.xml` files
+- Checked `bookmark_recyclerview_item.xml`'s `MaterialCardView` (the only other
+  Material3 component touching these attributes) — it sets no `strokeWidth` and
+  uses `colorSurface` for its background, so it's unaffected by this change
+- Verified visually identical contrast in both light and dark theme on device
 
 ---
 

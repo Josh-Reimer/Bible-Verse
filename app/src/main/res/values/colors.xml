@@ -4,8 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="app_surface">#FFFFFF</color>
     <color name="app_on_surface">#000000</color>
-    <color name="spinner_fill">#EAEAEA</color>
-    <color name="spinner_border">#9E9E9E</color>
 
 <!--new colors-->
 <!--primary-->
