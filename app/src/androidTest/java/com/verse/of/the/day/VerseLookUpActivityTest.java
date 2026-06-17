@@ -18,7 +18,7 @@ public class VerseLookUpActivityTest {
         Intent intent = new Intent();
         intent.putExtra("verse_ref", "0:1:1");
 
-        try (ActivityScenario<VerseLookUpActivity> scenario = ActivityScenario.launch(intent, VerseLookUpActivity.class)) {
+        try (ActivityScenario<VerseLookUpActivity> scenario = ActivityScenario.launch(intent)) {
             scenario.onActivity(activity -> {
                 assertNotNull(activity);
             });
@@ -31,7 +31,7 @@ public class VerseLookUpActivityTest {
         String testVerseRef = "0:1:1";
         intent.putExtra("verse_ref", testVerseRef);
 
-        try (ActivityScenario<VerseLookUpActivity> scenario = ActivityScenario.launch(intent, VerseLookUpActivity.class)) {
+        try (ActivityScenario<VerseLookUpActivity> scenario = ActivityScenario.launch(intent)) {
             scenario.onActivity(activity -> {
                 assertNotNull(activity);
                 // The activity should have received the verse reference
@@ -44,7 +44,7 @@ public class VerseLookUpActivityTest {
         Intent intent = new Intent();
         intent.putExtra("verse_ref", "39:5:3");  // Matthew 5:3
 
-        try (ActivityScenario<VerseLookUpActivity> scenario = ActivityScenario.launch(intent, VerseLookUpActivity.class)) {
+        try (ActivityScenario<VerseLookUpActivity> scenario = ActivityScenario.launch(intent)) {
             scenario.onActivity(activity -> {
                 assertNotNull(activity);
             });
