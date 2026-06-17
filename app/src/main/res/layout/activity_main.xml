@@ -42,17 +42,75 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/main_toolbar" />
 
-		<!-- RADIAL MENU -->
-		<io.github.gawwr4v.radialmenu.RadialMenuView
-			android:id="@+id/radial_menu"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			app:rm_menuRadius="120dp"
-			app:rm_iconSize="48dp"
-			app:rm_accentColor="@android:color/white"
-			app:rm_overlayColor="#80000000"
-			app:rm_badgeColor="@android:color/holo_red_dark"
-			app:rm_animationDurationMs="200" />
+		<!-- MAIN MENU FAB (CENTER BUTTON) -->
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/menu_fab"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="19dp"
+			android:layout_marginTop="19dp"
+			android:layout_marginEnd="19dp"
+			android:layout_marginBottom="35dp"
+			android:contentDescription="@string/view_more_options_for_what_you_can_do_with_the_verse_on_screen"
+			android:src="@drawable/more_vert_36"
+			app:fabSize="auto"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent" />
+
+		<!-- BOOKMARK FAB -->
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/bookmark_fab"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="19dp"
+			android:contentDescription="@string/bookmark_this_verse"
+			android:src="@drawable/bookmark_border_48"
+			android:visibility="gone"
+			app:fabSize="auto"
+			app:layout_constraintBottom_toTopOf="@id/menu_fab"
+			app:layout_constraintEnd_toEndOf="parent" />
+
+		<!-- VERSE LOOKUP FAB -->
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/verselookup"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="19dp"
+			android:contentDescription="@string/look_up_this_verse_in_its_chapter"
+			android:src="@drawable/open_in_new_48"
+			android:visibility="gone"
+			app:fabSize="auto"
+			app:layout_constraintBottom_toTopOf="@id/bookmark_fab"
+			app:layout_constraintEnd_toEndOf="parent" />
+
+		<!-- NEW VERSE FAB -->
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/newverse"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="19dp"
+			android:contentDescription="@string/roll_the_die_and_pick_a_new_verse"
+			android:src="@drawable/dice_48"
+			android:visibility="gone"
+			app:fabSize="auto"
+			app:layout_constraintBottom_toTopOf="@id/verselookup"
+			app:layout_constraintEnd_toEndOf="parent" />
+
+		<!-- SHARE FAB -->
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/share_fab"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="19dp"
+			android:layout_marginTop="19dp"
+			android:layout_marginEnd="19dp"
+			android:layout_marginBottom="35dp"
+			android:contentDescription="@string/share_this_verse"
+			android:src="@drawable/baseline_share_24"
+			android:visibility="gone"
+			app:fabSize="auto"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@id/menu_fab" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 	<!-- NAVIGATION DRAWER -->
