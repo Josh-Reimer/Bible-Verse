@@ -22,6 +22,11 @@ import com.google.android.material.navigation.NavigationView;
 
 import android.content.Intent;
 import android.text.Spanned;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.AlignmentSpan;
+import android.text.Layout;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.content.Context;
@@ -78,12 +83,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     void showVerse(Verse v) {
+        SharedPreferences sp = getSharedPreferences("settings", MODE_PRIVATE);
+        boolean showTranslationInfo = sp.getBoolean("show_translation_info", false);
+        String translation = sp.getString("translation", "kjv").toUpperCase();
         Spanned spanned = redLetter.getSpanned(thisapp, v.reference);
+
         if (spanned != null) {
             verseview.setText(v.proper_book + "\n" + v.chapter + ":" + v.verse + ": ");
             verseview.append(spanned);
         } else {
             verseview.setText(v.full_text);
+        }
+
+        if (showTranslationInfo) {
+            SpannableStringBuilder builder = new SpannableStringBuilder(verseview.getText());
+            builder.append("\n\n");
+            int translationStart = builder.length();
+            builder.append(translation);
+            int translationEnd = builder.length();
+
+            builder.setSpan(new ForegroundColorSpan(0xFF808080), translationStart, translationEnd, 0);
+            builder.setSpan(new RelativeSizeSpan(0.7f), translationStart, translationEnd, 0);
+            builder.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE), translationStart, translationEnd, 0);
+
+            verseview.setText(builder);
         }
     }
 

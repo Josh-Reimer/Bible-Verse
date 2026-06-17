@@ -71,4 +71,26 @@
 		app:layout_constraintTop_toTopOf="@id/settingsTranslationTitle"
 		app:layout_constraintBottom_toBottomOf="@id/settingsTranslationTitle" />
 
+	<!-- Show Translation Info label -->
+	<TextView
+		android:id="@+id/showTranslationInfoTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="24dp"
+		android:layout_marginStart="24dp"
+		android:text="@string/show_translation_info"
+		android:textSize="20sp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/settingsTranslationTitle" />
+
+	<!-- Show Translation Info Switch -->
+	<com.google.android.material.switchmaterial.SwitchMaterial
+		android:id="@+id/showTranslationInfoSwitch"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="32dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="@id/showTranslationInfoTitle"
+		app:layout_constraintBottom_toBottomOf="@id/showTranslationInfoTitle" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

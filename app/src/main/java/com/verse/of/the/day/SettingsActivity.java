@@ -19,6 +19,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NavUtils;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -143,6 +144,14 @@ public class SettingsActivity extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        // Show Translation Info switch
+        SwitchMaterial showTranslationInfoSwitch = findViewById(R.id.showTranslationInfoSwitch);
+        boolean showTranslationInfo = sp.getBoolean("show_translation_info", false);
+        showTranslationInfoSwitch.setChecked(showTranslationInfo);
+        showTranslationInfoSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            spEditor.putBoolean("show_translation_info", isChecked).apply();
         });
     }
 
