@@ -20,25 +20,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NavUtils;
 
-import java.util.Set;
-
 public class SettingsActivity extends AppCompatActivity {
 
-    private record Translation(String code, String label, String fullName) {}
-
-    private static final Translation[] TRANSLATIONS = {
-            new Translation("kjv", "KJV", "KJV — King James Version"),
-            new Translation("asv", "ASV", "ASV — American Standard Version"),
-            new Translation("bsb", "BSB", "BSB — Berean Standard Bible"),
-    };
-
-    // Translations whose red_letter_<code>.json was derived algorithmically from KJV
-    // (scripts/generate_red_letter.py) rather than parsed from a genuine red-letter
-    // source edition — these get the one-time accuracy warning dialog below.
-    private static final Set<String> ALGORITHMIC_RED_LETTER_TRANSLATIONS = Set.of("bsb");
-
     public Tools tools = new Tools();
-    private AlertDialog redLetterWarningDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,14 +53,12 @@ public class SettingsActivity extends AppCompatActivity {
             if (themeValues[i].equals(currentTheme)) { themeIndex = i; break; }
         }
         themeSpinner.setSelection(themeIndex);
-        final int initialThemeIndex = themeIndex;
 
         themeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            int committedIndex = initialThemeIndex;
+            boolean firstCall = true;
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == committedIndex) return;
-                committedIndex = position;
+                if (firstCall) { firstCall = false; return; }
                 String selected = themeValues[position];
                 spEditor.putString("theme_mode", selected).apply();
                 switch (selected) {
@@ -96,16 +78,18 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         // Translation spinner
-        String[] translationLabels = new String[TRANSLATIONS.length];
-        for (int i = 0; i < TRANSLATIONS.length; i++) {
-            translationLabels[i] = TRANSLATIONS[i].label();
-        }
+        String[] translations = {"KJV", "ASV", "BSB"};
+        String[] translationFullNames = {
+                "KJV — King James Version",
+                "ASV — American Standard Version",
+                "BSB — Berean Standard Bible"
+        };
         Spinner translationSpinner = findViewById(R.id.translationSpinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, translationLabels) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, translations) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 TextView itemView = (TextView) super.getDropDownView(position, convertView, parent);
-                itemView.setText(TRANSLATIONS[position].fullName());
+                itemView.setText(translationFullNames[position]);
                 return itemView;
             }
         };
@@ -114,8 +98,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         String currentTranslation = sp.getString("translation", "kjv");
         int translationIndex = 0;
-        for (int i = 0; i < TRANSLATIONS.length; i++) {
-            if (TRANSLATIONS[i].code().equals(currentTranslation)) { translationIndex = i; break; }
+        for (int i = 0; i < translations.length; i++) {
+            if (translations[i].toLowerCase().equals(currentTranslation)) { translationIndex = i; break; }
         }
         translationSpinner.setSelection(translationIndex);
         final int initialTranslationIndex = translationIndex;
@@ -128,21 +112,20 @@ public class SettingsActivity extends AppCompatActivity {
                 // Selecting the already-committed translation is a no-op. This guards both
                 // the initial programmatic selection in onCreate and any spurious repeat
                 // callbacks Spinner can fire during activity recreation (e.g. a theme change),
-                // which would otherwise re-show the red-letter accuracy warning dialog.
+                // which would otherwise re-show the BSB warning dialog.
                 if (position == committedIndex) return;
 
-                Translation translation = TRANSLATIONS[position];
-                String selected = translation.code();
+                String selected = translations[position].toLowerCase();
 
-                if (!ALGORITHMIC_RED_LETTER_TRANSLATIONS.contains(selected)) {
+                if (!selected.equals("bsb")) {
                     spEditor.putString("translation", selected).apply();
                     committedIndex = position;
                     return;
                 }
 
-                redLetterWarningDialog = new AlertDialog.Builder(SettingsActivity.this)
-                        .setTitle(translation.label() + " Red-Letter Accuracy")
-                        .setMessage("Red-letter highlighting in " + translation.label() + " is algorithmically generated and may occasionally be inaccurate.")
+                AlertDialog dialog = new AlertDialog.Builder(SettingsActivity.this)
+                        .setTitle("BSB Red-Letter Accuracy")
+                        .setMessage("Red-letter highlighting in BSB is algorithmically generated and may occasionally be inaccurate.")
                         .setCancelable(false)
                         .setPositiveButton("OK", (d, which) -> {
                             spEditor.putString("translation", selected).apply();
@@ -150,26 +133,17 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("Cancel", (d, which) -> translationSpinner.setSelection(committedIndex))
                         .create();
-                redLetterWarningDialog.show();
-                // colorPrimary is repurposed app-wide to match colorSurface in light theme (so
-                // the toolbar isn't tinted), making default AlertDialog button text invisible
-                // there; dark theme uses a distinct green colorPrimary so default text is
-                // already visible, but forcing the color here keeps both themes consistent.
+                dialog.show();
+                // colorPrimary is repurposed app-wide to match the surface color (so the
+                // toolbar isn't tinted), which would otherwise make these buttons invisible
+                // against the dialog's surface-colored background — force a visible color.
                 int buttonColor = ContextCompat.getColor(SettingsActivity.this, R.color.app_on_surface);
-                redLetterWarningDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(buttonColor);
-                redLetterWarningDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor);
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(buttonColor);
+                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (redLetterWarningDialog != null && redLetterWarningDialog.isShowing()) {
-            redLetterWarningDialog.dismiss();
-        }
-        super.onDestroy();
     }
 
     @Override
