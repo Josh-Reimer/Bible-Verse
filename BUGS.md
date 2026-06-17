@@ -132,14 +132,35 @@ translation *code* (e.g. `"kjv"`) was also derived from the label via
 ---
 
 ## Issue #20 — Custom spinner chrome reimplements stock dropdown affordance
-**Effort: Low**
+**Status: DONE**
 
-`spinner_background.xml` hand-builds a box + chevron layer-list to give the
-Spinner a "this is a dropdown" look, duplicating something the platform/Material
-Spinner style already provides natively. Every future palette change now needs
-to keep `ic_dropdown_arrow.xml`/`spinner_box.xml` in sync by hand instead of
-inheriting it from a theme attribute.
+`spinner_background.xml` hand-built a box + chevron layer-list to give the
+`Spinner` a "this is a dropdown" look, duplicating what the Material3
+ExposedDropdownMenu already provides natively.
 
-**Fix:** evaluate switching to a stock Material `Spinner`/`ExposedDropdownMenu`
-style with only color attributes overridden, if it can match the current visual
-contrast requirements (Issue #17) without the custom drawables.
+**Evaluation:** live device test confirmed that plain `Spinner` with no
+`android:background` override renders as text-only with no visible container
+("looks like a button, not a dropdown" — the pre-customization state that
+prompted the original custom drawables). The proper Material3 replacement is
+`TextInputLayout.OutlinedBox.ExposedDropdownMenu` + `MaterialAutoCompleteTextView`,
+which provides the outlined box + chevron using `colorOutline`/`colorSurfaceVariant`
+theme attrs already defined from Issue #17 — no custom drawables needed.
+
+**What was done:**
+- Replaced both `<Spinner>` elements in `settings_activity.xml` with
+  `TextInputLayout` + `MaterialAutoCompleteTextView` using the
+  `Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu` style
+- Each adapter overrides `getFilter()` with a no-op: without this,
+  `AutoCompleteTextView` filters the dropdown list to items matching the current
+  text (e.g. only "KJV" shows when selected), hiding the other options
+- Translation adapter overrides `getView()` (not `getDropDownView()` which is
+  Spinner-only) to show full names in the popup; collapsed-field text is
+  controlled independently via `setText()`
+- Switched both listeners from `setOnItemSelectedListener` to
+  `setOnItemClickListener` — fires only on explicit user taps, eliminating the
+  spurious Activity-recreation callbacks that required the theme spinner's
+  `committedIndex` guard; translation spinner keeps `committedIndex` only for
+  the Cancel-revert path
+- Deleted `spinner_background.xml`, `ic_dropdown_arrow.xml`, `spinner_surface.xml`
+- Updated `CLAUDE.md`'s SettingsActivity description
+- Updated stale `spinner_surface.xml` comments in both `themes.xml` files

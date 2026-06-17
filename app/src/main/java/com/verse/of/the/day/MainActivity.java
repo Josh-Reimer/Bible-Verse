@@ -17,8 +17,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.room.Room;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.content.Intent;
 import android.text.Spanned;
@@ -50,18 +50,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     MaterialToolbar toolbar; // declare only – DO NOT call findViewById here
 
-    FloatingActionButton menu_fab;
-    FloatingActionButton bookmark_fab;
-    FloatingActionButton verselookup_fab;
-    FloatingActionButton newverse_fab;
-    FloatingActionButton share_button;
+    private FloatingActionButton menuFab, bookmarkFab, verseLookupFab, newVerseFab, shareFab;
+    private boolean fabsExpanded = false;
     private TextView verseview;
     private final Scanner mainScanner = new Scanner(System.in);
     private Context thisapp;
     private VerseOfTheDay vod;
     private final Tools tools = new Tools();
     private final Bible bible = new Bible();
-    boolean fabs_visible;
     private bookmark_database db;
     boolean verse_displayed_is_bookmarked;
     private GestureDetector gestureDetector;
@@ -110,21 +106,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    void hideFabs(){
-        verselookup_fab.hide();
-        newverse_fab.hide();
-        bookmark_fab.hide();
-        share_button.hide();
-        fabs_visible = false;
-    }
-
-    void showFabs(){
-        newverse_fab.show();
-        verselookup_fab.show();
-        bookmark_fab.show();
-        share_button.show();
-        fabs_visible = true;
-    }
 
     void shareVerse(Verse verse){
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
@@ -160,11 +141,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ConstraintLayout mainLayoutView = findViewById(R.id.mainLayoutView);
         verseview = findViewById(R.id.verse);
-        menu_fab = findViewById(R.id.menu_fab);
-        bookmark_fab = findViewById(R.id.bookmark_fab);
-        verselookup_fab = findViewById(R.id.verselookup);
-        newverse_fab = findViewById(R.id.newverse);
-        share_button = findViewById(R.id.verse_share);
+
+        mainLayoutView.setOnClickListener(v -> {
+            if (fabsExpanded) toggleFabs();
+        });
+
+        menuFab = findViewById(R.id.menu_fab);
+        bookmarkFab = findViewById(R.id.bookmark_fab);
+        verseLookupFab = findViewById(R.id.verselookup);
+        newVerseFab = findViewById(R.id.newverse);
+        shareFab = findViewById(R.id.share_fab);
 
         thisapp = getApplicationContext();
         vod = new VerseOfTheDay(mainScanner, thisapp);
@@ -181,66 +167,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             showVerse(verse_displayed);
             verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
 
-        menu_fab.setOnClickListener(View -> {
-            if (fabs_visible) {
-                hideFabs();
-            } else {
+        setupFabs();
 
-                if (verse_displayed_is_bookmarked) {
-                    bookmark_fab.setImageResource(R.drawable.bookmark_solid_48);
-                    bookmark_fab.show();
-                } else {
-                    bookmark_fab.setImageResource(R.drawable.bookmark_border_48);
-                    bookmark_fab.show();
-                }
-                showFabs();
-            }
-        });
-
-        newverse_fab.setOnClickListener(View -> {
-            if (fabs_visible) {
-                verse_displayed = vod.getRandomRef(bible, tools, thisapp);
-                showVerse(verse_displayed);
-                if (db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]")){
-                    verse_displayed_is_bookmarked = false;
-
-                } else {
-                    verse_displayed_is_bookmarked = true;
-
-                }
-                hideFabs();
-            }
-        });
-        bookmark_fab.setOnClickListener(View -> {
-            if (fabs_visible) {
-                if (verse_displayed_is_bookmarked) {
-                    bookmark_fab.setImageResource(R.drawable.bookmark_border_48);
-                    //delete bookmark
-                    db.bookmark_dao().deleteBookmark(verse_displayed.reference);
-                    verse_displayed_is_bookmarked = false;
-                } else {
-                    bookmark_fab.setImageResource(R.drawable.bookmark_solid_48);
-                    bookmark new_bookmark = new bookmark(verse_displayed.full_text,verse_displayed.reference,verse_displayed.proper_book,verse_displayed.scripture_text);
-                    db.bookmark_dao().insertAll(new_bookmark);
-                    verse_displayed_is_bookmarked = true;
-                }
-            }
-        });
-        verselookup_fab.setOnClickListener(View -> {
-            if (fabs_visible) {
-                hideFabs();
-                goToVerseLookUpActivity(verse_displayed.reference);
-            }
-        });
-        share_button.setOnClickListener(
-                View -> {
-                    shareVerse(verse_displayed);
-                    hideFabs();
-                }
-        );
-        mainLayoutView.setOnClickListener(View -> {
-            hideFabs();
-        });
 
         setNavigationViewListener();
 
@@ -285,7 +213,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onDestroy() {
         super.onDestroy();
-        hideFabs();
         mainScanner.close();
     }
 
@@ -306,18 +233,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onResume() {
         super.onResume();
         Log.i("verse-main", "onResume method was called!");
+
         SharedPreferences shared_preferences = getSharedPreferences("settings", MODE_PRIVATE);
         applyTheme(shared_preferences);
         verse_displayed = new Verse(thisapp, verse_displayed.reference);
         showVerse(verse_displayed);
 
-// also check if the bookmark displayed is still a bookmark; it could have been deleted
         verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
-        if(verse_displayed_is_bookmarked){
-            bookmark_fab.setImageResource(R.drawable.bookmark_solid_48);
-        } else {
-            bookmark_fab.setImageResource(R.drawable.bookmark_border_48);
-        }
+        updateBookmarkIcon();
     }
 
 
@@ -342,10 +265,65 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-
     private void setNavigationViewListener() {
         NavigationView nv = findViewById(R.id.nv);
         nv.setNavigationItemSelectedListener(this);
+    }
+
+    void setupFabs() {
+        menuFab.setOnClickListener(v -> toggleFabs());
+        newVerseFab.setOnClickListener(v -> onNewVerse());
+        verseLookupFab.setOnClickListener(v -> onLookUp());
+        bookmarkFab.setOnClickListener(v -> onToggleBookmark());
+        shareFab.setOnClickListener(v -> onShare());
+        updateBookmarkIcon();
+    }
+
+    private void toggleFabs() {
+        fabsExpanded = !fabsExpanded;
+        int visibility = fabsExpanded ? View.VISIBLE : View.GONE;
+        newVerseFab.setVisibility(visibility);
+        verseLookupFab.setVisibility(visibility);
+        bookmarkFab.setVisibility(visibility);
+        shareFab.setVisibility(visibility);
+    }
+
+    private void onNewVerse() {
+        verse_displayed = vod.getRandomRef(bible, tools, thisapp);
+        showVerse(verse_displayed);
+        verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
+        updateBookmarkIcon();
+        if (fabsExpanded) toggleFabs();
+    }
+
+    private void onLookUp() {
+        goToVerseLookUpActivity(verse_displayed.reference);
+        if (fabsExpanded) toggleFabs();
+    }
+
+    private void onToggleBookmark() {
+        if (verse_displayed_is_bookmarked) {
+            db.bookmark_dao().deleteBookmark(verse_displayed.reference);
+            verse_displayed_is_bookmarked = false;
+        } else {
+            bookmark new_bookmark = new bookmark(verse_displayed.full_text, verse_displayed.reference, verse_displayed.proper_book, verse_displayed.scripture_text);
+            db.bookmark_dao().insertAll(new_bookmark);
+            verse_displayed_is_bookmarked = true;
+        }
+        updateBookmarkIcon();
+    }
+
+    private void onShare() {
+        shareVerse(verse_displayed);
+        if (fabsExpanded) toggleFabs();
+    }
+
+    void updateBookmarkIcon() {
+        if (verse_displayed_is_bookmarked) {
+            bookmarkFab.setImageResource(R.drawable.bookmark_solid_48);
+        } else {
+            bookmarkFab.setImageResource(R.drawable.bookmark_border_48);
+        }
     }
 
     void goToSettings() {

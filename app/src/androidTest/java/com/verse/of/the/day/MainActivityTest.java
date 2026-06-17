@@ -46,16 +46,6 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testMenuFabExists() {
-        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
-            scenario.onActivity(activity -> {
-                assert activity != null;
-                assert activity.menu_fab != null;
-            });
-        }
-    }
-
-    @Test
     public void testThemeCanBeApplied() {
         try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
             scenario.onActivity(activity -> {

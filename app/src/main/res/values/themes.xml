@@ -9,7 +9,7 @@
         <!-- Make all surfaces match your app’s background -->
         <item name="colorSurface">@color/app_surface</item>
         <item name="colorOnSurface">@color/app_on_surface</item>
-        <!-- Tuned for spinner_surface.xml's fill/border contrast against colorSurface -->
+        <!-- Tuned for ExposedDropdownMenu contrast against colorSurface -->
         <item name="colorSurfaceVariant">#EAEAEA</item>
         <item name="colorOutline">#9E9E9E</item>
 

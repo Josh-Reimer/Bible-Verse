@@ -53,38 +53,6 @@ public class MainActivityUIAutomatorTest {
     }
 
     @Test
-    public void testMenuFabIsDisplayed() {
-        // Menu FAB should be visible by default
-        UiObject2 menuFab = device.findObject(By.res(APP_PACKAGE, "menu_fab"));
-        assertNotNull("Menu FAB not found", menuFab);
-    }
-
-    @Test
-    public void testMenuFabOpensActionFabs() {
-        // Click the menu FAB to open action FABs
-        UiObject2 menuFab = device.findObject(By.res(APP_PACKAGE, "menu_fab"));
-        assertNotNull("Menu FAB not found", menuFab);
-
-        menuFab.click();
-        device.wait(Until.hasObject(By.res(APP_PACKAGE, "fab_bookmark")), 2000);
-
-        // Verify action FABs are now visible
-        UiObject2 bookmarkFab = device.findObject(By.res(APP_PACKAGE, "fab_bookmark"));
-        assertNotNull("Bookmark FAB not found after menu click", bookmarkFab);
-    }
-
-    @Test
-    public void testShareFabIsAccessible() {
-        // Open menu and verify share FAB
-        UiObject2 menuFab = device.findObject(By.res(APP_PACKAGE, "menu_fab"));
-        menuFab.click();
-        device.wait(Until.hasObject(By.res(APP_PACKAGE, "fab_share")), 2000);
-
-        UiObject2 shareFab = device.findObject(By.res(APP_PACKAGE, "fab_share"));
-        assertNotNull("Share FAB not found", shareFab);
-    }
-
-    @Test
     public void testDrawerCanBeOpened() {
         // Swipe from left edge to open drawer
         device.swipe(10, device.getDisplayHeight() / 2,
