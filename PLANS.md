@@ -14,18 +14,6 @@
 
 ---
 
-## Issue #6 — Fix fuzzy icon
-**Effort: Low**
-
-The `mipmap-anydpi-v26/` folder uses vector drawables (crisp at any size), but pre-API 26 devices fall back to the `.webp` rasters in `mipmap-hdpi/` etc. — these appear to be the unmodified default Android template icons, not your `verse_logo_foreground.xml`.
-
-**Fix:**
-1. In Android Studio → right-click `res/` → New → Image Asset
-2. Select "Launcher Icons (Adaptive and Legacy)", use `verse_logo_foreground.xml` as the foreground layer
-3. Regenerate all mipmap `.webp` files — this replaces the defaults with your actual design at the correct density
-
----
-
 ## Issue #7 — Words of Christ in red (JSON + HTML)
 **Effort: High**
 
