@@ -1,5 +1,9 @@
 # CLAUDE.md
 
+before making ui breaking changes, think about how things will look and realize that you don't have the ability to know what looks good and what is bad ux.
+preserve as much original logic and keep code diffs small unless refactors are necessary.
+
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Build Commands
@@ -11,7 +15,8 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 ./gradlew clean                  # clean build outputs
 ./gradlew assembleRelease        # build release APK
 ```
-
+a small note on debugging with adb screenshoting, do not open the file on the users machine, this breaks the development cycle,
+never save the screenshots on the phone, always remove. only analyze the screenshots for your own use, the user does not need them, he has his own eyes.
 `JAVA_HOME` must be set; `./gradlew` fails without it on this machine. There are no tests in this project. Verify UI changes live with `adb` (`adb shell input tap`, `adb shell screencap`, `uiautomator dump`) against a connected device — there is no other way to check layout/contrast/dialog behavior.
 
 ## Project Overview
@@ -62,7 +67,12 @@ Both `MainActivity` and `VerseLookUpActivity` call `WindowCompat.setDecorFitsSys
 - share verse functionality on the main activity
 - random verse generation (roll the dice) on the main activity
 - bookmarks that are persistent through app updates
-- dark/ligh/system theme persistence through app cold starts/warm starts
+- dark/light/system theme persistence through app cold starts/warm starts
 - there should be more than one bible translation with words in Christ being red
 - a chapter lookup feature for viewing randomly generated verses in the chapter they are found in
-- a settings activity with the theme and translation options avaiable there
+- a settings activity with the theme and translation options available there
+
+### Defaults
+- theme should default to system theme
+- bible translation should default to KJV (King James Version)
+- bible translation label should default to off
