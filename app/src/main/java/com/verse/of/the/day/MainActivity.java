@@ -221,6 +221,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onPause() {
         super.onPause();
+        if (fabsExpanded) {
+            fabsExpanded = false;
+            newVerseFab.setVisibility(View.GONE);
+            verseLookupFab.setVisibility(View.GONE);
+            bookmarkFab.setVisibility(View.GONE);
+            shareFab.setVisibility(View.GONE);
+        }
     }
 
     @Override
