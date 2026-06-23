@@ -20,6 +20,8 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.text.Spanned;
 import android.text.SpannableStringBuilder;
@@ -281,11 +283,64 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void toggleFabs() {
         fabsExpanded = !fabsExpanded;
-        int visibility = fabsExpanded ? View.VISIBLE : View.GONE;
-        newVerseFab.setVisibility(visibility);
-        verseLookupFab.setVisibility(visibility);
-        bookmarkFab.setVisibility(visibility);
-        shareFab.setVisibility(visibility);
+        if (fabsExpanded) {
+            showFabsWithAnimation();
+        } else {
+            hideFabsWithAnimation();
+        }
+    }
+
+    private void showFabsWithAnimation() {
+        FloatingActionButton[] fabs = {shareFab, newVerseFab, verseLookupFab, bookmarkFab};
+        long startDelay = 0;
+        long delayBetween = 80;
+        long duration = 300;
+
+        for (FloatingActionButton fab : fabs) {
+            fab.setVisibility(View.VISIBLE);
+            fab.setAlpha(0f);
+            fab.setScaleX(0f);
+            fab.setScaleY(0f);
+
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.playTogether(
+                    ObjectAnimator.ofFloat(fab, "alpha", 0f, 1f),
+                    ObjectAnimator.ofFloat(fab, "scaleX", 0f, 1f),
+                    ObjectAnimator.ofFloat(fab, "scaleY", 0f, 1f)
+            );
+            animatorSet.setDuration(duration);
+            animatorSet.setStartDelay(startDelay);
+            animatorSet.start();
+
+            startDelay += delayBetween;
+        }
+    }
+
+    private void hideFabsWithAnimation() {
+        FloatingActionButton[] fabs = {bookmarkFab, verseLookupFab, newVerseFab, shareFab};
+        long startDelay = 0;
+        long delayBetween = 60;
+        long duration = 250;
+
+        for (FloatingActionButton fab : fabs) {
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.playTogether(
+                    ObjectAnimator.ofFloat(fab, "alpha", 1f, 0f),
+                    ObjectAnimator.ofFloat(fab, "scaleX", 1f, 0f),
+                    ObjectAnimator.ofFloat(fab, "scaleY", 1f, 0f)
+            );
+            animatorSet.setDuration(duration);
+            animatorSet.setStartDelay(startDelay);
+            animatorSet.addListener(new android.animation.AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(android.animation.Animator animation) {
+                    fab.setVisibility(View.GONE);
+                }
+            });
+            animatorSet.start();
+
+            startDelay += delayBetween;
+        }
     }
 
     private void onNewVerse() {
