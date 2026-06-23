@@ -293,8 +293,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void showFabsWithAnimation() {
         FloatingActionButton[] fabs = {shareFab, newVerseFab, verseLookupFab, bookmarkFab};
         long startDelay = 0;
-        long delayBetween = 80;
-        long duration = 300;
+        long delayBetween = 60;
+        long duration = 250;
 
         for (FloatingActionButton fab : fabs) {
             fab.setVisibility(View.VISIBLE);
@@ -319,8 +319,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void hideFabsWithAnimation() {
         FloatingActionButton[] fabs = {bookmarkFab, verseLookupFab, newVerseFab, shareFab};
         long startDelay = 0;
-        long delayBetween = 60;
-        long duration = 250;
+        long delayBetween = 45;
+        long duration = 200;
 
         for (FloatingActionButton fab : fabs) {
             AnimatorSet animatorSet = new AnimatorSet();
