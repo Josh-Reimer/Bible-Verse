@@ -27,6 +27,7 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setCancelable(true);
         return inflater.inflate(R.layout.bottom_sheet_search_results, container, false);
     }
 

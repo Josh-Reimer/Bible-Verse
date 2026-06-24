@@ -4,10 +4,12 @@ public class SearchResult {
     public String displayReference;
     public String verseReference;
     public String text;
+    public String searchQuery;
 
-    public SearchResult(String displayReference, String verseReference, String text) {
+    public SearchResult(String displayReference, String verseReference, String text, String searchQuery) {
         this.displayReference = displayReference;
         this.verseReference = verseReference;
         this.text = text;
+        this.searchQuery = searchQuery;
     }
 }

@@ -449,7 +449,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         String verseRef = bookIndex + ":" + chapter + ":" + (verseIndex + 1);
                         Verse v = new Verse(thisapp, verseRef);
                         String displayRef = v.proper_book + " " + v.chapter + ":" + v.verse;
-                        results.add(new SearchResult(displayRef, verseRef, v.scripture_text));
+                        results.add(new SearchResult(displayRef, verseRef, v.scripture_text, query));
                     }
                 }
             }
@@ -464,10 +464,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void showSearchResultsBottomSheet(List<SearchResult> results) {
         SearchResultsBottomSheet bottomSheet = SearchResultsBottomSheet.newInstance(results, result -> {
-            verse_displayed = new Verse(thisapp, result.verseReference);
-            showVerse(verse_displayed);
-            verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
-            updateBookmarkIcon();
+            goToVerseLookUpActivity(result.verseReference);
         });
         bottomSheet.show(getSupportFragmentManager(), "search_results");
     }

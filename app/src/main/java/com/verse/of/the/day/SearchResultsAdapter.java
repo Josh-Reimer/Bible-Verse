@@ -1,5 +1,8 @@
 package com.verse.of.the.day;
 
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -29,8 +32,23 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         SearchResult result = results.get(position);
         holder.reference.setText(result.displayReference);
-        holder.text.setText(result.text);
+        holder.text.setText(highlightText(result.text, result.searchQuery));
         holder.itemView.setOnClickListener(v -> listener.onResultClick(result));
+    }
+
+    private Spannable highlightText(String text, String searchQuery) {
+        SpannableString spannable = new SpannableString(text);
+        String lowerText = text.toLowerCase();
+        String lowerQuery = searchQuery.toLowerCase();
+
+        int startIdx = 0;
+        while ((startIdx = lowerText.indexOf(lowerQuery, startIdx)) != -1) {
+            int endIdx = startIdx + searchQuery.length();
+            spannable.setSpan(new BackgroundColorSpan(0xFFFFFF00), startIdx, endIdx, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            startIdx = endIdx;
+        }
+
+        return spannable;
     }
 
     @Override
