@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.customview.widget.ViewDragHelper;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.room.Room;
+import androidx.appcompat.widget.SearchView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
@@ -31,6 +32,7 @@ import android.text.style.AlignmentSpan;
 import android.text.Layout;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.content.Context;
 import android.util.Log;
 
@@ -43,6 +45,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -254,6 +258,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_activity_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setQueryHint("Search verses...");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                performSearch(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -404,5 +429,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onTouchEvent(@NonNull MotionEvent event) {
         // Let the gesture detector handle touch events
         return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event);
+    }
+
+    private void performSearch(String query) {
+        String searchQuery = query.toLowerCase();
+        for (int bookIndex = 0; bookIndex < bible.books.length; bookIndex++) {
+            String bookFile = bible.books[bookIndex];
+            int maxChapters = bible.getBookLength(tools, thisapp, bookFile);
+            for (int chapter = 1; chapter <= maxChapters; chapter++) {
+                String chapterText = bible.getChapter(thisapp, tools, bookFile, chapter);
+                String[] verses = chapterText.split("\n");
+                for (int verseIndex = 0; verseIndex < verses.length; verseIndex++) {
+                    if (verses[verseIndex].toLowerCase().contains(searchQuery)) {
+                        String verseRef = bookIndex + ":" + chapter + ":" + (verseIndex + 1);
+                        verse_displayed = new Verse(thisapp, verseRef);
+                        showVerse(verse_displayed);
+                        verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
+                        updateBookmarkIcon();
+                        return;
+                    }
+                }
+            }
+        }
+        Toast.makeText(this, "No verses found matching \"" + query + "\"", Toast.LENGTH_SHORT).show();
     }
 }
