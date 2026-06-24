@@ -435,30 +435,53 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void performSearch(String query) {
-        String searchQuery = query.toLowerCase();
+        if (query.trim().isEmpty()) {
+            Toast.makeText(this, "Enter a search term", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        SearchEngineQuery searchQuery = new SearchEngineQuery(query);
+        List<String> verseRefs = SearchEngine.searchByGrep(thisapp, searchQuery);
         List<SearchResult> results = new ArrayList<>();
 
-        for (int bookIndex = 0; bookIndex < bible.books.length; bookIndex++) {
-            String bookFile = bible.books[bookIndex];
-            int maxChapters = bible.getBookLength(tools, thisapp, bookFile);
-            for (int chapter = 1; chapter <= maxChapters; chapter++) {
-                String chapterText = bible.getChapter(thisapp, tools, bookFile, chapter);
-                String[] verses = chapterText.split("\n");
-                for (int verseIndex = 0; verseIndex < verses.length; verseIndex++) {
-                    if (verses[verseIndex].toLowerCase().contains(searchQuery)) {
-                        String verseRef = bookIndex + ":" + chapter + ":" + (verseIndex + 1);
-                        Verse v = new Verse(thisapp, verseRef);
-                        String displayRef = v.proper_book + " " + v.chapter + ":" + v.verse;
-                        results.add(new SearchResult(displayRef, verseRef, v.scripture_text, query));
-                    }
-                }
-            }
+        for (String verseRef : verseRefs) {
+            Verse v = new Verse(thisapp, verseRef);
+            String displayRef = v.proper_book + " " + v.chapter + ":" + v.verse;
+            results.add(new SearchResult(displayRef, verseRef, v.scripture_text, query));
         }
 
         if (results.isEmpty()) {
             Toast.makeText(this, "No verses found matching \"" + query + "\"", Toast.LENGTH_SHORT).show();
         } else {
             showSearchResultsBottomSheet(results);
+        }
+
+        saveSearchHistory(query);
+    }
+
+    private void saveSearchHistory(String query) {
+        SharedPreferences sp = getSharedPreferences("settings", MODE_PRIVATE);
+        String historyJson = sp.getString("search_history", "[]");
+
+        try {
+            org.json.JSONArray history = new org.json.JSONArray(historyJson);
+
+            for (int i = 0; i < history.length(); i++) {
+                if (history.getString(i).equals(query)) {
+                    history.remove(i);
+                    break;
+                }
+            }
+
+            org.json.JSONArray newHistory = new org.json.JSONArray();
+            newHistory.put(query);
+            for (int i = 0; i < Math.min(19, history.length()); i++) {
+                newHistory.put(history.getString(i));
+            }
+
+            sp.edit().putString("search_history", newHistory.toString()).apply();
+        } catch (org.json.JSONException e) {
+            e.printStackTrace();
         }
     }
 
