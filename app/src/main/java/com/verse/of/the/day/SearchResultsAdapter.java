@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.ViewHolder> {
     private List<SearchResult> results;
     private OnResultClickListener listener;
+    private Map<String, Spannable> highlightCache = new HashMap<>();
 
     public interface OnResultClickListener {
         void onResultClick(SearchResult result);
@@ -32,7 +35,15 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         SearchResult result = results.get(position);
         holder.reference.setText(result.displayReference);
-        holder.text.setText(highlightText(result.text, result.searchQuery));
+
+        String cacheKey = result.text + "|" + result.searchQuery;
+        Spannable cached = highlightCache.get(cacheKey);
+        if (cached == null) {
+            cached = highlightText(result.text, result.searchQuery);
+            highlightCache.put(cacheKey, cached);
+        }
+        holder.text.setText(cached);
+
         holder.itemView.setOnClickListener(v -> listener.onResultClick(result));
     }
 
