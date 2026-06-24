@@ -48,6 +48,9 @@ import android.view.MotionEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public DrawerLayout drawerLayout;
@@ -433,6 +436,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void performSearch(String query) {
         String searchQuery = query.toLowerCase();
+        List<SearchResult> results = new ArrayList<>();
+
         for (int bookIndex = 0; bookIndex < bible.books.length; bookIndex++) {
             String bookFile = bible.books[bookIndex];
             int maxChapters = bible.getBookLength(tools, thisapp, bookFile);
@@ -442,15 +447,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 for (int verseIndex = 0; verseIndex < verses.length; verseIndex++) {
                     if (verses[verseIndex].toLowerCase().contains(searchQuery)) {
                         String verseRef = bookIndex + ":" + chapter + ":" + (verseIndex + 1);
-                        verse_displayed = new Verse(thisapp, verseRef);
-                        showVerse(verse_displayed);
-                        verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
-                        updateBookmarkIcon();
-                        return;
+                        Verse v = new Verse(thisapp, verseRef);
+                        String displayRef = v.proper_book + " " + v.chapter + ":" + v.verse;
+                        results.add(new SearchResult(displayRef, verseRef, v.scripture_text));
                     }
                 }
             }
         }
-        Toast.makeText(this, "No verses found matching \"" + query + "\"", Toast.LENGTH_SHORT).show();
+
+        if (results.isEmpty()) {
+            Toast.makeText(this, "No verses found matching \"" + query + "\"", Toast.LENGTH_SHORT).show();
+        } else {
+            showSearchResultsBottomSheet(results);
+        }
+    }
+
+    private void showSearchResultsBottomSheet(List<SearchResult> results) {
+        SearchResultsBottomSheet bottomSheet = SearchResultsBottomSheet.newInstance(results, result -> {
+            verse_displayed = new Verse(thisapp, result.verseReference);
+            showVerse(verse_displayed);
+            verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
+            updateBookmarkIcon();
+        });
+        bottomSheet.show(getSupportFragmentManager(), "search_results");
     }
 }
