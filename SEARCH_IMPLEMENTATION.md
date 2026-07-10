@@ -579,10 +579,10 @@ budget after the one-time cache build. Search now runs on a background executor
 | Typical query | ~0.8-1.5s | Single-digit ms warm; ~50-100ms first search (cache build) |
 
 ### Known Issues
-- `kjv/second_corinthians.txt` is missing the 2 Cor 1:1 line (file starts at `1:2:`), so
-  position-based verse refs in that chapter are off by one. Pre-existing asset-data issue
-  affecting the whole app (`Verse`, `VerseLookUp`, search alike), not a search bug —
-  ASV/BSB files are complete. Fix belongs in the asset file.
+- None. (Three KJV asset defects surfaced by the v3.0 verification harness — missing
+  2 Cor 1:1 and Gal 6:16 lines, and a malformed leading-space 1 Thess 1:1 line that
+  position-based lookups skipped — were fixed in the asset files; all 66 KJV books now
+  pass the verse-sequence scan.)
 
 ### Recommended Next Steps
 1. UI for search history dropdown
