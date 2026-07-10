@@ -35,16 +35,22 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Fields are lost if the system recreates this fragment (process death,
+        // theme change); dismiss instead of crashing on null.
+        if (results == null || listener == null) {
+            dismiss();
+            return;
+        }
+
         TextView resultsTitle = view.findViewById(R.id.results_title);
         RecyclerView recyclerView = view.findViewById(R.id.results_recycler_view);
 
         resultsTitle.setText("Found " + results.size() + " result" + (results.size() == 1 ? "" : "s"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        SearchResultsAdapter adapter = new SearchResultsAdapter(results, result -> {
-            listener.onResultSelected(result);
-            dismiss();
-        });
+        // Keep the sheet open so it's still there when the user returns from the
+        // verse lookup activity; swipe-down or tapping outside dismisses it.
+        SearchResultsAdapter adapter = new SearchResultsAdapter(results, result -> listener.onResultSelected(result));
         recyclerView.setAdapter(adapter);
     }
 }
