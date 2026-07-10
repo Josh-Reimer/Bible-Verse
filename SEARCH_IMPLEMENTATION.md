@@ -74,8 +74,7 @@ SearchResultsBottomSheet (BottomSheetDialogFragment)
 │   └── SearchResultsAdapter
 │       ├── SearchResult objects
 │       └── Spannable cache (HashMap)
-│           ├── SearchEngine.hilite() for token highlighting
-│           └── ForegroundColorSpan + StyleSpan (bold)
+│           └── highlightText(): substring ForegroundColorSpan per match
 │
 VerseLookupActivity (launched on result tap)
 ```
@@ -100,28 +99,32 @@ public static List<Token> tokenize(String query)
 ```
 
 #### `SearchEngine.java` (NEW)
-Core token-based grep search with caching:
+Core token-based grep search, modeled after androidbible's `SearchEngine.kt`:
 ```java
 public static List<String> searchByGrep(Context context, SearchEngineQuery query)
   // Tokenizes query using QueryTokenizer
-  // Searches each token sequentially
-  // Intersects results (verses matching ALL tokens)
+  // Searches each token sequentially; tokens after the first only scan
+  //   chapters that already matched (source-restricted pruning)
+  // Intersects results via sorted merge (verses matching ALL tokens)
   // Returns List<String> of verse references ("bookIndex:chapter:verse")
 
-public static Spannable hilite(CharSequence text, ReadyTokens tokens, int highlightColor)
-  // Applies ForegroundColorSpan + StyleSpan(BOLD) for all token matches
-  // Supports substring, whole-word, and phrase matching modes
-  // Reuses highlighting logic for adapter display
+public static String getVerseText(Context context, String verseRef)
+  // Verse text for result display, served from the in-memory cache
+  // (replaces constructing a Verse per result, which re-read book files)
 
-private static Map<String, String> chapterCache
-  // Static HashMap caching chapter text by "bookname.txt:chapter"
-  // Prevents re-reading same chapter for multiple token searches
-  // Thread-safe (only accessed from UI thread)
+private static String[][] chaptersOrig / chaptersLower
+  // Whole-Bible in-memory cache, built once per translation on first search
+  // (~4-5MB of text). chaptersLower is pre-lowercased for matching;
+  // chaptersOrig keeps original case for display. Rebuilt automatically
+  // when the "translation" SharedPreference changes.
 
-private static int indexOfWholeWordRegex(String text, String word)
-  // Regex-based word boundary detection using \b metacharacter
-  // 20-30% faster than manual character-boundary checking
-  // Handles special characters via Pattern.quote()
+private static void searchChapter(...)
+  // Scans a whole chapter as one string; maps match positions to verse
+  // numbers by walking '\n' positions (androidbible's newline walk).
+  // A chapter with no match costs a single indexOf.
+
+private static int indexOfWholeWord(String text, String word, int startPos)
+  // indexOf + character boundary checks (no regex, no Pattern.compile)
 ```
 
 #### `SearchEngineQuery.java` (NEW)
@@ -150,6 +153,7 @@ RecyclerView adapter for displaying search results:
 - **Implements caching**: HashMap stores highlighted Spannables to avoid re-processing
 - **Lazy highlighting**: Only creates Spannables when items are bound to views
 - **ForegroundColorSpan**: Orange-red (#FF6B35) highlights matching terms
+- Does its own simple substring highlight of the raw query (does not consult the tokenizer)
 
 Key method:
 ```java
@@ -203,26 +207,21 @@ tokenize(query):
 
 ```
 searchByGrep(query):
-  1. Tokenize query into Token objects (sorted by length desc)
-  
-  2. For each token:
-     results_for_token = []
-     for each book:
-       for each chapter:
-         - Check cache for chapter text (key: "book:chapter")
-         - If not cached, load from disk and cache it
-         - Split verses
-         - For each verse:
-           - If token.isPhrase: multi-word phrase matching
-           - Else if token.isWholeWord: regex \b matching
-           - Else: substring indexOf
-           - Add matching ARI to results_for_token
-  
-  3. Intersect token results:
-     final_results = results_for_token[0]
-     for each remaining token_results:
-       final_results = intersect(final_results, token_results)
-     
+  1. Ensure the in-memory Bible cache exists for the current translation
+     (one pass over the 66 asset files, split into per-chapter lowercased strings)
+
+  2. Tokenize query into Token objects (sorted by length desc)
+
+  3. For each token:
+     - First token: scan every chapter string
+     - Later tokens: scan ONLY the chapters present in the current result set
+       (androidbible-style source restriction — a selective first token makes
+       every later token near-free)
+     - Per chapter: find matches with indexOf / boundary-checked indexOf on the
+       whole chapter string, then map match positions to verse numbers by
+       walking '\n' positions. No per-verse split, toLowerCase, or regex.
+     - Intersect with previous results via sorted merge (both lists ascending)
+
   4. Convert ARI codes back to verse references
   5. Return list of "bookIndex:chapter:verse" strings
 ```
@@ -230,14 +229,19 @@ searchByGrep(query):
 ### Whole-Word Matching
 
 ```
-indexOfWholeWordRegex(text, word):
-  pattern = "\b" + Pattern.quote(word) + "\b"
-  matcher = pattern.matcher(text)
-  return matcher.find() ? matcher.start() : -1
-  
-  // \b = word boundary (non-letter/digit to letter/digit transition)
-  // Pattern.quote() handles special regex characters
+indexOfWholeWord(text, word, startPos):
+  loop: pos = text.indexOf(word, pos)
+    match if char before and char after are non-letter/digit (or string edges)
+  // plain indexOf + two charAt checks per candidate — no Pattern.compile
 ```
+
+### Phrase Matching
+
+`"in the beginning"` / `+in +the +beginning` matches the words as **consecutive**
+whole words: only punctuation/whitespace may appear between them, and a match
+never crosses a verse boundary (`'\n'`). (v2.0 accepted the words appearing
+anywhere in order within a verse, which contradicted the documented
+"exact phrase" behavior; v3.0 matches androidbible's semantics.)
 
 ### Complexity
 - **Time (avg)**: O(n × m) where n = total verses, m = query tokens
@@ -261,55 +265,18 @@ indexOfWholeWordRegex(text, word):
 
 ## Performance Optimizations
 
-### 1. Chapter Text Caching
-**Problem**: Token search loops through all verses multiple times — one per token. Each chapter is read from disk/assets repeatedly.
+### 1. Whole-Bible In-Memory Cache (v3.0 — the big one)
+**Problem**: `Bible.getChapter()` reads the *entire book file* from assets and line-scans it to extract one chapter. Searching one token touched all ~1,189 chapters → ~1,189 whole-book asset reads (Psalms alone: 150 reads of the same file), plus 66 more in `getBookLength()`. This I/O dominated the ~1s search times. Building each `SearchResult` via `new Verse(ref)` re-read a whole book file *per result* on top of that.
 
-**Solution**: Static HashMap caches chapter text by "bookname.txt:chapter":
-```java
-private static final Map<String, String> chapterCache = new HashMap<>();
+**Solution**: On first search (or translation change), read each book file once and split it into per-chapter strings — original-case for display, pre-lowercased for matching (~4-5MB total, built in well under a second). All scanning and result display is served from this cache. The cache is keyed by translation, which also fixes a v2.0 bug where the old `chapterCache` served stale text after switching translations.
 
-// In searchToken():
-String cacheKey = bookFile + ":" + chapter;
-String chapterText = chapterCache.get(cacheKey);
-if (chapterText == null) {
-    chapterText = bible.getChapter(context, tools, bookFile, chapter);
-    chapterCache.put(cacheKey, chapterText);
-}
-```
+### 2. Chapter-String Scanning with Newline Walking (v3.0)
+**Problem**: v2.0 split every chapter into a verse array and called `toLowerCase()` on every verse for every token (31k allocations per token), plus compiled a regex `Pattern` per verse in whole-word mode.
 
-**Benefit**: 
-- Single-token search: Minimal improvement (5-10%)
-- Multi-token search: **40-60% faster**
-  - First token: reads all chapters (1× I/O)
-  - Second token: reuses cached chapters (0× I/O)
-  - Example: "love God" search now ~1.2s instead of ~2.5s
+**Solution** (androidbible's `searchByGrepForOneChapter`): scan the whole pre-lowercased chapter string with `indexOf`/boundary-checked `indexOf`, then convert match positions to verse numbers by walking `'\n'` positions. A chapter without a match costs exactly one `indexOf` and zero allocations. Whole-word matching uses `indexOf` + two `charAt` boundary checks — no `Pattern.compile` anywhere in the search path.
 
-### 2. Regex-Based Whole-Word Matching
-**Problem**: Manual character-boundary checking using `charAt()` loop was slow:
-```java
-// OLD: 3 operations per potential match
-while ((pos = text.indexOf(word, pos)) != -1) {
-    boolean isWordBoundaryBefore = (pos == 0) || !isLetterOrDigit(text.charAt(pos - 1));
-    boolean isWordBoundaryAfter = (pos + word.length() >= text.length()) || !isLetterOrDigit(text.charAt(pos + word.length()));
-    if (isWordBoundaryBefore && isWordBoundaryAfter) return pos;
-    pos++;
-}
-```
-
-**Solution**: Single-pass regex with word boundary metacharacters:
-```java
-private static int indexOfWholeWordRegex(String text, String word) {
-    String pattern = "\\b" + Pattern.quote(word) + "\\b";
-    Pattern p = Pattern.compile(pattern);
-    java.util.regex.Matcher m = p.matcher(text);
-    return m.find() ? m.start() : -1;
-}
-```
-
-**Benefit**: 
-- Whole-word searches: **20-30% faster**
-- Also benefits highlighting phase (SearchEngine.hilite uses regex)
-- Example: "+love" search and highlighting now ~1.1s instead of ~1.5s
+### 2b. Source-Restricted Token Scans + Sorted-Merge Intersection (v3.0)
+v2.0 scanned all 31k verses for *every* token and intersected afterwards through a `HashSet`. Now tokens after the first only scan chapters already present in the running result set (androidbible's `source` mechanism), and intersection is a linear merge of two ascending lists. With a selective first token (tokens are sorted longest-first), later tokens are near-free.
 
 ### 3. Token Sorting (Early Pruning)
 **Problem**: Searching all verses for common terms wastes time when rare terms would prune results early.
@@ -426,19 +393,22 @@ SharedPreferences:
 
 ## Performance Metrics
 
-| Operation | Time | Notes |
-|-----------|------|-------|
-| Single-token search (e.g., "love") | ~800-1000ms | Searches all 31k verses, chapter caching helps highlighting |
-| Multi-token AND search (e.g., "love God") | ~1000-1500ms | Token intersection provides early pruning |
-| Whole-word search (e.g., "+love") | ~800-1200ms | Regex word boundaries add minimal overhead |
-| Quoted phrase search (e.g., "in the beginning") | ~600-800ms | Often matches only 1-3 verses (fast due to pruning) |
-| Display bottom sheet | ~100-200ms | RecyclerView layout inflation |
-| First scroll (all new items) | ~150-250ms | SearchEngine.hilite() + regex highlighting |
-| Subsequent scroll (cached) | ~50-100ms | Reusing cached Spannables |
-| Tap result → VerseLookup open | ~200-300ms | Activity transition |
-| Cache hit on chapter (2nd token) | ~40-60% faster | Eliminated I/O for re-reading same chapter |
+v3.0 numbers, measured with the offline harness (desktop JVM, real asset files, results
+verified identical to a naive per-verse reference implementation across KJV/ASV/BSB):
 
-**Performance note**: Times are on Samsung Galaxy S24; older devices may be 1.5-2x slower. Search runs on UI thread but is fast enough for real-time feedback.
+| Operation | v2.0 (device) | v3.0 (desktop JVM) | Notes |
+|-----------|---------------|--------------------|-------|
+| Cache build (one-time per translation) | — | ~50-100ms | 66 asset reads, split + lowercase |
+| Single-token search ("love", 546 results) | ~800-1000ms | ~4ms | warm cache |
+| Multi-token AND ("love God") | ~1000-1500ms | ~3ms | source-restricted 2nd token |
+| Whole-word ("+love") | ~800-1200ms | ~2ms | no regex |
+| Quoted phrase ("in the beginning") | ~600-800ms | ~8ms | |
+| Worst case ("the", ~28k results) | — | ~6ms | |
+
+Device times will be a few times slower than desktop JVM but remain far below one frame
+budget after the one-time cache build. Search now runs on a background executor
+(androidbible-style) and posts results to the UI thread, so even the first search
+(which pays the cache build) never blocks input.
 
 ## Known Limitations
 
@@ -587,26 +557,32 @@ SharedPreferences:
 
 ## Implementation Summary
 
-**Version**: 2.0 — Token-based Intersection Search  
+**Version**: 3.0 — androidbible-style In-Memory Grep  
 **Branch**: `searchactivity`  
-**Status**: Implemented, tested, and optimized  
-**Last Updated**: 2026-06-23
+**Status**: Implemented; verified off-device against a reference implementation (KJV/ASV/BSB)  
+**Last Updated**: 2026-07-10
 
-### What Changed from v1.0
-| Feature | v1.0 | v2.0 |
+### What Changed from v2.0
+| Feature | v2.0 | v3.0 |
 |---------|------|------|
-| Query type | Substring only | Substring + AND + whole-word + phrases |
-| Algorithm | Linear search | Token intersection with early pruning |
-| Caching | Spannable highlighting only | + Chapter text caching |
-| Performance | ~1.5-2s for multi-word | ~1-1.5s (-40% for 2+ terms) |
-| Word boundaries | ❌ No | ✅ Yes (`+word` syntax) |
-| Quoted phrases | ❌ No | ✅ Yes (`"phrase"` syntax) |
-| Search history | ❌ No | ✅ Yes (20 recent in SharedPreferences) |
-| Whole-word regex | ❌ Manual checking | ✅ Regex `\b` boundaries |
-| Classes | 4 | 7 (added Tokenizer, Engine, Query) |
+| Text access | Whole book file re-read from assets per chapter (+ per result) | Whole Bible cached in memory, read once per translation |
+| Lowercasing | Per verse, per token (31k× per token) | Once at cache build |
+| Scan unit | Per-verse array from `split("\n")` | Whole chapter string + newline walk |
+| Whole-word matching | `Pattern.compile` per verse | `indexOf` + char boundary checks |
+| Tokens after the first | Re-scan all 31k verses | Scan only chapters already matched |
+| Intersection | HashSet | Sorted merge |
+| Phrase semantics | Words in order anywhere in verse | Consecutive whole words (true phrase, androidbible semantics) |
+| Threading | UI thread (~1s freeze) | Background executor + `runOnUiThread` |
+| Result text | `new Verse()` per result (1 book-file read each) | `SearchEngine.getVerseText()` from cache |
+| Translation switch | Stale `chapterCache` served old translation (bug) | Cache keyed by translation, rebuilt on change |
+| Dead code | `hilite`/`ReadyTokens` (unused by adapter) | Removed |
+| Typical query | ~0.8-1.5s | Single-digit ms warm; ~50-100ms first search (cache build) |
 
 ### Known Issues
-- None. All planned features for v2.0 implemented and tested.
+- `kjv/second_corinthians.txt` is missing the 2 Cor 1:1 line (file starts at `1:2:`), so
+  position-based verse refs in that chapter are off by one. Pre-existing asset-data issue
+  affecting the whole app (`Verse`, `VerseLookUp`, search alike), not a search bug —
+  ASV/BSB files are complete. Fix belongs in the asset file.
 
 ### Recommended Next Steps
 1. UI for search history dropdown

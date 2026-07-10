@@ -1,35 +1,23 @@
 package com.verse.of.the.day;
 
 import android.content.Context;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
-import android.graphics.Typeface;
+import android.content.SharedPreferences;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 public class SearchEngine {
     private static final Bible bible = new Bible();
     private static final Tools tools = new Tools();
-    private static final Map<String, String> chapterCache = new HashMap<>();
-    private static final Pattern WORD_BOUNDARY = Pattern.compile("\\b");
 
-    public static class ReadyTokens {
-        public List<QueryTokenizer.Token> tokens;
-        public Map<String, List<Integer>> tokenMatches;
-
-        public ReadyTokens(List<QueryTokenizer.Token> tokens) {
-            this.tokens = tokens;
-            this.tokenMatches = new HashMap<>();
-        }
-    }
+    // Whole-Bible text cache, built once per translation (~4-5MB of text), modeled after
+    // androidbible's Version chapter loading. chaptersOrig keeps original case for result
+    // display; chaptersLower is the pre-lowercased copy tokens are matched against.
+    // Indexed [bookIndex][chapter - 1]; each entry is the chapter's verse lines
+    // ("chapter:verse: text") joined by '\n', identical to Bible.getChapter() output.
+    private static String[][] chaptersOrig;
+    private static String[][] chaptersLower;
+    private static String cachedTranslation;
 
     public static List<String> searchByGrep(Context context, SearchEngineQuery query) {
         List<QueryTokenizer.Token> tokens = QueryTokenizer.tokenize(query.queryString);
@@ -37,18 +25,20 @@ public class SearchEngine {
             return new ArrayList<>();
         }
 
+        ensureCache(context);
+
         List<Integer> resultAris = null;
 
         for (QueryTokenizer.Token token : tokens) {
-            List<Integer> tokenMatches = searchToken(context, query, token);
+            List<Integer> tokenMatches = searchToken(query, token, resultAris);
 
             if (resultAris == null) {
                 resultAris = tokenMatches;
             } else {
-                resultAris = intersect(resultAris, tokenMatches);
-                if (resultAris.isEmpty()) {
-                    break;
-                }
+                resultAris = intersectSorted(resultAris, tokenMatches);
+            }
+            if (resultAris.isEmpty()) {
+                break;
             }
         }
 
@@ -56,65 +46,172 @@ public class SearchEngine {
             resultAris = new ArrayList<>();
         }
 
-        List<String> verseRefs = new ArrayList<>();
+        List<String> verseRefs = new ArrayList<>(resultAris.size());
         for (Integer ari : resultAris) {
             verseRefs.add(decodeARI(ari));
         }
         return verseRefs;
     }
 
-    private static List<Integer> searchToken(Context context, SearchEngineQuery query, QueryTokenizer.Token token) {
-        List<Integer> matches = new ArrayList<>();
+    // Verse text for search results, served from the in-memory cache instead of re-reading
+    // the whole book file per result (which is what new Verse(...) does).
+    public static String getVerseText(Context context, String verseRef) {
+        ensureCache(context);
+        String[] parts = verseRef.split(":");
+        int bookIndex = Integer.parseInt(parts[0]);
+        int chapter = Integer.parseInt(parts[1]);
+        int verse = Integer.parseInt(parts[2]);
+
+        String chapterText = chaptersOrig[bookIndex][chapter - 1];
+        int lineStart = 0;
+        for (int i = 1; i < verse && lineStart != -1; i++) {
+            int posN = chapterText.indexOf('\n', lineStart);
+            lineStart = (posN == -1) ? -1 : posN + 1;
+        }
+        if (lineStart == -1 || lineStart >= chapterText.length()) {
+            return "";
+        }
+        int lineEnd = chapterText.indexOf('\n', lineStart);
+        return lineEnd == -1 ? chapterText.substring(lineStart) : chapterText.substring(lineStart, lineEnd);
+    }
+
+    private static synchronized void ensureCache(Context context) {
+        SharedPreferences sp = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
+        String translation = sp.getString("translation", "kjv");
+        if (translation.equals(cachedTranslation) && chaptersLower != null) {
+            return;
+        }
+
+        String[][] orig = new String[bible.books.length][];
+        String[][] lower = new String[bible.books.length][];
 
         for (int bookIndex = 0; bookIndex < bible.books.length; bookIndex++) {
-            if (!query.shouldSearchBook(bookIndex)) {
-                continue;
+            String[] bookChapters = splitIntoChapters(tools.getFile(context, bible.books[bookIndex]));
+            String[] lowerChapters = new String[bookChapters.length];
+            for (int i = 0; i < bookChapters.length; i++) {
+                lowerChapters[i] = bookChapters[i].toLowerCase();
             }
+            orig[bookIndex] = bookChapters;
+            lower[bookIndex] = lowerChapters;
+        }
 
-            String bookFile = bible.books[bookIndex];
-            int maxChapters = bible.getBookLength(tools, context, bookFile);
+        chaptersOrig = orig;
+        chaptersLower = lower;
+        cachedTranslation = translation;
+    }
 
-            for (int chapter = 1; chapter <= maxChapters; chapter++) {
-                String cacheKey = bookFile + ":" + chapter;
-                String chapterText = chapterCache.get(cacheKey);
-                if (chapterText == null) {
-                    chapterText = bible.getChapter(context, tools, bookFile, chapter);
-                    chapterCache.put(cacheKey, chapterText);
-                }
+    // One pass over the book file, splitting verse lines into per-chapter strings. Lines
+    // whose text before the first ':' is not a number (headers, blanks) are skipped — same
+    // effective filtering as Bible.getChapter().
+    private static String[] splitIntoChapters(String bookText) {
+        List<StringBuilder> chapters = new ArrayList<>();
+        int len = bookText.length();
+        int lineStart = 0;
 
-                String[] verses = chapterText.split("\n");
+        while (lineStart < len) {
+            int lineEnd = bookText.indexOf('\n', lineStart);
+            if (lineEnd == -1) lineEnd = len;
 
-                for (int verseIndex = 0; verseIndex < verses.length; verseIndex++) {
-                    String verseText = verses[verseIndex].toLowerCase();
-
-                    if (token.isPhrase && token.isWholeWord) {
-                        if (indexOfWholeMultiword(verseText, token.text) != -1) {
-                            int ari = encodeARI(bookIndex, chapter, verseIndex + 1);
-                            matches.add(ari);
-                        }
-                    } else if (token.isWholeWord) {
-                        if (indexOfWholeWordRegex(verseText, token.text) != -1) {
-                            int ari = encodeARI(bookIndex, chapter, verseIndex + 1);
-                            matches.add(ari);
-                        }
-                    } else {
-                        if (verseText.contains(token.text)) {
-                            int ari = encodeARI(bookIndex, chapter, verseIndex + 1);
-                            matches.add(ari);
-                        }
+            int colon = bookText.indexOf(':', lineStart);
+            if (colon > lineStart && colon < lineEnd) {
+                int chapterNum = parsePositiveInt(bookText, lineStart, colon);
+                if (chapterNum > 0) {
+                    while (chapters.size() < chapterNum) {
+                        chapters.add(new StringBuilder());
                     }
+                    chapters.get(chapterNum - 1).append(bookText, lineStart, lineEnd).append('\n');
                 }
+            }
+            lineStart = lineEnd + 1;
+        }
+
+        String[] result = new String[chapters.size()];
+        for (int i = 0; i < chapters.size(); i++) {
+            result[i] = chapters.get(i).toString();
+        }
+        return result;
+    }
+
+    private static int parsePositiveInt(String s, int from, int to) {
+        int value = 0;
+        for (int i = from; i < to; i++) {
+            char c = s.charAt(i);
+            if (c < '0' || c > '9') return -1;
+            value = value * 10 + (c - '0');
+        }
+        return from == to ? -1 : value;
+    }
+
+    // Searches one token across the Bible. When source is non-null (ascending ARIs matched
+    // by the previous tokens), only the chapters present in it are scanned — this is
+    // androidbible's pruning: a rare first token makes every later token near-free.
+    private static List<Integer> searchToken(SearchEngineQuery query, QueryTokenizer.Token token, List<Integer> source) {
+        List<Integer> matches = new ArrayList<>();
+        String[] phraseWords = (token.isPhrase && token.isWholeWord) ? token.text.split("\\s+") : null;
+
+        if (source == null) {
+            for (int bookIndex = 0; bookIndex < chaptersLower.length; bookIndex++) {
+                if (!query.shouldSearchBook(bookIndex)) {
+                    continue;
+                }
+                String[] bookChapters = chaptersLower[bookIndex];
+                for (int chapter = 1; chapter <= bookChapters.length; chapter++) {
+                    searchChapter(bookChapters[chapter - 1], token, phraseWords, encodeARI(bookIndex, chapter, 0), matches);
+                }
+            }
+        } else {
+            int lastAriBc = -1;
+            for (Integer ari : source) {
+                int ariBc = ari & 0xFFFF00;
+                if (ariBc == lastAriBc) {
+                    continue;
+                }
+                lastAriBc = ariBc;
+                int bookIndex = (ariBc >> 16) & 0xFF;
+                int chapter = (ariBc >> 8) & 0xFF;
+                searchChapter(chaptersLower[bookIndex][chapter - 1], token, phraseWords, ariBc, matches);
             }
         }
 
         return matches;
     }
 
-    private static int indexOfWholeWordRegex(String text, String word) {
-        String pattern = "\\b" + Pattern.quote(word) + "\\b";
-        Pattern p = Pattern.compile(pattern);
-        java.util.regex.Matcher m = p.matcher(text);
-        return m.find() ? m.start() : -1;
+    // Scans a whole chapter as a single string and maps match positions to verse numbers by
+    // walking '\n' positions — a chapter with no match costs one indexOf, with no per-verse
+    // substring/toLowerCase allocations.
+    private static void searchChapter(String chapterText, QueryTokenizer.Token token, String[] phraseWords, int ariBc, List<Integer> res) {
+        int[] consumedPtr = new int[1];
+        int pos = indexOfToken(chapterText, token, phraseWords, 0, consumedPtr);
+        if (pos == -1) return;
+
+        int verse0 = 0;
+        int lastVerse0 = -1;
+        int posN = chapterText.indexOf('\n');
+
+        while (true) {
+            if (posN != -1 && posN < pos) {
+                verse0++;
+                posN = chapterText.indexOf('\n', posN + 1);
+            } else {
+                if (verse0 != lastVerse0) {
+                    res.add(ariBc + verse0 + 1);
+                    lastVerse0 = verse0;
+                }
+                pos = indexOfToken(chapterText, token, phraseWords, pos + consumedPtr[0], consumedPtr);
+                if (pos == -1) return;
+            }
+        }
+    }
+
+    private static int indexOfToken(String text, QueryTokenizer.Token token, String[] phraseWords, int start, int[] consumedPtr) {
+        if (phraseWords != null) {
+            return indexOfWholeMultiword(text, phraseWords, start, consumedPtr);
+        }
+        consumedPtr[0] = token.text.length();
+        if (token.isWholeWord) {
+            return indexOfWholeWord(text, token.text, start);
+        }
+        return text.indexOf(token.text, start);
     }
 
     private static int indexOfWholeWord(String text, String word, int startPos) {
@@ -131,132 +228,72 @@ public class SearchEngine {
         return -1;
     }
 
-    private static int indexOfWholeMultiword(String text, String phrase) {
-        String[] words = phrase.split("\\s+");
-        int startPos = 0;
-        int firstWordPos = indexOfWholeWord(text, words[0], startPos);
+    // Finds the phrase's words as consecutive whole words, allowing punctuation/whitespace
+    // between them but never crossing a verse boundary ('\n'). Writes the total matched
+    // length into consumedPtr[0].
+    private static int indexOfWholeMultiword(String text, String[] words, int start, int[] consumedPtr) {
+        int len = text.length();
+        String firstWord = words[0];
+        int s = start;
 
-        while (firstWordPos != -1) {
-            int checkPos = firstWordPos + words[0].length();
-            boolean allWordsMatch = true;
+        findAllWords:
+        while (true) {
+            int firstPos = indexOfWholeWord(text, firstWord, s);
+            if (firstPos == -1) {
+                consumedPtr[0] = 0;
+                return -1;
+            }
+            int pos = firstPos + firstWord.length();
 
             for (int i = 1; i < words.length; i++) {
-                int nextWordPos = indexOfWholeWord(text, words[i], checkPos);
-                if (nextWordPos == -1) {
-                    allWordsMatch = false;
-                    break;
+                while (pos < len) {
+                    char c = text.charAt(pos);
+                    if (c == '\n') {
+                        s = pos + 1;
+                        continue findAllWords;
+                    }
+                    if (isLetterOrDigit(c)) break;
+                    pos++;
                 }
-                checkPos = nextWordPos + words[i].length();
+                int found = indexOfWholeWord(text, words[i], pos);
+                if (found != pos) {
+                    s = firstPos + 1;
+                    continue findAllWords;
+                }
+                pos = found + words[i].length();
             }
 
-            if (allWordsMatch) {
-                return firstWordPos;
-            }
-
-            startPos = firstWordPos + 1;
-            firstWordPos = indexOfWholeWord(text, words[0], startPos);
+            consumedPtr[0] = pos - firstPos;
+            return firstPos;
         }
-
-        return -1;
     }
 
     private static boolean isLetterOrDigit(char c) {
         return Character.isLetterOrDigit(c);
     }
 
-    private static List<Integer> intersect(List<Integer> list1, List<Integer> list2) {
-        Set<Integer> set1 = new HashSet<>(list1);
-        List<Integer> result = new ArrayList<>();
-        for (Integer item : list2) {
-            if (set1.contains(item)) {
-                result.add(item);
-            }
-        }
-        return result;
-    }
+    // Both lists are in ascending ARI order, so a linear merge replaces the old HashSet.
+    private static List<Integer> intersectSorted(List<Integer> a, List<Integer> b) {
+        List<Integer> res = new ArrayList<>(Math.min(a.size(), b.size()));
+        int apos = 0;
+        int bpos = 0;
 
-    public static Spannable hilite(CharSequence text, ReadyTokens tokens, int highlightColor) {
-        SpannableStringBuilder spannable = new SpannableStringBuilder(text);
-        String lowerText = text.toString().toLowerCase();
+        while (apos < a.size() && bpos < b.size()) {
+            int av = a.get(apos);
+            int bv = b.get(bpos);
 
-        for (QueryTokenizer.Token token : tokens.tokens) {
-            if (token.isPhrase && token.isWholeWord) {
-                applyMultiwordHighlight(spannable, lowerText, token.text, highlightColor);
-            } else if (token.isWholeWord) {
-                applyWholeWordHighlight(spannable, lowerText, token.text, highlightColor);
+            if (av == bv) {
+                res.add(av);
+                apos++;
+                bpos++;
+            } else if (av < bv) {
+                apos++;
             } else {
-                applySubstringHighlight(spannable, lowerText, token.text, highlightColor);
+                bpos++;
             }
         }
 
-        return spannable;
-    }
-
-    private static void applyWholeWordHighlight(SpannableStringBuilder spannable, String lowerText, String word, int highlightColor) {
-        String pattern = "\\b" + Pattern.quote(word) + "\\b";
-        Pattern p = Pattern.compile(pattern);
-        java.util.regex.Matcher m = p.matcher(lowerText);
-        while (m.find()) {
-            spannable.setSpan(new ForegroundColorSpan(highlightColor), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            spannable.setSpan(new StyleSpan(Typeface.BOLD), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-    }
-
-    private static void applySubstringHighlight(SpannableStringBuilder spannable, String lowerText, String substring, int highlightColor) {
-        int pos = 0;
-        while ((pos = lowerText.indexOf(substring, pos)) != -1) {
-            int end = pos + substring.length();
-            spannable.setSpan(new ForegroundColorSpan(highlightColor), pos, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            spannable.setSpan(new StyleSpan(Typeface.BOLD), pos, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            pos = end;
-        }
-    }
-
-    private static void applyMultiwordHighlight(SpannableStringBuilder spannable, String lowerText, String phrase, int highlightColor) {
-        String[] words = phrase.split("\\s+");
-        int pos = 0;
-
-        while ((pos = indexOfWholeMultiword(lowerText, phrase, pos)) != -1) {
-            int checkPos = pos + words[0].length();
-
-            for (int i = 1; i < words.length; i++) {
-                int nextWordPos = indexOfWholeWord(lowerText, words[i], checkPos);
-                checkPos = nextWordPos + words[i].length();
-            }
-
-            spannable.setSpan(new ForegroundColorSpan(highlightColor), pos, checkPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            spannable.setSpan(new StyleSpan(Typeface.BOLD), pos, checkPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            pos = checkPos;
-        }
-    }
-
-    private static int indexOfWholeMultiword(String text, String phrase, int startPos) {
-        String[] words = phrase.split("\\s+");
-        int pos = startPos;
-        int firstWordPos = indexOfWholeWord(text, words[0], pos);
-
-        while (firstWordPos != -1) {
-            int checkPos = firstWordPos + words[0].length();
-            boolean allWordsMatch = true;
-
-            for (int i = 1; i < words.length; i++) {
-                int nextWordPos = indexOfWholeWord(text, words[i], checkPos);
-                if (nextWordPos == -1) {
-                    allWordsMatch = false;
-                    break;
-                }
-                checkPos = nextWordPos + words[i].length();
-            }
-
-            if (allWordsMatch) {
-                return firstWordPos;
-            }
-
-            pos = firstWordPos + 1;
-            firstWordPos = indexOfWholeWord(text, words[0], pos);
-        }
-
-        return -1;
+        return res;
     }
 
     private static int encodeARI(int bookIndex, int chapter, int verse) {

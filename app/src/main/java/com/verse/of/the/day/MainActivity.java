@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     boolean verse_displayed_is_bookmarked;
     private GestureDetector gestureDetector;
     private final RedLetter redLetter = new RedLetter();
+    // Search runs off the UI thread (androidbible-style); one app-wide worker is enough.
+    private static final java.util.concurrent.ExecutorService searchExecutor = java.util.concurrent.Executors.newSingleThreadExecutor();
 
     void applyTheme(SharedPreferences sp) {
         String mode = sp.getString("theme_mode", "system");
@@ -440,23 +442,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return;
         }
 
-        SearchEngineQuery searchQuery = new SearchEngineQuery(query);
-        List<String> verseRefs = SearchEngine.searchByGrep(thisapp, searchQuery);
-        List<SearchResult> results = new ArrayList<>();
+        searchExecutor.execute(() -> {
+            SearchEngineQuery searchQuery = new SearchEngineQuery(query);
+            List<String> verseRefs = SearchEngine.searchByGrep(thisapp, searchQuery);
+            List<SearchResult> results = new ArrayList<>();
 
-        for (String verseRef : verseRefs) {
-            Verse v = new Verse(thisapp, verseRef);
-            String displayRef = v.proper_book + " " + v.chapter + ":" + v.verse;
-            results.add(new SearchResult(displayRef, verseRef, v.scripture_text, query));
-        }
+            for (String verseRef : verseRefs) {
+                String[] parts = verseRef.split(":");
+                int bookIndex = Integer.parseInt(parts[0]);
+                String displayRef = Bible.getProperName(bible.books[bookIndex]) + " " + parts[1] + ":" + parts[2];
+                results.add(new SearchResult(displayRef, verseRef, SearchEngine.getVerseText(thisapp, verseRef), query));
+            }
 
-        if (results.isEmpty()) {
-            Toast.makeText(this, "No verses found matching \"" + query + "\"", Toast.LENGTH_SHORT).show();
-        } else {
-            showSearchResultsBottomSheet(results);
-        }
-
-        saveSearchHistory(query);
+            runOnUiThread(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                if (results.isEmpty()) {
+                    Toast.makeText(this, "No verses found matching \"" + query + "\"", Toast.LENGTH_SHORT).show();
+                } else {
+                    showSearchResultsBottomSheet(results);
+                }
+                saveSearchHistory(query);
+            });
+        });
     }
 
     private void saveSearchHistory(String query) {
