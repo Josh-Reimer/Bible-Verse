@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private bookmark_database db;
     boolean verse_displayed_is_bookmarked;
     private GestureDetector gestureDetector;
+    private MenuItem searchMenuItem;
     private final RedLetter redLetter = new RedLetter();
     // Search runs off the UI thread (androidbible-style); one app-wide worker is enough.
     private static final java.util.concurrent.ExecutorService searchExecutor = java.util.concurrent.Executors.newSingleThreadExecutor();
@@ -265,8 +266,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_activity_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchMenuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchMenuItem.getActionView();
         searchView.setQueryHint("Search verses...");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -434,6 +435,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onTouchEvent(@NonNull MotionEvent event) {
         // Let the gesture detector handle touch events
         return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        // Tapping a non-focusable view never steals the SearchView's focus, so an
+        // empty expanded search bar would stay open; collapse it on outside taps.
+        if (ev.getAction() == MotionEvent.ACTION_DOWN && searchMenuItem != null && searchMenuItem.isActionViewExpanded()) {
+            View searchView = searchMenuItem.getActionView();
+            if (searchView != null && ((SearchView) searchView).getQuery().toString().isEmpty()) {
+                int[] location = new int[2];
+                searchView.getLocationOnScreen(location);
+                boolean outside = ev.getRawX() < location[0] || ev.getRawX() > location[0] + searchView.getWidth()
+                        || ev.getRawY() < location[1] || ev.getRawY() > location[1] + searchView.getHeight();
+                if (outside) {
+                    searchMenuItem.collapseActionView();
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     private void performSearch(String query) {
