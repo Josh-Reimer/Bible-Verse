@@ -477,13 +477,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             SearchEngineQuery searchQuery = new SearchEngineQuery(query);
             List<String> verseRefs = SearchEngine.searchByGrep(thisapp, searchQuery);
             List<SearchResult> results = new ArrayList<>();
+            String lowerQuery = query.toLowerCase().trim();
+            List<QueryTokenizer.Token> queryTokens = QueryTokenizer.tokenize(query);
 
             for (String verseRef : verseRefs) {
                 String[] parts = verseRef.split(":");
                 int bookIndex = Integer.parseInt(parts[0]);
                 String displayRef = Bible.getProperName(bible.books[bookIndex]) + " " + parts[1] + ":" + parts[2];
-                results.add(new SearchResult(displayRef, verseRef, SearchEngine.getVerseText(thisapp, verseRef), query));
+                SearchResult result = new SearchResult(displayRef, verseRef, SearchEngine.getVerseText(thisapp, verseRef), query);
+                result.relevanceScore = SearchEngine.relevanceScore(result.text, lowerQuery, queryTokens);
+                results.add(result);
             }
+            // Stable sort: equal scores keep canonical Bible order.
+            results.sort((a, b) -> Integer.compare(a.relevanceScore, b.relevanceScore));
 
             runOnUiThread(() -> {
                 if (isFinishing() || isDestroyed()) {

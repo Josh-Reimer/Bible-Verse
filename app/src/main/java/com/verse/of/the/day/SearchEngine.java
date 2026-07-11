@@ -75,6 +75,82 @@ public class SearchEngine {
         return lineEnd == -1 ? chapterText.substring(lineStart) : chapterText.substring(lineStart, lineEnd);
     }
 
+    // Ranks how closely a verse contains the whole query: 0 = contains it as consecutive
+    // whole words, 1 = as a consecutive substring; otherwise 2 plus the extra characters
+    // the smallest window containing every token spans beyond the query's own length.
+    // Lower is better. Called per result on the search executor, one scan per verse.
+    public static int relevanceScore(String verseText, String lowerQuery, List<QueryTokenizer.Token> tokens) {
+        if (lowerQuery.isEmpty()) {
+            return Integer.MAX_VALUE;
+        }
+        String lowerText = verseText.toLowerCase();
+
+        int pos = lowerText.indexOf(lowerQuery);
+        if (pos != -1) {
+            while (pos != -1) {
+                int end = pos + lowerQuery.length();
+                boolean boundaryBefore = pos == 0 || !isLetterOrDigit(lowerText.charAt(pos - 1));
+                boolean boundaryAfter = end >= lowerText.length() || !isLetterOrDigit(lowerText.charAt(end));
+                if (boundaryBefore && boundaryAfter) {
+                    return 0;
+                }
+                pos = lowerText.indexOf(lowerQuery, pos + 1);
+            }
+            return 1;
+        }
+
+        return 2 + minWindowBeyondQuery(lowerText, lowerQuery, tokens);
+    }
+
+    private static final int NO_WINDOW = 1_000_000;
+
+    // Smallest character span in lowerText covering one occurrence of every distinct token,
+    // minus the query's own length (0 = the tokens sit as tightly as the query itself).
+    private static int minWindowBeyondQuery(String lowerText, String lowerQuery, List<QueryTokenizer.Token> tokens) {
+        List<String> needles = new ArrayList<>();
+        for (QueryTokenizer.Token token : tokens) {
+            if (!needles.contains(token.text)) {
+                needles.add(token.text);
+            }
+        }
+        int k = needles.size();
+        if (k == 0) {
+            return NO_WINDOW;
+        }
+
+        List<int[]> events = new ArrayList<>(); // {position, needleIndex}, later sorted by position
+        for (int i = 0; i < k; i++) {
+            int p = 0;
+            while ((p = lowerText.indexOf(needles.get(i), p)) != -1) {
+                events.add(new int[]{p, i});
+                p++;
+            }
+        }
+        events.sort((a, b) -> Integer.compare(a[0], b[0]));
+
+        int[] count = new int[k];
+        int covered = 0;
+        int left = 0;
+        int best = NO_WINDOW;
+        for (int right = 0; right < events.size(); right++) {
+            if (count[events.get(right)[1]]++ == 0) {
+                covered++;
+            }
+            while (covered == k) {
+                int[] l = events.get(left);
+                int span = events.get(right)[0] + needles.get(events.get(right)[1]).length() - l[0];
+                if (span < best) {
+                    best = span;
+                }
+                if (--count[l[1]] == 0) {
+                    covered--;
+                }
+                left++;
+            }
+        }
+        return best == NO_WINDOW ? NO_WINDOW : Math.max(0, best - lowerQuery.length());
+    }
+
     private static synchronized void ensureCache(Context context) {
         SharedPreferences sp = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
         String translation = sp.getString("translation", "kjv");

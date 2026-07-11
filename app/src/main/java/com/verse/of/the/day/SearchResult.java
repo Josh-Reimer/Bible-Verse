@@ -5,6 +5,7 @@ public class SearchResult {
     public String verseReference;
     public String text;
     public String searchQuery;
+    public int relevanceScore;
 
     public SearchResult(String displayReference, String verseReference, String text, String searchQuery) {
         this.displayReference = displayReference;
