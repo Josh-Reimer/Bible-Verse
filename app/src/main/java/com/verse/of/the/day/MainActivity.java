@@ -147,6 +147,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> {
             int topInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
             v.setPadding(0, topInset, 0, 0);
+            // Fix the height to inset + actionBarSize so the content strip exactly fits
+            // the nav/menu buttons (they measure to actionBarSize); with wrap_content the
+            // toolbar under-measures and the icons overflow, sitting below the title's
+            // centerline.
+            android.util.TypedValue tv = new android.util.TypedValue();
+            getTheme().resolveAttribute(androidx.appcompat.R.attr.actionBarSize, tv, true);
+            int actionBarSize = android.util.TypedValue.complexToDimensionPixelSize(
+                    tv.data, getResources().getDisplayMetrics());
+            android.view.ViewGroup.LayoutParams lp = v.getLayoutParams();
+            lp.height = topInset + actionBarSize;
+            v.setLayoutParams(lp);
             return insets;
         });
 
