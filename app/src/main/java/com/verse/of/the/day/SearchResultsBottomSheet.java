@@ -2,6 +2,7 @@ package com.verse.of.the.day;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -13,16 +14,45 @@ import java.util.List;
 public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
     private List<SearchResult> results;
     private OnResultSelectedListener listener;
+    private OnOutsideTapListener outsideTapListener;
 
     public interface OnResultSelectedListener {
         void onResultSelected(SearchResult result);
     }
 
-    public static SearchResultsBottomSheet newInstance(List<SearchResult> results, OnResultSelectedListener listener) {
+    public interface OnOutsideTapListener {
+        void onOutsideTap(float rawX, float rawY);
+    }
+
+    public static SearchResultsBottomSheet newInstance(List<SearchResult> results, OnResultSelectedListener listener,
+                                                       OnOutsideTapListener outsideTapListener) {
         SearchResultsBottomSheet fragment = new SearchResultsBottomSheet();
         fragment.results = results;
         fragment.listener = listener;
+        fragment.outsideTapListener = outsideTapListener;
         return fragment;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // The dialog swallows taps outside the sheet, so the host never learns where
+        // they landed; report the tap so it can keep the search bar open when the
+        // user taps the search box. The sheet itself dismisses either way.
+        View touchOutside = getDialog() == null ? null
+                : getDialog().findViewById(com.google.android.material.R.id.touch_outside);
+        if (touchOutside != null) {
+            touchOutside.setOnTouchListener((v, event) -> {
+                if (event.getAction() == MotionEvent.ACTION_DOWN && isCancelable()) {
+                    dismiss();
+                    if (outsideTapListener != null) {
+                        outsideTapListener.onOutsideTap(event.getRawX(), event.getRawY());
+                    }
+                    return true;
+                }
+                return false;
+            });
+        }
     }
 
     @Override

@@ -71,6 +71,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     boolean verse_displayed_is_bookmarked;
     private GestureDetector gestureDetector;
     private MenuItem searchMenuItem;
+    // The options menu is rebuilt when the results sheet is dismissed, which drops the
+    // expanded SearchView without firing onMenuItemActionCollapse; these fields let
+    // onCreateOptionsMenu restore the search UI so it only closes on explicit collapse.
+    private boolean searchUiActive = false;
+    private String searchQueryText = "";
+    private boolean refocusSearch = false;
     private final RedLetter redLetter = new RedLetter();
     // Search runs off the UI thread (androidbible-style); one app-wide worker is enough.
     private static final java.util.concurrent.ExecutorService searchExecutor = java.util.concurrent.Executors.newSingleThreadExecutor();
@@ -280,9 +286,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchMenuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchMenuItem.getActionView();
         searchView.setQueryHint("Search verses...");
+        searchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                searchUiActive = true;
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                searchUiActive = false;
+                return true;
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                // Saved at submit time: the menu rebuild after a sheet dismissal clears
+                // the old SearchView's text, so a change listener can't be trusted here.
+                searchQueryText = query;
                 performSearch(query);
                 return true;
             }
@@ -292,6 +314,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
+        if (searchUiActive) {
+            searchMenuItem.expandActionView();
+            searchView.setQuery(searchQueryText, false);
+            if (refocusSearch) {
+                refocusSearch = false; // expandActionView already focused the query field
+            } else {
+                searchView.clearFocus();
+            }
+        }
         return true;
     }
 
@@ -454,17 +485,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // expanded search bar would stay open; collapse it on outside taps.
         if (ev.getAction() == MotionEvent.ACTION_DOWN && searchMenuItem != null && searchMenuItem.isActionViewExpanded()) {
             View searchView = searchMenuItem.getActionView();
-            if (searchView != null) {
-                int[] location = new int[2];
-                searchView.getLocationOnScreen(location);
-                boolean outside = ev.getRawX() < location[0] || ev.getRawX() > location[0] + searchView.getWidth()
-                        || ev.getRawY() < location[1] || ev.getRawY() > location[1] + searchView.getHeight();
-                if (outside) {
-                    searchMenuItem.collapseActionView();
-                }
+            if (searchView != null && isOutsideView(searchView, ev.getRawX(), ev.getRawY())) {
+                searchMenuItem.collapseActionView();
             }
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    private static boolean isOutsideView(View v, float rawX, float rawY) {
+        int[] location = new int[2];
+        v.getLocationOnScreen(location);
+        return rawX < location[0] || rawX > location[0] + v.getWidth()
+                || rawY < location[1] || rawY > location[1] + v.getHeight();
     }
 
     private void performSearch(String query) {
@@ -532,9 +564,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showSearchResultsBottomSheet(List<SearchResult> results) {
+        // Searching again while a sheet is open must replace it, not stack a second one.
+        androidx.fragment.app.Fragment existing = getSupportFragmentManager().findFragmentByTag("search_results");
+        if (existing instanceof SearchResultsBottomSheet) {
+            ((SearchResultsBottomSheet) existing).dismiss();
+        }
         SearchResultsBottomSheet bottomSheet = SearchResultsBottomSheet.newInstance(results, result -> {
             goToVerseLookUpActivity(result.verseReference);
-        });
+        }, this::onSearchSheetOutsideTap);
         bottomSheet.show(getSupportFragmentManager(), "search_results");
+    }
+
+    private void onSearchSheetOutsideTap(float rawX, float rawY) {
+        if (searchMenuItem == null || !searchMenuItem.isActionViewExpanded()) {
+            return;
+        }
+        View searchView = searchMenuItem.getActionView();
+        if (searchView != null && !isOutsideView(searchView, rawX, rawY)) {
+            // Tapping the search box only dismisses the sheet; keep the search UI
+            // open and give the query field focus back after the menu rebuild.
+            refocusSearch = true;
+        } else {
+            searchMenuItem.collapseActionView();
+        }
     }
 }
