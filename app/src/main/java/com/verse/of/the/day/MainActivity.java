@@ -440,10 +440,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         // Tapping a non-focusable view never steals the SearchView's focus, so an
-        // empty expanded search bar would stay open; collapse it on outside taps.
+        // expanded search bar would stay open; collapse it on outside taps.
         if (ev.getAction() == MotionEvent.ACTION_DOWN && searchMenuItem != null && searchMenuItem.isActionViewExpanded()) {
             View searchView = searchMenuItem.getActionView();
-            if (searchView != null && ((SearchView) searchView).getQuery().toString().isEmpty()) {
+            if (searchView != null) {
                 int[] location = new int[2];
                 searchView.getLocationOnScreen(location);
                 boolean outside = ev.getRawX() < location[0] || ev.getRawX() > location[0] + searchView.getWidth()
