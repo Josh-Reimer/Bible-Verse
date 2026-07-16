@@ -571,8 +571,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         SearchResultsBottomSheet bottomSheet = SearchResultsBottomSheet.newInstance(results, result -> {
             goToVerseLookUpActivity(result.verseReference);
-        }, this::onSearchSheetOutsideTap);
+        }, this::onSearchSheetOutsideTap, this::collapseSearchBar);
         bottomSheet.show(getSupportFragmentManager(), "search_results");
+    }
+
+    private void collapseSearchBar() {
+        if (searchMenuItem != null && searchMenuItem.isActionViewExpanded()) {
+            searchMenuItem.collapseActionView();
+        }
     }
 
     private void onSearchSheetOutsideTap(float rawX, float rawY) {

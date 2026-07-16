@@ -15,6 +15,7 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
     private List<SearchResult> results;
     private OnResultSelectedListener listener;
     private OnOutsideTapListener outsideTapListener;
+    private Runnable cancelListener;
 
     public interface OnResultSelectedListener {
         void onResultSelected(SearchResult result);
@@ -25,12 +26,23 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
     }
 
     public static SearchResultsBottomSheet newInstance(List<SearchResult> results, OnResultSelectedListener listener,
-                                                       OnOutsideTapListener outsideTapListener) {
+                                                       OnOutsideTapListener outsideTapListener, Runnable cancelListener) {
         SearchResultsBottomSheet fragment = new SearchResultsBottomSheet();
         fragment.results = results;
         fragment.listener = listener;
         fragment.outsideTapListener = outsideTapListener;
+        fragment.cancelListener = cancelListener;
         return fragment;
+    }
+
+    @Override
+    public void onCancel(android.content.DialogInterface dialog) {
+        super.onCancel(dialog);
+        // Fires on swipe-down and back-press but not on programmatic dismiss(),
+        // so tap-outside handling and search-replacing stay unaffected.
+        if (cancelListener != null) {
+            cancelListener.run();
+        }
     }
 
     @Override
