@@ -7,6 +7,7 @@
     <string name="settings">Settings</string>
     <string name="bookmark_delete_content_description">delete bookmark</string>
     <string name="bookmark_share_content_description">share bookmark</string>
+    <string name="bookmark_result">bookmark verse</string>
     <string name="dark_theme_label">Dark theme</string>
     <string name="sample_verse_goes_here">Sample verse goes here</string>
     <string name="roll_the_die_and_pick_a_new_verse">roll the die and pick a new verse!</string>

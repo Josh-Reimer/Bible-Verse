@@ -571,9 +571,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         SearchResultsBottomSheet bottomSheet = SearchResultsBottomSheet.newInstance(results, result -> {
             goToVerseLookUpActivity(result.verseReference);
-        }, this::onSearchSheetOutsideTap, this::collapseSearchBar);
+        }, searchResultBookmarkListener, this::onSearchSheetOutsideTap, this::collapseSearchBar);
         bottomSheet.show(getSupportFragmentManager(), "search_results");
     }
+
+    private final SearchResultsAdapter.BookmarkListener searchResultBookmarkListener = new SearchResultsAdapter.BookmarkListener() {
+        @Override
+        public boolean isBookmarked(SearchResult result) {
+            return !db.bookmark_dao().getBookmark(result.verseReference).toString().equals("[]");
+        }
+
+        @Override
+        public boolean toggleBookmark(SearchResult result) {
+            boolean nowBookmarked;
+            if (isBookmarked(result)) {
+                db.bookmark_dao().deleteBookmark(result.verseReference);
+                nowBookmarked = false;
+            } else {
+                Verse verse = new Verse(thisapp, result.verseReference);
+                bookmark new_bookmark = new bookmark(verse.full_text, verse.reference, verse.proper_book, verse.scripture_text);
+                db.bookmark_dao().insertAll(new_bookmark);
+                nowBookmarked = true;
+            }
+            // Keep the main-screen bookmark FAB in sync when the search result
+            // is the verse currently displayed.
+            if (verse_displayed != null && verse_displayed.reference.equals(result.verseReference)) {
+                verse_displayed_is_bookmarked = nowBookmarked;
+                updateBookmarkIcon();
+            }
+            return nowBookmarked;
+        }
+    };
 
     private void collapseSearchBar() {
         if (searchMenuItem != null && searchMenuItem.isActionViewExpanded()) {

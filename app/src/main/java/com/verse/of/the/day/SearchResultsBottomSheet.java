@@ -14,6 +14,7 @@ import java.util.List;
 public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
     private List<SearchResult> results;
     private OnResultSelectedListener listener;
+    private SearchResultsAdapter.BookmarkListener bookmarkListener;
     private OnOutsideTapListener outsideTapListener;
     private Runnable cancelListener;
 
@@ -26,10 +27,12 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
     }
 
     public static SearchResultsBottomSheet newInstance(List<SearchResult> results, OnResultSelectedListener listener,
+                                                       SearchResultsAdapter.BookmarkListener bookmarkListener,
                                                        OnOutsideTapListener outsideTapListener, Runnable cancelListener) {
         SearchResultsBottomSheet fragment = new SearchResultsBottomSheet();
         fragment.results = results;
         fragment.listener = listener;
+        fragment.bookmarkListener = bookmarkListener;
         fragment.outsideTapListener = outsideTapListener;
         fragment.cancelListener = cancelListener;
         return fragment;
@@ -79,7 +82,7 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
 
         // Fields are lost if the system recreates this fragment (process death,
         // theme change); dismiss instead of crashing on null.
-        if (results == null || listener == null) {
+        if (results == null || listener == null || bookmarkListener == null) {
             dismiss();
             return;
         }
@@ -92,7 +95,7 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         // Keep the sheet open so it's still there when the user returns from the
         // verse lookup activity; swipe-down or tapping outside dismisses it.
-        SearchResultsAdapter adapter = new SearchResultsAdapter(results, result -> listener.onResultSelected(result));
+        SearchResultsAdapter adapter = new SearchResultsAdapter(results, result -> listener.onResultSelected(result), bookmarkListener);
         recyclerView.setAdapter(adapter);
     }
 }

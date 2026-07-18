@@ -4,6 +4,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.HashMap;
@@ -13,15 +14,23 @@ import java.util.Map;
 public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.ViewHolder> {
     private List<SearchResult> results;
     private OnResultClickListener listener;
+    private BookmarkListener bookmarkListener;
     private Map<String, Spannable> highlightCache = new HashMap<>();
 
     public interface OnResultClickListener {
         void onResultClick(SearchResult result);
     }
 
-    public SearchResultsAdapter(List<SearchResult> results, OnResultClickListener listener) {
+    public interface BookmarkListener {
+        boolean isBookmarked(SearchResult result);
+        // Toggles the bookmark and returns the new bookmarked state.
+        boolean toggleBookmark(SearchResult result);
+    }
+
+    public SearchResultsAdapter(List<SearchResult> results, OnResultClickListener listener, BookmarkListener bookmarkListener) {
         this.results = results;
         this.listener = listener;
+        this.bookmarkListener = bookmarkListener;
     }
 
     @Override
@@ -44,6 +53,14 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         holder.text.setText(cached);
 
         holder.itemView.setOnClickListener(v -> listener.onResultClick(result));
+
+        setBookmarkIcon(holder.bookmark, bookmarkListener.isBookmarked(result));
+        holder.bookmark.setOnClickListener(v ->
+                setBookmarkIcon(holder.bookmark, bookmarkListener.toggleBookmark(result)));
+    }
+
+    private void setBookmarkIcon(ImageButton button, boolean bookmarked) {
+        button.setImageResource(bookmarked ? R.drawable.bookmark_solid_48 : R.drawable.bookmark_border_48);
     }
 
     // If the verse contains the full query as a consecutive phrase, highlight only that;
@@ -104,11 +121,13 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView reference;
         TextView text;
+        ImageButton bookmark;
 
         public ViewHolder(android.view.View itemView) {
             super(itemView);
             reference = itemView.findViewById(R.id.result_reference);
             text = itemView.findViewById(R.id.result_text);
+            bookmark = itemView.findViewById(R.id.result_bookmark);
         }
     }
 }
