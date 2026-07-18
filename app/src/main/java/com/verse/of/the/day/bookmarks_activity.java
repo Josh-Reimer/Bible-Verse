@@ -8,10 +8,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.content.Intent;
 import java.util.ArrayList;
@@ -67,7 +71,18 @@ public class bookmarks_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_bookmarks);
+
+        MaterialToolbar toolbar = findViewById(R.id.bookmarks_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> {
+            int topInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
+            v.setPadding(0, topInset, 0, 0);
+            return insets;
+        });
         db = Room.databaseBuilder(getApplicationContext(),
                 bookmark_database.class,"bookmarks-database").allowMainThreadQueries().build();
 
@@ -77,6 +92,12 @@ public class bookmarks_activity extends AppCompatActivity {
         delete_bookmark = findViewById(R.id.bookmark_delete);
         hide_fabs = findViewById(R.id.hidefabs);
         noBookmarksIndicator = findViewById(R.id.isbookmarksempty);
+
+        ViewCompat.setOnApplyWindowInsetsListener(bookmark_recyclerview, (v, insets) -> {
+            int bottomInset = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), bottomInset);
+            return insets;
+        });
 
         hideFabs();
 
@@ -121,5 +142,11 @@ when a bookmark in the bookmark page is short tapped, open that verse in the ver
         hide_fabs.setOnClickListener(View -> {
             hideFabs();
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
