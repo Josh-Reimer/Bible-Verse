@@ -1,5 +1,6 @@
 package com.verse.of.the.day;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -9,33 +10,43 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
+    // Results live in the arguments Bundle and callbacks are re-fetched from the
+    // host activity in onAttach, so the sheet survives system recreation
+    // (rotation, dark/light theme change) instead of coming back empty.
     private List<SearchResult> results;
-    private OnResultSelectedListener listener;
-    private SearchResultsAdapter.BookmarkListener bookmarkListener;
-    private OnOutsideTapListener outsideTapListener;
-    private Runnable cancelListener;
+    private Host host;
 
-    public interface OnResultSelectedListener {
-        void onResultSelected(SearchResult result);
+    public interface Host {
+        void onSearchResultSelected(SearchResult result);
+        SearchResultsAdapter.BookmarkListener getSearchBookmarkListener();
+        void onSearchSheetOutsideTap(float rawX, float rawY);
+        void onSearchSheetCancelled();
     }
 
-    public interface OnOutsideTapListener {
-        void onOutsideTap(float rawX, float rawY);
-    }
-
-    public static SearchResultsBottomSheet newInstance(List<SearchResult> results, OnResultSelectedListener listener,
-                                                       SearchResultsAdapter.BookmarkListener bookmarkListener,
-                                                       OnOutsideTapListener outsideTapListener, Runnable cancelListener) {
+    public static SearchResultsBottomSheet newInstance(List<SearchResult> results) {
         SearchResultsBottomSheet fragment = new SearchResultsBottomSheet();
-        fragment.results = results;
-        fragment.listener = listener;
-        fragment.bookmarkListener = bookmarkListener;
-        fragment.outsideTapListener = outsideTapListener;
-        fragment.cancelListener = cancelListener;
+        Bundle args = new Bundle();
+        args.putSerializable("results", new ArrayList<>(results));
+        fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof Host) {
+            host = (Host) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        host = null;
     }
 
     @Override
@@ -43,8 +54,8 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
         super.onCancel(dialog);
         // Fires on swipe-down and back-press but not on programmatic dismiss(),
         // so tap-outside handling and search-replacing stay unaffected.
-        if (cancelListener != null) {
-            cancelListener.run();
+        if (host != null) {
+            host.onSearchSheetCancelled();
         }
     }
 
@@ -60,8 +71,8 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
             touchOutside.setOnTouchListener((v, event) -> {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && isCancelable()) {
                     dismiss();
-                    if (outsideTapListener != null) {
-                        outsideTapListener.onOutsideTap(event.getRawX(), event.getRawY());
+                    if (host != null) {
+                        host.onSearchSheetOutsideTap(event.getRawX(), event.getRawY());
                     }
                     return true;
                 }
@@ -77,12 +88,13 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Fields are lost if the system recreates this fragment (process death,
-        // theme change); dismiss instead of crashing on null.
-        if (results == null || listener == null || bookmarkListener == null) {
+        results = getArguments() == null ? null
+                : getArguments().getSerializable("results", ArrayList.class);
+        if (results == null || host == null) {
             dismiss();
             return;
         }
@@ -95,7 +107,8 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         // Keep the sheet open so it's still there when the user returns from the
         // verse lookup activity; swipe-down or tapping outside dismisses it.
-        SearchResultsAdapter adapter = new SearchResultsAdapter(results, result -> listener.onResultSelected(result), bookmarkListener);
+        SearchResultsAdapter adapter = new SearchResultsAdapter(results,
+                result -> host.onSearchResultSelected(result), host.getSearchBookmarkListener());
         recyclerView.setAdapter(adapter);
     }
 }

@@ -51,7 +51,7 @@ import android.view.MenuInflater;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SearchResultsBottomSheet.Host {
 
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
@@ -192,6 +192,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Objects.requireNonNull(savedInstanceState.getString("verse_ref"))
                 );
                 // retrieve verse displayed from before the app paused
+                // restore the search bar state (rotation / theme-change recreation);
+                // onCreateOptionsMenu re-expands it from these fields
+                searchUiActive = savedInstanceState.getBoolean("search_ui_active", false);
+                searchQueryText = savedInstanceState.getString("search_query_text", "");
             }
             showVerse(verse_displayed);
             verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
@@ -261,6 +265,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onSaveInstanceState(@NonNull Bundle outState){
         Log.i("verse","onSavedInstanceState fired");
         outState.putString("verse_ref",verse_displayed.reference);
+        outState.putBoolean("search_ui_active", searchUiActive);
+        outState.putString("search_query_text", searchQueryText);
 
         super.onSaveInstanceState(outState);
     }
@@ -569,10 +575,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (existing instanceof SearchResultsBottomSheet) {
             ((SearchResultsBottomSheet) existing).dismiss();
         }
-        SearchResultsBottomSheet bottomSheet = SearchResultsBottomSheet.newInstance(results, result -> {
-            goToVerseLookUpActivity(result.verseReference);
-        }, searchResultBookmarkListener, this::onSearchSheetOutsideTap, this::collapseSearchBar);
+        SearchResultsBottomSheet bottomSheet = SearchResultsBottomSheet.newInstance(results);
         bottomSheet.show(getSupportFragmentManager(), "search_results");
+    }
+
+    @Override
+    public void onSearchResultSelected(SearchResult result) {
+        goToVerseLookUpActivity(result.verseReference);
+    }
+
+    @Override
+    public SearchResultsAdapter.BookmarkListener getSearchBookmarkListener() {
+        return searchResultBookmarkListener;
+    }
+
+    @Override
+    public void onSearchSheetCancelled() {
+        collapseSearchBar();
     }
 
     private final SearchResultsAdapter.BookmarkListener searchResultBookmarkListener = new SearchResultsAdapter.BookmarkListener() {
@@ -609,7 +628,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void onSearchSheetOutsideTap(float rawX, float rawY) {
+    @Override
+    public void onSearchSheetOutsideTap(float rawX, float rawY) {
         if (searchMenuItem == null || !searchMenuItem.isActionViewExpanded()) {
             return;
         }
