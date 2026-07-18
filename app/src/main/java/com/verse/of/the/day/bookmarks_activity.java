@@ -2,6 +2,7 @@ package com.verse.of.the.day;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,12 +32,15 @@ public class bookmarks_activity extends AppCompatActivity {
     FloatingActionButton delete_bookmark;
     FloatingActionButton hide_fabs;
     int bookmarkPosition;
+    Bookmark_recyclerview_adapter adapter;
     bookmark_database db;
     TextView noBookmarksIndicator;
     List<bookmark> bookmarks_list;
     void deleteBookmark(int position){
         db.bookmark_dao().deleteBookmark(bookmarks_list.get(position).bible_reference);
         //remove from ui
+        adapter.clearSelection(); // clear before removal so the stale position is not re-bound
+        bookmarks_list.remove(position); // keep in sync with data so later positions still line up
         data.remove(position);
         assert bookmark_recyclerview.getAdapter() != null;
         bookmark_recyclerview.getAdapter().notifyItemRemoved(position);
@@ -60,6 +64,7 @@ public class bookmarks_activity extends AppCompatActivity {
         share_bookmark.hide();
         delete_bookmark.hide();
         hide_fabs.hide();
+        if (adapter != null) adapter.clearSelection();
     }
     // using the .hide() and .show() functions instead of View.visible and View.Gone makes those fabs animate up and down nicely  (yes the simpler functions are better :)
     void showFabs(){
@@ -114,7 +119,7 @@ when a bookmark in the bookmark page is short tapped, open that verse in the ver
             }
         };
 
-        Bookmark_recyclerview_adapter adapter = new Bookmark_recyclerview_adapter(data,listener);
+        adapter = new Bookmark_recyclerview_adapter(data,listener);
         bookmarks_list = db.bookmark_dao().getAllBookmarks();
 
         if (bookmarks_list.isEmpty()){
@@ -141,6 +146,19 @@ when a bookmark in the bookmark page is short tapped, open that verse in the ver
 
         hide_fabs.setOnClickListener(View -> {
             hideFabs();
+        });
+
+        // tapping anywhere that is not a bookmark dismisses the fab ui
+        bookmark_activity_main_layout.setOnClickListener(View -> hideFabs());
+        bookmark_recyclerview.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                if (e.getActionMasked() == MotionEvent.ACTION_DOWN
+                        && rv.findChildViewUnder(e.getX(), e.getY()) == null) {
+                    hideFabs();
+                }
+                return false;
+            }
         });
     }
 
