@@ -66,24 +66,26 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         return spannable;
     }
 
-    // Highlights whole-word occurrences of the needle; only when there are none (the verse
-    // matched via a partial word, e.g. "begin" inside "beginning") highlights substrings
-    // that at least start or end on a word boundary — never matches buried mid-word.
+    // Highlights whole-word occurrences of the needle; when there are none, falls back to
+    // substrings starting or ending on a word boundary (e.g. "begin" inside "beginning"),
+    // and finally to buried mid-word occurrences (e.g. "mag" inside "image") — the search
+    // matches those too, so every result must show why it matched.
     private void highlightOccurrences(SpannableString spannable, String lowerText, String lowerNeedle) {
-        if (!highlightPass(spannable, lowerText, lowerNeedle, true)) {
-            highlightPass(spannable, lowerText, lowerNeedle, false);
+        for (int requiredBoundaries = 2; requiredBoundaries >= 0; requiredBoundaries--) {
+            if (highlightPass(spannable, lowerText, lowerNeedle, requiredBoundaries)) {
+                return;
+            }
         }
     }
 
-    private boolean highlightPass(SpannableString spannable, String lowerText, String lowerNeedle, boolean wholeWordOnly) {
+    private boolean highlightPass(SpannableString spannable, String lowerText, String lowerNeedle, int requiredBoundaries) {
         boolean found = false;
         int startIdx = 0;
         while ((startIdx = lowerText.indexOf(lowerNeedle, startIdx)) != -1) {
             int endIdx = startIdx + lowerNeedle.length();
             boolean boundaryBefore = startIdx == 0 || !Character.isLetterOrDigit(lowerText.charAt(startIdx - 1));
             boolean boundaryAfter = endIdx >= lowerText.length() || !Character.isLetterOrDigit(lowerText.charAt(endIdx));
-            boolean matches = wholeWordOnly ? (boundaryBefore && boundaryAfter) : (boundaryBefore || boundaryAfter);
-            if (matches) {
+            if ((boundaryBefore ? 1 : 0) + (boundaryAfter ? 1 : 0) >= requiredBoundaries) {
                 spannable.setSpan(new android.text.style.ForegroundColorSpan(0xFFFF6B35), startIdx, endIdx, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 found = true;
                 startIdx = endIdx;
