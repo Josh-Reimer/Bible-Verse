@@ -9,14 +9,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
-    // Results live in the arguments Bundle and callbacks are re-fetched from the
-    // host activity in onAttach, so the sheet survives system recreation
-    // (rotation, dark/light theme change) instead of coming back empty.
+    // Results live in an activity-scoped ViewModel (never in a Bundle — large
+    // result sets exceed the binder transaction limit when the activity stops)
+    // and callbacks are re-fetched from the host activity in onAttach, so the
+    // sheet survives system recreation (rotation, dark/light theme change)
+    // instead of coming back empty. After process death the ViewModel is empty
+    // and the restored sheet dismisses itself.
     private List<SearchResult> results;
     private Host host;
 
@@ -27,12 +30,8 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
         void onSearchSheetCancelled();
     }
 
-    public static SearchResultsBottomSheet newInstance(List<SearchResult> results) {
-        SearchResultsBottomSheet fragment = new SearchResultsBottomSheet();
-        Bundle args = new Bundle();
-        args.putSerializable("results", new ArrayList<>(results));
-        fragment.setArguments(args);
-        return fragment;
+    public static SearchResultsBottomSheet newInstance() {
+        return new SearchResultsBottomSheet();
     }
 
     @Override
@@ -88,14 +87,12 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        results = getArguments() == null ? null
-                : getArguments().getSerializable("results", ArrayList.class);
+        results = new ViewModelProvider(requireActivity()).get(SearchResultsViewModel.class).results;
         if (results == null || host == null) {
-            dismiss();
+            dismissAllowingStateLoss();
             return;
         }
 

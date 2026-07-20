@@ -570,12 +570,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showSearchResultsBottomSheet(List<SearchResult> results) {
+        // If the async search finishes after the activity's state is saved (user
+        // already left), showing would throw IllegalStateException — drop it.
+        if (getSupportFragmentManager().isStateSaved()) {
+            return;
+        }
+        new androidx.lifecycle.ViewModelProvider(this).get(SearchResultsViewModel.class).results = results;
         // Searching again while a sheet is open must replace it, not stack a second one.
         androidx.fragment.app.Fragment existing = getSupportFragmentManager().findFragmentByTag("search_results");
         if (existing instanceof SearchResultsBottomSheet) {
             ((SearchResultsBottomSheet) existing).dismiss();
         }
-        SearchResultsBottomSheet bottomSheet = SearchResultsBottomSheet.newInstance(results);
+        SearchResultsBottomSheet bottomSheet = SearchResultsBottomSheet.newInstance();
         bottomSheet.show(getSupportFragmentManager(), "search_results");
     }
 
