@@ -3,6 +3,7 @@ package com.verse.of.the.day;
 import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Intent;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ public class Bookmark_recyclerview_adapter extends
         RecyclerView.Adapter<Bookmark_recyclerview_adapter.ViewHolder>{
 
     static ArrayList<Bookmark_recyclerview_model> data = new ArrayList<>();
+
+    private final RedLetter redLetter = new RedLetter();
 
     int selectedPosition = RecyclerView.NO_POSITION;
 
@@ -45,7 +48,8 @@ public class Bookmark_recyclerview_adapter extends
 
     @Override
     public void onBindViewHolder(@NonNull Bookmark_recyclerview_adapter.ViewHolder holder, int position) {
-        holder.verse.setText(data.get(position).scripture_text);
+        Spanned spanned = redLetter.getSpanned(holder.verse.getContext(), data.get(position).ref);
+        holder.verse.setText(spanned != null ? spanned : data.get(position).scripture_text);
         holder.book.setText(data.get(position).book);
         // tint the long-pressed card so it is clear which bookmark the fabs act on
         if (position == selectedPosition) {
