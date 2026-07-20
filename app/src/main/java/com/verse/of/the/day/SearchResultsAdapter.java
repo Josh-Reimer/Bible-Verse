@@ -1,7 +1,10 @@
 package com.verse.of.the.day;
 
+import android.content.Context;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -16,6 +19,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     private OnResultClickListener listener;
     private BookmarkListener bookmarkListener;
     private Map<String, Spannable> highlightCache = new HashMap<>();
+    private final RedLetter redLetter = new RedLetter();
 
     public interface OnResultClickListener {
         void onResultClick(SearchResult result);
@@ -44,10 +48,10 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         SearchResult result = results.get(position);
         holder.reference.setText(result.displayReference);
 
-        String cacheKey = result.text + "|" + result.searchQuery;
+        String cacheKey = result.verseReference + "|" + result.text + "|" + result.searchQuery;
         Spannable cached = highlightCache.get(cacheKey);
         if (cached == null) {
-            cached = highlightText(result.text, result.searchQuery);
+            cached = highlightText(baseText(holder.itemView.getContext(), result), result.searchQuery);
             highlightCache.put(cacheKey, cached);
         }
         holder.text.setText(cached);
@@ -63,12 +67,24 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         button.setImageResource(bookmarked ? R.drawable.bookmark_solid_48 : R.drawable.bookmark_border_48);
     }
 
+    // Red-letter (words of Christ) rendering, same source as the main verse view;
+    // falls back to the raw verse line when the verse has no red-letter markup.
+    // The "chapter:verse: " prefix is re-added to match the plain result.text format.
+    private CharSequence baseText(Context context, SearchResult result) {
+        Spanned spanned = redLetter.getSpanned(context, result.verseReference);
+        if (spanned == null) return result.text;
+        String[] parts = result.verseReference.split(":");
+        SpannableStringBuilder builder = new SpannableStringBuilder(parts[1] + ":" + parts[2] + ": ");
+        builder.append(spanned);
+        return builder;
+    }
+
     // If the verse contains the full query as a consecutive phrase, highlight only that;
     // otherwise fall back to highlighting each token separately, mirroring SearchEngine's
     // word-by-word matching — a verse can match all tokens without containing the phrase.
-    private Spannable highlightText(String text, String searchQuery) {
+    private Spannable highlightText(CharSequence text, String searchQuery) {
         SpannableString spannable = new SpannableString(text);
-        String lowerText = text.toLowerCase();
+        String lowerText = spannable.toString().toLowerCase();
         String lowerQuery = searchQuery.toLowerCase().trim();
 
         if (!lowerQuery.isEmpty() && lowerText.contains(lowerQuery)) {
