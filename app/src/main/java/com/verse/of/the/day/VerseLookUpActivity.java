@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.Spanned;
 import android.text.SpannableStringBuilder;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -58,8 +57,17 @@ public class VerseLookUpActivity extends AppCompatActivity{
 		verse_textview.setTextSize(21f);
 		verse_textview.setTypeface(verse_textview.getTypeface(), Typeface.BOLD);
 
-		int color = ContextCompat.getColor(this, R.color.green_700_primary);
-		verse_textview.setTextColor(color);
+		// Outline the target verse in green rather than recolouring its text, so
+		// words-of-Christ red highlighting stays legible within the selected verse.
+		verse_textview.setBackgroundResource(R.drawable.verse_highlight_outline);
+		int pad = (int) (12 * getResources().getDisplayMetrics().density);
+		verse_textview.setPadding(pad, pad, pad, pad);
+		LinearLayout.LayoutParams verseParams = new LinearLayout.LayoutParams(
+			LinearLayout.LayoutParams.MATCH_PARENT,
+			LinearLayout.LayoutParams.WRAP_CONTENT);
+		verseParams.topMargin = pad;
+		verseParams.bottomMargin = pad;
+		verse_textview.setLayoutParams(verseParams);
 
 		post_verse_textview.setTextSize(20f);
 
@@ -119,6 +127,13 @@ public class VerseLookUpActivity extends AppCompatActivity{
 
 		pre_verse_textview.setText(preBuilder);
 		post_verse_textview.setText(postBuilder);
+
+		// Scroll so the highlighted verse sits near the top once layout is measured.
+		final TextView targetView = verse_textview;
+		scrollView.post(() -> {
+			int target = targetView.getTop() - scrollView.getPaddingTop();
+			scrollView.smoothScrollTo(0, Math.max(target, 0));
+		});
 	}
 
 	@Override
