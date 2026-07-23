@@ -14,6 +14,7 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.customview.widget.ViewDragHelper;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 import androidx.appcompat.widget.SearchView;
 
@@ -139,6 +140,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         SharedPreferences shared_preferences = getSharedPreferences("settings", MODE_PRIVATE);
         applyTheme(shared_preferences);
+
+        // Track app usage so an in-app review can be offered later once the user is established.
+        PlayStoreReviewPrompt.recordAppOpen(this);
 
         db = Room.databaseBuilder(getApplicationContext(),
                 bookmark_database.class, "bookmarks-database").allowMainThreadQueries().build();
@@ -283,6 +287,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
         updateBookmarkIcon();
+
+        // A search that finished while the activity's state was saved parked its
+        // results instead of showing (see showSearchResultsBottomSheet).
+        SearchResultsViewModel searchVm = new ViewModelProvider(this).get(SearchResultsViewModel.class);
+        if (searchVm.pendingShow && searchVm.results != null) {
+            showSearchResultsBottomSheet(searchVm.results);
+        }
     }
 
 
@@ -450,6 +461,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             bookmark new_bookmark = new bookmark(verse_displayed.full_text, verse_displayed.reference, verse_displayed.proper_book, verse_displayed.scripture_text);
             db.bookmark_dao().insertAll(new_bookmark);
             verse_displayed_is_bookmarked = true;
+            // Bookmarking is a completed task, not mid-flow — a safe moment to offer a review.
+            PlayStoreReviewPrompt.maybeRequestReview(this);
         }
         updateBookmarkIcon();
     }
@@ -570,19 +583,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showSearchResultsBottomSheet(List<SearchResult> results) {
+        SearchResultsViewModel vm = new ViewModelProvider(this).get(SearchResultsViewModel.class);
+        vm.results = results;
         // If the async search finishes after the activity's state is saved (user
-        // already left), showing would throw IllegalStateException — drop it.
+        // already left), showing would throw IllegalStateException — park the
+        // results in the ViewModel and let onResume show them.
         if (getSupportFragmentManager().isStateSaved()) {
+            vm.pendingShow = true;
             return;
         }
-        new androidx.lifecycle.ViewModelProvider(this).get(SearchResultsViewModel.class).results = results;
+        vm.pendingShow = false;
         // Searching again while a sheet is open must replace it, not stack a second one.
         androidx.fragment.app.Fragment existing = getSupportFragmentManager().findFragmentByTag("search_results");
         if (existing instanceof SearchResultsBottomSheet) {
             ((SearchResultsBottomSheet) existing).dismiss();
         }
-        SearchResultsBottomSheet bottomSheet = SearchResultsBottomSheet.newInstance();
-        bottomSheet.show(getSupportFragmentManager(), "search_results");
+        new SearchResultsBottomSheet().show(getSupportFragmentManager(), "search_results");
     }
 
     @Override
@@ -597,7 +613,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onSearchSheetCancelled() {
+        clearSearchResults();
         collapseSearchBar();
+    }
+
+    @Override
+    public void onSearchSheetRestoredEmpty() {
+        // Process death emptied the results ViewModel; re-run the restored query
+        // so the sheet comes back populated instead of stranding the re-expanded
+        // search bar over nothing.
+        if (!searchQueryText.trim().isEmpty()) {
+            performSearch(searchQueryText);
+        } else {
+            searchUiActive = false;
+        }
+    }
+
+    // The sheet is gone for good; release the (potentially multi-MB) result list
+    // instead of keeping it alive for the rest of the activity's lifetime.
+    private void clearSearchResults() {
+        SearchResultsViewModel vm = new ViewModelProvider(this).get(SearchResultsViewModel.class);
+        vm.results = null;
+        vm.pendingShow = false;
     }
 
     private final SearchResultsAdapter.BookmarkListener searchResultBookmarkListener = new SearchResultsAdapter.BookmarkListener() {
@@ -636,6 +673,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onSearchSheetOutsideTap(float rawX, float rawY) {
+        clearSearchResults();
         if (searchMenuItem == null || !searchMenuItem.isActionViewExpanded()) {
             return;
         }
