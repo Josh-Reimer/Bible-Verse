@@ -23,4 +23,7 @@
 <!--text on secondary-->
 <color name="teal_on_secondary">#e3f2fd</color>
 
+<!--outline shown on a verse while its actions sheet is open-->
+<color name="verse_highlight_tapped">#FF9800</color>
+
 </resources>

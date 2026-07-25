@@ -1,28 +1,37 @@
 package com.verse.of.the.day;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spanned;
-import android.text.SpannableStringBuilder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
 
+import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.LinearLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 
-public class VerseLookUpActivity extends AppCompatActivity{
+public class VerseLookUpActivity extends AppCompatActivity implements VerseActionsBottomSheet.Host {
 
 	LinearLayout linear_layout;
+	private bookmark_database db;
+	private final Bible bible = new Bible();
+	private final Tools tools = new Tools();
+	private final RedLetter redLetter = new RedLetter();
 
 	@Override
 	protected void onCreate(Bundle SavedInstanceState){
 		super.onCreate(SavedInstanceState);
 		WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 		setContentView(R.layout.verse_lookup_activity);
+
+		db = Room.databaseBuilder(getApplicationContext(),
+				bookmark_database.class, "bookmarks-database").allowMainThreadQueries().build();
 
 		MaterialToolbar toolbar = findViewById(R.id.topBar);
 		setSupportActionBar(toolbar);
@@ -40,36 +49,7 @@ public class VerseLookUpActivity extends AppCompatActivity{
 			v.setPadding(0, 0, 0, bottomInset);
 			return insets;
 		});
-		Bible bible = new Bible();
-		Tools tools = new Tools();
 		linear_layout = findViewById(R.id.ll);
-
-		TextView pre_verse_textview = new TextView(this);
-		TextView verse_textview = new TextView(this);
-		TextView post_verse_textview = new TextView(this);
-
-		linear_layout.addView(pre_verse_textview);
-		linear_layout.addView(verse_textview);
-		linear_layout.addView(post_verse_textview);
-
-		pre_verse_textview.setTextSize(20f);
-
-		verse_textview.setTextSize(21f);
-		verse_textview.setTypeface(verse_textview.getTypeface(), Typeface.BOLD);
-
-		// Outline the target verse in green rather than recolouring its text, so
-		// words-of-Christ red highlighting stays legible within the selected verse.
-		verse_textview.setBackgroundResource(R.drawable.verse_highlight_outline);
-		int pad = (int) (12 * getResources().getDisplayMetrics().density);
-		verse_textview.setPadding(pad, pad, pad, pad);
-		LinearLayout.LayoutParams verseParams = new LinearLayout.LayoutParams(
-			LinearLayout.LayoutParams.MATCH_PARENT,
-			LinearLayout.LayoutParams.WRAP_CONTENT);
-		verseParams.topMargin = pad;
-		verseParams.bottomMargin = pad;
-		verse_textview.setLayoutParams(verseParams);
-
-		post_verse_textview.setTextSize(20f);
 
 		String intentExtras = getIntent().getStringExtra("verse_ref");
 		assert intentExtras != null;
@@ -82,13 +62,9 @@ public class VerseLookUpActivity extends AppCompatActivity{
 
 		setTitle(properBook + " " + chapterNum);
 
-		RedLetter redLetter = new RedLetter();
 		String[] str_verses = bible.getChapter(this, tools, book, chapterNum).split("\n");
 
-		SpannableStringBuilder preBuilder = new SpannableStringBuilder();
-		SpannableStringBuilder postBuilder = new SpannableStringBuilder();
-		String verse_textview_text = "";
-		boolean pastTarget = false;
+		View targetRow = null;
 
 		for (String line : str_verses) {
 			String[] lineParts = line.split(":");
@@ -96,44 +72,136 @@ public class VerseLookUpActivity extends AppCompatActivity{
 			int verseNum;
 			try { verseNum = Integer.parseInt(lineParts[1]); } catch (NumberFormatException e) { continue; }
 
-			if (!pastTarget && verseNum == targetVerse) {
-				verse_textview_text = line;
-				pastTarget = true;
-				continue;
-			}
-
-			SpannableStringBuilder target = pastTarget ? postBuilder : preBuilder;
-			String ref = bookIndex + ":" + chapterNum + ":" + verseNum;
-			Spanned spanned = redLetter.getSpanned(this, ref);
-			if (!pastTarget) target.append("\n");
-			if (spanned != null) {
-				target.append(chapterNum + ":" + verseNum + ": ");
-				target.append(spanned);
-			} else {
-				target.append(line);
-			}
-			if (pastTarget) target.append("\n");
+			boolean isTarget = verseNum == targetVerse;
+			View row = buildVerseRow(bookIndex, chapterNum, verseNum, line, isTarget);
+			linear_layout.addView(row);
+			if (isTarget) targetRow = row;
 		}
-
-		// Target verse
-		String targetRef = bookIndex + ":" + chapterNum + ":" + targetVerse;
-		Spanned targetSpanned = redLetter.getSpanned(this, targetRef);
-		if (targetSpanned != null) {
-			verse_textview.setText(chapterNum + ":" + targetVerse + ": ");
-			verse_textview.append(targetSpanned);
-		} else {
-			verse_textview.setText(verse_textview_text);
-		}
-
-		pre_verse_textview.setText(preBuilder);
-		post_verse_textview.setText(postBuilder);
 
 		// Scroll so the highlighted verse sits near the top once layout is measured.
-		final TextView targetView = verse_textview;
-		scrollView.post(() -> {
-			int target = targetView.getTop() - scrollView.getPaddingTop();
-			scrollView.smoothScrollTo(0, Math.max(target, 0));
+		final View finalTargetRow = targetRow;
+		if (finalTargetRow != null) {
+			scrollView.post(() -> {
+				int target = finalTargetRow.getTop() - scrollView.getPaddingTop();
+				scrollView.smoothScrollTo(0, Math.max(target, 0));
+			});
+		}
+	}
+
+	// Each verse is plain, tappable text; tapping opens a bottom sheet of actions for it.
+	private View buildVerseRow(int bookIndex, int chapterNum, int verseNum, String rawLine, boolean isTarget) {
+		float density = getResources().getDisplayMetrics().density;
+		int pad = (int) (12 * density);
+
+		TextView verseView = new TextView(this);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.MATCH_PARENT,
+				LinearLayout.LayoutParams.WRAP_CONTENT);
+
+		String ref = bookIndex + ":" + chapterNum + ":" + verseNum;
+		Spanned spanned = redLetter.getSpanned(this, ref);
+		if (spanned != null) {
+			verseView.setText(chapterNum + ":" + verseNum + ": ");
+			verseView.append(spanned);
+		} else {
+			verseView.setText(rawLine);
+		}
+
+		if (isTarget) {
+			verseView.setTextSize(21f);
+			verseView.setTypeface(verseView.getTypeface(), Typeface.BOLD);
+			// Outline the target verse rather than recolouring its text, so words-of-Christ
+			// red highlighting stays legible within the selected verse.
+			verseView.setBackgroundResource(R.drawable.verse_highlight_outline);
+			verseView.setPadding(pad, pad, pad, pad);
+			params.topMargin = pad;
+			params.bottomMargin = pad;
+		} else {
+			verseView.setTextSize(20f);
+			// Horizontal padding matches the target verse so the tap outline has room and the
+			// text doesn't reflow when the outline appears; vertical padding spaces the verses.
+			verseView.setPadding(pad, pad / 2, pad, pad / 2);
+		}
+		verseView.setLayoutParams(params);
+
+		verseView.setClickable(true);
+		// Ripple feedback drawn over the text (and over the target verse's outline).
+		android.util.TypedValue fg = new android.util.TypedValue();
+		getTheme().resolveAttribute(android.R.attr.selectableItemBackground, fg, true);
+		verseView.setForeground(androidx.core.content.ContextCompat.getDrawable(this, fg.resourceId));
+		verseView.setOnClickListener(v -> {
+			highlightVerse(verseView);
+			VerseActionsBottomSheet.newInstance(ref).show(getSupportFragmentManager(), "verse_actions");
 		});
+
+		return verseView;
+	}
+
+	// While a verse's actions sheet is open, outline that verse in orange so it's clear which
+	// verse the sheet applies to; the outline is reverted when the sheet is dismissed.
+	private View highlightedVerse;
+	private android.graphics.drawable.Drawable highlightedVerseRestingBg;
+
+	private void highlightVerse(View v) {
+		clearVerseHighlight();
+		highlightedVerse = v;
+		highlightedVerseRestingBg = v.getBackground();
+		swapBackgroundKeepingPadding(v, androidx.core.content.ContextCompat.getDrawable(
+				this, R.drawable.verse_highlight_outline_tapped));
+	}
+
+	private void clearVerseHighlight() {
+		if (highlightedVerse == null) return;
+		swapBackgroundKeepingPadding(highlightedVerse, highlightedVerseRestingBg);
+		highlightedVerse = null;
+		highlightedVerseRestingBg = null;
+	}
+
+	// Setting a background can clobber a view's padding, so preserve and re-apply it.
+	private void swapBackgroundKeepingPadding(View v, android.graphics.drawable.Drawable bg) {
+		int l = v.getPaddingLeft(), t = v.getPaddingTop(), r = v.getPaddingRight(), b = v.getPaddingBottom();
+		v.setBackground(bg);
+		v.setPadding(l, t, r, b);
+	}
+
+	// ----- VerseActionsBottomSheet.Host -----
+
+	@Override
+	public boolean isVerseBookmarked(String ref) {
+		return !db.bookmark_dao().getBookmark(ref).toString().equals("[]");
+	}
+
+	@Override
+	public boolean toggleVerseBookmark(String ref) {
+		if (isVerseBookmarked(ref)) {
+			db.bookmark_dao().deleteBookmark(ref);
+			return false;
+		}
+		Verse verse = new Verse(this, ref);
+		db.bookmark_dao().insertAll(new bookmark(
+				verse.full_text, verse.reference, verse.proper_book, verse.scripture_text));
+		return true;
+	}
+
+	@Override
+	public void shareVerse(String ref) {
+		Verse verse = new Verse(this, ref);
+		Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+		sharingIntent.setType("text/plain");
+		sharingIntent.putExtra(Intent.EXTRA_TEXT, verse.full_text);
+		startActivity(Intent.createChooser(sharingIntent, "Share via"));
+	}
+
+	@Override
+	public String verseActionLabel(String ref) {
+		String[] p = ref.split(":");
+		int bi = Integer.parseInt(p[0]);
+		return Bible.getProperName(bible.books[bi]) + " " + p[1] + ":" + p[2];
+	}
+
+	@Override
+	public void onVerseActionsDismissed() {
+		clearVerseHighlight();
 	}
 
 	@Override
