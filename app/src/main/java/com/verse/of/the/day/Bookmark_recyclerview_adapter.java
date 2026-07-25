@@ -3,7 +3,6 @@ package com.verse.of.the.day;
 import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Intent;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +22,6 @@ public class Bookmark_recyclerview_adapter extends
         RecyclerView.Adapter<Bookmark_recyclerview_adapter.ViewHolder>{
 
     static ArrayList<Bookmark_recyclerview_model> data = new ArrayList<>();
-
-    private final RedLetter redLetter = new RedLetter();
 
     int selectedPosition = RecyclerView.NO_POSITION;
 
@@ -48,8 +45,7 @@ public class Bookmark_recyclerview_adapter extends
 
     @Override
     public void onBindViewHolder(@NonNull Bookmark_recyclerview_adapter.ViewHolder holder, int position) {
-        Spanned spanned = redLetter.getSpanned(holder.verse.getContext(), data.get(position).ref);
-        holder.verse.setText(spanned != null ? spanned : data.get(position).scripture_text);
+        holder.verse.setText(data.get(position).scripture_text);
         holder.book.setText(data.get(position).book);
         // tint the long-pressed card so it is clear which bookmark the fabs act on
         if (position == selectedPosition) {
@@ -87,9 +83,11 @@ public class Bookmark_recyclerview_adapter extends
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position == RecyclerView.NO_POSITION) return;
                     // Navigate to VerseLookup activity with verse details
                     Intent intent = new Intent(itemView.getContext(), VerseLookUpActivity.class);
-                    intent.putExtra("verse_ref", data.get(getAdapterPosition()).ref);
+                    intent.putExtra("verse_ref", data.get(position).ref);
                     startActivity(itemView.getContext(),intent,null);
                 }
             });

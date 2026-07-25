@@ -36,6 +36,29 @@ public class bookmarks_activity extends AppCompatActivity {
     bookmark_database db;
     TextView noBookmarksIndicator;
     List<bookmark> bookmarks_list;
+    private final java.util.concurrent.ExecutorService rowExecutor =
+            java.util.concurrent.Executors.newSingleThreadExecutor();
+
+    // Reads the current translation's text for each bookmark off the main thread,
+    // then swaps the finished rows in on the UI thread.
+    private void loadBookmarkRows(){
+        List<bookmark> snapshot = bookmarks_list;
+        rowExecutor.execute(() -> {
+            RedLetter redLetter = new RedLetter();
+            ArrayList<Bookmark_recyclerview_model> rows = new ArrayList<>();
+            for(bookmark list:snapshot){
+                CharSequence text = redLetter.getSpanned(this, list.bible_reference);
+                if (text == null) text = new Verse(this, list.bible_reference).scripture_text;
+                rows.add(new Bookmark_recyclerview_model(text,list.book,list.bible_reference));
+            }
+            runOnUiThread(() -> {
+                if (isFinishing() || isDestroyed()) return;
+                data.clear();
+                data.addAll(rows);
+                adapter.notifyDataSetChanged();
+            });
+        });
+    }
     void deleteBookmark(int position){
         db.bookmark_dao().deleteBookmark(bookmarks_list.get(position).bible_reference);
         //remove from ui
@@ -56,7 +79,8 @@ public class bookmarks_activity extends AppCompatActivity {
     void shareBookmark(int position){
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(Intent.EXTRA_TEXT, bookmarks_list.get(position).full_text);
+        // Share the current translation's text so it matches what the row displays.
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, new Verse(this, bookmarks_list.get(position).bible_reference).full_text);
         startActivity(android.content.Intent.createChooser(sharingIntent, "Share via"));
     }
 
@@ -126,12 +150,17 @@ when a bookmark in the bookmark page is short tapped, open that verse in the ver
             noBookmarksIndicator.setVisibility(View.VISIBLE);
         }
 
-        for(bookmark list:bookmarks_list){
-            data.add(new Bookmark_recyclerview_model(list.scripture_text,list.book,list.bible_reference));
-        }
-
         bookmark_recyclerview.setAdapter(adapter);
         bookmark_recyclerview.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
+
+        // Build rows off the main thread: each row is derived from the current
+        // translation (red-letter markup only exists per current translation, so
+        // mixing it with the DB-stored text would show two translations in one
+        // list after a switch in Settings). The fallback re-reads the whole book
+        // .txt file per verse, so doing this synchronously here would jank/ANR
+        // onCreate for users with many bookmarks. Html.fromHtml is view-free, so
+        // it is safe to run here and keeps it out of onBindViewHolder.
+        loadBookmarkRows();
         delete_bookmark.setOnClickListener(View ->{
             deleteBookmark(bookmarkPosition);
             hideFabs();
@@ -160,6 +189,12 @@ when a bookmark in the bookmark page is short tapped, open that verse in the ver
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        rowExecutor.shutdownNow();
+        super.onDestroy();
     }
 
     @Override

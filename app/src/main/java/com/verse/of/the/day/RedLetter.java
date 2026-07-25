@@ -11,21 +11,27 @@ import java.util.HashMap;
 
 public class RedLetter {
 
-    private final HashMap<String, JSONObject> cache = new HashMap<>();
+    // Static so all RedLetter instances share one parsed copy per translation —
+    // the JSON assets are ~330KB each and several screens create their own instance.
+    private static final HashMap<String, JSONObject> cache = new HashMap<>();
 
     private JSONObject load(Context context, String translation) {
-        if (cache.containsKey(translation)) return cache.get(translation);
-        JSONObject data = null;
-        try {
-            InputStream is = context.getAssets().open("red_letter_" + translation + ".json");
-            byte[] bytes = is.readAllBytes();
-            is.close();
-            data = new JSONObject(new String(bytes, StandardCharsets.UTF_8));
-        } catch (Exception e) {
-            // no red-letter file for this translation
+        // Synchronized because the static cache is now touched off the main thread
+        // (the bookmarks screen builds its rows on a background thread).
+        synchronized (cache) {
+            if (cache.containsKey(translation)) return cache.get(translation);
+            JSONObject data = null;
+            try {
+                InputStream is = context.getAssets().open("red_letter_" + translation + ".json");
+                byte[] bytes = is.readAllBytes();
+                is.close();
+                data = new JSONObject(new String(bytes, StandardCharsets.UTF_8));
+            } catch (Exception e) {
+                // no red-letter file for this translation
+            }
+            cache.put(translation, data);
+            return data;
         }
-        cache.put(translation, data);
-        return data;
     }
 
     private String getTranslation(Context context) {
