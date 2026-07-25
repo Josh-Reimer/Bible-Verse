@@ -18,9 +18,8 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
     // result sets exceed the binder transaction limit when the activity stops)
     // and callbacks are re-fetched from the host activity in onAttach, so the
     // sheet survives system recreation (rotation, dark/light theme change)
-    // instead of coming back empty. After process death the ViewModel is empty
-    // and the restored sheet dismisses itself.
-    private List<SearchResult> results;
+    // instead of coming back empty. After process death the ViewModel is empty;
+    // the restored sheet dismisses itself and asks the host to re-run the search.
     private Host host;
 
     public interface Host {
@@ -28,10 +27,7 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
         SearchResultsAdapter.BookmarkListener getSearchBookmarkListener();
         void onSearchSheetOutsideTap(float rawX, float rawY);
         void onSearchSheetCancelled();
-    }
-
-    public static SearchResultsBottomSheet newInstance() {
-        return new SearchResultsBottomSheet();
+        void onSearchSheetRestoredEmpty();
     }
 
     @Override
@@ -90,8 +86,13 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        results = new ViewModelProvider(requireActivity()).get(SearchResultsViewModel.class).results;
+        List<SearchResult> results = new ViewModelProvider(requireActivity()).get(SearchResultsViewModel.class).results;
         if (results == null || host == null) {
+            // Process death emptied the ViewModel; let the host restore the search
+            // instead of leaving its re-expanded search bar stranded over nothing.
+            if (host != null) {
+                host.onSearchSheetRestoredEmpty();
+            }
             dismissAllowingStateLoss();
             return;
         }

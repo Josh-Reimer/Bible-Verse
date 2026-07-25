@@ -7,7 +7,10 @@ import java.util.List;
 // into a saved-state Bundle: a broad search serializes to multiple MB, which
 // blows the ~1MB binder limit when the activity stops (TransactionTooLargeException).
 // The ViewModel survives rotation/theme recreation; after process death it comes
-// back empty and the results sheet dismisses itself.
+// back empty and the restored sheet asks the host to re-run the search.
 public class SearchResultsViewModel extends ViewModel {
     public List<SearchResult> results;
+    // Set when a search finishes after the activity's state is saved (showing the
+    // sheet then would throw); onResume shows the parked results.
+    public boolean pendingShow;
 }
