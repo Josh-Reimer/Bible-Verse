@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One loaded similar verse: reference label over the verse text (red-letter aware).
+     Tapping opens that verse's chapter. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?attr/selectableItemBackground"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="12dp">
+
+    <TextView
+        android:id="@+id/similar_ref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.03"
+        android:textColor="?attr/colorOnSurface" />
+
+    <TextView
+        android:id="@+id/similar_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:lineSpacingMultiplier="1.1"
+        android:textColor="?attr/colorOnSurface" />
+</LinearLayout>

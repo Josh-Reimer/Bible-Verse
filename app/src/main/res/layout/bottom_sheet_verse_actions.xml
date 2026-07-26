@@ -1,75 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Wrapped in a NestedScrollView so the sheet can grow past the fold once the
+     similar-verses section is populated, and still drag/scroll inside the sheet. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingTop="8dp"
-    android:paddingBottom="24dp">
-
-    <TextView
-        android:id="@+id/verse_actions_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="12dp"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="?attr/colorOnSurface" />
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/action_bookmark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackground"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="16dp">
-
-        <ImageView
-            android:id="@+id/bookmark_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="24dp"
-            android:tint="?attr/colorOnSurface"
-            android:src="@drawable/bookmark_border_48" />
+        android:orientation="vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="24dp">
 
         <TextView
-            android:id="@+id/bookmark_label"
-            android:layout_width="wrap_content"
+            android:id="@+id/verse_actions_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="12dp"
             android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:text="Add bookmark" />
-    </LinearLayout>
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface" />
 
-    <LinearLayout
-        android:id="@+id/action_share"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackground"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="16dp">
+        <LinearLayout
+            android:id="@+id/action_bookmark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="16dp">
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="24dp"
-            android:tint="?attr/colorOnSurface"
-            android:src="@drawable/baseline_share_24" />
+            <ImageView
+                android:id="@+id/bookmark_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="24dp"
+                android:tint="?attr/colorOnSurface"
+                android:src="@drawable/bookmark_border_48" />
+
+            <TextView
+                android:id="@+id/bookmark_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:text="Add bookmark" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/action_share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="24dp"
+                android:tint="?attr/colorOnSurface"
+                android:src="@drawable/baseline_share_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:text="Share verse" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:alpha="0.4"
+            android:background="?attr/colorOutline" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/similar_verses_header"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:text="Share verse" />
-    </LinearLayout>
+            android:paddingHorizontal="20dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="4dp"
+            android:text="Similar verses"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:letterSpacing="0.06"
+            android:textColor="?attr/colorOnSurface" />
 
-</LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Skeleton shown while neighbors load; shimmer sweeps over the bars. -->
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_similar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:shimmer_duration="1100"
+                app:shimmer_base_alpha="0.35"
+                app:shimmer_highlight_alpha="0.9">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/skeleton_similar_verse" />
+                    <include layout="@layout/skeleton_similar_verse" />
+                    <include layout="@layout/skeleton_similar_verse" />
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <!-- Real verses fade in here once loaded; starts empty and transparent. -->
+            <LinearLayout
+                android:id="@+id/similar_verses_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:alpha="0" />
+        </FrameLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,202 @@
+{
+  "genesis 1:1": {
+    "text": "In the beginning God created the heaven and the earth.",
+    "similar": [
+      {
+        "ref": "isaiah 65:17",
+        "text": "For, behold, I create new heavens and a new earth: and the former shall not be remembered, nor come into mind."
+      },
+      {
+        "ref": "proverbs 3:19",
+        "text": "The LORD by wisdom hath founded the earth; by understanding hath he established the heavens."
+      },
+      {
+        "ref": "jeremiah 32:17",
+        "text": "Ah Lord GOD!  behold, thou hast made the heaven and the earth by thy great power and stretched out arm, and there is nothing too hard for thee:"
+      },
+      {
+        "ref": "psalms 33:6",
+        "text": "By the word of the LORD were the heavens made; and all the host of them by the breath of his mouth."
+      },
+      {
+        "ref": "jeremiah 33:2",
+        "text": "Thus saith the LORD the maker thereof, the LORD that formed it, to establish it; the LORD is his name;"
+      }
+    ]
+  },
+  "john 3:16": {
+    "text": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.",
+    "similar": [
+      {
+        "ref": "second_corinthians 5:15",
+        "text": "And that he died for all, that they which live should not henceforth live unto themselves, but unto him which died for them, and rose again."
+      },
+      {
+        "ref": "luke 10:27",
+        "text": "And he answering said, Thou shalt love the Lord thy God with all thy heart, and with all thy soul, and with all thy strength, and with all thy mind; and thy neighbour as thyself."
+      },
+      {
+        "ref": "romans 5:8",
+        "text": "But God commendeth his love toward us, in that, while we were yet sinners, Christ died for us."
+      },
+      {
+        "ref": "psalms 136:6",
+        "text": "To him that stretched out the earth above the waters: for his mercy endureth for ever."
+      },
+      {
+        "ref": "first_john 4:16",
+        "text": "And we have known and believed the love that God hath to us. God is love; and he that dwelleth in love dwelleth in God, and God in him."
+      }
+    ]
+  },
+  "psalms 23:1": {
+    "text": "The LORD is my shepherd; I shall not want.",
+    "similar": [
+      {
+        "ref": "ezekial 34:10",
+        "text": "Thus saith the Lord GOD; Behold, I am against the shepherds; and I will require my flock at their hand, and cause them to cease from feeding the flock; neither shall the shepherds feed themselves any more; for I will deliver my flock from their mouth, that they may not be meat for them."
+      },
+      {
+        "ref": "first_samuel 22:23",
+        "text": "Abide thou with me, fear not: for he that seeketh my life seeketh thy life: but with me thou shalt be in safeguard."
+      },
+      {
+        "ref": "ezekial 34:9",
+        "text": "Therefore, O ye shepherds, hear the word of the LORD;"
+      },
+      {
+        "ref": "jeremiah 25:35",
+        "text": "And the shepherds shall have no way to flee, nor the principal of the flock to escape."
+      },
+      {
+        "ref": "ezekial 34:7",
+        "text": "Therefore, ye shepherds, hear the word of the LORD;"
+      }
+    ]
+  },
+  "first_corinthians 13:4": {
+    "text": "Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself, is not puffed up,",
+    "similar": [
+      {
+        "ref": "psalms 9:18",
+        "text": "For the needy shall not alway be forgotten: the expectation of the poor shall not perish for ever."
+      },
+      {
+        "ref": "mark 14:7",
+        "text": "For ye have the poor with you always, and whensoever ye will ye may do them good: but me ye have not always."
+      },
+      {
+        "ref": "proverbs 19:17",
+        "text": "He that hath pity upon the poor lendeth unto the LORD; and that which he hath given will he pay him again."
+      },
+      {
+        "ref": "amos 8:4",
+        "text": "Hear this, O ye that swallow up the needy, even to make the poor of the land to fail,"
+      },
+      {
+        "ref": "proverbs 29:7",
+        "text": "The righteous considereth the cause of the poor: but the wicked regardeth not to know it."
+      }
+    ]
+  },
+  "matthew 5:44": {
+    "text": "But I say unto you, Love your enemies, bless them that curse you, do good to them that hate you, and pray for them which despitefully use you, and persecute you;",
+    "similar": [
+      {
+        "ref": "ephesians 4:31",
+        "text": "Let all bitterness, and wrath, and anger, and clamour, and evil speaking, be put away from you, with all malice:"
+      },
+      {
+        "ref": "ezekial 23:28",
+        "text": "For thus saith the Lord GOD; Behold, I will deliver thee into the hand of them whom thou hatest, into the hand of them from whom thy mind is alienated:"
+      },
+      {
+        "ref": "job 27:7",
+        "text": "Let mine enemy be as the wicked, and he that riseth up against me as the unrighteous."
+      },
+      {
+        "ref": "psalms 71:13",
+        "text": "Let them be confounded and consumed that are adversaries to my soul; let them be covered with reproach and dishonour that seek my hurt."
+      },
+      {
+        "ref": "jeremiah 18:23",
+        "text": "Yet, LORD, thou knowest all their counsel against me to slay me: forgive not their iniquity, neither blot out their sin from thy sight, but let them be overthrown before thee; deal thus with them in the time of thine anger."
+      }
+    ]
+  },
+  "acts 20:35": {
+    "text": "I have shewed you all things, how that so labouring ye ought to support the weak, and to remember the words of the Lord Jesus, how he said, It is more blessed to give than to receive.",
+    "similar": [
+      {
+        "ref": "psalms 9:18",
+        "text": "For the needy shall not alway be forgotten: the expectation of the poor shall not perish for ever."
+      },
+      {
+        "ref": "second_corinthians 9:7",
+        "text": "Every man according as he purposeth in his heart, so let him give; not grudgingly, or of necessity: for God loveth a cheerful giver."
+      },
+      {
+        "ref": "proverbs 19:17",
+        "text": "He that hath pity upon the poor lendeth unto the LORD; and that which he hath given will he pay him again."
+      },
+      {
+        "ref": "amos 8:4",
+        "text": "Hear this, O ye that swallow up the needy, even to make the poor of the land to fail,"
+      },
+      {
+        "ref": "hosea 10:12",
+        "text": "Sow to yourselves in righteousness, reap in mercy; break up your fallow ground: for it is time to seek the LORD, till he come and rain righteousness upon you."
+      }
+    ]
+  },
+  "psalms 119:105": {
+    "text": "Thy word is a lamp unto my feet, and a light unto my path.",
+    "similar": [
+      {
+        "ref": "hebrews 4:12",
+        "text": "For the word of God is quick, and powerful, and sharper than any twoedged sword, piercing even to the dividing asunder of soul and spirit, and of the joints and marrow, and is a discerner of the thoughts and intents of the heart."
+      },
+      {
+        "ref": "second_corinthians 8:7",
+        "text": "Therefore, as ye abound in every thing, in faith, and utterance, and knowledge, and in all diligence, and in your love to us, see that ye abound in this grace also."
+      },
+      {
+        "ref": "matthew 13:43",
+        "text": "Then shall the righteous shine forth as the sun in the kingdom of their Father. Who hath ears to hear, let him hear."
+      },
+      {
+        "ref": "psalms 43:3",
+        "text": "O send out thy light and thy truth: let them lead me; let them bring me unto thy holy hill, and to thy tabernacles."
+      },
+      {
+        "ref": "psalms 26:3",
+        "text": "For thy lovingkindness is before mine eyes: and I have walked in thy truth."
+      }
+    ]
+  },
+  "philipians 4:13": {
+    "text": "I can do all things through Christ which strengtheneth me.",
+    "similar": [
+      {
+        "ref": "job 42:2",
+        "text": "I know that thou canst do every thing, and that no thought can be withholden from thee."
+      },
+      {
+        "ref": "luke 1:37",
+        "text": "For with God nothing shall be impossible."
+      },
+      {
+        "ref": "ephesians 3:20",
+        "text": "Now unto him that is able to do exceeding abundantly above all that we ask or think, according to the power that worketh in us,"
+      },
+      {
+        "ref": "philipians 1:25",
+        "text": "And having this confidence, I know that I shall abide and continue with you all for your furtherance and joy of faith;"
+      },
+      {
+        "ref": "mark 9:23",
+        "text": "Jesus said unto him, If thou canst believe, all things are possible to him that believeth."
+      }
+    ]
+  }
+}

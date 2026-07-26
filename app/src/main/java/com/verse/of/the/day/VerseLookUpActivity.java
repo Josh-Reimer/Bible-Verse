@@ -23,6 +23,7 @@ public class VerseLookUpActivity extends AppCompatActivity implements VerseActio
 	private final Bible bible = new Bible();
 	private final Tools tools = new Tools();
 	private final RedLetter redLetter = new RedLetter();
+	private final SimilarVerses similarVerses = new SimilarVerses();
 
 	@Override
 	protected void onCreate(Bundle SavedInstanceState){
@@ -202,6 +203,35 @@ public class VerseLookUpActivity extends AppCompatActivity implements VerseActio
 	@Override
 	public void onVerseActionsDismissed() {
 		clearVerseHighlight();
+	}
+
+	// Called off the main thread by the sheet: resolve each precomputed neighbor into display
+	// data (label + red-letter-aware text) in the user's current translation.
+	@Override
+	public java.util.List<VerseActionsBottomSheet.SimilarVerse> loadSimilarVerses(String ref) {
+		java.util.List<VerseActionsBottomSheet.SimilarVerse> out = new java.util.ArrayList<>();
+		for (String neighborRef : similarVerses.getSimilar(this, ref)) {
+			Spanned spanned = redLetter.getSpanned(this, neighborRef);
+			CharSequence text = spanned != null
+					? spanned
+					: stripReferencePrefix(new Verse(this, neighborRef).scripture_text);
+			out.add(new VerseActionsBottomSheet.SimilarVerse(neighborRef, verseActionLabel(neighborRef), text));
+		}
+		return out;
+	}
+
+	@Override
+	public void openSimilarVerse(String ref) {
+		Intent intent = new Intent(this, VerseLookUpActivity.class);
+		intent.putExtra("verse_ref", ref);
+		startActivity(intent);
+	}
+
+	// A raw verse line is "chapter:verse: text"; strip the reference prefix for clean display.
+	private static String stripReferencePrefix(String verseLine) {
+		int first = verseLine.indexOf(':');
+		int second = first < 0 ? -1 : verseLine.indexOf(':', first + 1);
+		return second < 0 ? verseLine : verseLine.substring(second + 1).trim();
 	}
 
 	@Override
