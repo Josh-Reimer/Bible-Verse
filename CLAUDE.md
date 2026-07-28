@@ -21,7 +21,7 @@ never save the screenshots on the phone, always remove. only analyze the screens
 
 ## Project Overview
 
-Android app (Java, minSdk 33, targetSdk 36, Java 17) that displays a pseudo-random Bible verse on launch. Supports three translations: KJV (default), ASV, BSB, each with red-letter (words of Christ) rendering. Users can bookmark verses, view the full chapter context, and share verses. All Bible text is bundled as plain-text assets — no network calls.
+Android app (Java, minSdk 27, targetSdk 36, Java 17) that displays a pseudo-random Bible verse on launch. Supports three translations: KJV (default), ASV, BSB, each with red-letter (words of Christ) rendering. Users can bookmark verses, view the full chapter context, and share verses. All Bible text is bundled as plain-text assets — no network calls.
 
 **Key dependencies:** Room (local bookmark DB), Material Components, AppCompat, ConstraintLayout.
 
