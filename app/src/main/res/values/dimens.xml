@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The launcher only insets widgets itself from Android 12 on (see values-v31). -->
+    <dimen name="widget_margin">8dp</dimen>
+    <dimen name="widget_corner_radius">16dp</dimen>
+</resources>

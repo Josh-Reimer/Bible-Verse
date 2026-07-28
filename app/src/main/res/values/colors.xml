@@ -26,4 +26,12 @@
 <!--outline shown on a verse while its actions sheet is open-->
 <color name="verse_highlight_tapped">#FF9800</color>
 
+<!--home-screen widget: follows the system light/dark setting, not the app's
+    "theme_mode" preference, since a RemoteViews host has no AppCompatDelegate-->
+<color name="widget_background">#FFFFFF</color>
+<color name="widget_text">#1A1A1A</color>
+<color name="widget_accent">#388e3c</color>
+<color name="widget_muted">#757575</color>
+<color name="widget_ripple">#33388e3c</color>
+
 </resources>

@@ -121,6 +121,7 @@ public class SettingsActivity extends AppCompatActivity {
                 if (!selected.equals("bsb")) {
                     spEditor.putString("translation", selected).apply();
                     committedIndex = position;
+                    VerseWidgetProvider.refresh(SettingsActivity.this);
                     return;
                 }
 
@@ -131,6 +132,7 @@ public class SettingsActivity extends AppCompatActivity {
                         .setPositiveButton("OK", (d, which) -> {
                             spEditor.putString("translation", selected).apply();
                             committedIndex = position;
+                            VerseWidgetProvider.refresh(SettingsActivity.this);
                         })
                         .setNegativeButton("Cancel", (d, which) -> translationSpinner.setSelection(committedIndex))
                         .create();
@@ -152,6 +154,7 @@ public class SettingsActivity extends AppCompatActivity {
         showTranslationInfoSwitch.setChecked(showTranslationInfo);
         showTranslationInfoSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             spEditor.putBoolean("show_translation_info", isChecked).apply();
+            VerseWidgetProvider.refresh(SettingsActivity.this);
         });
     }
 

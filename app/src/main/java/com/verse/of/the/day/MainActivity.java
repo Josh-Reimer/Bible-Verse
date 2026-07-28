@@ -189,7 +189,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         vod = new VerseOfTheDay(mainScanner, thisapp);
 
             if(savedInstanceState == null) {
-                verse_displayed = vod.getRandomRef(bible, tools, thisapp);  // generate new verse if the savedInstanceState is null (when the app cold starts)
+                String widgetRef = getIntent().getStringExtra("verse_ref");  // set when launched from the home-screen widget
+                verse_displayed = widgetRef != null
+                        ? new Verse(thisapp, widgetRef)
+                        : vod.getRandomRef(bible, tools, thisapp);  // generate new verse if the savedInstanceState is null (when the app cold starts)
             } else {
                 verse_displayed = new Verse(
                         thisapp,
@@ -251,6 +254,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onDestroy() {
         super.onDestroy();
         mainScanner.close();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        // The widget launches singleTop with CLEAR_TOP, so an already-running activity
+        // gets the tapped verse here. onResume redraws from verse_displayed.
+        String widgetRef = intent.getStringExtra("verse_ref");
+        if (widgetRef != null) {
+            verse_displayed = new Verse(thisapp, widgetRef);
+        }
     }
 
     @Override

@@ -22,4 +22,9 @@
     <string name="hide_the_buttons">hide the buttons</string>
     <string name="show_translation_info">Show Translation Info</string>
     <string name="search_verses">Search Verses</string>
+    <string name="widget_label">Verse of the Day</string>
+    <string name="widget_description">A daily Bible verse on your home screen.</string>
+    <string name="widget_placeholder_reference">JOHN 3:16</string>
+    <string name="widget_placeholder_translation">KJV</string>
+    <string name="widget_placeholder_verse">For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.</string>
 </resources>
