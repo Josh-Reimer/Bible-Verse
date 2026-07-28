@@ -23,7 +23,7 @@ public class RedLetter {
             JSONObject data = null;
             try {
                 InputStream is = context.getAssets().open("red_letter_" + translation + ".json");
-                byte[] bytes = is.readAllBytes();
+                byte[] bytes = Tools.readFully(is);
                 is.close();
                 data = new JSONObject(new String(bytes, StandardCharsets.UTF_8));
             } catch (Exception e) {
