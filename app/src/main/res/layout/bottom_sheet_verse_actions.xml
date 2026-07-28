@@ -53,7 +53,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="24dp"
-                android:tint="?attr/colorOnSurface"
+                app:tint="?attr/colorOnSurface"
                 android:src="@drawable/bookmark_border_48" />
 
             <TextView
@@ -81,7 +81,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="24dp"
-                android:tint="?attr/colorOnSurface"
+                app:tint="?attr/colorOnSurface"
                 android:src="@drawable/baseline_share_24" />
 
             <TextView
