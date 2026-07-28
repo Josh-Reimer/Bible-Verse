@@ -66,7 +66,9 @@ public int getBookLength(Tools tools,Context context, String book) {
 //this function returns the number of chapters in the book asked for
 String bookObject = tools.getFile(context,book);
 
-String stripped = bookObject.stripTrailing();
+// trim() rather than stripTrailing(), which is API 33 and above our minSdk. Only the
+// text after the last newline is read, so also dropping leading whitespace is a no-op.
+String stripped = bookObject.trim();
 String lastline = stripped.substring(stripped.lastIndexOf("\n") + 1);
 
 return Integer.parseInt(lastline.split(":")[0].trim());

@@ -32,7 +32,7 @@ Books are organised into translation subdirectories: `assets/kjv/`, `assets/asv/
 ```
 chapter:verse_number: verse text
 ```
-Files have a short human-readable header before the first verse line (13 books start directly at `1:1:` with no header — don't assume a fixed offset when parsing). KJV files have no trailing newline; ASV and BSB files do — `getBookLength()` uses `stripTrailing()` before parsing the last line to handle both cases.
+Files have a short human-readable header before the first verse line (13 books start directly at `1:1:` with no header — don't assume a fixed offset when parsing). KJV files have no trailing newline; ASV and BSB files do — `getBookLength()` uses `trim()` before parsing the last line to handle both cases (not `stripTrailing()` — that is API 33, above the minSdk 27 floor).
 
 ### Translation selection
 `Tools.getFile(context, filename)` reads `SharedPreferences("settings")` key `"translation"` (default `"kjv"`) and opens `translation + "/" + filename`. This single change propagates to all file reads. Uses `InputStream.readAllBytes()` — not the older `available()` + single `read()` pattern — to handle compressed assets in subdirectories reliably.
