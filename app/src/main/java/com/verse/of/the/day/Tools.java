@@ -29,13 +29,26 @@ String path = translation + "/" + filename;
 try {
 AssetManager manager = context.getAssets();
 InputStream inputstream = manager.open(path);
-byte[] bytes = inputstream.readAllBytes();
+byte[] bytes = readFully(inputstream);
 inputstream.close();
 return new String(bytes, StandardCharsets.UTF_8);
 } catch (IOException ex) {
 ex.printStackTrace();
 return "could not load file";
 }
+}
+
+// InputStream.readAllBytes() is API 33, above our minSdk. Loop until the stream is
+// drained: a single available()-sized read under-reads compressed assets in
+// subdirectories, which is the bug readAllBytes() was originally brought in to fix.
+static byte[] readFully(InputStream in) throws IOException {
+ByteArrayOutputStream out = new ByteArrayOutputStream();
+byte[] buffer = new byte[8192];
+int count;
+while ((count = in.read(buffer)) != -1) {
+out.write(buffer, 0, count);
+}
+return out.toByteArray();
 }
 
 public boolean isDigit(String letters) {
