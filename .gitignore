@@ -17,5 +17,6 @@ local.properties
 app/release
 *.png
 .idea/misc.xml
-# Python env for scripts/generate_similar_verses.py (not shipped)
+# Python env and cached embeddings for scripts/generate_similar_verses.py (not shipped)
 scripts/.venv-embed/
+scripts/.cache-embed/

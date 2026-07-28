@@ -4,23 +4,53 @@
     "similar": [
       {
         "ref": "isaiah 65:17",
+        "via": "kjv",
         "text": "For, behold, I create new heavens and a new earth: and the former shall not be remembered, nor come into mind."
       },
       {
         "ref": "proverbs 3:19",
+        "via": "kjv",
         "text": "The LORD by wisdom hath founded the earth; by understanding hath he established the heavens."
       },
       {
         "ref": "jeremiah 32:17",
+        "via": "kjv",
         "text": "Ah Lord GOD!  behold, thou hast made the heaven and the earth by thy great power and stretched out arm, and there is nothing too hard for thee:"
       },
       {
         "ref": "psalms 33:6",
+        "via": "kjv",
         "text": "By the word of the LORD were the heavens made; and all the host of them by the breath of his mouth."
       },
       {
+        "ref": "first_timothy 2:13",
+        "via": "bsb",
+        "text": "For Adam was formed first, and then Eve."
+      },
+      {
         "ref": "jeremiah 33:2",
+        "via": "kjv",
         "text": "Thus saith the LORD the maker thereof, the LORD that formed it, to establish it; the LORD is his name;"
+      },
+      {
+        "ref": "genesis 2:8",
+        "via": "bsb",
+        "text": "And the LORD God planted a garden in Eden, in the east, where He placed the man He had formed."
+      },
+      {
+        "ref": "hebrews 11:3",
+        "via": "bsb",
+        "text": "By faith we understand that the universe was formed at God’s command, so that what is seen was not made out of what was visible."
+      },
+      {
+        "ref": "acts 4:24",
+        "via": "bsb",
+        "text": "When the believers heard this, they lifted up their voices to God with one accord. “Sovereign Lord,” they said, “You made the heaven and the earth and the sea and everything in them."
+      },
+      {
+        "ref": "genesis 3:23",
+        "via": "asv",
+        "text": "therefore Jehovah God sent him forth from the garden of Eden, to till the ground from whence he was taken."
       }
     ]
   },
@@ -29,23 +59,53 @@
     "similar": [
       {
         "ref": "second_corinthians 5:15",
+        "via": "kjv",
         "text": "And that he died for all, that they which live should not henceforth live unto themselves, but unto him which died for them, and rose again."
       },
       {
+        "ref": "psalms 136:6",
+        "via": "asv",
+        "text": "To him that spread forth the earth above the waters; For his lovingkindness endureth for ever:"
+      },
+      {
         "ref": "luke 10:27",
-        "text": "And he answering said, Thou shalt love the Lord thy God with all thy heart, and with all thy soul, and with all thy strength, and with all thy mind; and thy neighbour as thyself."
+        "via": "asv",
+        "text": "And he answering said, Thou shalt love the Lord thy God with all thy heart, and with all thy soul, and with all thy strength, and with all thy mind; and thy neighbor as thyself."
       },
       {
         "ref": "romans 5:8",
-        "text": "But God commendeth his love toward us, in that, while we were yet sinners, Christ died for us."
+        "via": "asv",
+        "text": "But God commendeth his own love toward us, in that, while we were yet sinners, Christ died for us."
       },
       {
-        "ref": "psalms 136:6",
-        "text": "To him that stretched out the earth above the waters: for his mercy endureth for ever."
+        "ref": "matthew 22:37",
+        "via": "asv",
+        "text": "And he said unto him, Thou shalt love the Lord thy God with all thy heart, and with all thy soul, and with all thy mind."
       },
       {
         "ref": "first_john 4:16",
-        "text": "And we have known and believed the love that God hath to us. God is love; and he that dwelleth in love dwelleth in God, and God in him."
+        "via": "bsb",
+        "text": "And we have come to know and believe the love that God has for us. God is love; whoever abides in love abides in God, and God in him."
+      },
+      {
+        "ref": "first_john 2:5",
+        "via": "asv",
+        "text": "but whoso keepeth his word, in him verily hath the love of God been perfected. Hereby we know that we are in him:"
+      },
+      {
+        "ref": "psalms 33:5",
+        "via": "bsb",
+        "text": "The LORD loves righteousness and justice; the earth is full of His loving devotion."
+      },
+      {
+        "ref": "first_kings 8:39",
+        "via": "asv",
+        "text": "then hear thou in heaven thy dwelling-place, and forgive, and do, and render unto every man according to all his ways, whose heart thou knowest; (for thou, even thou only, knowest the hearts of all the children of men;)"
+      },
+      {
+        "ref": "psalms 106:31",
+        "via": "asv",
+        "text": "And that was reckoned unto him for righteousness, Unto all generations for evermore."
       }
     ]
   },
@@ -54,23 +114,53 @@
     "similar": [
       {
         "ref": "ezekial 34:10",
-        "text": "Thus saith the Lord GOD; Behold, I am against the shepherds; and I will require my flock at their hand, and cause them to cease from feeding the flock; neither shall the shepherds feed themselves any more; for I will deliver my flock from their mouth, that they may not be meat for them."
+        "via": "asv",
+        "text": "Thus saith the Lord Jehovah, Behold, I am against the shepherds; and I will require my sheep at their hand, and cause them to cease from feeding the sheep; neither shall the shepherds feed themselves any more; and I will deliver my sheep from their mouth, that they may not be food for them."
+      },
+      {
+        "ref": "first_peter 5:2",
+        "via": "bsb",
+        "text": "Be shepherds of God’s flock that is among you, watching over them not out of compulsion, but because it is God’s will; not out of greed, but out of eagerness;"
+      },
+      {
+        "ref": "psalms 40:11",
+        "via": "asv",
+        "text": "Withhold not thou thy tender mercies from me, O Jehovah; Let thy lovingkindness and thy truth continually preserve me."
+      },
+      {
+        "ref": "jeremiah 23:1",
+        "via": "asv",
+        "text": "Woe unto the shepherds that destroy and scatter the sheep of my pasture! saith Jehovah."
+      },
+      {
+        "ref": "jeremiah 3:15",
+        "via": "bsb",
+        "text": "Then I will give you shepherds after My own heart, who will feed you with knowledge and understanding.”"
       },
       {
         "ref": "first_samuel 22:23",
+        "via": "kjv",
         "text": "Abide thou with me, fear not: for he that seeketh my life seeketh thy life: but with me thou shalt be in safeguard."
       },
       {
-        "ref": "ezekial 34:9",
-        "text": "Therefore, O ye shepherds, hear the word of the LORD;"
+        "ref": "psalms 5:8",
+        "via": "asv",
+        "text": "Lead me, O Jehovah, in thy righteousness because of mine enemies; Make thy way straight before my face."
+      },
+      {
+        "ref": "psalms 69:6",
+        "via": "asv",
+        "text": "Let not them that wait for thee be put to shame through me, O Lord Jehovah of hosts: Let not those that seek thee be brought to dishonor through me, O God of Israel."
       },
       {
         "ref": "jeremiah 25:35",
+        "via": "kjv",
         "text": "And the shepherds shall have no way to flee, nor the principal of the flock to escape."
       },
       {
-        "ref": "ezekial 34:7",
-        "text": "Therefore, ye shepherds, hear the word of the LORD;"
+        "ref": "jeremiah 38:21",
+        "via": "kjv",
+        "text": "But if thou refuse to go forth, this is the word that the LORD hath shewed me:"
       }
     ]
   },
@@ -79,23 +169,53 @@
     "similar": [
       {
         "ref": "psalms 9:18",
+        "via": "kjv",
         "text": "For the needy shall not alway be forgotten: the expectation of the poor shall not perish for ever."
       },
       {
+        "ref": "proverbs 12:25",
+        "via": "asv",
+        "text": "Heaviness in the heart of a man maketh it stoop; But a good word maketh it glad."
+      },
+      {
         "ref": "mark 14:7",
+        "via": "kjv",
         "text": "For ye have the poor with you always, and whensoever ye will ye may do them good: but me ye have not always."
       },
       {
         "ref": "proverbs 19:17",
+        "via": "kjv",
         "text": "He that hath pity upon the poor lendeth unto the LORD; and that which he hath given will he pay him again."
       },
       {
+        "ref": "john 12:25",
+        "via": "asv",
+        "text": "He that loveth his life loseth it; and he that hateth his life in this world shall keep it unto life eternal."
+      },
+      {
         "ref": "amos 8:4",
+        "via": "kjv",
         "text": "Hear this, O ye that swallow up the needy, even to make the poor of the land to fail,"
       },
       {
         "ref": "proverbs 29:7",
+        "via": "kjv",
         "text": "The righteous considereth the cause of the poor: but the wicked regardeth not to know it."
+      },
+      {
+        "ref": "proverbs 15:13",
+        "via": "asv",
+        "text": "A glad heart maketh a cheerful countenance; But by sorrow of heart the spirit is broken."
+      },
+      {
+        "ref": "first_john 3:17",
+        "via": "kjv",
+        "text": "But whoso hath this world's good, and seeth his brother have need, and shutteth up his bowels of compassion from him, how dwelleth the love of God in him?"
+      },
+      {
+        "ref": "psalms 136:4",
+        "via": "kjv",
+        "text": "To him who alone doeth great wonders: for his mercy endureth for ever."
       }
     ]
   },
@@ -104,23 +224,53 @@
     "similar": [
       {
         "ref": "ephesians 4:31",
+        "via": "kjv",
         "text": "Let all bitterness, and wrath, and anger, and clamour, and evil speaking, be put away from you, with all malice:"
       },
       {
         "ref": "ezekial 23:28",
+        "via": "kjv",
         "text": "For thus saith the Lord GOD; Behold, I will deliver thee into the hand of them whom thou hatest, into the hand of them from whom thy mind is alienated:"
       },
       {
         "ref": "job 27:7",
+        "via": "kjv",
         "text": "Let mine enemy be as the wicked, and he that riseth up against me as the unrighteous."
       },
       {
         "ref": "psalms 71:13",
+        "via": "kjv",
         "text": "Let them be confounded and consumed that are adversaries to my soul; let them be covered with reproach and dishonour that seek my hurt."
       },
       {
         "ref": "jeremiah 18:23",
+        "via": "kjv",
         "text": "Yet, LORD, thou knowest all their counsel against me to slay me: forgive not their iniquity, neither blot out their sin from thy sight, but let them be overthrown before thee; deal thus with them in the time of thine anger."
+      },
+      {
+        "ref": "psalms 34:21",
+        "via": "asv",
+        "text": "Evil shall slay the wicked; And they that hate the righteous shall be condemned."
+      },
+      {
+        "ref": "leviticus 25:17",
+        "via": "kjv",
+        "text": "Ye shall not therefore oppress one another; but thou shalt fear thy God: for I am the LORD your God."
+      },
+      {
+        "ref": "ezekial 35:11",
+        "via": "kjv",
+        "text": "Therefore, as I live, saith the Lord GOD, I will even do according to thine anger, and according to thine envy which thou hast used out of thy hatred against them; and I will make myself known among them, when I have judged thee."
+      },
+      {
+        "ref": "exodus 9:17",
+        "via": "asv",
+        "text": "As yet exaltest thou thyself against my people, that thou wilt not let them go?"
+      },
+      {
+        "ref": "job 10:3",
+        "via": "kjv",
+        "text": "Is it good unto thee that thou shouldest oppress, that thou shouldest despise the work of thine hands, and shine upon the counsel of the wicked?"
       }
     ]
   },
@@ -129,23 +279,53 @@
     "similar": [
       {
         "ref": "psalms 9:18",
+        "via": "kjv",
         "text": "For the needy shall not alway be forgotten: the expectation of the poor shall not perish for ever."
       },
       {
         "ref": "second_corinthians 9:7",
+        "via": "kjv",
         "text": "Every man according as he purposeth in his heart, so let him give; not grudgingly, or of necessity: for God loveth a cheerful giver."
       },
       {
+        "ref": "second_corinthians 8:7",
+        "via": "bsb",
+        "text": "But just as you excel in everything—in faith, in speech, in knowledge, in complete earnestness, and in the love we inspired in you—see that you also excel in this grace of giving."
+      },
+      {
         "ref": "proverbs 19:17",
+        "via": "kjv",
         "text": "He that hath pity upon the poor lendeth unto the LORD; and that which he hath given will he pay him again."
       },
       {
+        "ref": "second_corinthians 6:4",
+        "via": "asv",
+        "text": "but in everything commending ourselves, as ministers of God, in much patience, in afflictions, in necessities, in distresses,"
+      },
+      {
+        "ref": "psalms 72:12",
+        "via": "asv",
+        "text": "For he will deliver the needy when he crieth, And the poor, that hath no helper."
+      },
+      {
         "ref": "amos 8:4",
+        "via": "kjv",
         "text": "Hear this, O ye that swallow up the needy, even to make the poor of the land to fail,"
       },
       {
+        "ref": "deuteronomy 15:11",
+        "via": "bsb",
+        "text": "For there will never cease to be poor in the land; that is why I am commanding you to open wide your hand to your brother and to the poor and needy in your land."
+      },
+      {
         "ref": "hosea 10:12",
+        "via": "kjv",
         "text": "Sow to yourselves in righteousness, reap in mercy; break up your fallow ground: for it is time to seek the LORD, till he come and rain righteousness upon you."
+      },
+      {
+        "ref": "haggai 1:6",
+        "via": "kjv",
+        "text": "Ye have sown much, and bring in little; ye eat, but ye have not enough; ye drink, but ye are not filled with drink; ye clothe you, but there is none warm; and he that earneth wages earneth wages to put it into a bag with holes."
       }
     ]
   },
@@ -154,23 +334,53 @@
     "similar": [
       {
         "ref": "hebrews 4:12",
-        "text": "For the word of God is quick, and powerful, and sharper than any twoedged sword, piercing even to the dividing asunder of soul and spirit, and of the joints and marrow, and is a discerner of the thoughts and intents of the heart."
+        "via": "asv",
+        "text": "For the word of God is living, and active, and sharper than any two-edged sword, and piercing even to the dividing of soul and spirit, of both joints and marrow, and quick to discern the thoughts and intents of the heart."
       },
       {
         "ref": "second_corinthians 8:7",
+        "via": "kjv",
         "text": "Therefore, as ye abound in every thing, in faith, and utterance, and knowledge, and in all diligence, and in your love to us, see that ye abound in this grace also."
       },
       {
         "ref": "matthew 13:43",
-        "text": "Then shall the righteous shine forth as the sun in the kingdom of their Father. Who hath ears to hear, let him hear."
+        "via": "asv",
+        "text": "Then shall the righteous shine forth as the sun in the kingdom of their Father. He that hath ears, let him hear."
+      },
+      {
+        "ref": "exodus 15:13",
+        "via": "asv",
+        "text": "Thou in thy lovingkindness hast led the people that thou hast redeemed: Thou hast guided them in thy strength to thy holy habitation."
+      },
+      {
+        "ref": "second_corinthians 3:3",
+        "via": "asv",
+        "text": "being made manifest that ye are an epistle of Christ, ministered by us, written not with ink, but with the Spirit of the living God; not in tables of stone, but in tables that are hearts of flesh."
       },
       {
         "ref": "psalms 43:3",
+        "via": "kjv",
         "text": "O send out thy light and thy truth: let them lead me; let them bring me unto thy holy hill, and to thy tabernacles."
       },
       {
         "ref": "psalms 26:3",
+        "via": "kjv",
         "text": "For thy lovingkindness is before mine eyes: and I have walked in thy truth."
+      },
+      {
+        "ref": "proverbs 6:22",
+        "via": "asv",
+        "text": "When thou walkest, it shall lead thee; When thou sleepest, it shall watch over thee; And when thou awakest, it shall talk with thee."
+      },
+      {
+        "ref": "colossians 2:6",
+        "via": "kjv",
+        "text": "As ye have therefore received Christ Jesus the Lord, so walk ye in him:"
+      },
+      {
+        "ref": "deuteronomy 11:18",
+        "via": "kjv",
+        "text": "Therefore shall ye lay up these my words in your heart and in your soul, and bind them for a sign upon your hand, that they may be as frontlets between your eyes."
       }
     ]
   },
@@ -178,24 +388,54 @@
     "text": "I can do all things through Christ which strengtheneth me.",
     "similar": [
       {
-        "ref": "job 42:2",
-        "text": "I know that thou canst do every thing, and that no thought can be withholden from thee."
+        "ref": "exodus 15:2",
+        "via": "asv",
+        "text": "Jehovah is my strength and song, And he is become my salvation: This is my God, and I will praise him; My father’s God, and I will exalt him."
       },
       {
-        "ref": "luke 1:37",
-        "text": "For with God nothing shall be impossible."
+        "ref": "psalms 118:14",
+        "via": "asv",
+        "text": "Jehovah is my strength and song; And he is become my salvation."
+      },
+      {
+        "ref": "psalms 62:6",
+        "via": "asv",
+        "text": "He only is my rock and my salvation: He ismy high tower; I shall not be moved."
+      },
+      {
+        "ref": "psalms 23:3",
+        "via": "asv",
+        "text": "He restoreth my soul: He guideth me in the paths of righteousness for his name’s sake."
+      },
+      {
+        "ref": "psalms 28:7",
+        "via": "asv",
+        "text": "Jehovah is my strength and my shield; My heart hath trusted in him, and I am helped: Therefore my heart greatly rejoiceth; And with my song will I praise him."
       },
       {
         "ref": "ephesians 3:20",
+        "via": "asv",
         "text": "Now unto him that is able to do exceeding abundantly above all that we ask or think, according to the power that worketh in us,"
       },
       {
-        "ref": "philipians 1:25",
-        "text": "And having this confidence, I know that I shall abide and continue with you all for your furtherance and joy of faith;"
+        "ref": "job 23:14",
+        "via": "asv",
+        "text": "For he performeth that which is appointed for me: And many such things are with him."
       },
       {
-        "ref": "mark 9:23",
-        "text": "Jesus said unto him, If thou canst believe, all things are possible to him that believeth."
+        "ref": "psalms 18:32",
+        "via": "asv",
+        "text": "The God that girdeth me with strength, And maketh my way perfect?"
+      },
+      {
+        "ref": "psalms 33:21",
+        "via": "asv",
+        "text": "For our heart shall rejoice in him, Because we have trusted in his holy name."
+      },
+      {
+        "ref": "job 42:2",
+        "via": "kjv",
+        "text": "I know that thou canst do every thing, and that no thought can be withholden from thee."
       }
     ]
   }

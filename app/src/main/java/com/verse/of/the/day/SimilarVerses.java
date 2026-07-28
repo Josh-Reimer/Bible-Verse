@@ -12,8 +12,11 @@ import java.util.HashMap;
 // generated offline (scripts/generate_similar_verses.py) and bundled as a compact
 // binary, so a lookup here is just a HashMap hit — no model, no math at runtime.
 //
-// Static cache mirrors RedLetter: the ~560KB table is parsed once and shared, and
-// the parse happens off the main thread (the actions sheet loads on a worker).
+// Static cache mirrors RedLetter: the table is parsed once and shared, and the
+// parse happens off the main thread (the actions sheet loads on a worker).
+//
+// Neighbors-per-verse is read from the file header rather than hardcoded, so
+// regenerating the table with a different K needs no change here.
 public class SimilarVerses {
 
     private static HashMap<String, String[]> cache; // null until first load attempt
@@ -26,10 +29,11 @@ public class SimilarVerses {
             try (InputStream is = context.getAssets().open("similar_verses.bin");
                  DataInputStream in = new DataInputStream(new BufferedInputStream(is))) {
                 int count = in.readInt();
+                int perVerse = in.readUnsignedByte(); // neighbors stored per verse (K)
                 for (int i = 0; i < count; i++) {
                     String key = in.readUnsignedByte() + ":" + in.readUnsignedByte() + ":" + in.readUnsignedByte();
-                    ArrayList<String> neighbors = new ArrayList<>(5);
-                    for (int k = 0; k < 5; k++) {
+                    ArrayList<String> neighbors = new ArrayList<>(perVerse);
+                    for (int k = 0; k < perVerse; k++) {
                         int b = in.readUnsignedByte(), c = in.readUnsignedByte(), v = in.readUnsignedByte();
                         if (b == 0 && c == 0 && v == 0) continue; // sentinel: no neighbor
                         neighbors.add(b + ":" + c + ":" + v);

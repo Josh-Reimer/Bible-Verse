@@ -23,7 +23,7 @@ import java.util.List;
 public class VerseActionsBottomSheet extends BottomSheetDialogFragment {
 
 	private static final String ARG_REF = "verse_ref";
-	private static final int MAX_SIMILAR = 3;
+	private static final int MAX_SIMILAR = 10;
 	// The neighbor lookup is essentially instant, so hold the shimmer for a deliberate
 	// minimum so the animation actually registers as an animation and not a flicker.
 	private static final long MIN_SHIMMER_MS = 800L;
