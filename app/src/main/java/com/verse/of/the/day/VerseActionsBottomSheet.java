@@ -31,16 +31,18 @@ public class VerseActionsBottomSheet extends BottomSheetDialogFragment {
 	private Host host;
 
 	// A similar verse prepared for display by the host (off the main thread): its reference,
-	// a human label ("JOHN 3:16"), and the verse text as a CharSequence (red-letter Spanned
-	// when applicable, plain text otherwise).
+	// a human label ("JOHN 3:16"), the translation whose wording surfaced it ("KJV"), and the
+	// verse text as a CharSequence (red-letter Spanned when applicable, plain text otherwise).
 	public static class SimilarVerse {
 		final String ref;
 		final String label;
+		final String translation;
 		final CharSequence text;
 
-		public SimilarVerse(String ref, String label, CharSequence text) {
+		public SimilarVerse(String ref, String label, String translation, CharSequence text) {
 			this.ref = ref;
 			this.label = label;
+			this.translation = translation;
 			this.text = text;
 		}
 	}
@@ -50,6 +52,7 @@ public class VerseActionsBottomSheet extends BottomSheetDialogFragment {
 		boolean toggleVerseBookmark(String ref); // returns the new bookmarked state
 		void shareVerse(String ref);
 		String verseActionLabel(String ref); // e.g. "JOHN 4:27"
+		CharSequence verseActionText(String ref); // the verse itself, red-letter aware
 		void onVerseActionsDismissed(); // clear the tapped-verse highlight
 		List<SimilarVerse> loadSimilarVerses(String ref); // heavy (file/red-letter reads) — off main thread
 		void openSimilarVerse(String ref); // open that verse's chapter
@@ -105,6 +108,9 @@ public class VerseActionsBottomSheet extends BottomSheetDialogFragment {
 
 		TextView title = view.findViewById(R.id.verse_actions_title);
 		title.setText(host.verseActionLabel(ref));
+
+		TextView verseText = view.findViewById(R.id.verse_actions_text);
+		verseText.setText(host.verseActionText(ref));
 
 		ImageView bookmarkIcon = view.findViewById(R.id.bookmark_icon);
 		TextView bookmarkLabel = view.findViewById(R.id.bookmark_label);
@@ -172,6 +178,7 @@ public class VerseActionsBottomSheet extends BottomSheetDialogFragment {
 				if (shown >= MAX_SIMILAR) break;
 				View row = inflater.inflate(R.layout.similar_verse_row, container, false);
 				((TextView) row.findViewById(R.id.similar_ref)).setText(sv.label);
+				((TextView) row.findViewById(R.id.similar_translation)).setText(sv.translation);
 				((TextView) row.findViewById(R.id.similar_text)).setText(sv.text);
 				row.setOnClickListener(v -> {
 					if (host != null) host.openSimilarVerse(sv.ref);

@@ -11,15 +11,34 @@
     android:paddingHorizontal="20dp"
     android:paddingVertical="12dp">
 
-    <TextView
-        android:id="@+id/similar_ref"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        android:letterSpacing="0.03"
-        android:textColor="?attr/colorOnSurface" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="3dp">
+
+        <TextView
+            android:id="@+id/similar_ref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.03"
+            android:textColor="?attr/colorOnSurface" />
+
+        <!-- Which translation's wording surfaced this pairing — not necessarily the
+             one the verse text below is rendered in. -->
+        <TextView
+            android:id="@+id/similar_translation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            android:letterSpacing="0.06"
+            android:alpha="0.6"
+            android:textColor="?attr/colorOnSurface" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/similar_text"

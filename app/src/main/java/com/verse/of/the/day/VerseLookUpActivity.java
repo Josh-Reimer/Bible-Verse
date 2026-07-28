@@ -200,22 +200,31 @@ public class VerseLookUpActivity extends AppCompatActivity implements VerseActio
 		return Bible.getProperName(bible.books[bi]) + " " + p[1] + ":" + p[2];
 	}
 
+	// The verse itself, for the top of the actions sheet: red-letter aware, current translation.
+	@Override
+	public CharSequence verseActionText(String ref) {
+		Spanned spanned = redLetter.getSpanned(this, ref);
+		return spanned != null ? spanned : stripReferencePrefix(new Verse(this, ref).scripture_text);
+	}
+
 	@Override
 	public void onVerseActionsDismissed() {
 		clearVerseHighlight();
 	}
 
 	// Called off the main thread by the sheet: resolve each precomputed neighbor into display
-	// data (label + red-letter-aware text) in the user's current translation.
+	// data (label + red-letter-aware text) in the user's current translation. The translation
+	// carried alongside is the one whose wording surfaced the pairing offline, which is not
+	// necessarily the one the text is rendered in.
 	@Override
 	public java.util.List<VerseActionsBottomSheet.SimilarVerse> loadSimilarVerses(String ref) {
 		java.util.List<VerseActionsBottomSheet.SimilarVerse> out = new java.util.ArrayList<>();
-		for (String neighborRef : similarVerses.getSimilar(this, ref)) {
-			Spanned spanned = redLetter.getSpanned(this, neighborRef);
-			CharSequence text = spanned != null
-					? spanned
-					: stripReferencePrefix(new Verse(this, neighborRef).scripture_text);
-			out.add(new VerseActionsBottomSheet.SimilarVerse(neighborRef, verseActionLabel(neighborRef), text));
+		for (SimilarVerses.Neighbor neighbor : similarVerses.getSimilar(this, ref)) {
+			out.add(new VerseActionsBottomSheet.SimilarVerse(
+					neighbor.ref,
+					verseActionLabel(neighbor.ref),
+					neighbor.translation.toUpperCase(java.util.Locale.US),
+					verseActionText(neighbor.ref)));
 		}
 		return out;
 	}

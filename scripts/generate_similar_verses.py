@@ -20,11 +20,15 @@ them as "similar verses" is useless; we want cross-references from elsewhere.
 Binary format (big-endian, matched by SimilarVerses.java via DataInputStream):
     uint32  count
     uint8   K                                            # neighbors per verse
+    uint8   T                                            # translations in the table
+    T times: uint8 length, ASCII name                    # e.g. "kjv" — index order
     repeated count times:
         uint8 book, uint8 chapter, uint8 verse           # the target verse
-        K * (uint8 book, uint8 chapter, uint8 verse)      # neighbors, best first
+        K * (uint8 book, uint8 chapter, uint8 verse,     # neighbors, best first
+             uint8 translation)                          #   index into the name table
     A neighbor slot of (0,0,0) is a sentinel for "no neighbor" (chapters and
-    verses are 1-based, so it never collides with a real reference).
+    verses are 1-based, so it never collides with a real reference); its
+    translation byte is meaningless and ignored.
 
 Run:  scripts/.venv-embed/bin/python scripts/generate_similar_verses.py
 """
@@ -119,7 +123,8 @@ def compute_neighbors(emb, tfidf, usable, chap_key, book_arr, chap_arr, verse_ar
     """Top-K neighbors per verse, scored across every translation.
 
     Returns (neighbors, surfaced_by): an (n, K, 3) uint8 array of reference triples — (0,0,0)
-    where no candidate survived — and, per slot, the translation that won it (review only).
+    where no candidate survived — and, per slot, the translation that won it (stored in the
+    table so the app can show which translation's wording surfaced the pairing).
     """
     n = len(chap_key)
     neighbors = np.zeros((n, K, 3), dtype=np.uint8)
@@ -217,11 +222,17 @@ def main():
     with open(OUT_BIN, "wb") as f:
         f.write(struct.pack(">I", n))
         f.write(struct.pack(">B", K))
+        f.write(struct.pack(">B", len(TRANSLATIONS)))
+        for t in TRANSLATIONS:
+            f.write(struct.pack(">B", len(t)))
+            f.write(t.encode("ascii"))
         for i in range(n):
             f.write(struct.pack(">BBB", refs[i][0], refs[i][1], refs[i][2]))
             for k in range(K):
                 b, c, v = neighbors[i, k]
-                f.write(struct.pack(">BBB", int(b), int(c), int(v)))
+                src = surfaced_by[i][k]
+                f.write(struct.pack(">BBBB", int(b), int(c), int(v),
+                                    0 if src is None else TRANSLATIONS.index(src)))
     print(f"  {OUT_BIN.stat().st_size} bytes")
 
     # Human-readable spot-check sample for a handful of well-known verses. Each neighbor is
