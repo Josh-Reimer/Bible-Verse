@@ -540,17 +540,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         searchExecutor.execute(() -> {
+            List<SearchResult> results = new ArrayList<>();
+            java.util.Set<String> referenceRefs = new java.util.HashSet<>();
+
+            // A query that reads as a reference ("john 3:16", "John 3 16", "1cor 13")
+            // resolves to the verse itself; text matches follow it. Reference results
+            // keep the best possible relevance score (0), and the sort below is stable,
+            // so they stay on top without special-casing the sort.
+            VerseReferenceParser.Reference reference =
+                    VerseReferenceParser.parse(thisapp, tools, bible, query);
+            if (reference != null) {
+                for (String verseRef : referenceVerseRefs(reference)) {
+                    referenceRefs.add(verseRef);
+                    // Empty search query: there is nothing to highlight in a verse the
+                    // user reached by reference rather than by its words.
+                    results.add(buildSearchResult(verseRef, ""));
+                }
+            }
+
             SearchEngineQuery searchQuery = new SearchEngineQuery(query);
             List<String> verseRefs = SearchEngine.searchByGrep(thisapp, searchQuery);
-            List<SearchResult> results = new ArrayList<>();
             String lowerQuery = query.toLowerCase().trim();
             List<QueryTokenizer.Token> queryTokens = QueryTokenizer.tokenize(query);
 
             for (String verseRef : verseRefs) {
-                String[] parts = verseRef.split(":");
-                int bookIndex = Integer.parseInt(parts[0]);
-                String displayRef = Bible.getProperName(bible.books[bookIndex]) + " " + parts[1] + ":" + parts[2];
-                SearchResult result = new SearchResult(displayRef, verseRef, SearchEngine.getVerseText(thisapp, verseRef), query);
+                if (referenceRefs.contains(verseRef)) {
+                    continue;
+                }
+                SearchResult result = buildSearchResult(verseRef, query);
                 result.relevanceScore = SearchEngine.relevanceScore(result.text, lowerQuery, queryTokens);
                 results.add(result);
             }
@@ -569,6 +586,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 saveSearchHistory(query);
             });
         });
+    }
+
+    private SearchResult buildSearchResult(String verseRef, String query) {
+        String[] parts = verseRef.split(":");
+        int bookIndex = Integer.parseInt(parts[0]);
+        String displayRef = Bible.getProperName(bible.books[bookIndex]) + " " + parts[1] + ":" + parts[2];
+        return new SearchResult(displayRef, verseRef, SearchEngine.getVerseText(thisapp, verseRef), query);
+    }
+
+    // A reference naming a verse yields that verse; one naming only a chapter
+    // ("psalms 23") yields the whole chapter, so the user can pick a verse from it.
+    private List<String> referenceVerseRefs(VerseReferenceParser.Reference reference) {
+        List<String> refs = new ArrayList<>();
+        if (reference.verse > 0) {
+            refs.add(reference.bookIndex + ":" + reference.chapter + ":" + reference.verse);
+            return refs;
+        }
+        int chapterLength = bible.getChapterLength(thisapp, tools, bible.books[reference.bookIndex], reference.chapter);
+        for (int verse = 1; verse <= chapterLength; verse++) {
+            refs.add(reference.bookIndex + ":" + reference.chapter + ":" + verse);
+        }
+        return refs;
     }
 
     private void saveSearchHistory(String query) {
