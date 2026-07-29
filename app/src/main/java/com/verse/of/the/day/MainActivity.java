@@ -209,6 +209,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setupFabs();
 
+        // A force-stop drops pending alarms without any broadcast to re-arm them, so the
+        // daily verse notification is re-scheduled whenever the app is opened. Setting the
+        // same alarm again is a no-op.
+        VerseNotifier.scheduleIfEnabled(thisapp);
+
 
         setNavigationViewListener();
 

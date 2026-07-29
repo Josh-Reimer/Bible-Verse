@@ -1,0 +1,23 @@
+<!-- Notification small icon: the status bar keeps only the alpha channel, so this is
+     drawn as an outline (a solid book would come out as a featureless white block). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path
+        android:pathData="m14.94,7.064h19.048c1.999,0 3.609,1.609 3.609,3.609V37.781c0,1.999 -1.609,3.609 -3.609,3.609H14.94c-1.999,0 -3.609,-1.609 -3.609,-3.609V10.673c0,-1.999 1.609,-3.609 3.609,-3.609z"
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3.5" />
+    <path
+        android:pathData="M24.46,14.5L24.46,33.5"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M17.9,21L31,21"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round" />
+</vector>

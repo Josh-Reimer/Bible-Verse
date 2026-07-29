@@ -1,7 +1,12 @@
 package com.verse.of.the.day;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -17,17 +22,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NavUtils;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class SettingsActivity extends AppCompatActivity {
 
     public Tools tools = new Tools();
 
+    private SwitchMaterial dailyVerseNotificationSwitch;
+    private ActivityResultLauncher<String> notificationPermissionLauncher;
+    private boolean suppressNotificationListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Must be registered before the activity is started, so it stays out of the
+        // listener wiring further down.
+        notificationPermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(), this::onNotificationPermissionResult);
         setContentView(R.layout.settings_activity);
         MaterialToolbar toolbar = findViewById(R.id.topBar);
         setSupportActionBar(toolbar);
@@ -156,6 +172,87 @@ public class SettingsActivity extends AppCompatActivity {
             spEditor.putBoolean("show_translation_info", isChecked).apply();
             VerseWidgetProvider.refresh(SettingsActivity.this);
         });
+
+        // Daily Verse Notification switch — opt-in, and the notification permission is
+        // only ever requested here, when the user turns it on themselves.
+        dailyVerseNotificationSwitch = findViewById(R.id.dailyVerseNotificationSwitch);
+        syncNotificationSwitch();
+        dailyVerseNotificationSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (suppressNotificationListener) return;
+            if (!isChecked) {
+                VerseNotifier.setEnabled(SettingsActivity.this, false);
+            } else if (VerseNotifier.hasPermission(SettingsActivity.this)) {
+                VerseNotifier.setEnabled(SettingsActivity.this, true);
+            } else {
+                // Nothing is persisted until the permission comes back granted.
+                notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // The permission can be revoked from system settings while we were away.
+        if (dailyVerseNotificationSwitch != null) syncNotificationSwitch();
+    }
+
+    /**
+     * Points the switch at the real state, turning the setting back off if the permission
+     * behind it has gone away — a switch left on would promise a notification that the OS
+     * would never show.
+     */
+    private void syncNotificationSwitch() {
+        if (VerseNotifier.isEnabled(this) && !VerseNotifier.hasPermission(this)) {
+            VerseNotifier.setEnabled(this, false);
+        }
+        setNotificationSwitchChecked(VerseNotifier.isEnabled(this));
+    }
+
+    /** Moves the switch without the listener treating it as a user toggle. */
+    private void setNotificationSwitchChecked(boolean checked) {
+        suppressNotificationListener = true;
+        dailyVerseNotificationSwitch.setChecked(checked);
+        suppressNotificationListener = false;
+    }
+
+    private void onNotificationPermissionResult(boolean granted) {
+        if (granted) {
+            VerseNotifier.setEnabled(this, true);
+            return;
+        }
+        setNotificationSwitchChecked(false);
+        boolean permanentlyDenied = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                && !shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS);
+        if (permanentlyDenied) {
+            showNotificationSettingsDialog();
+        } else {
+            Snackbar.make(findViewById(android.R.id.content),
+                    R.string.notification_permission_denied, Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    /** Offered when the system will no longer show the permission prompt itself. */
+    private void showNotificationSettingsDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.notification_permission_title)
+                .setMessage(R.string.notification_permission_message)
+                .setPositiveButton(R.string.open_settings, (d, which) -> {
+                    Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                            .putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+                    if (intent.resolveActivity(getPackageManager()) == null) {
+                        intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                .setData(Uri.fromParts("package", getPackageName(), null));
+                    }
+                    startActivity(intent);
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .create();
+        dialog.show();
+        // Same reason as the BSB dialog above: colorPrimary matches the surface colour.
+        int buttonColor = ContextCompat.getColor(this, R.color.app_on_surface);
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(buttonColor);
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor);
     }
 
     @Override
