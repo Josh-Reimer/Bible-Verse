@@ -22,6 +22,15 @@
     <string name="hide_the_buttons">hide the buttons</string>
     <string name="show_translation_info">Show Translation Info</string>
     <string name="search_verses">Search Verses</string>
+    <string name="daily_verse_notification">Daily Verse Notification</string>
+    <string name="daily_verse_notification_time">A random verse every morning at 8:00</string>
+    <string name="notification_channel_name">Daily Verse</string>
+    <string name="notification_channel_description">One random Bible verse each morning.</string>
+    <string name="notification_permission_denied">Verse needs notification permission to send the daily verse.</string>
+    <string name="notification_permission_title">Notifications are off</string>
+    <string name="notification_permission_message">Notifications are turned off for Verse. Turn them on in system settings to get the daily verse.</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="cancel">Cancel</string>
     <string name="widget_label">Verse of the Day</string>
     <string name="widget_description">A daily Bible verse on your home screen.</string>
     <string name="widget_placeholder_reference">JOHN 3:16</string>

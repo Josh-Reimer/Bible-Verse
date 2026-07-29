@@ -93,4 +93,39 @@
 		app:layout_constraintTop_toTopOf="@id/showTranslationInfoTitle"
 		app:layout_constraintBottom_toBottomOf="@id/showTranslationInfoTitle" />
 
+	<!-- Daily Verse Notification label -->
+	<TextView
+		android:id="@+id/dailyVerseNotificationTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="24dp"
+		android:layout_marginStart="24dp"
+		android:text="@string/daily_verse_notification"
+		android:textSize="20sp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/showTranslationInfoTitle" />
+
+	<TextView
+		android:id="@+id/dailyVerseNotificationSubtitle"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="24dp"
+		android:layout_marginEnd="16dp"
+		android:text="@string/daily_verse_notification_time"
+		android:textSize="14sp"
+		android:alpha="0.7"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toStartOf="@id/dailyVerseNotificationSwitch"
+		app:layout_constraintTop_toBottomOf="@id/dailyVerseNotificationTitle" />
+
+	<!-- Daily Verse Notification Switch -->
+	<com.google.android.material.switchmaterial.SwitchMaterial
+		android:id="@+id/dailyVerseNotificationSwitch"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="32dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="@id/dailyVerseNotificationTitle"
+		app:layout_constraintBottom_toBottomOf="@id/dailyVerseNotificationTitle" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
