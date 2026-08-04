@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(Intent.EXTRA_TEXT, verse.full_text);
-        startActivity(android.content.Intent.createChooser(sharingIntent, "Share via"));
+        startActivity(android.content.Intent.createChooser(sharingIntent, getString(R.string.share_via)));
     }
 
     @Override

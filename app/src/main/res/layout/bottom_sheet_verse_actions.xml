@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
-                android:text="Add bookmark" />
+                android:text="@string/add_bookmark" />
         </LinearLayout>
 
         <LinearLayout
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
-                android:text="Share verse" />
+                android:text="@string/share_verse" />
         </LinearLayout>
 
         <View
@@ -108,7 +108,7 @@
             android:paddingHorizontal="20dp"
             android:paddingTop="12dp"
             android:paddingBottom="4dp"
-            android:text="Similar verses"
+            android:text="@string/similar_verses"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textAllCaps="true"

@@ -190,7 +190,7 @@ public class VerseLookUpActivity extends AppCompatActivity implements VerseActio
 		Intent sharingIntent = new Intent(Intent.ACTION_SEND);
 		sharingIntent.setType("text/plain");
 		sharingIntent.putExtra(Intent.EXTRA_TEXT, verse.full_text);
-		startActivity(Intent.createChooser(sharingIntent, "Share via"));
+		startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
 	}
 
 	@Override

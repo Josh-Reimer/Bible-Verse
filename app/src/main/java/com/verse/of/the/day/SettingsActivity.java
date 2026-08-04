@@ -57,7 +57,8 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         // Theme spinner
-        String[] themeLabels = {"Light", "Dark", "Follow System"};
+        String[] themeLabels = {getString(R.string.theme_light), getString(R.string.theme_dark),
+                getString(R.string.theme_system)};
         String[] themeValues = {"light", "dark", "system"};
         Spinner themeSpinner = findViewById(R.id.themeSpinner);
         ArrayAdapter<String> themeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, themeLabels);
@@ -143,16 +144,15 @@ public class SettingsActivity extends AppCompatActivity {
                 }
 
                 AlertDialog dialog = new AlertDialog.Builder(SettingsActivity.this)
-                        .setTitle(entry.label + " Red-Letter Accuracy")
-                        .setMessage("Red-letter highlighting in " + entry.label
-                                + " is algorithmically generated and may occasionally be inaccurate.")
+                        .setTitle(getString(R.string.red_letter_accuracy_title, entry.label))
+                        .setMessage(getString(R.string.red_letter_accuracy_message, entry.label))
                         .setCancelable(false)
-                        .setPositiveButton("OK", (d, which) -> {
+                        .setPositiveButton(android.R.string.ok, (d, which) -> {
                             Translations.choose(SettingsActivity.this, selected);
                             committedIndex = position;
                             VerseWidgetProvider.refresh(SettingsActivity.this);
                         })
-                        .setNegativeButton("Cancel", (d, which) -> translationSpinner.setSelection(committedIndex))
+                        .setNegativeButton(R.string.cancel, (d, which) -> translationSpinner.setSelection(committedIndex))
                         .create();
                 dialog.show();
                 // colorPrimary is repurposed app-wide to match the surface color (so the

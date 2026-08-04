@@ -100,7 +100,8 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
         TextView resultsTitle = view.findViewById(R.id.results_title);
         RecyclerView recyclerView = view.findViewById(R.id.results_recycler_view);
 
-        resultsTitle.setText("Found " + results.size() + " result" + (results.size() == 1 ? "" : "s"));
+        resultsTitle.setText(getResources().getQuantityString(
+                R.plurals.search_results_found, results.size(), results.size()));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         // Keep the sheet open so it's still there when the user returns from the

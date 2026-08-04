@@ -86,7 +86,7 @@ public class bookmarks_activity extends AppCompatActivity {
         sharingIntent.setType("text/plain");
         // Share the current translation's text so it matches what the row displays.
         sharingIntent.putExtra(Intent.EXTRA_TEXT, new Verse(this, bookmarks_list.get(position).bible_reference).full_text);
-        startActivity(android.content.Intent.createChooser(sharingIntent, "Share via"));
+        startActivity(android.content.Intent.createChooser(sharingIntent, getString(R.string.share_via)));
     }
 
     void hideFabs(){

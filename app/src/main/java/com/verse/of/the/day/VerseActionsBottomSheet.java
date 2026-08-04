@@ -129,7 +129,7 @@ public class VerseActionsBottomSheet extends BottomSheetDialogFragment {
 
 	private void updateBookmarkRow(ImageView icon, TextView label, boolean bookmarked) {
 		icon.setImageResource(bookmarked ? R.drawable.bookmark_solid_48 : R.drawable.bookmark_border_48);
-		label.setText(bookmarked ? "Remove bookmark" : "Add bookmark");
+		label.setText(bookmarked ? R.string.remove_bookmark : R.string.add_bookmark);
 	}
 
 	// Kick off the neighbor lookup on a worker thread; shimmer runs meanwhile, then the real
