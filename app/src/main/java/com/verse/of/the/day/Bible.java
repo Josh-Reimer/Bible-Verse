@@ -52,6 +52,16 @@ return chap;
 public String getVerse(Tools tools,Context context, String book, int chapter, int verse) {
 String sChapter = getChapter(context,tools, book, chapter);
 String[] verses = sChapter.split("\n");
+// Translations don't all end a chapter on the same verse — the ASV, BSB and the two
+// non-English texts carry Romans 16:25-27 where the KJV stops at 24 — so a reference
+// saved or shared under one can overrun another. Fall back to the last verse there is
+// rather than letting an out-of-bounds index take the screen down.
+if (verse < 1 || verses.length == 0) {
+return "";
+}
+if (verse > verses.length) {
+return verses[verses.length - 1];
+}
 return verses[verse - 1];
 }
 
