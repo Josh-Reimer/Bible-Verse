@@ -23,8 +23,7 @@ return theme;
 }
 
 String getFile(Context context, String filename) {
-SharedPreferences sp = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
-String translation = sp.getString("translation", "kjv");
+String translation = Translations.current(context);
 String path = translation + "/" + filename;
 try {
 AssetManager manager = context.getAssets();

@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import java.time.LocalDate;
-import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -114,7 +113,7 @@ public class VerseWidgetProvider extends AppWidgetProvider {
         SharedPreferences sp = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
         if (sp.getBoolean("show_translation_info", false)) {
             views.setTextViewText(R.id.widget_translation,
-                    sp.getString("translation", "kjv").toUpperCase(Locale.US));
+                    Translations.currentEntry(context).label);
             views.setViewVisibility(R.id.widget_translation, View.VISIBLE);
         } else {
             views.setViewVisibility(R.id.widget_translation, View.GONE);

@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     void showVerse(Verse v) {
         SharedPreferences sp = getSharedPreferences("settings", MODE_PRIVATE);
         boolean showTranslationInfo = sp.getBoolean("show_translation_info", false);
-        String translation = sp.getString("translation", "kjv").toUpperCase();
+        String translation = Translations.currentEntry(thisapp).label;
         Spanned spanned = redLetter.getSpanned(thisapp, v.reference);
 
         if (spanned != null) {

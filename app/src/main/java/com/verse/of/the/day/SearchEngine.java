@@ -1,7 +1,6 @@
 package com.verse.of.the.day;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,8 +151,7 @@ public class SearchEngine {
     }
 
     private static synchronized void ensureCache(Context context) {
-        SharedPreferences sp = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
-        String translation = sp.getString("translation", "kjv");
+        String translation = Translations.current(context);
         if (translation.equals(cachedTranslation) && chaptersLower != null) {
             return;
         }
