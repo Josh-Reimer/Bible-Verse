@@ -2,6 +2,7 @@ package com.verse.of.the.day;
 
 import android.content.Context;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,12 @@ import java.util.List;
 // "John 3:16", "john 3 16", "John, 3, 16" and "jn3:16" all parse the same way.
 // Returns null for anything that doesn't resolve to a real verse, which is what
 // keeps ordinary word searches ("love", "mark of the beast") out of this path.
+//
+// The book table holds the localised names of every bundled translation alongside
+// the English ones, so "Génesis 1:1" and "创世记 1:1" resolve whatever translation
+// is being read — the reference is the same verse either way. Accents are stripped
+// before matching, so "genesis" finds "Génesis"; Chinese names have no spaces and
+// tokenize as one word, which is exactly what the prefix matching wants.
 public class VerseReferenceParser {
 
     public static class Reference {
@@ -67,6 +74,7 @@ public class VerseReferenceParser {
         if (query == null) {
             return null;
         }
+        entries(context);
         List<String> tokens = tokenize(query);
 
         // Pull the trailing chapter (and verse) numbers off the end; what's left is the book.
@@ -119,15 +127,19 @@ public class VerseReferenceParser {
 
     // Lowercases, turns every non-alphanumeric character into a separator, and splits
     // letter/digit boundaries so "1john" and "john3" tokenize as "1 john" and "john 3".
+    // Letters are anything Character.isLetter accepts rather than just a-z, so that
+    // Chinese book names survive; accents are folded away first so "Génesis" and
+    // "genesis" produce the same token.
     private static List<String> tokenize(String query) {
         List<String> tokens = new ArrayList<>();
         StringBuilder current = new StringBuilder();
         boolean currentIsDigits = false;
+        String folded = foldAccents(query);
 
-        for (int i = 0; i < query.length(); i++) {
-            char c = Character.toLowerCase(query.charAt(i));
+        for (int i = 0; i < folded.length(); i++) {
+            char c = Character.toLowerCase(folded.charAt(i));
             boolean digit = c >= '0' && c <= '9';
-            boolean letter = c >= 'a' && c <= 'z';
+            boolean letter = Character.isLetter(c);
 
             if (!digit && !letter) {
                 flush(tokens, current);
@@ -141,6 +153,12 @@ public class VerseReferenceParser {
         }
         flush(tokens, current);
         return tokens;
+    }
+
+    // Decomposes accented letters and drops the combining marks; leaves CJK alone.
+    private static String foldAccents(String text) {
+        return Normalizer.normalize(text, Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
 
     private static void flush(List<String> tokens, StringBuilder current) {
@@ -165,27 +183,12 @@ public class VerseReferenceParser {
     // Reads a leading ordinal ("1", "i", "1st", "first") off the book tokens and matches
     // the rest, joined without separators, against the book table.
     private static int findBook(List<String> bookTokens) {
-        int ordinal = 0;
-        int start = 0;
-
-        int leading = asOrdinal(bookTokens.get(0));
-        if (leading > 0 && bookTokens.size() > 1) {
-            ordinal = leading;
-            start = 1;
-            // "1st"/"2nd"/"3rd" split into a digit and a suffix token.
-            if (bookTokens.size() > 2 && isOrdinalSuffix(bookTokens.get(1))) {
-                start = 2;
-            }
-        }
-
-        StringBuilder name = new StringBuilder();
-        for (int i = start; i < bookTokens.size(); i++) {
-            name.append(bookTokens.get(i));
-        }
-        if (name.length() == 0) {
+        // "1st"/"2nd"/"3rd" split into a digit and a suffix token; toEntry handles that.
+        Entry query = toEntry(bookTokens, -1);
+        if (query == null) {
             return -1;
         }
-        return findBook(ordinal, name.toString());
+        return findBook(query.ordinal, query.name);
     }
 
     private static int asOrdinal(String token) {
@@ -226,11 +229,57 @@ public class VerseReferenceParser {
         return match;
     }
 
-    private static synchronized List<Entry> entries() {
+    private static synchronized List<Entry> entries(Context context) {
         if (entries == null) {
             entries = buildEntries();
+            addLocalisedNames(context, entries);
         }
         return entries;
+    }
+
+    // Assumes entries(context) has already run — parse() calls it before anything else.
+    private static List<Entry> entries() {
+        return entries;
+    }
+
+    // Every translation's own book names, so a reference typed in Spanish or Chinese
+    // resolves the same way an English one does. A name that tokenizes to something
+    // already in the table (Spanish "1 Samuel" gives ordinal 1 + "samuel", the same as
+    // the filename does) simply adds a duplicate entry, which matches identically.
+    private static void addLocalisedNames(Context context, List<Entry> table) {
+        String[] books = new Bible().books;
+        for (Translations.Entry translation : Translations.ALL) {
+            String[] names = Translations.namesFor(context, translation.code);
+            if (names == null || names.length != books.length) continue;
+
+            for (int bookIndex = 0; bookIndex < books.length; bookIndex++) {
+                List<String> tokens = tokenize(names[bookIndex]);
+                if (tokens.isEmpty()) continue;
+                Entry entry = toEntry(tokens, bookIndex);
+                if (entry != null) table.add(entry);
+            }
+        }
+    }
+
+    // Splits book tokens into an ordinal and a compacted name, the shape the table holds.
+    private static Entry toEntry(List<String> bookTokens, int bookIndex) {
+        int ordinal = 0;
+        int start = 0;
+
+        int leading = asOrdinal(bookTokens.get(0));
+        if (leading > 0 && bookTokens.size() > 1) {
+            ordinal = leading;
+            start = 1;
+            if (bookTokens.size() > 2 && isOrdinalSuffix(bookTokens.get(1))) {
+                start = 2;
+            }
+        }
+
+        StringBuilder name = new StringBuilder();
+        for (int i = start; i < bookTokens.size(); i++) {
+            name.append(bookTokens.get(i));
+        }
+        return name.length() == 0 ? null : new Entry(ordinal, name.toString(), bookIndex);
     }
 
     // The asset filenames are the source of the book names: "first_samuel.txt" becomes
