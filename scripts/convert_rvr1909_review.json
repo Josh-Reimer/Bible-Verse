@@ -1,0 +1,2372 @@
+{
+ "recovered": [],
+ "placeheld": [
+  "second_corinthians.txt 13:14"
+ ],
+ "beyond_kjv": [
+  "romans.txt 16:25",
+  "romans.txt 16:26",
+  "romans.txt 16:27"
+ ],
+ "realigned": [
+  "numbers.txt 12:16-16 reclaimed from chapter 13",
+  "numbers.txt 29:40-40 reclaimed from chapter 30",
+  "first_samuel.txt 23:29-29 reclaimed from chapter 24",
+  "second_samuel.txt 20:26-26 reclaimed from chapter 21",
+  "second_chronicles.txt 33:25-25 reclaimed from chapter 34",
+  "job.txt 35:16-16 reclaimed from chapter 36",
+  "job.txt 38:39-41 reclaimed from chapter 39",
+  "job.txt 40:20-24 reclaimed from chapter 41",
+  "hosea.txt 11:12-12 reclaimed from chapter 12",
+  "jonah.txt 1:17-17 reclaimed from chapter 2",
+  "acts.txt 19:41-41 reclaimed from chapter 20",
+  "second_corinthians.txt 13:14-14 realigned within the chapter"
+ ],
+ "missing_books": [],
+ "realigned_sample": {
+  "numbers.txt 12:1": [
+   "And Miriam and Aaron spake against Moses because of the Ethiopian woman whom he had married: for he had married an Ethiopian woman.",
+   "Y HABLARON María y Aarón contra Moisés á causa de la mujer Ethiope que había tomado: porque él había tomado mujer Ethiope."
+  ],
+  "numbers.txt 12:2": [
+   "And they said, Hath the LORD indeed spoken only by Moses?  hath he not spoken also by us?  And the LORD heard it.",
+   "Y dijeron: ¿Solamente por Moisés ha hablado Jehová? ¿no ha hablado también por nosotros? Y oyólo Jehová."
+  ],
+  "numbers.txt 12:3": [
+   "(Now the man Moses was very meek, above all the men which were upon the face of the earth.)",
+   "Y aquel varón Moisés era muy manso, más que todos los hombres que había sobre la tierra."
+  ],
+  "numbers.txt 12:4": [
+   "And the LORD spake suddenly unto Moses, and unto Aaron, and unto Miriam, Come out ye three unto the tabernacle of the congregation.  And they three came out.",
+   "Y luego dijo Jehová á Moisés, y á Aarón, y á María: Salid vosotros tres al tabernáculo del testimonio. Y salieron ellos tres."
+  ],
+  "numbers.txt 12:5": [
+   "And the LORD came down in the pillar of the cloud, and stood in the door of the tabernacle, and called Aaron and Miriam: and they both came forth.",
+   "Entonces Jehová descendió en la columna de la nube, y púsose á la puerta del tabernáculo, y llamó á Aarón y á María; y salieron ellos ambos."
+  ],
+  "numbers.txt 12:6": [
+   "And he said, Hear now my words: If there be a prophet among you, I the LORD will make myself known unto him in a vision, and will speak unto him in a dream.",
+   "Y él les dijo: Oid ahora mis palabras: si tuviereis profeta de Jehová, le apareceré en visión, en sueños hablaré con él."
+  ],
+  "numbers.txt 12:7": [
+   "My servant Moses is not so, who is faithful in all mine house.",
+   "No así á mi siervo Moisés, que es fiel en toda mi casa:"
+  ],
+  "numbers.txt 12:8": [
+   "With him will I speak mouth to mouth, even apparently, and not in dark speeches; and the similitude of the LORD shall he behold: wherefore then were ye not afraid to speak against my servant Moses?",
+   "Boca á boca hablaré con él, y á las claras, y no por figuras; y verá la apariencia de Jehová: ¿por qué pues no tuvisteis temor de hablar contra mi siervo Moisés?"
+  ],
+  "numbers.txt 12:9": [
+   "And the anger of the LORD was kindled against them; and he departed.",
+   "Entonces el furor de Jehová se encendió en ellos; y fuése."
+  ],
+  "numbers.txt 12:10": [
+   "And the cloud departed from off the tabernacle; and, behold, Miriam became leprous, white as snow: and Aaron looked upon Miriam, and, behold, she was leprous.",
+   "Y la nube se apartó del tabernáculo: y he aquí que María era leprosa como la nieve; y miró Aarón á María, y he aquí que estaba leprosa."
+  ],
+  "numbers.txt 12:11": [
+   "And Aaron said unto Moses, Alas, my lord, I beseech thee, lay not the sin upon us, wherein we have done foolishly, and wherein we have sinned.",
+   "Y dijo Aarón á Moisés: ¡Ah! señor mío, no pongas ahora sobre nosotros pecado; porque locamente lo hemos hecho, y hemos pecado."
+  ],
+  "numbers.txt 12:12": [
+   "Let her not be as one dead, of whom the flesh is half consumed when he cometh out of his mother's womb.",
+   "No sea ella ahora como el que sale muerto del vientre de su madre, consumida la mitad de su carne."
+  ],
+  "numbers.txt 12:13": [
+   "And Moses cried unto the LORD, saying, Heal her now, O God, I beseech thee.",
+   "Entonces Moisés clamó á Jehová, diciendo: Ruégote, oh Dios, que la sanes ahora."
+  ],
+  "numbers.txt 12:14": [
+   "And the LORD said unto Moses, If her father had but spit in her face, should she not be ashamed seven days?  let her be shut out from the camp seven days, and after that let her be received in again.",
+   "Respondió Jehová á Moisés: Pues si su padre hubiera escupido en su cara, ¿no se avergonzaría por siete días?: sea echada fuera del real por siete días, y después se reunirá."
+  ],
+  "numbers.txt 12:15": [
+   "And Miriam was shut out from the camp seven days: and the people journeyed not till Miriam was brought in again.",
+   "Así María fué echada del real siete días; y el pueblo no pasó adelante hasta que se le reunió María."
+  ],
+  "numbers.txt 12:16": [
+   "And afterward the people removed from Hazeroth, and pitched in the wilderness of Paran.",
+   "Y DESPUÉS movió el pueblo de Haseroth, y asentaron el campo en el desierto de Parán."
+  ],
+  "numbers.txt 13:1": [
+   "And the LORD spake unto Moses, saying,",
+   "Y Jehová habló á Moisés, diciendo:"
+  ],
+  "numbers.txt 13:2": [
+   "Send thou men, that they may search the land of Canaan, which I give unto the children of Israel: of every tribe of their fathers shall ye send a man, every one a ruler among them.",
+   "Envía tú hombres que reconozcan la tierra de Canaán, la cual yo doy á los hijos de Israel: de cada tribu de sus padres enviaréis un varón, cada uno príncipe entre ellos."
+  ],
+  "numbers.txt 13:3": [
+   "And Moses by the commandment of the LORD sent them from the wilderness of Paran: all those men were heads of the children of Israel.",
+   "Y Moisés los envió desde el desierto de Parán, conforme á la palabra de Jehová: y todos aquellos varones eran príncipes de los hijos de Israel."
+  ],
+  "numbers.txt 13:4": [
+   "And these were their names: of the tribe of Reuben, Shammua the son of Zaccur.",
+   "Los nombres de los cuales son éstos: De la tribu de Rubén, Sammua hijo de Zaccur."
+  ],
+  "numbers.txt 13:5": [
+   "Of the tribe of Simeon, Shaphat the son of Hori.",
+   "De la tribu de Simeón, Saphat hijo de Hurí."
+  ],
+  "numbers.txt 13:6": [
+   "Of the tribe of Judah, Caleb the son of Jephunneh.",
+   "De la tribu de Judá, Caleb hijo de Jephone."
+  ],
+  "numbers.txt 13:7": [
+   "Of the tribe of Issachar, Igal the son of Joseph.",
+   "De la tribu de Issachâr, Igal hijo de Joseph."
+  ],
+  "numbers.txt 13:8": [
+   "Of the tribe of Ephraim, Oshea the son of Nun.",
+   "De la tribu de Ephraim, Oseas hijo de Nun."
+  ],
+  "numbers.txt 13:9": [
+   "Of the tribe of Benjamin, Palti the son of Raphu.",
+   "De la tribu de Benjamín, Palti hijo de Raphu."
+  ],
+  "numbers.txt 13:10": [
+   "Of the tribe of Zebulun, Gaddiel the son of Sodi.",
+   "De la tribu de Zabulón, Gaddiel hijo de Sodi."
+  ],
+  "numbers.txt 13:11": [
+   "Of the tribe of Joseph, namely, of the tribe of Manasseh, Gaddi the son of Susi.",
+   "De la tribu de José, de la tribu de Manasés, Gaddi hijo de Susi."
+  ],
+  "numbers.txt 13:12": [
+   "Of the tribe of Dan, Ammiel the son of Gemalli.",
+   "De la tribu de Dan, Ammiel hijo de Gemalli."
+  ],
+  "numbers.txt 13:13": [
+   "Of the tribe of Asher, Sethur the son of Michael.",
+   "De la tribu de Aser, Sethur hijo de Michâel."
+  ],
+  "numbers.txt 13:14": [
+   "Of the tribe of Naphtali, Nahbi the son of Vophsi.",
+   "De la tribu de Nephtalí, Nahabí hijo de Vapsi."
+  ],
+  "numbers.txt 13:15": [
+   "Of the tribe of Gad, Geuel the son of Machi.",
+   "De la tribu de Gad, Geuel hijo de Machî."
+  ],
+  "numbers.txt 13:16": [
+   "These are the names of the men which Moses sent to spy out the land.  And Moses called Oshea the son of Nun Jehoshua.",
+   "Estos son los nombres de los varones que Moisés envió á reconocer la tierra: y á Oseas hijo de Nun, le puso Moisés el nombre de Josué."
+  ],
+  "numbers.txt 13:17": [
+   "And Moses sent them to spy out the land of Canaan, and said unto them, Get you up this way southward, and go up into the mountain:",
+   "Enviólos, pues, Moisés á reconocer la tierra de Canaán, diciéndoles: Subid por aquí, por el mediodía, y subid al monte:"
+  ],
+  "numbers.txt 13:18": [
+   "And see the land, what it is; and the people that dwelleth therein, whether they be strong or weak, few or many;",
+   "Y observad la tierra qué tal es; y el pueblo que la habita, si es fuerte ó débil, si poco ó numeroso;"
+  ],
+  "numbers.txt 13:19": [
+   "And what the land is that they dwell in, whether it be good or bad; and what cities they be that they dwell in, whether in tents, or in strong holds;",
+   "Qué tal la tierra habitada, si es buena ó mala; y qué tales son las ciudades habitadas, si de tiendas ó de fortalezas;"
+  ],
+  "numbers.txt 13:20": [
+   "And what the land is, whether it be fat or lean, whether there be wood therein, or not.  And be ye of good courage, and bring of the fruit of the land.  Now the time was the time of the firstripe grapes.",
+   "Y cuál sea el terreno, si es pingüe ó flaco, si en él hay ó no árboles: y esforzaos, y coged del fruto del país. Y el tiempo era el tiempo de las primeras uvas."
+  ],
+  "numbers.txt 13:21": [
+   "So they went up, and searched the land from the wilderness of Zin unto Rehob, as men come to Hamath.",
+   "Y ellos subieron, y reconocieron la tierra desde el desierto de Zin hasta Rehob, entrando en Emath."
+  ],
+  "numbers.txt 13:22": [
+   "And they ascended by the south, and came unto Hebron; where Ahiman, Sheshai, and Talmai, the children of Anak, were.  (Now Hebron was built seven years before Zoan in Egypt.)",
+   "Y subieron por el mediodía, y vinieron hasta Hebrón: y allí estaban Aimán, y Sesai, y Talmai, hijos de Anac. Hebrón fué edificada siete años antes de Zoán, la de Egipto."
+  ],
+  "numbers.txt 13:23": [
+   "And they came unto the brook of Eshcol, and cut down from thence a branch with one cluster of grapes, and they bare it between two upon a staff; and they brought of the pomegranates, and of the figs.",
+   "Y llegaron hasta el arroyo de Escol, y de allí cortaron un sarmiento con un racimo de uvas, el cual trajeron dos en un palo, y de las granadas y de los higos."
+  ],
+  "numbers.txt 13:24": [
+   "The place was called the brook Eshcol, because of the cluster of grapes which the children of Israel cut down from thence.",
+   "Y llamóse aquel lugar Nahal-escol, por el racimo que cortaron de allí los hijos de Israel."
+  ],
+  "numbers.txt 13:25": [
+   "And they returned from searching of the land after forty days.",
+   "Y volvieron de reconocer la tierra al cabo de cuarenta días."
+  ],
+  "numbers.txt 13:26": [
+   "And they went and came to Moses, and to Aaron, and to all the congregation of the children of Israel, unto the wilderness of Paran, to Kadesh; and brought back word unto them, and unto all the congregation, and shewed them the fruit of the land.",
+   "Y anduvieron y vinieron á Moisés y á Aarón, y á toda la congregación de los hijos de Israel, en el desierto de Parán, en Cades, y diéronles la respuesta, y á toda la congregación, y les mostraron el fruto de la tierra."
+  ],
+  "numbers.txt 13:27": [
+   "And they told him, and said, We came unto the land whither thou sentest us, and surely it floweth with milk and honey; and this is the fruit of it.",
+   "Y le contaron, y dijeron: Nosotros llegamos á la tierra á la cual nos enviaste, la que ciertamente fluye leche y miel; y este es el fruto de ella."
+  ],
+  "numbers.txt 13:28": [
+   "Nevertheless the people be strong that dwell in the land, and the cities are walled, and very great: and moreover we saw the children of Anak there.",
+   "Mas el pueblo que habita aquella tierra es fuerte, y las ciudades muy grandes y fuertes; y también vimos allí los hijos de Anac."
+  ],
+  "numbers.txt 13:29": [
+   "The Amalekites dwell in the land of the south: and the Hittites, and the Jebusites, and the Amorites, dwell in the mountains: and the Canaanites dwell by the sea, and by the coast of Jordan.",
+   "Amalec habita la tierra del mediodía; y el Hetheo, y el Jebuseo, y el Amorrheo, habitan en el monte; y el Cananeo habita junto á la mar, y á la ribera del Jordán."
+  ],
+  "numbers.txt 13:30": [
+   "And Caleb stilled the people before Moses, and said, Let us go up at once, and possess it; for we are well able to overcome it.",
+   "Entonces Caleb hizo callar el pueblo delante de Moisés, y dijo: Subamos luego, y poseámosla; que más podremos que ella."
+  ],
+  "numbers.txt 13:31": [
+   "But the men that went up with him said, We be not able to go up against the people; for they are stronger than we.",
+   "Mas los varones que subieron con él, dijeron: No podremos subir contra aquel pueblo; porque es más fuerte que nosotros."
+  ],
+  "numbers.txt 13:32": [
+   "And they brought up an evil report of the land which they had searched unto the children of Israel, saying, The land, through which we have gone to search it, is a land that eateth up the inhabitants thereof; and all the people that we saw in it are men of a great stature.",
+   "Y vituperaron entre los hijos de Israel la tierra que habían reconocido, diciendo: La tierra por donde pasamos para reconocerla, es tierra que traga á sus moradores; y todo el pueblo que vimos en medio de ella, son hombres de grande estatura. También vimos allí gigantes, hijos de Anac, raza de los gigantes: y éramos nosotros, á nuestro parecer, como langostas; y así les parecíamos á ellos."
+  ],
+  "numbers.txt 13:33": [
+   "And there we saw the giants, the sons of Anak, which come of the giants: and we were in our own sight as grasshoppers, and so we were in their sight.",
+   "Y vituperaron entre los hijos de Israel la tierra que habían reconocido, diciendo: La tierra por donde pasamos para reconocerla, es tierra que traga á sus moradores; y todo el pueblo que vimos en medio de ella, son hombres de grande estatura. También vimos allí gigantes, hijos de Anac, raza de los gigantes: y éramos nosotros, á nuestro parecer, como langostas; y así les parecíamos á ellos."
+  ],
+  "numbers.txt 29:1": [
+   "And in the seventh month, on the first day of the month, ye shall have an holy convocation; ye shall do no servile work: it is a day of blowing the trumpets unto you.",
+   "Y EL séptimo mes, al primero del mes tendréis santa convocación: ninguna obra servil haréis; os será día de sonar las trompetas."
+  ],
+  "numbers.txt 29:2": [
+   "And ye shall offer a burnt offering for a sweet savour unto the LORD; one young bullock, one ram, and seven lambs of the first year without blemish:",
+   "Y ofreceréis holocausto por olor de suavidad á Jehová, un becerro de la vacada, un carnero, siete corderos de un año sin defecto;"
+  ],
+  "numbers.txt 29:3": [
+   "And their meat offering shall be of flour mingled with oil, three tenth deals for a bullock, and two tenth deals for a ram,",
+   "Y el presente de ellos, de flor de harina amasada con aceite, tres décimas con cada becerro, dos décimas con cada carnero,"
+  ],
+  "numbers.txt 29:4": [
+   "And one tenth deal for one lamb, throughout the seven lambs:",
+   "Y con cada uno de los siete corderos, una décima;"
+  ],
+  "numbers.txt 29:5": [
+   "And one kid of the goats for a sin offering, to make an atonement for you:",
+   "Y un macho cabrío por expiación, para reconciliaros:"
+  ],
+  "numbers.txt 29:6": [
+   "Beside the burnt offering of the month, and his meat offering, and the daily burnt offering, and his meat offering, and their drink offerings, according unto their manner, for a sweet savour, a sacrifice made by fire unto the LORD.",
+   "Además del holocausto del mes, y su presente, y el holocausto continuo y su presente, y sus libaciones, conforme á su ley, por ofrenda encendida á Jehová en olor de suavidad."
+  ],
+  "numbers.txt 29:7": [
+   "And ye shall have on the tenth day of this seventh month an holy convocation; and ye shall afflict your souls: ye shall not do any work therein:",
+   "Y en el diez de este mes séptimo tendréis santa convocación, y afligiréis vuestras almas: ninguna obra haréis:"
+  ],
+  "numbers.txt 29:8": [
+   "But ye shall offer a burnt offering unto the LORD for a sweet savour; one young bullock, one ram, and seven lambs of the first year; they shall be unto you without blemish:",
+   "Y ofreceréis en holocausto á Jehová por olor de suavidad, un becerro de la vacada, un carnero, siete corderos de un año; sin defecto los tomaréis:"
+  ],
+  "numbers.txt 29:9": [
+   "And their meat offering shall be of flour mingled with oil, three tenth deals to a bullock, and two tenth deals to one ram,",
+   "Y sus presentes, flor de harina amasada con aceite, tres décimas con cada becerro, dos décimas con cada carnero,"
+  ],
+  "numbers.txt 29:10": [
+   "A several tenth deal for one lamb, throughout the seven lambs:",
+   "Y con cada uno de los siete corderos, una décima;"
+  ],
+  "numbers.txt 29:11": [
+   "One kid of the goats for a sin offering; beside the sin offering of atonement, and the continual burnt offering, and the meat offering of it, and their drink offerings.",
+   "Un macho cabrío por expiación: además de la ofrenda de las expiaciones por el pecado, y del holocausto continuo, y de sus presentes, y de sus libaciones."
+  ],
+  "numbers.txt 29:12": [
+   "And on the fifteenth day of the seventh month ye shall have an holy convocation; ye shall do no servile work, and ye shall keep a feast unto the LORD seven days:",
+   "También á los quince días del mes séptimo tendréis santa convocación; ninguna obra servil haréis, y celebraréis solemnidad á Jehová por siete días;"
+  ],
+  "numbers.txt 29:13": [
+   "And ye shall offer a burnt offering, a sacrifice made by fire, of a sweet savour unto the LORD; thirteen young bullocks, two rams, and fourteen lambs of the first year; they shall be without blemish:",
+   "Y ofreceréis en holocausto, en ofrenda encendida á Jehová en olor de suavidad, trece becerros de la vacada, dos carneros, catorce corderos de un año: han de ser sin defecto;"
+  ],
+  "numbers.txt 29:14": [
+   "And their meat offering shall be of flour mingled with oil, three tenth deals unto every bullock of the thirteen bullocks, two tenth deals to each ram of the two rams,",
+   "Y los presentes de ellos, de flor de harina amasada con aceite, tres décimas con cada uno de los trece becerros, dos décimas con cada uno de los dos carneros,"
+  ],
+  "numbers.txt 29:15": [
+   "And a several tenth deal to each lamb of the fourteen lambs:",
+   "Y con cada uno de los catorce corderos, una décima;"
+  ],
+  "numbers.txt 29:16": [
+   "And one kid of the goats for a sin offering; beside the continual burnt offering, his meat offering, and his drink offering.",
+   "Y un macho cabrío por expiación: además del holocausto continuo, su presente y su libación."
+  ],
+  "numbers.txt 29:17": [
+   "And on the second day ye shall offer twelve young bullocks, two rams, fourteen lambs of the first year without spot:",
+   "Y el segundo día, doce becerros de la vacada, dos carneros, catorce corderos de un año sin defecto;"
+  ],
+  "numbers.txt 29:18": [
+   "And their meat offering and their drink offerings for the bullocks, for the rams, and for the lambs, shall be according to their number, after the manner:",
+   "Y sus presentes y sus libaciones con los becerros, con los carneros, y con los corderos, según el número de ellos, conforme á la ley;"
+  ],
+  "numbers.txt 29:19": [
+   "And one kid of the goats for a sin offering; beside the continual burnt offering, and the meat offering thereof, and their drink offerings.",
+   "Y un macho cabrío por expiación: además del holocausto continuo, y su presente y su libación."
+  ],
+  "numbers.txt 29:20": [
+   "And on the third day eleven bullocks, two rams, fourteen lambs of the first year without blemish;",
+   "Y el día tercero, once becerros, dos carneros, catorce corderos de un año sin defecto;"
+  ],
+  "numbers.txt 29:21": [
+   "And their meat offering and their drink offerings for the bullocks, for the rams, and for the lambs, shall be according to their number, after the manner:",
+   "Y sus presentes y sus libaciones con los becerros, con los carneros, y con los corderos, según el número de ellos, conforme á la ley;"
+  ],
+  "numbers.txt 29:22": [
+   "And one goat for a sin offering; beside the continual burnt offering, and his meat offering, and his drink offering.",
+   "Y un macho cabrío por expiación: además del holocausto continuo, y su presente y su libación."
+  ],
+  "numbers.txt 29:23": [
+   "And on the fourth day ten bullocks, two rams, and fourteen lambs of the first year without blemish:",
+   "Y el cuarto día, diez becerros, dos carneros, catorce corderos de un año sin defecto;"
+  ],
+  "numbers.txt 29:24": [
+   "Their meat offering and their drink offerings for the bullocks, for the rams, and for the lambs, shall be according to their number, after the manner:",
+   "Sus presentes y sus libaciones con los becerros, con los carneros, y con los corderos, según el número de ellos, conforme á la ley;"
+  ],
+  "numbers.txt 29:25": [
+   "And one kid of the goats for a sin offering; beside the continual burnt offering, his meat offering, and his drink offering.",
+   "Y un macho cabrío por expiación: además del holocausto continuo, su presente y su libación."
+  ],
+  "numbers.txt 29:26": [
+   "And on the fifth day nine bullocks, two rams, and fourteen lambs of the first year without spot:",
+   "Y el quinto día, nueve becerros, dos carneros, catorce corderos de un año sin defecto;"
+  ],
+  "numbers.txt 29:27": [
+   "And their meat offering and their drink offerings for the bullocks, for the rams, and for the lambs, shall be according to their number, after the manner:",
+   "Y sus presentes y sus libaciones con los becerros, con los carneros, y con los corderos, según el número de ellos, conforme á la ley;"
+  ],
+  "numbers.txt 29:28": [
+   "And one goat for a sin offering; beside the continual burnt offering, and his meat offering, and his drink offering.",
+   "Y un macho cabrío por expiación: además del holocausto continuo, su presente y su libación."
+  ],
+  "numbers.txt 29:29": [
+   "And on the sixth day eight bullocks, two rams, and fourteen lambs of the first year without blemish:",
+   "Y el sexto día, ocho becerros, dos carneros, catorce corderos de un año sin defecto;"
+  ],
+  "numbers.txt 29:30": [
+   "And their meat offering and their drink offerings for the bullocks, for the rams, and for the lambs, shall be according to their number, after the manner:",
+   "Y sus presentes y sus libaciones con los becerros, con los carneros, y con los corderos, según el número de ellos, conforme á la ley;"
+  ],
+  "numbers.txt 29:31": [
+   "And one goat for a sin offering; beside the continual burnt offering, his meat offering, and his drink offering.",
+   "Y un macho cabrío por expiación: además del holocausto continuo, su presente y sus libaciones."
+  ],
+  "numbers.txt 29:32": [
+   "And on the seventh day seven bullocks, two rams, and fourteen lambs of the first year without blemish:",
+   "Y el séptimo día, siete becerros, dos carneros, catorce corderos de un año sin defecto;"
+  ],
+  "numbers.txt 29:33": [
+   "And their meat offering and their drink offerings for the bullocks, for the rams, and for the lambs, shall be according to their number, after the manner:",
+   "Y sus presentes y sus libaciones con los becerros, con los carneros, y con los corderos, según el número de ellos, conforme á la ley;"
+  ],
+  "numbers.txt 29:34": [
+   "And one goat for a sin offering; beside the continual burnt offering, his meat offering, and his drink offering.",
+   "Y un macho cabrío por expiación: además del holocausto continuo, con su presente y su libación."
+  ],
+  "numbers.txt 29:35": [
+   "On the eighth day ye shall have a solemn assembly: ye shall do no servile work therein:",
+   "El octavo día tendréis solemnidad: ninguna obra servil haréis:"
+  ],
+  "numbers.txt 29:36": [
+   "But ye shall offer a burnt offering, a sacrifice made by fire, of a sweet savour unto the LORD: one bullock, one ram, seven lambs of the first year without blemish:",
+   "Y ofreceréis en holocausto, en ofrenda encendida de olor suave á Jehová, un novillo, un carnero, siete corderos de un año sin defecto;"
+  ],
+  "numbers.txt 29:37": [
+   "Their meat offering and their drink offerings for the bullock, for the ram, and for the lambs, shall be according to their number, after the manner:",
+   "Sus presentes y sus libaciones con el novillo, con el carnero, y con los corderos, según el número de ellos, conforme á la ley;"
+  ],
+  "numbers.txt 29:38": [
+   "And one goat for a sin offering; beside the continual burnt offering, and his meat offering, and his drink offering.",
+   "Y un macho cabrío por expiación: además del holocausto continuo, con su presente y su libación."
+  ],
+  "numbers.txt 29:39": [
+   "These things ye shall do unto the LORD in your set feasts, beside your vows, and your freewill offerings, for your burnt offerings, and for your meat offerings, and for your drink offerings, and for your peace offerings.",
+   "Estas cosas ofreceréis á Jehová en vuestras solemnidades, además de vuestros votos, y de vuestras ofrendas libres, para vuestros holocaustos, y para vuestros presentes, y para vuestras libaciones, y para vuestras paces."
+  ],
+  "numbers.txt 29:40": [
+   "And Moses told the children of Israel according to all that the LORD commanded Moses.",
+   "Y MOISÉS dijo á los hijos de Israel, conforme á todo lo que Jehová le había mandado."
+  ],
+  "numbers.txt 30:1": [
+   "And Moses spake unto the heads of the tribes concerning the children of Israel, saying, This is the thing which the LORD hath commanded.",
+   "Y habló Moisés á los príncipes de las tribus de los hijos de Israel, diciendo: Esto es lo que Jehová ha mandado."
+  ],
+  "numbers.txt 30:2": [
+   "If a man vow a vow unto the LORD, or swear an oath to bind his soul with a bond; he shall not break his word, he shall do according to all that proceedeth out of his mouth.",
+   "Cuando alguno hiciere voto á Jehová, ó hiciere juramento ligando su alma con obligación, no violará su palabra: hará conforme á todo lo que salió de su boca."
+  ],
+  "numbers.txt 30:3": [
+   "If a woman also vow a vow unto the LORD, and bind herself by a bond, being in her father's house in her youth;",
+   "Mas la mujer, cuando hiciere voto á Jehová, y se ligare con obligación en casa de su padre, en su mocedad;"
+  ],
+  "numbers.txt 30:4": [
+   "And her father hear her vow, and her bond wherewith she hath bound her soul, and her father shall hold his peace at her: then all her vows shall stand, and every bond wherewith she hath bound her soul shall stand.",
+   "Si su padre oyere su voto, y la obligación con que ligó su alma, y su padre callare á ello, todos los votos de ella serán firmes, y toda obligación con que hubiere ligado su alma, firme será."
+  ],
+  "numbers.txt 30:5": [
+   "But if her father disallow her in the day that he heareth; not any of her vows, or of her bonds wherewith she hath bound her soul, shall stand: and the LORD shall forgive her, because her father disallowed her.",
+   "Mas si su padre le vedare el día que oyere todos sus votos y sus obligaciones, con que ella hubiere ligado su alma, no serán firmes; y Jehová la perdonará, por cuanto su padre le vedó."
+  ],
+  "numbers.txt 30:6": [
+   "And if she had at all an husband, when she vowed, or uttered ought out of her lips, wherewith she bound her soul;",
+   "Empero si fuere casada, é hiciere votos, ó pronunciare de sus labios cosa con que obligue su alma;"
+  ],
+  "numbers.txt 30:7": [
+   "And her husband heard it, and held his peace at her in the day that he heard it: then her vows shall stand, and her bonds wherewith she bound her soul shall stand.",
+   "Si su marido lo oyere, y cuando lo oyere callare á ello, los votos de ella serán firmes, y la obligación con que ligó su alma, firme será."
+  ],
+  "numbers.txt 30:8": [
+   "But if her husband disallowed her on the day that he heard it; then he shall make her vow which she vowed, and that which she uttered with her lips, wherewith she bound her soul, of none effect: and the LORD shall forgive her.",
+   "Pero si cuando su marido lo oyó, le vedó, entonces el voto que ella hizo, y lo que pronunció de sus labios con que ligó su alma, será nulo; y Jehová lo perdonará."
+  ],
+  "numbers.txt 30:9": [
+   "But every vow of a widow, and of her that is divorced, wherewith they have bound their souls, shall stand against her.",
+   "Mas todo voto de viuda, ó repudiada, con que ligare su alma, será firme."
+  ],
+  "numbers.txt 30:10": [
+   "And if she vowed in her husband's house, or bound her soul by a bond with an oath;",
+   "Y si hubiere hecho voto en casa de su marido, y hubiere ligado su alma con obligación de juramento,"
+  ],
+  "numbers.txt 30:11": [
+   "And her husband heard it, and held his peace at her, and disallowed her not: then all her vows shall stand, and every bond wherewith she bound her soul shall stand.",
+   "Si su marido oyó, y calló á ello, y no le vedó; entonces todos sus votos serán firmes, y toda obligación con que hubiere ligado su alma, firme será."
+  ],
+  "numbers.txt 30:12": [
+   "But if her husband hath utterly made them void on the day he heard them; then whatsoever proceeded out of her lips concerning her vows, or concerning the bond of her soul, shall not stand: her husband hath made them void; and the LORD shall forgive her.",
+   "Mas si su marido los anuló el día que los oyó; todo lo que salió de sus labios cuanto á sus votos, y cuanto á la obligación de su alma, será nulo; su marido los anuló, y Jehová la perdonará."
+  ],
+  "numbers.txt 30:13": [
+   "Every vow, and every binding oath to afflict the soul, her husband may establish it, or her husband may make it void.",
+   "Todo voto, ó todo juramento obligándose á afligir el alma, su marido lo confirmará, ó su marido lo anulará."
+  ],
+  "numbers.txt 30:14": [
+   "But if her husband altogether hold his peace at her from day to day; then he establisheth all her vows, or all her bonds, which are upon her: he confirmeth them, because he held his peace at her in the day that he heard them.",
+   "Empero si su marido callare á ello de día en día, entonces confirmó todos sus votos, y todas las obligaciones que están sobre ella: confirmólas, por cuanto calló á ello el día que lo oyó."
+  ],
+  "numbers.txt 30:15": [
+   "But if he shall any ways make them void after that he hath heard them; then he shall bear her iniquity.",
+   "Mas si las anulare después de haberlas oído, entonces él llevará el pecado de ella. Estas son las ordenanzas que Jehová mandó á Moisés entre el varón y su mujer, entre el padre y su hija, durante su mocedad en casa de su padre."
+  ],
+  "numbers.txt 30:16": [
+   "These are the statutes, which the LORD commanded Moses, between a man and his wife, between the father and his daughter, being yet in her youth in her father's house.",
+   "Mas si las anulare después de haberlas oído, entonces él llevará el pecado de ella. Estas son las ordenanzas que Jehová mandó á Moisés entre el varón y su mujer, entre el padre y su hija, durante su mocedad en casa de su padre."
+  ],
+  "first_samuel.txt 23:1": [
+   "Then they told David, saying, Behold, the Philistines fight against Keilah, and they rob the threshingfloors.",
+   "Y DIERON aviso á David, diciendo: He aquí que los Filisteos combaten á Keila, y roban las eras."
+  ],
+  "first_samuel.txt 23:2": [
+   "Therefore David enquired of the LORD, saying, Shall I go and smite these Philistines?  And the LORD said unto David, Go, and smite the Philistines, and save Keilah.",
+   "Y David consultó á Jehová, diciendo: ¿Iré á herir á estos Filisteos? Y Jehová respondió á David: Ve, hiere á los Filisteos, y libra á Keila."
+  ],
+  "first_samuel.txt 23:3": [
+   "And David's men said unto him, Behold, we be afraid here in Judah: how much more then if we come to Keilah against the armies of the Philistines?",
+   "Mas los que estaban con David le dijeron: He aquí que nosotros aquí en Judá estamos con miedo; ¿cuánto más si fuéremos á Keila contra el ejército de los Filisteos?"
+  ],
+  "first_samuel.txt 23:4": [
+   "Then David enquired of the LORD yet again.  And the LORD answered him and said, Arise, go down to Keilah; for I will deliver the Philistines into thine hand.",
+   "Entonces David volvió á consultar á Jehová. Y Jehová le respondió, y dijo: Levántate, desciende á Keila, que yo entregaré en tus manos á los Filisteos."
+  ],
+  "first_samuel.txt 23:5": [
+   "So David and his men went to Keilah, and fought with the Philistines, and brought away their cattle, and smote them with a great slaughter.  So David saved the inhabitants of Keilah.",
+   "Partióse pues David con sus hombres á Keila, y peleó contra los Filisteos, y trajo antecogidos sus ganados, é hiriólos con grande estrago: y libró David á los de Keila."
+  ],
+  "first_samuel.txt 23:6": [
+   "And it came to pass, when Abiathar the son of Ahimelech fled to David to Keilah, that he came down with an ephod in his hand.",
+   "Y aconteció que, huyendo Abiathar hijo de Ahimelech á David á Keila, vino también con él el ephod."
+  ],
+  "first_samuel.txt 23:7": [
+   "And it was told Saul that David was come to Keilah.  And Saul said, God hath delivered him into mine hand; for he is shut in, by entering into a town that hath gates and bars.",
+   "Y fué dicho á Saúl que David había venido á Keila. Entonces dijo Saúl: Dios lo ha traído á mis manos; porque él está encerrado, habiéndose metido en ciudad con puertas y cerraduras."
+  ],
+  "first_samuel.txt 23:8": [
+   "And Saul called all the people together to war, to go down to Keilah, to besiege David and his men.",
+   "Y convocó Saúl todo el pueblo á la batalla, para descender á Keila, y poner cerco á David y á los suyos."
+  ],
+  "first_samuel.txt 23:9": [
+   "And David knew that Saul secretly practised mischief against him; and he said to Abiathar the priest, Bring hither the ephod.",
+   "Mas entendiendo David que Saúl ideaba el mal contra él, dijo á Abiathar sacerdote: Trae el ephod."
+  ],
+  "first_samuel.txt 23:10": [
+   "Then said David, O LORD God of Israel, thy servant hath certainly heard that Saul seeketh to come to Keilah, to destroy the city for my sake.",
+   "Y dijo David: Jehová Dios de Israel, tu siervo tiene entendido que Saúl trata de venir contra Keila, á destruir la ciudad por causa mía."
+  ],
+  "first_samuel.txt 23:11": [
+   "Will the men of Keilah deliver me up into his hand?  will Saul come down, as thy servant hath heard?  O LORD God of Israel, I beseech thee, tell thy servant.  And the LORD said, He will come down.",
+   "¿Me entregarán los vecinos de Keila en sus manos? ¿descenderá Saúl, como tu siervo tiene oído? Jehová Dios de Israel, ruégote que lo declares á tu siervo. Y Jehová dijo: Sí, descenderá."
+  ],
+  "first_samuel.txt 23:12": [
+   "Then said David, Will the men of Keilah deliver me and my men into the hand of Saul?  And the LORD said, They will deliver thee up.",
+   "Dijo luego David: ¿Me entregarán los vecinos de Keila á mí y á mis hombres en manos de Saúl? Y Jehová respondió: Te entregarán."
+  ],
+  "first_samuel.txt 23:13": [
+   "Then David and his men, which were about six hundred, arose and departed out of Keilah, and went whithersoever they could go.  And it was told Saul that David was escaped from Keilah; and he forbare to go forth.",
+   "David entonces se levantó con sus hombres, que eran como seiscientos, y saliéronse de Keila, y fuéronse de una parte á otra. Y vino la nueva á Saúl de como David se había escapado de Keila; y dejó de salir."
+  ],
+  "first_samuel.txt 23:14": [
+   "And David abode in the wilderness in strong holds, and remained in a mountain in the wilderness of Ziph.  And Saul sought him every day, but God delivered him not into his hand.",
+   "Y David se estaba en el desierto en peñas, y habitaba en un monte en el desierto de Ziph; y buscábalo Saúl todos los días, mas Dios no lo entregó en sus manos."
+  ],
+  "first_samuel.txt 23:15": [
+   "And David saw that Saul was come out to seek his life: and David was in the wilderness of Ziph in a wood.",
+   "Viendo pues David que Saúl había salido en busca de su alma, estábase él en el bosque en el desierto de Ziph."
+  ],
+  "first_samuel.txt 23:16": [
+   "And Jonathan Saul's son arose, and went to David into the wood, and strengthened his hand in God.",
+   "Entonces se levantó Jonathán hijo de Saúl, y vino á David en el bosque, y confortó su mano en Dios."
+  ],
+  "first_samuel.txt 23:17": [
+   "And he said unto him, Fear not: for the hand of Saul my father shall not find thee; and thou shalt be king over Israel, and I shall be next unto thee; and that also Saul my father knoweth.",
+   "Y díjole: No temas, que no te hallará la mano de Saúl mi padre, y tú reinarás sobre Israel, y yo seré segundo después de ti; y aun Saúl mi padre así lo sabe."
+  ],
+  "first_samuel.txt 23:18": [
+   "And they two made a covenant before the LORD: and David abode in the wood, and Jonathan went to his house.",
+   "Y entrambos hicieron alianza delante de Jehová: y David se quedó en el bosque, y Jonathán se volvió á su casa."
+  ],
+  "first_samuel.txt 23:19": [
+   "Then came up the Ziphites to Saul to Gibeah, saying, Doth not David hide himself with us in strong holds in the wood, in the hill of Hachilah, which is on the south of Jeshimon?",
+   "Y subieron los de Ziph á decir á Saúl en Gabaa: ¿No está David escondido en nuestra tierra en las peñas del bosque, en el collado de Hachîla que está á la mano derecha del desierto?"
+  ],
+  "first_samuel.txt 23:20": [
+   "Now therefore, O king, come down according to all the desire of thy soul to come down; and our part shall be to deliver him into the king's hand.",
+   "Por tanto, rey, desciende ahora presto, según todo el deseo de tu alma, y nosotros lo entregaremos en la mano del rey."
+  ],
+  "first_samuel.txt 23:21": [
+   "And Saul said, Blessed be ye of the LORD; for ye have compassion on me.",
+   "Y Saúl dijo: Benditos seáis vosotros de Jehová, que habéis tenido compasión de mí:"
+  ],
+  "first_samuel.txt 23:22": [
+   "Go, I pray you, prepare yet, and know and see his place where his haunt is, and who hath seen him there: for it is told me that he dealeth very subtilly.",
+   "Id pues ahora, apercibid aún, considerad y ved su lugar donde tiene el pie, y quién lo haya visto allí; porque se me ha dicho que él es en gran manera astuto."
+  ],
+  "first_samuel.txt 23:23": [
+   "See therefore, and take knowledge of all the lurking places where he hideth himself, and come ye again to me with the certainty, and I will go with you: and it shall come to pass, if he be in the land, that I will search him out throughout all the thousands of Judah.",
+   "Considerad pues, y ved todos los escondrijos donde se oculta, y volved á mí con la certidumbre, y yo iré con vosotros: que si él estuviere en la tierra, yo le buscaré entre todos los millares de Judá."
+  ],
+  "first_samuel.txt 23:24": [
+   "And they arose, and went to Ziph before Saul: but David and his men were in the wilderness of Maon, in the plain on the south of Jeshimon.",
+   "Y ellos se levantaron, y se fueron á Ziph delante de Saúl. Mas David y su gente estaban en el desierto de Maón, en la llanura que está á la diestra del desierto."
+  ],
+  "first_samuel.txt 23:25": [
+   "Saul also and his men went to seek him.  And they told David: wherefore he came down into a rock, and abode in the wilderness of Maon.  And when Saul heard that, he pursued after David in the wilderness of Maon.",
+   "Y partióse Saúl con su gente á buscarlo; pero fué dado aviso á David, y descendió á la peña, y quedóse en el desierto de Maón. Lo cual como Saúl oyó, siguió á David al desierto de Maón."
+  ],
+  "first_samuel.txt 23:26": [
+   "And Saul went on this side of the mountain, and David and his men on that side of the mountain: and David made haste to get away for fear of Saul; for Saul and his men compassed David and his men round about to take them.",
+   "Y Saúl iba por el un lado del monte, y David con los suyos por el otro lado del monte: y dábase priesa David para ir delante de Saúl; mas Saúl y los suyos habían encerrado á David y á su gente para tomarlos."
+  ],
+  "first_samuel.txt 23:27": [
+   "But there came a messenger unto Saul, saying, Haste thee, and come; for the Philistines have invaded the land.",
+   "Entonces vino un mensajero á Saúl, diciendo: Ven luego, porque los Filisteos han hecho una irrupción en el país."
+  ],
+  "first_samuel.txt 23:28": [
+   "Wherefore Saul returned from pursuing after David, and went against the Philistines: therefore they called that place Sela-hammahlekoth.",
+   "Volvióse por tanto Saúl de perseguir á David, y partió contra los Filisteos. Por esta causa pusieron á aquel lugar por nombre Sela-hammah-lecoth."
+  ],
+  "first_samuel.txt 23:29": [
+   "And David went up from thence, and dwelt in strong holds at En-gedi.",
+   "ENTONCES David subió de allí, y habitó en los parajes fuertes en Engaddi."
+  ],
+  "first_samuel.txt 24:1": [
+   "And it came to pass, when Saul was returned from following the Philistines, that it was told him, saying, Behold, David is in the wilderness of En-gedi.",
+   "Y como Saúl volvió de los Filisteos, diéronle aviso diciendo: He aquí que David está en el desierto de Engaddi."
+  ],
+  "first_samuel.txt 24:2": [
+   "Then Saul took three thousand chosen men out of all Israel, and went to seek David and his men upon the rocks of the wild goats.",
+   "Y tomando Saúl tres mil hombres escogidos de todo Israel, fué en busca de David y de los suyos, por las cumbres de los peñascos de las cabras monteses."
+  ],
+  "first_samuel.txt 24:3": [
+   "And he came to the sheepcotes by the way, where was a cave; and Saul went in to cover his feet: and David and his men remained in the sides of the cave.",
+   "Y como llegó á una majada de ovejas en el camino, donde había una cueva, entró Saúl en ella á cubrir sus pies: y David y los suyos estaban á los lados de la cueva."
+  ],
+  "first_samuel.txt 24:4": [
+   "And the men of David said unto him, Behold the day of which the LORD said unto thee, Behold, I will deliver thine enemy into thine hand, that thou mayest do to him as it shall seem good unto thee.  Then David arose, and cut off the skirt of Saul's robe privily.",
+   "Entonces los de David le dijeron: He aquí el día de que te ha dicho Jehová: He aquí que entrego tu enemigo en tus manos, y harás con él como te pareciere. Y levantóse David, y calladamente cortó la orilla del manto de Saúl."
+  ],
+  "first_samuel.txt 24:5": [
+   "And it came to pass afterward, that David's heart smote him, because he had cut off Saul's skirt.",
+   "Después de lo cual el corazón de David le golpeaba, porque había cortado la orilla del manto de Saúl."
+  ],
+  "first_samuel.txt 24:6": [
+   "And he said unto his men, The LORD forbid that I should do this thing unto my master, the LORD's anointed, to stretch forth mine hand against him, seeing he is the anointed of the LORD.",
+   "Y dijo á los suyos: Jehová me guarde de hacer tal cosa contra mi señor, el ungido de Jehová, que yo extienda mi mano contra él; porque es el ungido de Jehová."
+  ],
+  "first_samuel.txt 24:7": [
+   "So David stayed his servants with these words, and suffered them not to rise against Saul.  But Saul rose up out of the cave, and went on his way.",
+   "Así quebrantó David á los suyos con palabras, y no les permitió que se levantasen contra Saúl. Y Saúl, saliendo de la cueva, fuése su camino."
+  ],
+  "first_samuel.txt 24:8": [
+   "David also arose afterward, and went out of the cave, and cried after Saul, saying, My lord the king.  And when Saul looked behind him, David stooped with his face to the earth, and bowed himself.",
+   "También David se levantó después, y saliendo de la cueva dió voces á las espaldas de Saúl, diciendo: ¡Mi señor el rey! Y como Saúl miró atrás, David inclinó su rostro á tierra, é hizo reverencia."
+  ],
+  "first_samuel.txt 24:9": [
+   "And David said to Saul, Wherefore hearest thou men's words, saying, Behold, David seeketh thy hurt?",
+   "Y dijo David á Saúl: ¿Por qué oyes las palabras de los que dicen: Mira que David procura tu mal?"
+  ],
+  "first_samuel.txt 24:10": [
+   "Behold, this day thine eyes have seen how that the LORD had delivered thee to day into mine hand in the cave: and some bade me kill thee: but mine eye spared thee; and I said, I will not put forth mine hand against my lord; for he is the LORD's anointed.",
+   "He aquí han visto hoy tus ojos como Jehová te ha puesto hoy en mis manos en la cueva: y dijeron que te matase, mas te perdoné, porque dije: No extenderé mi mano contra mi señor, porque ungido es de Jehová."
+  ],
+  "first_samuel.txt 24:11": [
+   "Moreover, my father, see, yea, see the skirt of thy robe in my hand: for in that I cut off the skirt of thy robe and killed thee not, know thou and see that there is neither evil nor transgression in mine hand, and I have not sinned against thee; yet thou huntest my soul to take it.",
+   "Y mira, padre mío, mira aún la orilla de tu manto en mi mano: porque yo corté la orilla de tu manto, y no te maté. Conoce pues, y ve que no hay mal ni traición en mi mano, ni he pecado contra ti; con todo, tú andas á caza de mi vida para quitármela."
+  ],
+  "first_samuel.txt 24:12": [
+   "The LORD judge between me and thee, and the LORD avenge me of thee: but mine hand shall not be upon thee.",
+   "Juzgue Jehová entre mí y ti, y véngueme de ti Jehová: empero mi mano no será contra ti."
+  ],
+  "first_samuel.txt 24:13": [
+   "As saith the proverb of the ancients, Wickedness proceedeth from the wicked: but mine hand shall not be upon thee.",
+   "Como dice el proverbio de los antiguos: De los impíos saldrá la impiedad: así que mi mano no será contra ti."
+  ],
+  "first_samuel.txt 24:14": [
+   "After whom is the king of Israel come out?  after whom dost thou pursue?  after a dead dog, after a flea.",
+   "¿Tras quién ha salido el rey de Israel? ¿á quién persigues? ¿á un perro muerto? ¿á una pulga?"
+  ],
+  "first_samuel.txt 24:15": [
+   "The LORD therefore be judge, and judge between me and thee, and see, and plead my cause, and deliver me out of thine hand.",
+   "Jehová pues será juez, y él juzgará entre mí y ti. El vea, y sustente mi causa, y me defienda de tu mano."
+  ],
+  "first_samuel.txt 24:16": [
+   "And it came to pass, when David had made an end of speaking these words unto Saul, that Saul said, Is this thy voice, my son David?  And Saul lifted up his voice, and wept.",
+   "Y aconteció que, como David acabó de decir estas palabras á Saúl, Saúl dijo: ¿No es esta la voz tuya, hijo mío David? Y alzando Saúl su voz lloró."
+  ],
+  "first_samuel.txt 24:17": [
+   "And he said to David, Thou art more righteous than I: for thou hast rewarded me good, whereas I have rewarded thee evil.",
+   "Y dijo á David: Más justo eres tú que yo, que me has pagado con bien, habiéndote yo pagado con mal."
+  ],
+  "first_samuel.txt 24:18": [
+   "And thou hast shewed this day how that thou hast dealt well with me: forasmuch as when the LORD had delivered me into thine hand, thou killedst me not.",
+   "Tú has mostrado hoy que has hecho conmigo bien; pues no me has muerto, habiéndome Jehová puesto en tus manos."
+  ],
+  "first_samuel.txt 24:19": [
+   "For if a man find his enemy, will he let him go well away?  wherefore the LORD reward thee good for that thou hast done unto me this day.",
+   "Porque ¿quién hallará á su enemigo, y lo dejará ir sano y salvo? Jehová te pague con bien por lo que en este día has hecho conmigo."
+  ],
+  "first_samuel.txt 24:20": [
+   "And now, behold, I know well that thou shalt surely be king, and that the kingdom of Israel shall be established in thine hand.",
+   "Y ahora, como yo entiendo que tú has de reinar, y que el reino de Israel ha de ser en tu mano firme y estable,"
+  ],
+  "first_samuel.txt 24:21": [
+   "Swear now therefore unto me by the LORD, that thou wilt not cut off my seed after me, and that thou wilt not destroy my name out of my father's house.",
+   "Júrame pues ahora por Jehová, que no cortarás mi simiente después de mí, ni raerás mi nombre de la casa de mi padre. Entonces David juró á Saúl. Y fuése Saúl á su casa, y David y los suyos se subieron al sitio fuerte."
+  ],
+  "first_samuel.txt 24:22": [
+   "And David sware unto Saul.  And Saul went home; but David and his men gat them up unto the hold.",
+   "Júrame pues ahora por Jehová, que no cortarás mi simiente después de mí, ni raerás mi nombre de la casa de mi padre. Entonces David juró á Saúl. Y fuése Saúl á su casa, y David y los suyos se subieron al sitio fuerte."
+  ],
+  "second_samuel.txt 20:1": [
+   "And there happened to be there a man of Belial, whose name was Sheba, the son of Bichri, a Benjamite: and he blew a trumpet, and said, We have no part in David, neither have we inheritance in the son of Jesse: every man to his tents, O Israel.",
+   "Y ACAECIÓ estar allí un hombre perverso que se llamaba Seba, hijo de Bichri, hombre de Benjamín, el cual tocó la corneta, y dijo: No tenemos nosotros parte en David, ni heredad en el hijo de Isaí: Israel, ¡cada uno á sus estancias!"
+  ],
+  "second_samuel.txt 20:2": [
+   "So every man of Israel went up from after David, and followed Sheba the son of Bichri: but the men of Judah clave unto their king, from Jordan even to Jerusalem.",
+   "Así se fueron de en pos de David todos los hombres de Israel, y seguían á Seba hijo de Bichri: mas los de Judá fueron adheridos á su rey, desde el Jordán hasta Jerusalem."
+  ],
+  "second_samuel.txt 20:3": [
+   "And David came to his house at Jerusalem; and the king took the ten women his concubines, whom he had left to keep the house, and put them in ward, and fed them, but went not in unto them.  So they were shut up unto the day of their death, living in widowhood.",
+   "Y luego que llegó David á su casa en Jerusalem, tomó el rey las diez mujeres concubinas que había dejado para guardar la casa, y púsolas en una casa en guarda, y dióles de comer: pero nunca más entró á ellas, sino que quedaron encerradas hasta que murieron en viudez de por vida."
+  ],
+  "second_samuel.txt 20:4": [
+   "Then said the king to Amasa, Assemble me the men of Judah within three days, and be thou here present.",
+   "Después dijo el rey á Amasa: Júntame los varones de Judá para dentro de tres días, y hállate tú aquí presente."
+  ],
+  "second_samuel.txt 20:5": [
+   "So Amasa went to assemble the men of Judah: but he tarried longer than the set time which he had appointed him.",
+   "Fué pues Amasa á juntar á Judá; pero detúvose más del tiempo que le había sido señalado."
+  ],
+  "second_samuel.txt 20:6": [
+   "And David said to Abishai, Now shall Sheba the son of Bichri do us more harm than did Absalom: take thou thy lord's servants, and pursue after him, lest he get him fenced cities, and escape us.",
+   "Y dijo David á Abisai: Seba hijo de Bichri nos hará ahora más mal que Absalom: toma pues tú los siervos de tu señor, y ve tras él, no sea que halle las ciudades fortificadas, y se nos vaya de delante."
+  ],
+  "second_samuel.txt 20:7": [
+   "And there went out after him Joab's men, and the Cherethites, and the Pelethites, and all the mighty men: and they went out of Jerusalem, to pursue after Sheba the son of Bichri.",
+   "Entonces salieron en pos de él los hombres de Joab, y los Ceretheos y Peletheos, y todos los valientes: salieron de Jerusalem para ir tras Seba hijo de Bichri."
+  ],
+  "second_samuel.txt 20:8": [
+   "When they were at the great stone which is in Gibeon, Amasa went before them.  And Joab's garment that he had put on was girded unto him, and upon it a girdle with a sword fastened upon his loins in the sheath thereof; and as he went forth it fell out.",
+   "Y estando ellos cerca de la grande peña que está en Gabaón, salióles Amasa al encuentro. Ahora bien, la vestidura que Joab tenía sobrepuesta estábale ceñida, y sobre ella el cinto de una daga pegada á sus lomos en su vaina, de la que así como él avanzó, cayóse aquélla."
+  ],
+  "second_samuel.txt 20:9": [
+   "And Joab said to Amasa, Art thou in health, my brother?  And Joab took Amasa by the beard with the right hand to kiss him.",
+   "Entonces Joab dijo á Amasa: ¿Tienes paz, hermano mío? Y tomó Joab con la diestra la barba de Amasa, para besarlo."
+  ],
+  "second_samuel.txt 20:10": [
+   "But Amasa took no heed to the sword that was in Joab's hand: so he smote him therewith in the fifth rib, and shed out his bowels to the ground, and struck him not again; and he died.  So Joab and Abishai his brother pursued after Sheba the son of Bichri.",
+   "Y como Amasa no se cuidó de la daga que Joab en la mano tenía, hirióle éste con ella en la quinta costilla, y derramó sus entrañas por tierra, y cayó muerto sin darle segundo golpe. Después Joab y su hermano Abisai fueron en seguimiento de Seba hijo de Bichri."
+  ],
+  "second_samuel.txt 20:11": [
+   "And one of Joab's men stood by him, and said, He that favoureth Joab, and he that is for David, let him go after Joab.",
+   "Y uno de los criados de Joab se paró junto á él, diciendo: Cualquiera que amare á Joab y á David vaya en pos de Joab."
+  ],
+  "second_samuel.txt 20:12": [
+   "And Amasa wallowed in blood in the midst of the highway.  And when the man saw that all the people stood still, he removed Amasa out of the highway into the field, and cast a cloth upon him, when he saw that every one that came by him stood still.",
+   "Y Amasa se había revolcado en la sangre en mitad del camino: y viendo aquel hombre que todo el pueblo se paraba, apartó á Amasa del camino al campo, y echó sobre él una vestidura, porque veía que todos los que venían se paraban junto á él."
+  ],
+  "second_samuel.txt 20:13": [
+   "When he was removed out of the highway, all the people went on after Joab, to pursue after Sheba the son of Bichri.",
+   "Luego, pues, que fué apartado del camino, pasaron todos los que seguían á Joab, para ir tras Seba hijo de Bichri."
+  ],
+  "second_samuel.txt 20:14": [
+   "And he went through all the tribes of Israel unto Abel, and to Beth-maachah, and all the Berites: and they were gathered together, and went also after him.",
+   "Y él pasó por todas las tribus de Israel hasta Abel y Beth-maachâ y todo Barim: y juntáronse, y siguiéronlo también."
+  ],
+  "second_samuel.txt 20:15": [
+   "And they came and besieged him in Abel of Beth-maachah, and they cast up a bank against the city, and it stood in the trench: and all the people that were with Joab battered the wall, to throw it down.",
+   "Y vinieron y cercáronlo en Abel de Beth-maachâ, y pusieron baluarte contra la ciudad; y puesto que fué al muro, todo el pueblo que estaba con Joab trabajaba por derribar la muralla."
+  ],
+  "second_samuel.txt 20:16": [
+   "Then cried a wise woman out of the city, Hear, hear; say, I pray you, unto Joab, Come near hither, that I may speak with thee.",
+   "Entonces una mujer sabia dió voces en la ciudad, diciendo: Oid, oid; ruégoos que digáis á Joab se llegue á acá, para que yo hable con él."
+  ],
+  "second_samuel.txt 20:17": [
+   "And when he was come near unto her, the woman said, Art thou Joab?  And he answered, I am he.  Then she said unto him, Hear the words of thine handmaid.  And he answered, I do hear.",
+   "Y como él se acercó á ella, dijo la mujer: ¿Eres tú Joab? Y él respondió: Yo soy. Y ella le dijo: Oye las palabras de tu sierva. Y él respondió: Oigo."
+  ],
+  "second_samuel.txt 20:18": [
+   "Then she spake, saying, They were wont to speak in old time, saying, They shall surely ask counsel at Abel: and so they ended the matter.",
+   "Entonces tornó ella á hablar, diciendo: Antiguamente solían hablar, diciendo: Quien preguntare, pregunte en Abel: y así concluían."
+  ],
+  "second_samuel.txt 20:19": [
+   "I am one of them that are peaceable and faithful in Israel: thou seekest to destroy a city and a mother in Israel: why wilt thou swallow up the inheritance of the LORD?",
+   "Yo soy de las pacíficas y fieles de Israel: y tú procuras destruir una ciudad que es madre de Israel: ¿por qué destruyes la heredad de Jehová?"
+  ],
+  "second_samuel.txt 20:20": [
+   "And Joab answered and said, Far be it, far be it from me, that I should swallow up or destroy.",
+   "Y Joab respondió, diciendo: Nunca tal, nunca tal me acontezca, que yo destruya ni deshaga."
+  ],
+  "second_samuel.txt 20:21": [
+   "The matter is not so: but a man of mount Ephraim, Sheba the son of Bichri by name, hath lifted up his hand against the king, even against David: deliver him only, and I will depart from the city.  And the woman said unto Joab, Behold, his head shall be thrown to thee over the wall.",
+   "La cosa no es así: mas un hombre del monte de Ephraim, que se llama Seba hijo de Bichri, ha levantado su mano contra el rey David: entregad á ése solamente, y me iré de la ciudad. Y la mujer dijo á Joab: He aquí su cabeza te será echada desde el muro."
+  ],
+  "second_samuel.txt 20:22": [
+   "Then the woman went unto all the people in her wisdom.  And they cut off the head of Sheba the son of Bichri, and cast it out to Joab.  And he blew a trumpet, and they retired from the city, every man to his tent.  And Joab returned to Jerusalem unto the king.",
+   "La mujer fué luego á todo el pueblo con su sabiduría; y ellos cortaron la cabeza á Seba hijo de Bichri, y echáronla á Joab. Y él tocó la corneta, y esparciéronse de la ciudad, cada uno á su estancia. Y Joab se volvió al rey á Jerusalem."
+  ],
+  "second_samuel.txt 20:23": [
+   "Now Joab was over all the host of Israel: and Benaiah the son of Jehoiada was over the Cherethites and over the Pelethites:",
+   "Así quedó Joab sobre todo el ejército de Israel; y Benaía hijo de Joiada sobre los Ceretheos y Peletheos;"
+  ],
+  "second_samuel.txt 20:24": [
+   "And Adoram was over the tribute: and Jehoshaphat the son of Ahilud was recorder:",
+   "Y Adoram sobre los tributos; y Josaphat hijo de Ahillud, el canciller;"
+  ],
+  "second_samuel.txt 20:25": [
+   "And Sheva was scribe: and Zadok and Abiathar were the priests:",
+   "Y Seba, escriba; y Sadoc y Abiathar, sacerdotes; é Ira Jaireo fué un jefe principal cerca de David."
+  ],
+  "second_samuel.txt 20:26": [
+   "And Ira also the Jairite was a chief ruler about David.",
+   "Y EN los días de David hubo hambre por tres años consecutivos. Y David consultó á Jehová, y Jehová le dijo: Es por Saúl, y por aquella casa de sangre; porque mató á los Gabaonitas."
+  ],
+  "second_samuel.txt 21:1": [
+   "Then there was a famine in the days of David three years, year after year; and David enquired of the LORD.  And the LORD answered, It is for Saul, and for his bloody house, because he slew the Gibeonites.",
+   "Y EN los días de David hubo hambre por tres años consecutivos. Y David consultó á Jehová, y Jehová le dijo: Es por Saúl, y por aquella casa de sangre; porque mató á los Gabaonitas."
+  ],
+  "second_samuel.txt 21:2": [
+   "And the king called the Gibeonites, and said unto them; (now the Gibeonites were not of the children of Israel, but of the remnant of the Amorites; and the children of Israel had sworn unto them: and Saul sought to slay them in his zeal to the children of Israel and Judah.)",
+   "Entonces el rey llamó á los Gabaonitas, y hablóles. (Los Gabaonitas no eran de los hijos de Israel, sino del residuo de los Amorrheos, á los cuales los hijos de Israel habían hecho juramento: mas Saúl había procurado matarlos con motivo de celo por los hijos de Israel y de Judá.)"
+  ],
+  "second_samuel.txt 21:3": [
+   "Wherefore David said unto the Gibeonites, What shall I do for you?  and wherewith shall I make the atonement, that ye may bless the inheritance of the LORD?",
+   "Dijo pues David á los Gabaonitas: ¿Qué os haré, y con qué expiaré para que bendigáis á la heredad de Jehová?"
+  ],
+  "second_samuel.txt 21:4": [
+   "And the Gibeonites said unto him, We will have no silver nor gold of Saul, nor of his house; neither for us shalt thou kill any man in Israel.  And he said, What ye shall say, that will I do for you.",
+   "Y los Gabaonitas le respondieron: No tenemos nosotros querella sobre plata ni sobre oro con Saúl y con su casa: ni queremos que muera hombre de Israel. Y él les dijo: Lo que vosotros dijereis os haré."
+  ],
+  "second_samuel.txt 21:5": [
+   "And they answered the king, The man that consumed us, and that devised against us that we should be destroyed from remaining in any of the coasts of Israel,",
+   "Y ellos respondieron al rey: De aquel hombre que nos destruyó, y que maquinó contra nosotros, para extirparnos sin dejar nada de nosotros en todo el término de Israel;"
+  ],
+  "second_samuel.txt 21:6": [
+   "Let seven men of his sons be delivered unto us, and we will hang them up unto the LORD in Gibeah of Saul, whom the LORD did choose.  And the king said, I will give them.",
+   "Dénsenos siete varones de sus hijos, para que los ahorquemos á Jehová en Gabaa de Saúl, el escogido de Jehová. Y el rey dijo: Yo los daré."
+  ],
+  "second_samuel.txt 21:7": [
+   "But the king spared Mephibosheth, the son of Jonathan the son of Saul, because of the LORD's oath that was between them, between David and Jonathan the son of Saul.",
+   "Y perdonó el rey á Mephi-boseth, hijo de Jonathán, hijo de Saúl, por el juramento de Jehová que hubo entre ellos, entre David y Jonathán hijo de Saúl."
+  ],
+  "second_samuel.txt 21:8": [
+   "But the king took the two sons of Rizpah the daughter of Aiah, whom she bare unto Saul, Armoni and Mephibosheth; and the five sons of Michal the daughter of Saul, whom she brought up for Adriel the son of Barzillai the Meholathite:",
+   "Mas tomó el rey dos hijos de Rispa hija de Aja, los cuales ella había parido á Saúl, á saber, á Armoni y á Mephi-boseth; y cinco hijos de Michâl hija de Saúl, los cuales ella había parido á Adriel, hijo de Barzillai Molathita;"
+  ],
+  "second_samuel.txt 21:9": [
+   "And he delivered them into the hands of the Gibeonites, and they hanged them in the hill before the LORD: and they fell all seven together, and were put to death in the days of harvest, in the first days, in the beginning of barley harvest.",
+   "Y entrególos en manos de los Gabaonitas, y ellos los ahorcaron en el monte delante de Jehová: y murieron juntos aquellos siete, los cuales fueron muertos en el tiempo de la siega, en los primeros días, en el principio de la siega de las cebadas."
+  ],
+  "second_samuel.txt 21:10": [
+   "And Rizpah the daughter of Aiah took sackcloth, and spread it for her upon the rock, from the beginning of harvest until water dropped upon them out of heaven, and suffered neither the birds of the air to rest on them by day, nor the beasts of the field by night.",
+   "Tomando luego Rispa hija de Aja un saco, tendióselo sobre un peñasco, desde el principio de la siega hasta que llovió sobre ellos agua del cielo; y no dejó á ninguna ave del cielo asentarse sobre ellos de día, ni bestias del campo de noche."
+  ],
+  "second_samuel.txt 21:11": [
+   "And it was told David what Rizpah the daughter of Aiah, the concubine of Saul, had done.",
+   "Y fué dicho á David lo que hacía Rispa hija de Aja, concubina de Saúl."
+  ],
+  "second_samuel.txt 21:12": [
+   "And David went and took the bones of Saul and the bones of Jonathan his son from the men of Jabesh-gilead, which had stolen them from the street of Beth-shan, where the Philistines had hanged them, when the Philistines had slain Saul in Gilboa:",
+   "Entonces David fué, y tomó los huesos de Saúl y los huesos de Jonathán su hijo, de los hombres de Jabes de Galaad, que los habían hurtado de la plaza de Beth-san, donde los habían colgado los Filisteos, cuando deshicieron los Filisteos á Saúl en Gilboa:"
+  ],
+  "second_samuel.txt 21:13": [
+   "And he brought up from thence the bones of Saul and the bones of Jonathan his son; and they gathered the bones of them that were hanged.",
+   "E hizo llevar de allí los huesos de Saúl y los huesos de Jonathán su hijo; y juntaron también los huesos de los ahorcados."
+  ],
+  "second_samuel.txt 21:14": [
+   "And the bones of Saul and Jonathan his son buried they in the country of Benjamin in Zelah, in the sepulchre of Kish his father: and they performed all that the king commanded.  And after that God was intreated for the land.",
+   "Y sepultaron los huesos de Saúl y los de su hijo Jonathán en tierra de Benjamín, en Sela, en el sepulcro de Cis su padre; é hicieron todo lo que el rey había mandado. Después se aplacó Dios con la tierra."
+  ],
+  "second_samuel.txt 21:15": [
+   "Moreover the Philistines had yet war again with Israel; and David went down, and his servants with him, and fought against the Philistines: and David waxed faint.",
+   "Y como los Filisteos tornaron á hacer guerra á Israel, descendió David y sus siervos con él, y pelearon con los Filisteos: y David se cansó."
+  ],
+  "second_samuel.txt 21:16": [
+   "And Ishbi-benob, which was of the sons of the giant, the weight of whose spear weighed three hundred shekels of brass in weight, he being girded with a new sword, thought to have slain David.",
+   "En esto Isbi-benob, el cual era de los hijos del gigante, y el peso de cuya lanza era de trescientos siclos de metal, y tenía él ceñida una nueva espada, trató de herir á David:"
+  ],
+  "second_samuel.txt 21:17": [
+   "But Abishai the son of Zeruiah succoured him, and smote the Philistine, and killed him.  Then the men of David sware unto him, saying, Thou shalt go no more out with us to battle, that thou quench not the light of Israel.",
+   "Mas Abisai hijo de Sarvia le socorrió, é hirió al Filisteo, y matólo. Entonces los hombres de David le juraron, diciendo: Nunca más de aquí adelante saldrás con nosotros á batalla, porque no apagues la lámpara de Israel."
+  ],
+  "second_samuel.txt 21:18": [
+   "And it came to pass after this, that there was again a battle with the Philistines at Gob: then Sibbechai the Hushathite slew Saph, which was of the sons of the giant.",
+   "Otra segunda guerra hubo después en Gob contra los Filisteos: entonces Sibechâi Husathita hirió á Saph, que era de los hijos del gigante."
+  ],
+  "second_samuel.txt 21:19": [
+   "And there was again a battle in Gob with the Philistines, where Elhanan the son of Jaare-oregim, a Bethlehemite, slew the brother of Goliath the Gittite, the staff of whose spear was like a weaver's beam.",
+   "Otra guerra hubo en Gob contra los Filisteos, en la cual Elhanan, hijo de Jaare-oregim de Beth-lehem, hirió á Goliath Getheo, el asta de cuya lanza era como un enjullo de telar."
+  ],
+  "second_samuel.txt 21:20": [
+   "And there was yet a battle in Gath, where was a man of great stature, that had on every hand six fingers, and on every foot six toes, four and twenty in number; and he also was born to the giant.",
+   "Después hubo otra guerra en Gath, donde hubo un hombre de grande altura, el cual tenía doce dedos en las manos, y otros doce en los pies, veinticuatro en todos: y también era de los hijos del gigante."
+  ],
+  "second_samuel.txt 21:21": [
+   "And when he defied Israel, Jonathan the son of Shimea the brother of David slew him.",
+   "Este desafió á Israel, y matólo Jonathán, hijo de Sima hermano de David."
+  ],
+  "second_samuel.txt 21:22": [
+   "These four were born to the giant in Gath, and fell by the hand of David, and by the hand of his servants.",
+   "Estos cuatro le habían nacido al gigante en Gath, los cuales cayeron por la mano de David, y por la mano de sus siervos."
+  ],
+  "second_chronicles.txt 33:1": [
+   "Manasseh was twelve years old when he began to reign, and he reigned fifty and five years in Jerusalem:",
+   "DE DOCE años era Manasés cuando comenzó á reinar, y cincuenta y cinco años reinó en Jerusalem."
+  ],
+  "second_chronicles.txt 33:2": [
+   "But did that which was evil in the sight of the LORD, like unto the abominations of the heathen, whom the LORD had cast out before the children of Israel.",
+   "Mas hizo lo malo en ojos de Jehová, conforme á las abominaciones de las gentes que había echado Jehová delante de los hijos de Israel:"
+  ],
+  "second_chronicles.txt 33:3": [
+   "For he built again the high places which Hezekiah his father had broken down, and he reared up altars for Baalim, and made groves, and worshipped all the host of heaven, and served them.",
+   "Porque él reedificó los altos que Ezechîas su padre había derribado, y levantó altares á los Baales, é hizo bosques, y adoró á todo el ejército de los cielos, y á él sirvió."
+  ],
+  "second_chronicles.txt 33:4": [
+   "Also he built altars in the house of the LORD, whereof the LORD had said, In Jerusalem shall my name be for ever.",
+   "Edificó también altares en la casa de Jehová, de la cual había dicho Jehová: En Jerusalem será mi nombre perpetuamente."
+  ],
+  "second_chronicles.txt 33:5": [
+   "And he built altars for all the host of heaven in the two courts of the house of the LORD.",
+   "Edificó asimismo altares á todo el ejército de los cielos en los dos atrios de la casa de Jehová."
+  ],
+  "second_chronicles.txt 33:6": [
+   "And he caused his children to pass through the fire in the valley of the son of Hinnom: also he observed times, and used enchantments, and used witchcraft, and dealt with a familiar spirit, and with wizards: he wrought much evil in the sight of the LORD, to provoke him to anger.",
+   "Y pasó sus hijos por fuego en el valle de los hijos de Hinnom; y miraba en los tiempos, miraba en agüeros, era dado á adivinaciones, y consultaba pythones y encantadores: subió de punto en hacer lo malo en ojos de Jehová, para irritarle."
+  ],
+  "second_chronicles.txt 33:7": [
+   "And he set a carved image, the idol which he had made, in the house of God, of which God had said to David and to Solomon his son, In this house, and in Jerusalem, which I have chosen before all the tribes of Israel, will I put my name for ever:",
+   "A más de esto puso una imagen de fundición, que hizo, en la casa de Dios, de la cual había dicho Dios á David y á Salomón su hijo: En esta casa y en Jerusalem, la cual yo elegí sobre todas las tribus de Israel, pondré mi nombre para siempre:"
+  ],
+  "second_chronicles.txt 33:8": [
+   "Neither will I any more remove the foot of Israel from out of the land which I have appointed for your fathers; so that they will take heed to do all that I have commanded them, according to the whole law and the statutes and the ordinances by the hand of Moses.",
+   "Y nunca más quitaré el pie de Israel de la tierra que yo entregué á vuestros padres, á condición que guarden y hagan todas las cosas que yo les he mandado, toda la ley, estatutos, y ordenanzas, por mano de Moisés."
+  ],
+  "second_chronicles.txt 33:9": [
+   "So Manasseh made Judah and the inhabitants of Jerusalem to err, and to do worse than the heathen, whom the LORD had destroyed before the children of Israel.",
+   "Hizo pues Manasés desviarse á Judá y á los moradores de Jerusalem, para hacer más mal que las gentes que Jehová destruyó delante de los hijos de Israel."
+  ],
+  "second_chronicles.txt 33:10": [
+   "And the LORD spake to Manasseh, and to his people: but they would not hearken.",
+   "Y habló Jehová á Manasés y á su pueblo, mas ellos no escucharon: por lo cual Jehová trajo contra ellos los generales del ejército del rey de los Asirios, los cuales aprisionaron con grillos á Manasés, y atado con cadenas lleváronlo á Babilonia."
+  ],
+  "second_chronicles.txt 33:11": [
+   "Wherefore the LORD brought upon them the captains of the host of the king of Assyria, which took Manasseh among the thorns, and bound him with fetters, and carried him to Babylon.",
+   "Mas luego que fué puesto en angustias, oró ante Jehová su Dios, humillado grandemente en la presencia del Dios de sus padres."
+  ],
+  "second_chronicles.txt 33:12": [
+   "And when he was in affliction, he besought the LORD his God, and humbled himself greatly before the God of his fathers,",
+   "Y habiendo á él orado, fué atendido; pues que oyó su oración, y volviólo á Jerusalem, á su reino. Entonces conoció Manasés que Jehová era Dios."
+  ],
+  "second_chronicles.txt 33:13": [
+   "And prayed unto him: and he was intreated of him, and heard his supplication, and brought him again to Jerusalem into his kingdom.  Then Manasseh knew that the LORD he was God.",
+   "Después de esto edificó el muro de afuera de la ciudad de David, al occidente de Gihón, en el valle, á la entrada de la puerta del pescado, y cercó á Ophel, y alzólo muy alto; y puso capitanes de ejército en todas las ciudades fuertes por Judá."
+  ],
+  "second_chronicles.txt 33:14": [
+   "Now after this he built a wall without the city of David, on the west side of Gihon, in the valley, even to the entering in at the fish gate, and compassed about Ophel, and raised it up a very great height, and put captains of war in all the fenced cities of Judah.",
+   "Asimismo quitó los dioses ajenos, y el ídolo de la casa de Jehová, y todos los altares que había edificado en el monte de la casa de Jehová y en Jerusalem, y echólos fuera de la ciudad."
+  ],
+  "second_chronicles.txt 33:15": [
+   "And he took away the strange gods, and the idol out of the house of the LORD, and all the altars that he had built in the mount of the house of the LORD, and in Jerusalem, and cast them out of the city.",
+   "Reparó luego el altar de Jehová, y sacrificó sobre él sacrificios pacíficos y de alabanza; y mandó á Judá que sirviesen á Jehová Dios de Israel."
+  ],
+  "second_chronicles.txt 33:16": [
+   "And he repaired the altar of the LORD, and sacrificed thereon peace offerings and thank offerings, and commanded Judah to serve the LORD God of Israel.",
+   "Empero el pueblo aun sacrificaba en los altos, bien que á Jehová su Dios."
+  ],
+  "second_chronicles.txt 33:17": [
+   "Nevertheless the people did sacrifice still in the high places, yet unto the LORD their God only.",
+   "Lo demás de los hechos de Manasés, y su oración á su Dios, y las palabras de los videntes que le hablaron en nombre de Jehová el Dios de Israel, he aquí todo está escrito en los hechos de los reyes de Israel."
+  ],
+  "second_chronicles.txt 33:18": [
+   "Now the rest of the acts of Manasseh, and his prayer unto his God, and the words of the seers that spake to him in the name of the LORD God of Israel, behold, they are written in the book of the kings of Israel.",
+   "Su oración también, y cómo fué oído, todos sus pecados, y su prevaricación, los lugares donde edificó altos y había puesto bosques é ídolos antes que se humillase, he aquí estas cosas están escritas en las palabras de los videntes."
+  ],
+  "second_chronicles.txt 33:19": [
+   "His prayer also, and how God was intreated of him, and all his sin, and his trespass, and the places wherein he built high places, and set up groves and graven images, before he was humbled: behold, they are written among the sayings of the seers.",
+   "Y durmió Manasés con sus padres, y sepultáronlo en su casa: y reinó en su lugar Amón su hijo."
+  ],
+  "second_chronicles.txt 33:20": [
+   "So Manasseh slept with his fathers, and they buried him in his own house: and Amon his son reigned in his stead.",
+   "De veinte y dos años era Amón cuando comenzó á reinar, y dos años reinó en Jerusalem."
+  ],
+  "second_chronicles.txt 33:21": [
+   "Amon was two and twenty years old when he began to reign, and reigned two years in Jerusalem.",
+   "E hizo lo malo en ojos de Jehová, como había hecho Manasés su padre: porque á todos los ídolos que su padre Manasés había hecho, sacrificó y sirvió Amón."
+  ],
+  "second_chronicles.txt 33:22": [
+   "But he did that which was evil in the sight of the LORD, as did Manasseh his father: for Amon sacrificed unto all the carved images which Manasseh his father had made, and served them;",
+   "Mas nunca se humilló delante de Jehová, como se humilló Manasés su padre: antes aumentó el pecado."
+  ],
+  "second_chronicles.txt 33:23": [
+   "And humbled not himself before the LORD, as Manasseh his father had humbled himself; but Amon trespassed more and more.",
+   "Y conspiraron contra él sus siervos, y matáronlo en su casa."
+  ],
+  "second_chronicles.txt 33:24": [
+   "And his servants conspired against him, and slew him in his own house.",
+   "Mas el pueblo de la tierra hirió á todos los que habían conspirado contra el rey Amón; y el pueblo de la tierra puso por rey en su lugar á Josías su hijo."
+  ],
+  "second_chronicles.txt 33:25": [
+   "But the people of the land slew all them that had conspired against king Amon; and the people of the land made Josiah his son king in his stead.",
+   "DE OCHO años era Josías cuando comenzó á reinar, y treinta y un años reinó en Jerusalem."
+  ],
+  "second_chronicles.txt 34:1": [
+   "Josiah was eight years old when he began to reign, and he reigned in Jerusalem one and thirty years.",
+   "DE OCHO años era Josías cuando comenzó á reinar, y treinta y un años reinó en Jerusalem."
+  ],
+  "second_chronicles.txt 34:2": [
+   "And he did that which was right in the sight of the LORD, and walked in the ways of David his father, and declined neither to the right hand, nor to the left.",
+   "Este hizo lo recto en ojos de Jehová, y anduvo en los caminos de David su padre, sin apartarse á la diestra ni á la siniestra."
+  ],
+  "second_chronicles.txt 34:3": [
+   "For in the eighth year of his reign, while he was yet young, he began to seek after the God of David his father: and in the twelfth year he began to purge Judah and Jerusalem from the high places, and the groves, and the carved images, and the molten images.",
+   "A los ocho años de su reinado, siendo aún muchacho, comenzó á buscar al Dios de David su padre; y á los doce años comenzó á limpiar á Judá y á Jerusalem de los altos, bosques, esculturas, é imágenes de fundición."
+  ],
+  "second_chronicles.txt 34:4": [
+   "And they brake down the altars of Baalim in his presence; and the images, that were on high above them, he cut down; and the groves, and the carved images, and the molten images, he brake in pieces, and made dust of them, and strowed it upon the graves of them that had sacrificed unto them.",
+   "Y derribaron delante de él los altares de los Baales, é hizo pedazos las imágenes del sol, que estaban puestas encima; despedazó también los bosques, y las esculturas y estatuas de fundición, y desmenuzólas, y esparció el polvo sobre los sepulcros de los que las habían sacrificado."
+  ],
+  "second_chronicles.txt 34:5": [
+   "And he burnt the bones of the priests upon their altars, and cleansed Judah and Jerusalem.",
+   "Quemó además los huesos de los sacerdotes sobre sus altares, y limpió á Judá y á Jerusalem."
+  ],
+  "second_chronicles.txt 34:6": [
+   "And so did he in the cities of Manasseh, and Ephraim, and Simeon, even unto Naphtali, with their mattocks round about.",
+   "Lo mismo hizo en las ciudades de Manasés, Ephraim, y Simeón, hasta en Nephtalí, con sus lugares asolados alrededor."
+  ],
+  "second_chronicles.txt 34:7": [
+   "And when he had broken down the altars and the groves, and had beaten the graven images into powder, and cut down all the idols throughout all the land of Israel, he returned to Jerusalem.",
+   "Y como hubo derribado los altares y los bosques, y quebrado y desmenuzado las esculturas, y destruído todos los ídolos por toda la tierra de Israel, volvióse á Jerusalem."
+  ],
+  "second_chronicles.txt 34:8": [
+   "Now in the eighteenth year of his reign, when he had purged the land, and the house, he sent Shaphan the son of Azaliah, and Maaseiah the governor of the city, and Joah the son of Joahaz the recorder, to repair the house of the LORD his God.",
+   "A los dieciocho años de su reinado, después de haber limpiado la tierra, y la casa, envió á Saphán hijo de Asalías, y á Maasías gobernador de la ciudad, y á Joah hijo de Joachâz, canciller, para que reparasen la casa de Jehová su Dios."
+  ],
+  "second_chronicles.txt 34:9": [
+   "And when they came to Hilkiah the high priest, they delivered the money that was brought into the house of God, which the Levites that kept the doors had gathered of the hand of Manasseh and Ephraim, and of all the remnant of Israel, and of all Judah and Benjamin; and they returned to Jerusalem.",
+   "Los cuales vinieron á Hilcías, gran sacerdote, y dieron el dinero que había sido metido en la casa de Jehová, que los Levitas que guardaban la puerta habían recogido de mano de Manasés y de Ephraim y de todas las reliquias de Israel, y de todo Judá y Benjamín, habiéndose después vuelto á Jerusalem."
+  ],
+  "second_chronicles.txt 34:10": [
+   "And they put it in the hand of the workmen that had the oversight of the house of the LORD, and they gave it to the workmen that wrought in the house of the LORD, to repair and amend the house:",
+   "Y entregáronlo en mano de los que hacían la obra, que eran sobrestantes en la casa de Jehová; los cuales lo daban á los que hacían la obra y trabajaban en la casa de Jehová, para reparar y restaurar el templo."
+  ],
+  "second_chronicles.txt 34:11": [
+   "Even to the artificers and builders gave they it, to buy hewn stone, and timber for couplings, and to floor the houses which the kings of Judah had destroyed.",
+   "Daban asimismo á los oficiales y albañiles para que comprasen piedra de cantería, y madera para las trabazones, y para entabladura de las casas, las cuales habían destruído los reyes de Judá."
+  ],
+  "second_chronicles.txt 34:12": [
+   "And the men did the work faithfully: and the overseers of them were Jahath and Obadiah, the Levites, of the sons of Merari; and Zechariah and Meshullam, of the sons of the Kohathites, to set it forward; and other of the Levites, all that could skill of instruments of musick.",
+   "Y estos hombres procedían con fidelidad en la obra: y eran sus gobernadores Jahath y Abdías, Levitas de los hijos de Merari; y Zachârías y Mesullam de los hijos de Coath, para que activasen la obra; y de los Levitas, todos los entendidos en instrumentos de música."
+  ],
+  "second_chronicles.txt 34:13": [
+   "Also they were over the bearers of burdens, and were overseers of all that wrought the work in any manner of service: and of the Levites there were scribes, and officers, and porters.",
+   "También velaban sobre los ganapanes, y eran sobrestantes de los que se ocupaban en cualquier clase de obra; y de los Levitas había escribas, gobernadores, y porteros."
+  ],
+  "second_chronicles.txt 34:14": [
+   "And when they brought out the money that was brought into the house of the LORD, Hilkiah the priest found a book of the law of the LORD given by Moses.",
+   "Y al sacar el dinero que había sido metido en la casa de Jehová, Hilcías el sacerdote halló el libro de la ley de Jehová dada por mano de Moisés."
+  ],
+  "second_chronicles.txt 34:15": [
+   "And Hilkiah answered and said to Shaphan the scribe, I have found the book of the law in the house of the LORD.  And Hilkiah delivered the book to Shaphan.",
+   "Y dando cuenta Hilcías, dijo á Saphán escriba: Yo he hallado el libro de la ley en la casa de Jehová. Y dió Hilcías el libro á Saphán."
+  ],
+  "second_chronicles.txt 34:16": [
+   "And Shaphan carried the book to the king, and brought the king word back again, saying, All that was committed to thy servants, they do it.",
+   "Y Saphán lo llevó al rey, y contóle el negocio, diciendo: Tus siervos han cumplido todo lo que les fué dado á cargo."
+  ],
+  "second_chronicles.txt 34:17": [
+   "And they have gathered together the money that was found in the house of the LORD, and have delivered it into the hand of the overseers, and to the hand of the workmen.",
+   "Han reunido el dinero que se halló en la casa de Jehová, y lo han entregado en mano de los comisionados, y en mano de los que hacen la obra."
+  ],
+  "second_chronicles.txt 34:18": [
+   "Then Shaphan the scribe told the king, saying, Hilkiah the priest hath given me a book.  And Shaphan read it before the king.",
+   "A más de esto, declaró Saphán escriba al rey, diciendo: El sacerdote Hilcías me dió un libro. Y leyó Saphán en él delante del rey."
+  ],
+  "second_chronicles.txt 34:19": [
+   "And it came to pass, when the king had heard the words of the law, that he rent his clothes.",
+   "Y luego que el rey oyó las palabras de la ley, rasgó sus vestidos;"
+  ],
+  "second_chronicles.txt 34:20": [
+   "And the king commanded Hilkiah, and Ahikam the son of Shaphan, and Abdon the son of Micah, and Shaphan the scribe, and Asaiah a servant of the king's, saying,",
+   "Y mandó á Hilcías y á Ahicam hijo de Saphán, y á Abdón hijo de Michâ, y á Saphán escriba, y á Asaía siervo del rey, diciendo:"
+  ],
+  "second_chronicles.txt 34:21": [
+   "Go, enquire of the LORD for me, and for them that are left in Israel and in Judah, concerning the words of the book that is found: for great is the wrath of the LORD that is poured out upon us, because our fathers have not kept the word of the LORD, to do after all that is written in this book.",
+   "Andad, y consultad á Jehová de mí, y de las reliquias de Israel y de Judá, acerca de las palabras del libro que se ha hallado; porque grande es el furor de Jehová que ha caído sobre nosotros, por cuanto nuestros padres no guardaron la palabra de Jehová, para hacer conforme á todo lo que está escrito en este libro."
+  ],
+  "second_chronicles.txt 34:22": [
+   "And Hilkiah, and they that the king had appointed, went to Huldah the prophetess, the wife of Shallum the son of Tikvath, the son of Hasrah, keeper of the wardrobe; (now she dwelt in Jerusalem in the college:) and they spake to her to that effect.",
+   "Entonces Hilcías y los del rey fueron á Hulda profetisa, mujer de Sallum, hijo de Tikvath, hijo de Hasra, guarda de las vestimentas, la cual moraba en Jerusalem en la casa de la doctrina; y dijéronle las palabras dichas."
+  ],
+  "second_chronicles.txt 34:23": [
+   "And she answered them, Thus saith the LORD God of Israel, Tell ye the man that sent you to me,",
+   "Y ella respondió: Jehová el Dios de Israel ha dicho así: Decid al varón que os ha enviado á mí, que así ha dicho Jehová:"
+  ],
+  "second_chronicles.txt 34:24": [
+   "Thus saith the LORD, Behold, I will bring evil upon this place, and upon the inhabitants thereof, even all the curses that are written in the book which they have read before the king of Judah:",
+   "He aquí yo traigo mal sobre este lugar, y sobre los moradores de él, todas las maldiciones que están escritas en el libro que leyeron delante del rey de Judá:"
+  ],
+  "second_chronicles.txt 34:25": [
+   "Because they have forsaken me, and have burned incense unto other gods, that they might provoke me to anger with all the works of their hands; therefore my wrath shall be poured out upon this place, and shall not be quenched.",
+   "Por cuanto me han dejado, y han sacrificado á dioses ajenos, provocándome á ira en todas las obras de sus manos; por tanto mi furor destilará sobre este lugar, y no se apagará."
+  ],
+  "second_chronicles.txt 34:26": [
+   "And as for the king of Judah, who sent you to enquire of the LORD, so shall ye say unto him, Thus saith the LORD God of Israel concerning the words which thou hast heard;",
+   "Mas al rey de Judá, que os ha enviado á consultar á Jehová, así le diréis: Jehová el Dios de Israel ha dicho así: Por cuanto oiste las palabras del libro,"
+  ],
+  "second_chronicles.txt 34:27": [
+   "Because thine heart was tender, and thou didst humble thyself before God, when thou heardest his words against this place, and against the inhabitants thereof, and humbledst thyself before me, and didst rend thy clothes, and weep before me; I have even heard thee also, saith the LORD.",
+   "Y tu corazón se enterneció, y te humillaste delante de Dios al oir sus palabras sobre este lugar, y sobre sus moradores, y te humillaste delante de mí, y rasgaste tus vestidos, y lloraste en mi presencia, yo también te he oído, dice Jehová."
+  ],
+  "second_chronicles.txt 34:28": [
+   "Behold, I will gather thee to thy fathers, and thou shalt be gathered to thy grave in peace, neither shall thine eyes see all the evil that I will bring upon this place, and upon the inhabitants of the same.  So they brought the king word again.",
+   "He aquí que yo te recogeré con tus padres, y serás recogido en tus sepulcros en paz, y tus ojos no verán todo el mal que yo traigo sobre este lugar, y sobre los moradores de él. Y ellos refirieron al rey la respuesta."
+  ],
+  "second_chronicles.txt 34:29": [
+   "Then the king sent and gathered together all the elders of Judah and Jerusalem.",
+   "Entonces el rey envió y juntó todos los ancianos de Judá y de Jerusalem."
+  ],
+  "second_chronicles.txt 34:30": [
+   "And the king went up into the house of the LORD, and all the men of Judah, and the inhabitants of Jerusalem, and the priests, and the Levites, and all the people, great and small: and he read in their ears all the words of the book of the covenant that was found in the house of the LORD.",
+   "Y subió el rey á la casa de Jehová, y con él todos los varones de Judá, y los moradores de Jerusalem, y los sacerdotes, y los Levitas, y todo el pueblo desde el mayor hasta el más pequeño; y leyó á oídos de ellos todas las palabras del libro del pacto que había sido hallado en la casa de Jehová."
+  ],
+  "second_chronicles.txt 34:31": [
+   "And the king stood in his place, and made a covenant before the LORD, to walk after the LORD, and to keep his commandments, and his testimonies, and his statutes, with all his heart, and with all his soul, to perform the words of the covenant which are written in this book.",
+   "Y estando el rey en pie en su sitio, hizo alianza delante de Jehová de caminar en pos de Jehová, y de guardar sus mandamientos, sus testimonios, y sus estatutos, de todo su corazón y de toda su alma, poniendo por obra las palabras del pacto que estaban escritas en aquel libro."
+  ],
+  "second_chronicles.txt 34:32": [
+   "And he caused all that were present in Jerusalem and Benjamin to stand to it.  And the inhabitants of Jerusalem did according to the covenant of God, the God of their fathers.",
+   "E hizo que se obligaran á ello todos los que estaban en Jerusalem y en Benjamín: y los moradores de Jerusalem hicieron conforme al pacto de Dios, del Dios de sus padres."
+  ],
+  "second_chronicles.txt 34:33": [
+   "And Josiah took away all the abominations out of all the countries that pertained to the children of Israel, and made all that were present in Israel to serve, even to serve the LORD their God.  And all his days they departed not from following the LORD, the God of their fathers.",
+   "Y quitó Josías todas las abominaciones de todas las tierras de los hijos de Israel, é hizo á todos los que se hallaron en Israel que sirviesen á Jehová su Dios. No se apartaron de en pos de Jehová el Dios de sus padres, todo el tiempo que él vivió."
+  ],
+  "job.txt 35:1": [
+   "Elihu spake moreover, and said,",
+   "Y PROCEDIENDO Eliú en su razonamiento, dijo:"
+  ],
+  "job.txt 35:2": [
+   "Thinkest thou this to be right, that thou saidst, My righteousness is more than God's?",
+   "¿Piensas ser conforme á derecho esto que dijiste: Más justo soy yo que Dios?"
+  ],
+  "job.txt 35:3": [
+   "For thou saidst, What advantage will it be unto thee?  and, What profit shall I have, if I be cleansed from my sin?",
+   "Porque dijiste: ¿Qué ventaja sacarás tú de ello? ¿ó qué provecho tendré de mi pecado?"
+  ],
+  "job.txt 35:4": [
+   "I will answer thee, and thy companions with thee.",
+   "Yo te responderé razones, y á tus compañeros contigo."
+  ],
+  "job.txt 35:5": [
+   "Look unto the heavens, and see; and behold the clouds which are higher than thou.",
+   "Mira á los cielos, y ve, y considera que las nubes son más altas que tú."
+  ],
+  "job.txt 35:6": [
+   "If thou sinnest, what doest thou against him?  or if thy transgressions be multiplied, what doest thou unto him?",
+   "Si pecares, ¿qué habrás hecho contra él? y si tus rebeliones se multiplicaren, ¿qué le harás tú?"
+  ],
+  "job.txt 35:7": [
+   "If thou be righteous, what givest thou him?  or what receiveth he of thine hand?",
+   "Si fueres justo, ¿qué le darás á él? ¿ó qué recibirá de tu mano?"
+  ],
+  "job.txt 35:8": [
+   "Thy wickedness may hurt a man as thou art; and thy righteousness may profit the son of man.",
+   "Al hombre como tú dañará tu impiedad, y al hijo del hombre aprovechará tu justicia."
+  ],
+  "job.txt 35:9": [
+   "By reason of the multitude of oppressions they make the oppressed to cry: they cry out by reason of the arm of the mighty.",
+   "A causa de la multitud de las violencias clamarán, y se lamentarán por el poderío de los grandes."
+  ],
+  "job.txt 35:10": [
+   "But none saith, Where is God my maker, who giveth songs in the night;",
+   "Y ninguno dice: ¿Dónde está Dios mi Hacedor, que da canciones en la noche,"
+  ],
+  "job.txt 35:11": [
+   "Who teacheth us more than the beasts of the earth, and maketh us wiser than the fowls of heaven?",
+   "Que nos enseña más que á las bestias de la tierra, y nos hace sabios más que las aves del cielo?"
+  ],
+  "job.txt 35:12": [
+   "There they cry, but none giveth answer, because of the pride of evil men.",
+   "Allí clamarán, y él no oirá, por la soberbia de los malos."
+  ],
+  "job.txt 35:13": [
+   "Surely God will not hear vanity, neither will the Almighty regard it.",
+   "Ciertamente Dios no oirá la vanidad, ni la mirará el Omnipotente."
+  ],
+  "job.txt 35:14": [
+   "Although thou sayest thou shalt not see him, yet judgment is before him; therefore trust thou in him.",
+   "Aunque más digas, No lo mirará; haz juicio delante de él, y en él espera."
+  ],
+  "job.txt 35:15": [
+   "But now, because it is not so, he hath visited in his anger; yet he knoweth it not in great extremity:",
+   "Mas ahora, porque en su ira no visita, ni conoce con rigor, por eso Job abrió su boca vanamente, y multiplica palabras sin sabiduría."
+  ],
+  "job.txt 35:16": [
+   "Therefore doth Job open his mouth in vain; he multiplieth words without knowledge.",
+   "Y AÑADIÓ Eliú, y dijo:"
+  ],
+  "job.txt 36:1": [
+   "Elihu also proceeded, and said,",
+   "Y AÑADIÓ Eliú, y dijo:"
+  ],
+  "job.txt 36:2": [
+   "Suffer me a little, and I will shew thee that I have yet to speak on God's behalf.",
+   "Espérame un poco, y enseñarte he; porque todavía tengo razones en orden á Dios."
+  ],
+  "job.txt 36:3": [
+   "I will fetch my knowledge from afar, and will ascribe righteousness to my Maker.",
+   "Tomaré mi noticia de lejos, y atribuiré justicia á mi Hacedor."
+  ],
+  "job.txt 36:4": [
+   "For truly my words shall not be false: he that is perfect in knowledge is with thee.",
+   "Porque de cierto no son mentira mis palabras; contigo está el que es íntegro en sus conceptos."
+  ],
+  "job.txt 36:5": [
+   "Behold, God is mighty, and despiseth not any: he is mighty in strength and wisdom.",
+   "He aquí que Dios es grande, mas no desestima á nadie: es poderoso en fuerza de sabiduría."
+  ],
+  "job.txt 36:6": [
+   "He preserveth not the life of the wicked: but giveth right to the poor.",
+   "No otorgará vida al impío, y á los afligidos dará su derecho."
+  ],
+  "job.txt 36:7": [
+   "He withdraweth not his eyes from the righteous: but with kings are they on the throne; yea, he doth establish them for ever, and they are exalted.",
+   "No quitará sus ojos del justo; antes bien con los reyes los pondrá en solio para siempre, y serán ensalzados."
+  ],
+  "job.txt 36:8": [
+   "And if they be bound in fetters, and be holden in cords of affliction;",
+   "Y si estuvieren prendidos en grillos, y aprisionados en las cuerdas de aflicción,"
+  ],
+  "job.txt 36:9": [
+   "Then he sheweth them their work, and their transgressions that they have exceeded.",
+   "El les dará á conocer la obra de ellos, y que prevalecieron sus rebeliones."
+  ],
+  "job.txt 36:10": [
+   "He openeth also their ear to discipline, and commandeth that they return from iniquity.",
+   "Despierta además el oído de ellos para la corrección, y díceles que se conviertan de la iniquidad."
+  ],
+  "job.txt 36:11": [
+   "If they obey and serve him, they shall spend their days in prosperity, and their years in pleasures.",
+   "Si oyeren, y le sirvieren, acabarán sus días en bien, y sus años en deleites."
+  ],
+  "job.txt 36:12": [
+   "But if they obey not, they shall perish by the sword, and they shall die without knowledge.",
+   "Mas si no oyeren, serán pasados á cuchillo, y perecerán sin sabiduría."
+  ],
+  "job.txt 36:13": [
+   "But the hypocrites in heart heap up wrath: they cry not when he bindeth them.",
+   "Empero los hipócritas de corazón lo irritarán más, y no clamarán cuando él los atare."
+  ],
+  "job.txt 36:14": [
+   "They die in youth, and their life is among the unclean.",
+   "Fallecerá el alma de ellos en su mocedad, y su vida entre los sodomitas."
+  ],
+  "job.txt 36:15": [
+   "He delivereth the poor in his affliction, and openeth their ears in oppression.",
+   "Al pobre librará de su pobreza, y en la aflicción despertará su oído."
+  ],
+  "job.txt 36:16": [
+   "Even so would he have removed thee out of the strait into a broad place, where there is no straitness; and that which should be set on thy table should be full of fatness.",
+   "Asimismo te apartaría de la boca de la angustia á lugar espacioso, libre de todo apuro; y te asentará mesa llena de grosura."
+  ],
+  "job.txt 36:17": [
+   "But thou hast fulfilled the judgment of the wicked: judgment and justice take hold on thee.",
+   "Mas tú has llenado el juicio del impío, en vez de sustentar el juicio y la justicia."
+  ],
+  "job.txt 36:18": [
+   "Because there is wrath, beware lest he take thee away with his stroke: then a great ransom cannot deliver thee.",
+   "Por lo cual teme que en su ira no te quite con golpe, el cual no puedas apartar de ti con gran rescate."
+  ],
+  "job.txt 36:19": [
+   "Will he esteem thy riches?  no, not gold, nor all the forces of strength.",
+   "¿Hará él estima de tus riquezas, ni del oro, ni de todas las fuerzas del poder?"
+  ],
+  "job.txt 36:20": [
+   "Desire not the night, when people are cut off in their place.",
+   "No anheles la noche, en que desaparecen los pueblos de su lugar."
+  ],
+  "job.txt 36:21": [
+   "Take heed, regard not iniquity: for this hast thou chosen rather than affliction.",
+   "Guárdate, no tornes á la iniquidad; pues ésta escogiste más bien que la aflicción."
+  ],
+  "job.txt 36:22": [
+   "Behold, God exalteth by his power: who teacheth like him?",
+   "He aquí que Dios es excelso con su potencia: ¿qué enseñador semejante á él?"
+  ],
+  "job.txt 36:23": [
+   "Who hath enjoined him his way?  or who can say, Thou hast wrought iniquity?",
+   "¿Quién le ha prescrito su camino? ¿y quién le dirá: Iniquidad has hecho?"
+  ],
+  "job.txt 36:24": [
+   "Remember that thou magnify his work, which men behold.",
+   "Acuérdate de engrandecer su obra, la cual contemplan los hombres."
+  ],
+  "job.txt 36:25": [
+   "Every man may see it; man may behold it afar off.",
+   "Los hombres todos la ven; mírala el hombre de lejos."
+  ],
+  "job.txt 36:26": [
+   "Behold, God is great, and we know him not, neither can the number of his years be searched out.",
+   "He aquí, Dios es grande, y nosotros no le conocemos; ni se puede rastrear el número de sus años."
+  ],
+  "job.txt 36:27": [
+   "For he maketh small the drops of water: they pour down rain according to the vapour thereof:",
+   "El reduce las gotas de las aguas, al derramarse la lluvia según el vapor;"
+  ],
+  "job.txt 36:28": [
+   "Which the clouds do drop and distil upon man abundantly.",
+   "Las cuales destilan las nubes, goteando en abundancia sobre los hombres."
+  ],
+  "job.txt 36:29": [
+   "Also can any understand the spreadings of the clouds, or the noise of his tabernacle?",
+   "¿Quién podrá tampoco comprender la extensión de las nubes, y el sonido estrepitoso de su pabellón?"
+  ],
+  "job.txt 36:30": [
+   "Behold, he spreadeth his light upon it, and covereth the bottom of the sea.",
+   "He aquí que sobre él extiende su luz, y cobija con ella las raíces de la mar."
+  ],
+  "job.txt 36:31": [
+   "For by them judgeth he the people; he giveth meat in abundance.",
+   "Bien que por esos medios castiga á los pueblos, á la multitud da comida."
+  ],
+  "job.txt 36:32": [
+   "With clouds he covereth the light; and commandeth it not to shine by the cloud that cometh betwixt.",
+   "Con las nubes encubre la luz, y mándale no brillar, interponiendo aquéllas."
+  ],
+  "job.txt 36:33": [
+   "The noise thereof sheweth concerning it, the cattle also concerning the vapour.",
+   "Tocante á ella anunciará el trueno, su compañero, que hay acumulación de ira sobre el que se eleva."
+  ],
+  "job.txt 38:1": [
+   "Then the LORD answered Job out of the whirlwind, and said,",
+   "Y RESPONDIÓ Jehová á Job desde un torbellino, y dijo:"
+  ],
+  "job.txt 38:2": [
+   "Who is this that darkeneth counsel by words without knowledge?",
+   "¿Quién es ése que oscurece el consejo con palabras sin sabiduría?"
+  ],
+  "job.txt 38:3": [
+   "Gird up now thy loins like a man; for I will demand of thee, and answer thou me.",
+   "Ahora ciñe como varón tus lomos; yo te preguntaré, y hazme saber tú."
+  ],
+  "job.txt 38:4": [
+   "Where wast thou when I laid the foundations of the earth?  declare, if thou hast understanding.",
+   "¿Dónde estabas cuando yo fundaba la tierra? házmelo saber, si tienes inteligencia."
+  ],
+  "job.txt 38:5": [
+   "Who hath laid the measures thereof, if thou knowest?  or who hath stretched the line upon it?",
+   "¿Quién ordenó sus medidas, si lo sabes? ¿ó quién extendió sobre ella cordel?"
+  ],
+  "job.txt 38:6": [
+   "Whereupon are the foundations thereof fastened?  or who laid the corner stone thereof;",
+   "¿Sobre qué están fundadas sus basas? ¿ó quién puso su piedra angular,"
+  ],
+  "job.txt 38:7": [
+   "When the morning stars sang together, and all the sons of God shouted for joy?",
+   "Cuando las estrellas todas del alba alababan, y se regocijaban todos los hijos de Dios?"
+  ],
+  "job.txt 38:8": [
+   "Or who shut up the sea with doors, when it brake forth, as if it had issued out of the womb?",
+   "¿Quién encerró con puertas la mar, cuando se derramaba por fuera como saliendo de madre;"
+  ],
+  "job.txt 38:9": [
+   "When I made the cloud the garment thereof, and thick darkness a swaddlingband for it,",
+   "Cuando puse yo nubes por vestidura suya, y por su faja oscuridad."
+  ],
+  "job.txt 38:10": [
+   "And brake up for it my decreed place, and set bars and doors,",
+   "Y establecí sobre ella mi decreto, y le puse puertas y cerrojo,"
+  ],
+  "job.txt 38:11": [
+   "And said, Hitherto shalt thou come, but no further: and here shall thy proud waves be stayed?",
+   "Y dije: Hasta aquí vendrás, y no pasarás adelante, y ahí parará la hinchazón de tus ondas?"
+  ],
+  "job.txt 38:12": [
+   "Hast thou commanded the morning since thy days; and caused the dayspring to know his place;",
+   "¿Has tú mandado á la mañana en tus días? ¿has mostrado al alba su lugar,"
+  ],
+  "job.txt 38:13": [
+   "That it might take hold of the ends of the earth, that the wicked might be shaken out of it?",
+   "Para que ocupe los fines de la tierra, y que sean sacudidos de ella los impíos?"
+  ],
+  "job.txt 38:14": [
+   "It is turned as clay to the seal; and they stand as a garment.",
+   "Trasmúdase como lodo bajo de sello, y viene á estar como con vestidura:"
+  ],
+  "job.txt 38:15": [
+   "And from the wicked their light is withholden, and the high arm shall be broken.",
+   "Mas la luz de los impíos es quitada de ellos, y el brazo enaltecido es quebrantado."
+  ],
+  "job.txt 38:16": [
+   "Hast thou entered into the springs of the sea?  or hast thou walked in the search of the depth?",
+   "¿Has entrado tú hasta los profundos de la mar, y has andado escudriñando el abismo?"
+  ],
+  "job.txt 38:17": [
+   "Have the gates of death been opened unto thee?  or hast thou seen the doors of the shadow of death?",
+   "¿Hante sido descubiertas las puertas de la muerte, y has visto las puertas de la sombra de muerte?"
+  ],
+  "job.txt 38:18": [
+   "Hast thou perceived the breadth of the earth?  declare if thou knowest it all.",
+   "¿Has tú considerado hasta las anchuras de la tierra? Declara si sabes todo esto."
+  ],
+  "job.txt 38:19": [
+   "Where is the way where light dwelleth?  and as for darkness, where is the place thereof,",
+   "¿Por dónde va el camino á la habitación de la luz, y dónde está el lugar de las tinieblas?"
+  ],
+  "job.txt 38:20": [
+   "That thou shouldest take it to the bound thereof, and that thou shouldest know the paths to the house thereof?",
+   "¿Si llevarás tú ambas cosas á sus términos, y entenderás las sendas de su casa?"
+  ],
+  "job.txt 38:21": [
+   "Knowest thou it, because thou wast then born?  or because the number of thy days is great?",
+   "¿Sabíaslo tú porque hubieses ya nacido, ó porque es grande el número de tus días?"
+  ],
+  "job.txt 38:22": [
+   "Hast thou entered into the treasures of the snow?  or hast thou seen the treasures of the hail,",
+   "¿Has tú entrado en los tesoros de la nieve, ó has visto los tesoros del granizo,"
+  ],
+  "job.txt 38:23": [
+   "Which I have reserved against the time of trouble, against the day of battle and war?",
+   "Lo cual tengo yo reservado para el tiempo de angustia, para el día de la guerra y de la batalla?"
+  ],
+  "job.txt 38:24": [
+   "By what way is the light parted, which scattereth the east wind upon the earth?",
+   "¿Por qué camino se reparte la luz, y se esparce el viento solano sobre la tierra?"
+  ],
+  "job.txt 38:25": [
+   "Who hath divided a watercourse for the overflowing of waters, or a way for the lightning of thunder;",
+   "¿Quién repartió conducto al turbión, y camino á los relámpagos y truenos,"
+  ],
+  "job.txt 38:26": [
+   "To cause it to rain on the earth, where no man is; on the wilderness, wherein there is no man;",
+   "Haciendo llover sobre la tierra deshabitada, sobre el desierto, donde no hay hombre,"
+  ],
+  "job.txt 38:27": [
+   "To satisfy the desolate and waste ground; and to cause the bud of the tender herb to spring forth?",
+   "Para hartar la tierra desierta é inculta, y para hacer brotar la tierna hierba?"
+  ],
+  "job.txt 38:28": [
+   "Hath the rain a father?  or who hath begotten the drops of dew?",
+   "¿Tiene la lluvia padre? ¿ó quién engendró las gotas del rocío?"
+  ],
+  "job.txt 38:29": [
+   "Out of whose womb came the ice?  and the hoary frost of heaven, who hath gendered it?",
+   "¿De qué vientre salió el hielo? y la escarcha del cielo, ¿quién la engendró?"
+  ],
+  "job.txt 38:30": [
+   "The waters are hid as with a stone, and the face of the deep is frozen.",
+   "Las aguas se endurecen á manera de piedra, y congélase la haz del abismo."
+  ],
+  "job.txt 38:31": [
+   "Canst thou bind the sweet influences of Pleiades, or loose the bands of Orion?",
+   "¿Podrás tú impedir las delicias de las Pléyades, ó desatarás las ligaduras del Orión?"
+  ],
+  "job.txt 38:32": [
+   "Canst thou bring forth Mazzaroth in his season?  or canst thou guide Arcturus with his sons?",
+   "¿Sacarás tú á su tiempo los signos de los cielos, ó guiarás el Arcturo con sus hijos?"
+  ],
+  "job.txt 38:33": [
+   "Knowest thou the ordinances of heaven?  canst thou set the dominion thereof in the earth?",
+   "¿Supiste tú las ordenanzas de los cielos? ¿dispondrás tú de su potestad en la tierra?"
+  ],
+  "job.txt 38:34": [
+   "Canst thou lift up thy voice to the clouds, that abundance of waters may cover thee?",
+   "¿Alzarás tú á las nubes tu voz, para que te cubra muchedumbre de aguas?"
+  ],
+  "job.txt 38:35": [
+   "Canst thou send lightnings, that they may go, and say unto thee, Here we are?",
+   "¿Enviarás tú los relámpagos, para que ellos vayan? ¿y diránte ellos: Henos aquí?"
+  ],
+  "job.txt 38:36": [
+   "Who hath put wisdom in the inward parts?  or who hath given understanding to the heart?",
+   "¿Quién puso la sabiduría en el interior? ¿ó quién dió al entendimiento la inteligencia?"
+  ],
+  "job.txt 38:37": [
+   "Who can number the clouds in wisdom?  or who can stay the bottles of heaven,",
+   "¿Quién puso por cuenta los cielos con sabiduría? y los odres de los cielos, ¿quién los hace parar,"
+  ],
+  "job.txt 38:38": [
+   "When the dust groweth into hardness, and the clods cleave fast together?",
+   "Cuando el polvo se ha convertido en dureza, y los terrones se han pegado unos con otros?"
+  ],
+  "job.txt 38:39": [
+   "Wilt thou hunt the prey for the lion?  or fill the appetite of the young lions,",
+   "¿CAZARÁS tú la presa para el león? ¿y saciarás el hambre de los leoncillos,"
+  ],
+  "job.txt 38:40": [
+   "When they couch in their dens, and abide in the covert to lie in wait?",
+   "Cuando están echados en las cuevas, ó se están en sus guaridas para acechar?"
+  ],
+  "job.txt 38:41": [
+   "Who provideth for the raven his food?  when his young ones cry unto God, they wander for lack of meat.",
+   "¿Quién preparó al cuervo su alimento, cuando sus pollos claman á Dios, bullendo de un lado á otro por carecer de comida?"
+  ],
+  "job.txt 39:1": [
+   "Knowest thou the time when the wild goats of the rock bring forth?  or canst thou mark when the hinds do calve?",
+   "¿Sabes tú el tiempo en que paren las cabras monteses? ¿ó miraste tú las ciervas cuando están pariendo?"
+  ],
+  "job.txt 39:2": [
+   "Canst thou number the months that they fulfil?  or knowest thou the time when they bring forth?",
+   "¿Contaste tú los meses de su preñez, y sabes el tiempo cuando han de parir?"
+  ],
+  "job.txt 39:3": [
+   "They bow themselves, they bring forth their young ones, they cast out their sorrows.",
+   "Encórvanse, hacen salir sus hijos, pasan sus dolores."
+  ],
+  "job.txt 39:4": [
+   "Their young ones are in good liking, they grow up with corn; they go forth, and return not unto them.",
+   "Sus hijos están sanos, crecen con el pasto: salen y no vuelven á ellas."
+  ],
+  "job.txt 39:5": [
+   "Who hath sent out the wild ass free?  or who hath loosed the bands of the wild ass?",
+   "¿Quién echó libre al asno montés, y quién soltó sus ataduras?"
+  ],
+  "job.txt 39:6": [
+   "Whose house I have made the wilderness, and the barren land his dwellings.",
+   "Al cual yo puse casa en la soledad, y sus moradas en lugares estériles."
+  ],
+  "job.txt 39:7": [
+   "He scorneth the multitude of the city, neither regardeth he the crying of the driver.",
+   "Búrlase de la multitud de la ciudad: no oye las voces del arriero."
+  ],
+  "job.txt 39:8": [
+   "The range of the mountains is his pasture, and he searcheth after every green thing.",
+   "Lo oculto de los montes es su pasto, y anda buscando todo lo que está verde."
+  ],
+  "job.txt 39:9": [
+   "Will the unicorn be willing to serve thee, or abide by thy crib?",
+   "¿Querrá el unicornio servirte á ti, ni quedar á tu pesebre?"
+  ],
+  "job.txt 39:10": [
+   "Canst thou bind the unicorn with his band in the furrow?  or will he harrow the valleys after thee?",
+   "¿Atarás tú al unicornio con su coyunda para el surco? ¿labrará los valles en pos de ti?"
+  ],
+  "job.txt 39:11": [
+   "Wilt thou trust him, because his strength is great?  or wilt thou leave thy labour to him?",
+   "¿Confiarás tú en él, por ser grande su fortaleza, y le fiarás tu labor?"
+  ],
+  "job.txt 39:12": [
+   "Wilt thou believe him, that he will bring home thy seed, and gather it into thy barn?",
+   "¿Fiarás de él que te tornará tu simiente, y que la allegará en tu era?"
+  ],
+  "job.txt 39:13": [
+   "Gavest thou the goodly wings unto the peacocks?  or wings and feathers unto the ostrich?",
+   "¿Diste tú hermosas alas al pavo real, ó alas y plumas al avestruz?"
+  ],
+  "job.txt 39:14": [
+   "Which leaveth her eggs in the earth, and warmeth them in dust,",
+   "El cual desampara en la tierra sus huevos, y sobre el polvo los calienta,"
+  ],
+  "job.txt 39:15": [
+   "And forgetteth that the foot may crush them, or that the wild beast may break them.",
+   "Y olvídase de que los pisará el pie, y que los quebrará bestia del campo."
+  ],
+  "job.txt 39:16": [
+   "She is hardened against her young ones, as though they were not hers: her labour is in vain without fear;",
+   "Endurécese para con sus hijos, como si no fuesen suyos, no temiendo que su trabajo haya sido en vano:"
+  ],
+  "job.txt 39:17": [
+   "Because God hath deprived her of wisdom, neither hath he imparted to her understanding.",
+   "Porque le privó Dios de sabiduría, y no le dió inteligencia."
+  ],
+  "job.txt 39:18": [
+   "What time she lifteth up herself on high, she scorneth the horse and his rider.",
+   "Luego que se levanta en alto, búrlase del caballo y de su jinete."
+  ],
+  "job.txt 39:19": [
+   "Hast thou given the horse strength?  hast thou clothed his neck with thunder?",
+   "¿Diste tú al caballo la fortaleza? ¿vestiste tú su cerviz de relincho?"
+  ],
+  "job.txt 39:20": [
+   "Canst thou make him afraid as a grasshopper?  the glory of his nostrils is terrible.",
+   "¿Le intimidarás tú como á alguna langosta? El resoplido de su nariz es formidable:"
+  ],
+  "job.txt 39:21": [
+   "He paweth in the valley, and rejoiceth in his strength: he goeth on to meet the armed men.",
+   "Escarba la tierra, alégrase en su fuerza, sale al encuentro de las armas:"
+  ],
+  "job.txt 39:22": [
+   "He mocketh at fear, and is not affrighted; neither turneth he back from the sword.",
+   "Hace burla del espanto, y no teme, ni vuelve el rostro delante de la espada."
+  ],
+  "job.txt 39:23": [
+   "The quiver rattleth against him, the glittering spear and the shield.",
+   "Contra él suena la aljaba, el hierro de la lanza y de la pica:"
+  ],
+  "job.txt 39:24": [
+   "He swalloweth the ground with fierceness and rage: neither believeth he that it is the sound of the trumpet.",
+   "Y él con ímpetu y furor escarba la tierra, sin importarle el sonido de la bocina;"
+  ],
+  "job.txt 39:25": [
+   "He saith among the trumpets, Ha, ha; and he smelleth the battle afar off, the thunder of the captains, and the shouting.",
+   "Antes como que dice entre los clarines: ¡Ea!, y desde lejos huele la batalla, el grito de los capitanes, y la vocería."
+  ],
+  "job.txt 39:26": [
+   "Doth the hawk fly by thy wisdom, and stretch her wings toward the south?",
+   "¿Vuela el gavilán por tu industria, y extiende hacia el mediodía sus alas?"
+  ],
+  "job.txt 39:27": [
+   "Doth the eagle mount up at thy command, and make her nest on high?",
+   "¿Se remonta el águila por tu mandamiento, y pone en alto su nido? Ella habita y está en la piedra, en la cumbre del peñasco y de la roca. Desde allí acecha la comida: sus ojos observan de muy lejos. Sus pollos chupan la sangre: y donde hubiere cadáveres, allí está. A más de eso respondió Jehová á Job, y dijo: ¿Es sabiduría contender con el Omnipotente? El que disputa con Dios, responda á esto. Y respondió Job á Jehová, y dijo: He aquí que yo soy vil, ¿qué te responderé? Mi mano pongo sobre mi boca. Una vez hablé, y no responderé: aun dos veces, mas no tornaré á hablar."
+  ],
+  "job.txt 39:28": [
+   "She dwelleth and abideth on the rock, upon the crag of the rock, and the strong place.",
+   "¿Se remonta el águila por tu mandamiento, y pone en alto su nido? Ella habita y está en la piedra, en la cumbre del peñasco y de la roca. Desde allí acecha la comida: sus ojos observan de muy lejos. Sus pollos chupan la sangre: y donde hubiere cadáveres, allí está. A más de eso respondió Jehová á Job, y dijo: ¿Es sabiduría contender con el Omnipotente? El que disputa con Dios, responda á esto. Y respondió Job á Jehová, y dijo: He aquí que yo soy vil, ¿qué te responderé? Mi mano pongo sobre mi boca. Una vez hablé, y no responderé: aun dos veces, mas no tornaré á hablar."
+  ],
+  "job.txt 39:29": [
+   "From thence she seeketh the prey, and her eyes behold afar off.",
+   "¿Se remonta el águila por tu mandamiento, y pone en alto su nido? Ella habita y está en la piedra, en la cumbre del peñasco y de la roca. Desde allí acecha la comida: sus ojos observan de muy lejos. Sus pollos chupan la sangre: y donde hubiere cadáveres, allí está. A más de eso respondió Jehová á Job, y dijo: ¿Es sabiduría contender con el Omnipotente? El que disputa con Dios, responda á esto. Y respondió Job á Jehová, y dijo: He aquí que yo soy vil, ¿qué te responderé? Mi mano pongo sobre mi boca. Una vez hablé, y no responderé: aun dos veces, mas no tornaré á hablar."
+  ],
+  "job.txt 39:30": [
+   "Her young ones also suck up blood: and where the slain are, there is she.",
+   "¿Se remonta el águila por tu mandamiento, y pone en alto su nido? Ella habita y está en la piedra, en la cumbre del peñasco y de la roca. Desde allí acecha la comida: sus ojos observan de muy lejos. Sus pollos chupan la sangre: y donde hubiere cadáveres, allí está. A más de eso respondió Jehová á Job, y dijo: ¿Es sabiduría contender con el Omnipotente? El que disputa con Dios, responda á esto. Y respondió Job á Jehová, y dijo: He aquí que yo soy vil, ¿qué te responderé? Mi mano pongo sobre mi boca. Una vez hablé, y no responderé: aun dos veces, mas no tornaré á hablar."
+  ],
+  "job.txt 40:1": [
+   "Moreover the LORD answered Job, and said,",
+   "ENTONCES respondió Jehová á Job desde la oscuridad, y dijo:"
+  ],
+  "job.txt 40:2": [
+   "Shall he that contendeth with the Almighty instruct him?  he that reproveth God, let him answer it.",
+   "Cíñete ahora como varón tus lomos; yo te preguntaré, y explícame."
+  ],
+  "job.txt 40:3": [
+   "Then Job answered the LORD, and said,",
+   "¿Invalidarás tú también mi juicio? ¿me condenarás á mí, para justificarte á ti?"
+  ],
+  "job.txt 40:4": [
+   "Behold, I am vile; what shall I answer thee?  I will lay mine hand upon my mouth.",
+   "¿Tienes tú brazo como Dios? ¿y tronarás tú con voz como él?"
+  ],
+  "job.txt 40:5": [
+   "Once have I spoken; but I will not answer: yea, twice; but I will proceed no further.",
+   "Atavíate ahora de majestad y de alteza: y vístete de honra y de hermosura."
+  ],
+  "job.txt 40:6": [
+   "Then answered the LORD unto Job out of the whirlwind, and said,",
+   "Esparce furores de tu ira: y mira á todo soberbio, y abátelo."
+  ],
+  "job.txt 40:7": [
+   "Gird up thy loins now like a man: I will demand of thee, and declare thou unto me.",
+   "Mira á todo soberbio, y humíllalo, y quebranta á los impíos en su asiento."
+  ],
+  "job.txt 40:8": [
+   "Wilt thou also disannul my judgment?  wilt thou condemn me, that thou mayest be righteous?",
+   "Encúbrelos á todos en el polvo, venda sus rostros en la oscuridad;"
+  ],
+  "job.txt 40:9": [
+   "Hast thou an arm like God?  or canst thou thunder with a voice like him?",
+   "Y yo también te confesaré que podrá salvarte tu diestra."
+  ],
+  "job.txt 40:10": [
+   "Deck thyself now with majesty and excellency; and array thyself with glory and beauty.",
+   "He aquí ahora behemoth, al cual yo hice contigo; hierba come como buey."
+  ],
+  "job.txt 40:11": [
+   "Cast abroad the rage of thy wrath: and behold every one that is proud, and abase him.",
+   "He aquí ahora que su fuerza está en sus lomos, y su fortaleza en el ombligo de su vientre."
+  ],
+  "job.txt 40:12": [
+   "Look on every one that is proud, and bring him low; and tread down the wicked in their place.",
+   "Su cola mueve como un cedro, y los nervios de sus genitales son entretejidos."
+  ],
+  "job.txt 40:13": [
+   "Hide them in the dust together; and bind their faces in secret.",
+   "Sus huesos son fuertes como bronce, y sus miembros como barras de hierro."
+  ],
+  "job.txt 40:14": [
+   "Then will I also confess unto thee that thine own right hand can save thee.",
+   "El es la cabeza de los caminos de Dios: el que lo hizo, puede hacer que su cuchillo á él se acerque."
+  ],
+  "job.txt 40:15": [
+   "Behold now behemoth, which I made with thee; he eateth grass as an ox.",
+   "Ciertamente los montes producen hierba para él: y toda bestia del campo retoza allá."
+  ],
+  "job.txt 40:16": [
+   "Lo now, his strength is in his loins, and his force is in the navel of his belly.",
+   "Echaráse debajo de las sombras, en lo oculto de las cañas, y de los lugares húmedos."
+  ],
+  "job.txt 40:17": [
+   "He moveth his tail like a cedar: the sinews of his stones are wrapped together.",
+   "Los árboles sombríos lo cubren con su sombra; los sauces del arroyo lo cercan."
+  ],
+  "job.txt 40:18": [
+   "His bones are as strong pieces of brass; his bones are like bars of iron.",
+   "He aquí que él tomará el río sin inmutarse: y confíase que el Jordán pasará por su boca."
+  ],
+  "job.txt 40:19": [
+   "He is the chief of the ways of God: he that made him can make his sword to approach unto him.",
+   "¿Tomarálo alguno por sus ojos en armadijos, y horadará su nariz?"
+  ],
+  "job.txt 40:20": [
+   "Surely the mountains bring him forth food, where all the beasts of the field play.",
+   "¿SACARÁS tú al leviathán con el anzuelo, ó con la cuerda que le echares en su lengua?"
+  ],
+  "job.txt 40:21": [
+   "He lieth under the shady trees, in the covert of the reed, and fens.",
+   "¿Pondrás tú garfio en sus narices, y horadarás con espinas su quijada?"
+  ],
+  "job.txt 40:22": [
+   "The shady trees cover him with their shadow; the willows of the brook compass him about.",
+   "¿Multiplicará él ruegos para contigo? ¿hablaráte él lisonjas?"
+  ],
+  "job.txt 40:23": [
+   "Behold, he drinketh up a river, and hasteth not: he trusteth that he can draw up Jordan into his mouth.",
+   "¿Multiplicará él ruegos para contigo? ¿hablaráte él lisonjas?"
+  ],
+  "job.txt 40:24": [
+   "He taketh it with his eyes: his nose pierceth through snares.",
+   "¿Multiplicará él ruegos para contigo? ¿hablaráte él lisonjas?"
+  ],
+  "job.txt 41:1": [
+   "Canst thou draw out leviathan with an hook?  or his tongue with a cord which thou lettest down?",
+   "¿Multiplicará él ruegos para contigo? ¿hablaráte él lisonjas?"
+  ],
+  "job.txt 41:2": [
+   "Canst thou put an hook into his nose?  or bore his jaw through with a thorn?",
+   "¿Multiplicará él ruegos para contigo? ¿hablaráte él lisonjas?"
+  ],
+  "job.txt 41:3": [
+   "Will he make many supplications unto thee?  will he speak soft words unto thee?",
+   "¿Multiplicará él ruegos para contigo? ¿hablaráte él lisonjas?"
+  ],
+  "job.txt 41:4": [
+   "Will he make a covenant with thee?  wilt thou take him for a servant for ever?",
+   "¿Hará concierto contigo para que lo tomes por siervo perpetuo?"
+  ],
+  "job.txt 41:5": [
+   "Wilt thou play with him as with a bird?  or wilt thou bind him for thy maidens?",
+   "¿Jugarás tú con él como con pájaro, ó lo atarás para tus niñas?"
+  ],
+  "job.txt 41:6": [
+   "Shall the companions make a banquet of him?  shall they part him among the merchants?",
+   "¿Harán de él banquete los compañeros? ¿partiránlo entre los mercaderes?"
+  ],
+  "job.txt 41:7": [
+   "Canst thou fill his skin with barbed iron?  or his head with fish spears?",
+   "¿Cortarás tú con cuchillo su cuero, ó con asta de pescadores su cabeza?"
+  ],
+  "job.txt 41:8": [
+   "Lay thine hand upon him, remember the battle, do no more.",
+   "Pon tu mano sobre él; te acordarás de la batalla, y nunca más tornarás."
+  ],
+  "job.txt 41:9": [
+   "Behold, the hope of him is in vain: shall not one be cast down even at the sight of him?",
+   "He aquí que la esperanza acerca de él será burlada: porque aun á su sola vista se desmayarán."
+  ],
+  "job.txt 41:10": [
+   "None is so fierce that dare stir him up: who then is able to stand before me?",
+   "Nadie hay tan osado que lo despierte: ¿quién pues podrá estar delante de mí?"
+  ],
+  "job.txt 41:11": [
+   "Who hath prevented me, that I should repay him?  whatsoever is under the whole heaven is mine.",
+   "¿Quién me ha anticipado, para que yo restituya? Todo lo que hay debajo del cielo es mío."
+  ],
+  "job.txt 41:12": [
+   "I will not conceal his parts, nor his power, nor his comely proportion.",
+   "Yo no callaré sus miembros, ni lo de sus fuerzas y la gracia de su disposición."
+  ],
+  "job.txt 41:13": [
+   "Who can discover the face of his garment?  or who can come to him with his double bridle?",
+   "¿Quién descubrirá la delantera de su vestidura? ¿quién se llegará á él con freno doble?"
+  ],
+  "job.txt 41:14": [
+   "Who can open the doors of his face?  his teeth are terrible round about.",
+   "¿Quién abrirá las puertas de su rostro? Los órdenes de sus dientes espantan."
+  ],
+  "job.txt 41:15": [
+   "His scales are his pride, shut up together as with a close seal.",
+   "La gloria de su vestido son escudos fuertes, cerrados entre sí estrechamente."
+  ],
+  "job.txt 41:16": [
+   "One is so near to another, that no air can come between them.",
+   "El uno se junta con el otro, que viento no entra entre ellos."
+  ],
+  "job.txt 41:17": [
+   "They are joined one to another, they stick together, that they cannot be sundered.",
+   "Pegado está el uno con el otro, están trabados entre sí, que no se pueden apartar."
+  ],
+  "job.txt 41:18": [
+   "By his neesings a light doth shine, and his eyes are like the eyelids of the morning.",
+   "Con sus estornudos encienden lumbre, y sus ojos son como los párpados del alba."
+  ],
+  "job.txt 41:19": [
+   "Out of his mouth go burning lamps, and sparks of fire leap out.",
+   "De su boca salen hachas de fuego; centellas de fuego proceden."
+  ],
+  "job.txt 41:20": [
+   "Out of his nostrils goeth smoke, as out of a seething pot or caldron.",
+   "De sus narices sale humo, como de una olla ó caldero que hierve."
+  ],
+  "job.txt 41:21": [
+   "His breath kindleth coals, and a flame goeth out of his mouth.",
+   "Su aliento enciende los carbones, y de su boca sale llama."
+  ],
+  "job.txt 41:22": [
+   "In his neck remaineth strength, and sorrow is turned into joy before him.",
+   "En su cerviz mora la fortaleza, y espárcese el desaliento delante de él."
+  ],
+  "job.txt 41:23": [
+   "The flakes of his flesh are joined together: they are firm in themselves; they cannot be moved.",
+   "Las partes momias de su carne están apretadas: están en él firmes, y no se mueven."
+  ],
+  "job.txt 41:24": [
+   "His heart is as firm as a stone; yea, as hard as a piece of the nether millstone.",
+   "Su corazón es firme como una piedra, y fuerte como la muela de abajo."
+  ],
+  "job.txt 41:25": [
+   "When he raiseth up himself, the mighty are afraid: by reason of breakings they purify themselves.",
+   "De su grandeza tienen temor los fuertes, y á causa de su desfallecimiento hacen por purificarse."
+  ],
+  "job.txt 41:26": [
+   "The sword of him that layeth at him cannot hold: the spear, the dart, nor the habergeon.",
+   "Cuando alguno lo alcanzare, ni espada, ni lanza, ni dardo, ni coselete durará."
+  ],
+  "job.txt 41:27": [
+   "He esteemeth iron as straw, and brass as rotten wood.",
+   "El hierro estima por pajas, y el acero por leño podrido."
+  ],
+  "job.txt 41:28": [
+   "The arrow cannot make him flee: slingstones are turned with him into stubble.",
+   "Saeta no le hace huir; las piedras de honda se le tornan aristas."
+  ],
+  "job.txt 41:29": [
+   "Darts are counted as stubble: he laugheth at the shaking of a spear.",
+   "Tiene toda arma por hojarascas, y del blandir de la pica se burla."
+  ],
+  "job.txt 41:30": [
+   "Sharp stones are under him: he spreadeth sharp pointed things upon the mire.",
+   "Por debajo tiene agudas conchas; Imprime su agudez en el suelo."
+  ],
+  "job.txt 41:31": [
+   "He maketh the deep to boil like a pot: he maketh the sea like a pot of ointment.",
+   "Hace hervir como una olla la profunda mar, y tórnala como una olla de ungüento."
+  ],
+  "job.txt 41:32": [
+   "He maketh a path to shine after him; one would think the deep to be hoary.",
+   "En pos de sí hace resplandecer la senda, que parece que la mar es cana."
+  ],
+  "job.txt 41:33": [
+   "Upon earth there is not his like, who is made without fear.",
+   "No hay sobre la tierra su semejante, hecho para nada temer."
+  ],
+  "job.txt 41:34": [
+   "He beholdeth all high things: he is a king over all the children of pride.",
+   "Menosprecia toda cosa alta: es rey sobre todos los soberbios."
+  ],
+  "hosea.txt 11:1": [
+   "When Israel was a child, then I loved him, and called my son out of Egypt.",
+   "CUANDO Israel era muchacho, yo lo amé, y de Egipto llamé á mi hijo."
+  ],
+  "hosea.txt 11:2": [
+   "As they called them, so they went from them: they sacrificed unto Baalim, and burned incense to graven images.",
+   "Como los llamaban, así ellos se iban de su presencia; á los Baales sacrificaban, y á las esculturas ofrecían sahumerios."
+  ],
+  "hosea.txt 11:3": [
+   "I taught Ephraim also to go, taking them by their arms; but they knew not that I healed them.",
+   "Yo con todo eso guiaba en pies al mismo Ephraim, tomándolos de sus brazos; y no conocieron que yo los cuidaba."
+  ],
+  "hosea.txt 11:4": [
+   "I drew them with cords of a man, with bands of love: and I was to them as they that take off the yoke on their jaws, and I laid meat unto them.",
+   "Con cuerdas humanas los traje, con cuerdas de amor: y fuí para ellos como los que alzan el yugo de sobre sus mejillas, y llegué hacia él la comida."
+  ],
+  "hosea.txt 11:5": [
+   "He shall not return into the land of Egypt, but the Assyrian shall be his king, because they refused to return.",
+   "No tornará á tierra de Egipto, antes el mismo Assur será su rey, porque no se quisieron convertir."
+  ],
+  "hosea.txt 11:6": [
+   "And the sword shall abide on his cities, and shall consume his branches, and devour them, because of their own counsels.",
+   "Y caerá espada sobre sus ciudades, y consumirá sus aldeas; consumirálas á causa de sus consejos."
+  ],
+  "hosea.txt 11:7": [
+   "And my people are bent to backsliding from me: though they called them to the most High, none at all would exalt him.",
+   "Entre tanto, está mi pueblo adherido á la rebelión contra mí: aunque lo llaman al Altísimo, ninguno absolutamente quiere ensalzarle."
+  ],
+  "hosea.txt 11:8": [
+   "How shall I give thee up, Ephraim?  how shall I deliver thee, Israel?  how shall I make thee as Admah?  how shall I set thee as Zeboim?  mine heart is turned within me, my repentings are kindled together.",
+   "¿Cómo tengo de dejarte, oh Ehpraim? ¿he de entregarte yo, Israel? ¿cómo podré yo hacerte como Adma, ni ponerte como á Zeboim? Mi corazón se revuelve dentro de mí, inflámanse todas mis conmiseraciones."
+  ],
+  "hosea.txt 11:9": [
+   "I will not execute the fierceness of mine anger, I will not return to destroy Ephraim: for I am God, and not man; the Holy One in the midst of thee: and I will not enter into the city.",
+   "No ejecutaré el furor de mi ira, no volveré para destruir á Ephraim: porque Dios soy, y no hombre; el Santo en medio de ti: y no entraré en la ciudad."
+  ],
+  "hosea.txt 11:10": [
+   "They shall walk after the LORD: he shall roar like a lion: when he shall roar, then the children shall tremble from the west.",
+   "En pos de Jehová caminarán: él bramará como león: cual león rugirá él de cierto, y los hijos se moverán azorados del occidente."
+  ],
+  "hosea.txt 11:11": [
+   "They shall tremble as a bird out of Egypt, and as a dove out of the land of Assyria: and I will place them in their houses, saith the LORD.",
+   "Como ave se moverán velozmente de Egipto, y de la tierra de Asiria como paloma; y pondrélos en sus casas, dice Jehová."
+  ],
+  "hosea.txt 11:12": [
+   "Ephraim compasseth me about with lies, and the house of Israel with deceit: but Judah yet ruleth with God, and is faithful with the saints.",
+   "CERCÓME Ephraim con mentira, y la casa de Israel con engaño: mas Judá aun domina con Dios, y es fiel con los santos."
+  ],
+  "hosea.txt 12:1": [
+   "Ephraim feedeth on wind, and followeth after the east wind: he daily increaseth lies and desolation; and they do make a covenant with the Assyrians, and oil is carried into Egypt.",
+   "Ephraim se apacienta del viento, y sigue al solano: mentira y destrucción aumenta continuamente; porque hicieron alianza con los Asirios, y aceite se lleva á Egipto."
+  ],
+  "hosea.txt 12:2": [
+   "The LORD hath also a controversy with Judah, and will punish Jacob according to his ways; according to his doings will he recompense him.",
+   "Pleito tiene Jehová con Judá para visitar á Jacob conforme á sus caminos: pagarále conforme á sus obras."
+  ],
+  "hosea.txt 12:3": [
+   "He took his brother by the heel in the womb, and by his strength he had power with God:",
+   "En el vientre tomó por el calcañar á su hermano, y con su fortaleza venció al ángel."
+  ],
+  "hosea.txt 12:4": [
+   "Yea, he had power over the angel, and prevailed: he wept, and made supplication unto him: he found him in Bethel, and there he spake with us;",
+   "Venció al ángel, y prevaleció; lloró, y rogóle: en Beth-el le halló, y allí habló con nosotros."
+  ],
+  "hosea.txt 12:5": [
+   "Even the LORD God of hosts; the LORD is his memorial.",
+   "Mas Jehová es Dios de los ejércitos: Jehová es su memorial."
+  ],
+  "hosea.txt 12:6": [
+   "Therefore turn thou to thy God: keep mercy and judgment, and wait on thy God continually.",
+   "Tú pues, conviértete á tu Dios: guarda misericordia y juicio, y en tu Dios espera siempre."
+  ],
+  "hosea.txt 12:7": [
+   "He is a merchant, the balances of deceit are in his hand: he loveth to oppress.",
+   "Es mercader que tiene en su mano peso falso, amador de opresión."
+  ],
+  "hosea.txt 12:8": [
+   "And Ephraim said, Yet I am become rich, I have found me out substance: in all my labours they shall find none iniquity in me that were sin.",
+   "Y dijo Ephraim: Ciertamente yo he enriquecido, hallado he riquezas para mí: nadie hallará en mí iniquidad, ni pecado en todos mis trabajos."
+  ],
+  "hosea.txt 12:9": [
+   "And I that am the LORD thy God from the land of Egypt will yet make thee to dwell in tabernacles, as in the days of the solemn feast.",
+   "Empero yo soy Jehová tu Dios desde la tierra de Egipto: aun te haré morar en tiendas, como en los días de la fiesta."
+  ],
+  "hosea.txt 12:10": [
+   "I have also spoken by the prophets, and I have multiplied visions, and used similitudes, by the ministry of the prophets.",
+   "Y hablado he á los profetas, y yo aumenté la profecía, y por mano de los profetas puse semejanzas."
+  ],
+  "hosea.txt 12:11": [
+   "Is there iniquity in Gilead?  surely they are vanity: they sacrifice bullocks in Gilgal; yea, their altars are as heaps in the furrows of the fields.",
+   "¿Es Galaad iniquidad? Ciertamente vanidad han sido: en Gilgal sacrificaron bueyes: y aun son sus altares como montones en los surcos del campo."
+  ],
+  "hosea.txt 12:12": [
+   "And Jacob fled into the country of Syria, and Israel served for a wife, and for a wife he kept sheep.",
+   "Mas Jacob huyó á tierra de Aram, y sirvió Israel por mujer, y por mujer fué pastor."
+  ],
+  "hosea.txt 12:13": [
+   "And by a prophet the LORD brought Israel out of Egypt, and by a prophet was he preserved.",
+   "Y por profeta hizo subir Jehová á Israel de Egipto, y por profeta fué guardado. Enojado ha Ephraim á Dios con amarguras; por tanto, sus sangres se derramarán sobre él, y su Señor le pagará su oprobio."
+  ],
+  "hosea.txt 12:14": [
+   "Ephraim provoked him to anger most bitterly: therefore shall he leave his blood upon him, and his reproach shall his Lord return unto him.",
+   "Y por profeta hizo subir Jehová á Israel de Egipto, y por profeta fué guardado. Enojado ha Ephraim á Dios con amarguras; por tanto, sus sangres se derramarán sobre él, y su Señor le pagará su oprobio."
+  ],
+  "jonah.txt 1:1": [
+   "Now the word of the LORD came unto Jonah the son of Amittai, saying,",
+   "Y FUÉ palabra de Jehová á Jonás, hijo de Amittai, diciendo:"
+  ],
+  "jonah.txt 1:2": [
+   "Arise, go to Nineveh, that great city, and cry against it; for their wickedness is come up before me.",
+   "Levántate, y ve á Nínive, ciudad grande, y pregona contra ella; porque su maldad ha subido delante de mí."
+  ],
+  "jonah.txt 1:3": [
+   "But Jonah rose up to flee unto Tarshish from the presence of the LORD, and went down to Joppa; and he found a ship going to Tarshish: so he paid the fare thereof, and went down into it, to go with them unto Tarshish from the presence of the LORD.",
+   "Y Jonás se levantó para huir de la presencia de Jehová á Tarsis, y descendió á Joppe; y halló un navío que partía para Tarsis; y pagando su pasaje entró en él, para irse con ellos á Tarsis de delante de Jehová."
+  ],
+  "jonah.txt 1:4": [
+   "But the LORD sent out a great wind into the sea, and there was a mighty tempest in the sea, so that the ship was like to be broken.",
+   "Mas Jehová hizo levantar un gran viento en la mar, é hízose una tan gran tempestad en la mar, que pensóse se rompería la nave."
+  ],
+  "jonah.txt 1:5": [
+   "Then the mariners were afraid, and cried every man unto his god, and cast forth the wares that were in the ship into the sea, to lighten it of them.  But Jonah was gone down into the sides of the ship; and he lay, and was fast asleep.",
+   "Y los marineros tuvieron miedo, y cada uno llamaba á su dios: y echaron á la mar los enseres que había en la nave, para descargarla de ellos. Jonás empero se había bajado á los lados del buque, y se había echado á dormir."
+  ],
+  "jonah.txt 1:6": [
+   "So the shipmaster came to him, and said unto him, What meanest thou, O sleeper?  arise, call upon thy God, if so be that God will think upon us, that we perish not.",
+   "Y el maestre de la nave se llegó á él, y le dijo: ¿Qué tienes, dormilón? Levántate, y clama á tu Dios; quizá él tendrá compasión de nosotros, y no pereceremos."
+  ],
+  "jonah.txt 1:7": [
+   "And they said every one to his fellow, Come, and let us cast lots, that we may know for whose cause this evil is upon us.  So they cast lots, and the lot fell upon Jonah.",
+   "Y dijeron cada uno á su compañero: Venid, y echemos suertes, para saber por quién nos ha venido este mal. Y echaron suertes, y la suerte cayó sobre Jonás."
+  ],
+  "jonah.txt 1:8": [
+   "Then said they unto him, Tell us, we pray thee, for whose cause this evil is upon us; What is thine occupation?  and whence comest thou?  what is thy country?  and of what people art thou?",
+   "Entonces le dijeron ellos: Decláranos ahora por qué nos ha venido este mal. ¿Qué oficio tienes, y de dónde vienes? ¿cuál es tu tierra, y de qué pueblo eres?"
+  ],
+  "jonah.txt 1:9": [
+   "And he said unto them, I am an Hebrew; and I fear the LORD, the God of heaven, which hath made the sea and the dry land.",
+   "Y él les respondió: Hebreo soy, y temo á Jehová, Dios de los cielos, que hizo la mar y la tierra."
+  ],
+  "jonah.txt 1:10": [
+   "Then were the men exceedingly afraid, and said unto him, Why hast thou done this?  For the men knew that he fled from the presence of the LORD, because he had told them.",
+   "Y aquellos hombres temieron sobremanera, y dijéronle: ¿Por qué has hecho esto? Porque ellos entendieron que huía de delante de Jehová, porque se lo había declarado."
+  ],
+  "jonah.txt 1:11": [
+   "Then said they unto him, What shall we do unto thee, that the sea may be calm unto us?  for the sea wrought, and was tempestuous.",
+   "Y dijéronle: ¿Qué te haremos, para que la mar se nos quiete? porque la mar iba á más, y se embravecía."
+  ],
+  "jonah.txt 1:12": [
+   "And he said unto them, Take me up, and cast me forth into the sea; so shall the sea be calm unto you: for I know that for my sake this great tempest is upon you.",
+   "El les respondió: Tomadme, y echadme á la mar, y la mar se os quietará: porque yo sé que por mí ha venido esta grande tempestad sobre vosotros."
+  ],
+  "jonah.txt 1:13": [
+   "Nevertheless the men rowed hard to bring it to the land; but they could not: for the sea wrought, and was tempestuous against them.",
+   "Y aquellos hombres trabajaron por tornar la nave á tierra; mas no pudieron, porque la mar iba á más, y se embravecía sobre ellos."
+  ],
+  "jonah.txt 1:14": [
+   "Wherefore they cried unto the LORD, and said, We beseech thee, O LORD, we beseech thee, let us not perish for this man's life, and lay not upon us innocent blood: for thou, O LORD, hast done as it pleased thee.",
+   "Entonces clamaron á Jehová, y dijeron: Rogámoste ahora, Jehová, que no perezcamos nosotros por la vida de aqueste hombre, ni pongas sobre nosotros la sangre inocente: porque tú, Jehová, has hecho como has querido."
+  ],
+  "jonah.txt 1:15": [
+   "So they took up Jonah, and cast him forth into the sea: and the sea ceased from her raging.",
+   "Y tomaron á Jonás, y echáronlo á la mar; y la mar se quietó de su furia."
+  ],
+  "jonah.txt 1:16": [
+   "Then the men feared the LORD exceedingly, and offered a sacrifice unto the LORD, and made vows.",
+   "Y temieron aquellos hombres á Jehová con gran temor; y ofrecieron sacrificio á Jehová, y prometieron votos."
+  ],
+  "jonah.txt 1:17": [
+   "Now the LORD had prepared a great fish to swallow up Jonah.  And Jonah was in the belly of the fish three days and three nights.",
+   "MAS Jehová había prevenido un gran pez que tragase á Jonás: y estuvo Jonás en el vientre del pez tres días y tres noches."
+  ],
+  "jonah.txt 2:1": [
+   "Then Jonah prayed unto the LORD his God out of the fish's belly,",
+   "Y oró Jonás desde el vientre del pez á Jehová su Dios,"
+  ],
+  "jonah.txt 2:2": [
+   "And said, I cried by reason of mine affliction unto the LORD, and he heard me; out of the belly of hell cried I, and thou heardest my voice.",
+   "Y dijo: Clamé de mi tribulación á Jehová, y él me oyó; del vientre del sepulcro clamé, y mi voz oiste."
+  ],
+  "jonah.txt 2:3": [
+   "For thou hadst cast me into the deep, in the midst of the seas; and the floods compassed me about: all thy billows and thy waves passed over me.",
+   "Echásteme en el profundo, en medio de los mares, y rodeóme la corriente; todas tus ondas y tus olas pasaron sobre mí."
+  ],
+  "jonah.txt 2:4": [
+   "Then I said, I am cast out of thy sight; yet I will look again toward thy holy temple.",
+   "Y yo dije: Echado soy de delante de tus ojos: mas aun veré tu santo templo."
+  ],
+  "jonah.txt 2:5": [
+   "The waters compassed me about, even to the soul: the depth closed me round about, the weeds were wrapped about my head.",
+   "Las aguas me rodearon hasta el alma, rodeóme el abismo; la ova se enredó á mi cabeza."
+  ],
+  "jonah.txt 2:6": [
+   "I went down to the bottoms of the mountains; the earth with her bars was about me for ever: yet hast thou brought up my life from corruption, O LORD my God.",
+   "Descendí á las raíces de los montes; la tierra echó sus cerraduras sobre mí para siempre: mas tú sacaste mi vida de la sepultura, oh Jehová Dios mío."
+  ],
+  "jonah.txt 2:7": [
+   "When my soul fainted within me I remembered the LORD: and my prayer came in unto thee, into thine holy temple.",
+   "Cuando mi alma desfallecía en mí, acordéme de Jehová; y mi oración entró hasta ti en tu santo templo."
+  ],
+  "jonah.txt 2:8": [
+   "They that observe lying vanities forsake their own mercy.",
+   "Los que guardan las vanidades ilusorias, su misericordia abandonan."
+  ],
+  "jonah.txt 2:9": [
+   "But I will sacrifice unto thee with the voice of thanksgiving; I will pay that that I have vowed.  Salvation is of the LORD.",
+   "Yo empero con voz de alabanza te sacrificaré; pagaré lo que prometí. La salvación pertenece á Jehová. Y mandó Jehová al pez, y vomitó á Jonás en tierra."
+  ],
+  "jonah.txt 2:10": [
+   "And the LORD spake unto the fish, and it vomited out Jonah upon the dry land.",
+   "Yo empero con voz de alabanza te sacrificaré; pagaré lo que prometí. La salvación pertenece á Jehová. Y mandó Jehová al pez, y vomitó á Jonás en tierra."
+  ],
+  "acts.txt 19:1": [
+   "And it came to pass, that, while Apollos was at Corinth, Paul having passed through the upper coasts came to Ephesus: and finding certain disciples,",
+   "Y ACONTECIÓ que entre tanto que Apolos estaba en Corinto, Pablo, andadas las regiones superiores, vino á Efeso, y hallando ciertos discípulos,"
+  ],
+  "acts.txt 19:2": [
+   "He said unto them, Have ye received the Holy Ghost since ye believed? And they said unto him, We have not so much as heard whether there be any Holy Ghost.",
+   "Díjoles: ¿Habéis recibido el Espíritu Santo después que creísteis? Y ellos le dijeron: Antes ni aun hemos oído si hay Espíritu Santo."
+  ],
+  "acts.txt 19:3": [
+   "And he said unto them, Unto what then were ye baptized? And they said, Unto John's baptism.",
+   "Entonces dijo: ¿En qué pues sois bautizados? Y ellos dijeron: En el bautismo de Juan."
+  ],
+  "acts.txt 19:4": [
+   "Then said Paul, John verily baptized with the baptism of repentance, saying unto the people, that they should believe on him which should come after him, that is, on Christ Jesus.",
+   "Y dijo Pablo: Juan bautizó con bautismo de arrepentimiento, diciendo al pueblo que creyesen en el que había de venir después de él, es á saber, en Jesús el Cristo."
+  ],
+  "acts.txt 19:5": [
+   "When they heard this, they were baptized in the name of the Lord Jesus.",
+   "Oído que hubieron esto, fueron bautizados en el nombre del Señor Jesús."
+  ],
+  "acts.txt 19:6": [
+   "And when Paul had laid his hands upon them, the Holy Ghost came on them; and they spake with tongues, and prophesied.",
+   "Y habiéndoles impuesto Pablo las manos, vino sobre ellos el Espíritu Santo; y hablaban en lenguas, y profetizaban."
+  ],
+  "acts.txt 19:7": [
+   "And all the men were about twelve.",
+   "Y eran en todos como unos doce hombres."
+  ],
+  "acts.txt 19:8": [
+   "And he went into the synagogue, and spake boldly for the space of three months, disputing and persuading the things concerning the kingdom of God.",
+   "Y entrando él dentro de la sinagoga, hablaba libremente por espacio de tres meses, disputando y persuadiendo del reino de Dios."
+  ],
+  "acts.txt 19:9": [
+   "But when divers were hardened, and believed not, but spake evil of that way before the multitude, he departed from them, and separated the disciples, disputing daily in the school of one Tyrannus.",
+   "Mas endureciéndose algunos y no creyendo, maldiciendo el Camino delante de la multitud, apartándose Pablo de ellos separó á los discípulos, disputando cada día en la escuela de un cierto Tyranno."
+  ],
+  "acts.txt 19:10": [
+   "And this continued by the space of two years; so that all they which dwelt in Asia heard the word of the Lord Jesus, both Jews and Greeks.",
+   "Y esto fué por espacio de dos años; de manera que todos los que habitaban en Asia, Judíos y Griegos, oyeron la palabra del Señor Jesús."
+  ],
+  "acts.txt 19:11": [
+   "And God wrought special miracles by the hands of Paul:",
+   "Y hacía Dios singulares maravillas por manos de Pablo:"
+  ],
+  "acts.txt 19:12": [
+   "So that from his body were brought unto the sick handkerchiefs or aprons, and the diseases departed from them, and the evil spirits went out of them.",
+   "De tal manera que aun se llevaban sobre los enfermos los sudarios y los pañuelos de su cuerpo, y las enfermedades se iban de ellos, y los malos espíritus salían de ellos."
+  ],
+  "acts.txt 19:13": [
+   "Then certain of the vagabond Jews, exorcists, took upon them to call over them which had evil spirits the name of the Lord Jesus, saying, We adjure you by Jesus whom Paul preacheth.",
+   "Y algunos de los Judíos, exorcistas vagabundos, tentaron á invocar el nombre del Señor Jesús sobre los que tenían espíritus malos, diciendo: Os conjuro por Jesús, el que Pablo predica."
+  ],
+  "acts.txt 19:14": [
+   "And there were seven sons of one Sceva, a Jew, and chief of the priests, which did so.",
+   "Y había siete hijos de un tal Sceva, Judío, príncipe de los sacerdotes, que hacían esto."
+  ],
+  "acts.txt 19:15": [
+   "And the evil spirit answered and said, Jesus I know, and Paul I know; but who are ye?",
+   "Y respondiendo el espíritu malo, dijo: A Jesús conozco, y sé quién es Pablo: mas vosotros ¿quiénes sois?"
+  ],
+  "acts.txt 19:16": [
+   "And the man in whom the evil spirit was leaped on them, and overcame them, and prevailed against them, so that they fled out of that house naked and wounded.",
+   "Y el hombre en quien estaba el espíritu malo, saltando en ellos, y enseñoreándose de ellos, pudo más que ellos, de tal manera que huyeron de aquella casa desnudos y heridos."
+  ],
+  "acts.txt 19:17": [
+   "And this was known to all the Jews and Greeks also dwelling at Ephesus; and fear fell on them all, and the name of the Lord Jesus was magnified.",
+   "Y esto fué notorio á todos, así Judíos como Griegos, los que habitaban en Efeso: y cayó temor sobre todos ellos, y era ensalzado el nombre del Señor Jesús."
+  ],
+  "acts.txt 19:18": [
+   "And many that believed came, and confessed, and shewed their deeds.",
+   "Y muchos de los que habían creído, venían, confesando y dando cuenta de sus hechos."
+  ],
+  "acts.txt 19:19": [
+   "Many of them also which used curious arts brought their books together, and burned them before all men: and they counted the price of them, and found it fifty thousand pieces of silver.",
+   "Asimismo muchos de los que habían practicado vanas artes, trajeron los libros, y los quemaron delante de todos; y echada la cuenta del precio de ellos, hallaron ser cincuenta mil denarios."
+  ],
+  "acts.txt 19:20": [
+   "So mightily grew the word of God and prevailed.",
+   "Así crecía poderosamente la palabra del Señor, y prevalecía."
+  ],
+  "acts.txt 19:21": [
+   "After these things were ended, Paul purposed in the spirit, when he had passed through Macedonia and Achaia, to go to Jerusalem, saying, After I have been there, I must also see Rome.",
+   "Y acabadas estas cosas, se propuso Pablo en espíritu partir á Jerusalem, después de andada Macedonia y Acaya, diciendo: Después que hubiere estado allá, me será menester ver también á Roma."
+  ],
+  "acts.txt 19:22": [
+   "So he sent into Macedonia two of them that ministered unto him, Timotheus and Erastus; but he himself stayed in Asia for a season.",
+   "Y enviando á Macedonia á dos de los que le ayudaban, Timoteo y Erasto, él se estuvo por algún tiempo en Asia."
+  ],
+  "acts.txt 19:23": [
+   "And the same time there arose no small stir about that way.",
+   "Entonces hubo un alboroto no pequeño acerca del Camino."
+  ],
+  "acts.txt 19:24": [
+   "For a certain man named Demetrius, a silversmith, which made silver shrines for Diana, brought no small gain unto the craftsmen;",
+   "Porque un platero llamado Demetrio, el cual hacía de plata templecillos de Diana, daba á los artífices no poca ganancia;"
+  ],
+  "acts.txt 19:25": [
+   "Whom he called together with the workmen of like occupation, and said, Sirs, ye know that by this craft we have our wealth.",
+   "A los cuales, reunidos con los oficiales de semejante oficio, dijo: Varones, sabéis que de este oficio tenemos ganancia;"
+  ],
+  "acts.txt 19:26": [
+   "Moreover ye see and hear, that not alone at Ephesus, but almost throughout all Asia, this Paul hath persuaded and turned away much people, saying that they be no gods, which are made with hands:",
+   "Y veis y oís que este Pablo, no solamente en Efeso, sino á muchas gentes de casi toda el Asia, ha apartado con persuasión, diciendo, que no son dioses los que se hacen con las manos."
+  ],
+  "acts.txt 19:27": [
+   "So that not only this our craft is in danger to be set at nought; but also that the temple of the great goddess Diana should be despised, and her magnificence should be destroyed, whom all Asia and the world worshippeth.",
+   "Y no solamente hay peligro de que este negocio se nos vuelva en reproche, sino también que el templo de la gran diosa Diana sea estimado en nada, y comience á ser destruída su majestad, la cual honra toda el Asia y el mundo."
+  ],
+  "acts.txt 19:28": [
+   "And when they heard these sayings, they were full of wrath, and cried out, saying, Great is Diana of the Ephesians.",
+   "Oídas estas cosas, llenáronse de ira, y dieron alarido, diciendo: ¡Grande es Diana de los Efesios!"
+  ],
+  "acts.txt 19:29": [
+   "And the whole city was filled with confusion: and having caught Gaius and Aristarchus, men of Macedonia, Paul's companions in travel, they rushed with one accord into the theatre.",
+   "Y la ciudad se llenó de confusión; y unánimes se arrojaron al teatro, arrebatando á Gayo y á Aristarco, Macedonios, compañeros de Pablo."
+  ],
+  "acts.txt 19:30": [
+   "And when Paul would have entered in unto the people, the disciples suffered him not.",
+   "Y queriendo Pablo salir al pueblo, los discípulos no le dejaron."
+  ],
+  "acts.txt 19:31": [
+   "And certain of the chief of Asia, which were his friends, sent unto him, desiring him that he would not adventure himself into the theatre.",
+   "También algunos de los principales de Asia, que eran sus amigos, enviaron á él rogando que no se presentase en el teatro."
+  ],
+  "acts.txt 19:32": [
+   "Some therefore cried one thing, and some another: for the assembly was confused; and the more part knew not wherefore they were come together.",
+   "Y otros gritaban otra cosa; porque la concurrencia estaba confusa, y los más no sabían por qué se habían juntado."
+  ],
+  "acts.txt 19:33": [
+   "And they drew Alexander out of the multitude, the Jews putting him forward. And Alexander beckoned with the hand, and would have made his defence unto the people.",
+   "Y sacaron de entre la multitud á Alejandro, empujándole los Judíos. Entonces Alejandro, pedido silencio con la mano, quería dar razón al pueblo."
+  ],
+  "acts.txt 19:34": [
+   "But when they knew that he was a Jew, all with one voice about the space of two hours cried out, Great is Diana of the Ephesians.",
+   "Mas como conocieron que era Judío, fué hecha un voz de todos, que gritaron casi por dos horas: ¡Grande es Diana de los Efesios!"
+  ],
+  "acts.txt 19:35": [
+   "And when the townclerk had appeased the people, he said, Ye men of Ephesus, what man is there that knoweth not how that the city of the Ephesians is a worshipper of the great goddess Diana, and of the image which fell down from Jupiter?",
+   "Entonces el escribano, apaciguado que hubo la gente, dijo: Varones Efesios, ¿y quién hay de los hombres que no sepa que la ciudad de los Efesios es honradora de la gran diosa Diana, y de la imagen venida de Júpiter?"
+  ],
+  "acts.txt 19:36": [
+   "Seeing then that these things cannot be spoken against, ye ought to be quiet, and to do nothing rashly.",
+   "Así que, pues esto no puede ser contradicho, conviene que os apacigüéis, y que nada hagáis temerariamente;"
+  ],
+  "acts.txt 19:37": [
+   "For ye have brought hither these men, which are neither robbers of churches, nor yet blasphemers of your goddess.",
+   "Pues habéis traído á estos hombres, sin ser sacrílegos ni blasfemadores de vuestra diosa."
+  ],
+  "acts.txt 19:38": [
+   "Wherefore if Demetrius, and the craftsmen which are with him, have a matter against any man, the law is open, and there are deputies: let them implead one another.",
+   "Que si Demetrio y los oficiales que están con él tienen negocio con alguno, audiencias se hacen, y procónsules hay; acúsense los unos á los otros."
+  ],
+  "acts.txt 19:39": [
+   "But if ye enquire any thing concerning other matters, it shall be determined in a lawful assembly.",
+   "Y si demandáis alguna otra cosa, en legítima asamblea se pueda decidir."
+  ],
+  "acts.txt 19:40": [
+   "For we are in danger to be called in question for this day's uproar, there being no cause whereby we may give an account of this concourse.",
+   "Porque peligro hay de que seamos argüidos de sedición por hoy, no habiendo ninguna causa por la cual podamos dar razón de este concurso. Y habiendo dicho esto, despidió la concurrencia."
+  ],
+  "acts.txt 19:41": [
+   "And when he had thus spoken, he dismissed the assembly.",
+   "Y DESPUÉS que cesó el alboroto, llamando Pablo á los discípulos habiéndoles exhortado y abrazado, se despidió, y partió para ir á Macedonia."
+  ],
+  "acts.txt 20:1": [
+   "And after the uproar was ceased, Paul called unto him the disciples, and embraced them, and departed for to go into Macedonia.",
+   "Y DESPUÉS que cesó el alboroto, llamando Pablo á los discípulos habiéndoles exhortado y abrazado, se despidió, y partió para ir á Macedonia."
+  ],
+  "acts.txt 20:2": [
+   "And when he had gone over those parts, and had given them much exhortation, he came into Greece,",
+   "Y andado que hubo aquellas partes, y exhortádoles con abundancia de palabra, vino á Grecia."
+  ],
+  "acts.txt 20:3": [
+   "And there abode three months. And when the Jews laid wait for him, as he was about to sail into Syria, he purposed to return through Macedonia.",
+   "Y después de haber estado allí tres meses, y habiendo de navegar á Siria, le fueron puestas asechanzas por los Judíos; y así tomó consejo de volverse por Macedonia."
+  ],
+  "acts.txt 20:4": [
+   "And there accompanied him into Asia Sopater of Berea; and of the Thessalonians, Aristarchus and Secundus; and Gaius of Derbe, and Timotheus; and of Asia, Tychicus and Trophimus.",
+   "Y le acompañaron hasta Asia Sopater Bereense, y los Tesalonicenses, Aristarco y Segundo; y Gayo de Derbe, y Timoteo; y de Asia, Tychîco y Trófimo."
+  ],
+  "acts.txt 20:5": [
+   "These going before tarried for us at Troas.",
+   "Estos yendo delante, nos esperaron en Troas."
+  ],
+  "acts.txt 20:6": [
+   "And we sailed away from Philippi after the days of unleavened bread, and came unto them to Troas in five days; where we abode seven days.",
+   "Y nosotros, pasados los días de los panes sin levadura, navegamos de Filipos y vinimos á ellos á Troas en cinco días, donde estuvimos siete días."
+  ],
+  "acts.txt 20:7": [
+   "And upon the first day of the week, when the disciples came together to break bread, Paul preached unto them, ready to depart on the morrow; and continued his speech until midnight.",
+   "Y el día primero de la semana, juntos los discípulos á partir el pan, Pablo les enseñaba, habiendo de partir al día siguiente: y alargó el discurso hasta la media noche."
+  ],
+  "acts.txt 20:8": [
+   "And there were many lights in the upper chamber, where they were gathered together.",
+   "Y había muchas lámparas en el aposento alto donde estaban juntos."
+  ],
+  "acts.txt 20:9": [
+   "And there sat in a window a certain young man named Eutychus, being fallen into a deep sleep: and as Paul was long preaching, he sunk down with sleep, and fell down from the third loft, and was taken up dead.",
+   "Y un mancebo llamado Eutichô que estaba sentado en la ventana, tomado de un sueño profundo, como Pablo disputaba largamente, postrado del sueño cayó del tercer piso abajo, y fué alzado muerto."
+  ],
+  "acts.txt 20:10": [
+   "And Paul went down, and fell on him, and embracing him said, Trouble not yourselves; for his life is in him.",
+   "Entonces descendió Pablo, y derribóse sobre él, y abrazándole, dijo: No os alborotéis, que su alma está en él."
+  ],
+  "acts.txt 20:11": [
+   "When he therefore was come up again, and had broken bread, and eaten, and talked a long while, even till break of day, so he departed.",
+   "Después subiendo, y partiendo el pan, y gustando, habló largamente hasta el alba, y así partió."
+  ],
+  "acts.txt 20:12": [
+   "And they brought the young man alive, and were not a little comforted.",
+   "Y llevaron al mozo vivo, y fueron consolados no poco."
+  ],
+  "acts.txt 20:13": [
+   "And we went before to ship, and sailed unto Assos, there intending to take in Paul: for so had he appointed, minding himself to go afoot.",
+   "Y nosotros subiendo en el navío, navegamos á Assón, para recibir de allí á Pablo; pues así había determinado que debía él ir por tierra."
+  ],
+  "acts.txt 20:14": [
+   "And when he met with us at Assos, we took him in, and came to Mitylene.",
+   "Y como se juntó con nosotros en Assón, tomándole vinimos á Mitilene."
+  ],
+  "acts.txt 20:15": [
+   "And we sailed thence, and came the next day over against Chios; and the next day we arrived at Samos, and tarried at Trogyllium; and the next day we came to Miletus.",
+   "Y navegando de allí, al día siguiente llegamos delante de Chîo, y al otro día tomamos puerto en Samo: y habiendo reposado en Trogilio, al día siguiente llegamos á Mileto."
+  ],
+  "acts.txt 20:16": [
+   "For Paul had determined to sail by Ephesus, because he would not spend the time in Asia: for he hasted, if it were possible for him, to be at Jerusalem the day of Pentecost.",
+   "Porque Pablo se había propuesto pasar adelante de Efeso; por no detenerse en Asia: porque se apresuraba por hacer el día de Pentecostés, si le fuese posible, en Jerusalem."
+  ],
+  "acts.txt 20:17": [
+   "And from Miletus he sent to Ephesus, and called the elders of the church.",
+   "Y enviando desde Mileto á Efeso, hizo llamar á los ancianos de la iglesia."
+  ],
+  "acts.txt 20:18": [
+   "And when they were come to him, he said unto them, Ye know, from the first day that I came into Asia, after what manner I have been with you at all seasons,",
+   "Y cuando vinieron á él, les dijo: Vosotros sabéis cómo, desde el primer día que entré en Asia, he estado con vosotros por todo el tiempo,"
+  ],
+  "acts.txt 20:19": [
+   "Serving the Lord with all humility of mind, and with many tears, and temptations, which befell me by the lying in wait of the Jews:",
+   "Sirviendo al Señor con toda humildad, y con muchas lágrimas, y tentaciones que me han venido por las asechanzas de los Judíos:"
+  ],
+  "acts.txt 20:20": [
+   "And how I kept back nothing that was profitable unto you, but have shewed you, and have taught you publickly, and from house to house,",
+   "Cómo nada que fuese útil he rehuído de anunciaros y enseñaros, públicamente y por las casas,"
+  ],
+  "acts.txt 20:21": [
+   "Testifying both to the Jews, and also to the Greeks, repentance toward God, and faith toward our Lord Jesus Christ.",
+   "Testificando á los Judíos y á los Gentiles arrepentimiento para con Dios, y la fe en nuestro Señor Jesucristo."
+  ],
+  "acts.txt 20:22": [
+   "And now, behold, I go bound in the spirit unto Jerusalem, not knowing the things that shall befall me there:",
+   "Y ahora, he aquí, ligado yo en espíritu, voy á Jerusalem, sin saber lo que allá me ha de acontecer:"
+  ],
+  "acts.txt 20:23": [
+   "Save that the Holy Ghost witnesseth in every city, saying that bonds and afflictions abide me.",
+   "Mas que el Espíritu Santo por todas las ciudades me da testimonio, diciendo que prisiones y tribulaciones me esperan."
+  ],
+  "acts.txt 20:24": [
+   "But none of these things move me, neither count I my life dear unto myself, so that I might finish my course with joy, and the ministry, which I have received of the Lord Jesus, to testify the gospel of the grace of God.",
+   "Mas de ninguna cosa hago caso, ni estimo mi vida preciosa para mí mismo; solamente que acabe mi carrera con gozo, y el ministerio que recibí del Señor Jesús, para dar testimonio del evangelio de la gracia de Dios."
+  ],
+  "acts.txt 20:25": [
+   "And now, behold, I know that ye all, among whom I have gone preaching the kingdom of God, shall see my face no more.",
+   "Y ahora, he aquí, yo sé que ninguno de todos vosotros, por quien he pasado predicando el reino de Dios, verá más mi rostro."
+  ],
+  "acts.txt 20:26": [
+   "Wherefore I take you to record this day, that I am pure from the blood of all men.",
+   "Por tanto, yo os protesto el día de hoy, que yo soy limpio de la sangre de todos:"
+  ],
+  "acts.txt 20:27": [
+   "For I have not shunned to declare unto you all the counsel of God.",
+   "Porque no he rehuído de anunciaros todo el consejo de Dios."
+  ],
+  "acts.txt 20:28": [
+   "Take heed therefore unto yourselves, and to all the flock, over the which the Holy Ghost hath made you overseers, to feed the church of God, which he hath purchased with his own blood.",
+   "Por tanto mirad por vosotros, y por todo el rebaño en que el Espíritu Santo os ha puesto por obispos, para apacentar la iglesia del Señor, la cual ganó por su sangre."
+  ],
+  "acts.txt 20:29": [
+   "For I know this, that after my departing shall grievous wolves enter in among you, not sparing the flock.",
+   "Porque yo sé que después de mi partida entrarán en medio de vosotros lobos rapaces, que no perdonarán al ganado;"
+  ],
+  "acts.txt 20:30": [
+   "Also of your own selves shall men arise, speaking perverse things, to draw away disciples after them.",
+   "Y de vosotros mismos se levantarán hombres que hablen cosas perversas, para llevar discípulos tras sí."
+  ],
+  "acts.txt 20:31": [
+   "Therefore watch, and remember, that by the space of three years I ceased not to warn every one night and day with tears.",
+   "Por tanto, velad, acordándoos que por tres años de noche y de día, no he cesado de amonestar con lágrimas á cada uno."
+  ],
+  "acts.txt 20:32": [
+   "And now, brethren, I commend you to God, and to the word of his grace, which is able to build you up, and to give you an inheritance among all them which are sanctified.",
+   "Y ahora, hermanos, os encomiendo á Dios, y á la palabra de su gracia: el cual es poderoso para sobreedificar, y daros heredad con todos los santificados."
+  ],
+  "acts.txt 20:33": [
+   "I have coveted no man's silver, or gold, or apparel.",
+   "La plata, ó el oro, ó el vestido de nadie he codiciado."
+  ],
+  "acts.txt 20:34": [
+   "Yea, ye yourselves know, that these hands have ministered unto my necessities, and to them that were with me.",
+   "Antes vosotros sabéis que para lo que me ha sido necesario, y á los que están conmigo, estas manos me han servido."
+  ],
+  "acts.txt 20:35": [
+   "I have shewed you all things, how that so labouring ye ought to support the weak, and to remember the words of the Lord Jesus, how he said, It is more blessed to give than to receive.",
+   "En todo os he enseñado que, trabajando así, es necesario sobrellevar á los enfermos, y tener presente las palabras del Señor Jesús, el cual dijo: Más bienaventurada cosa es dar que recibir."
+  ],
+  "acts.txt 20:36": [
+   "And when he had thus spoken, he kneeled down, and prayed with them all.",
+   "Y como hubo dicho estas cosas, se puso de rodillas, y oró con todos ellos."
+  ],
+  "acts.txt 20:37": [
+   "And they all wept sore, and fell on Paul's neck, and kissed him,",
+   "Entonces hubo un gran lloro de todos: y echándose en el cuello de Pablo, le besaban,"
+  ],
+  "acts.txt 20:38": [
+   "Sorrowing most of all for the words which he spake, that they should see his face no more. And they accompanied him unto the ship.",
+   "Doliéndose en gran manera por la palabra que dijo, que no habían de ver más su rostro. Y le acompañaron al navío."
+  ],
+  "second_corinthians.txt 13:1": [
+   "This is the third time I am coming to you. In the mouth of two or three witnesses shall every word be established.",
+   "He dicho antes, y ahora digo otra vez como presente, y ahora ausente lo escribo á los que antes pecaron, y á todos los demás, que si voy otra vez, no perdonaré;"
+  ],
+  "second_corinthians.txt 13:2": [
+   "I told you before, and foretell you, as if I were present, the second time; and being absent now I write to them which heretofore have sinned, and to all other, that, if I come again, I will not spare:",
+   "Pues buscáis una prueba de Cristo que habla en mí, el cual no es flaco para con vosotros, antes es poderoso en vosotros."
+  ],
+  "second_corinthians.txt 13:3": [
+   "Since ye seek a proof of Christ speaking in me, which to you-ward is not weak, but is mighty in you.",
+   "Porque aunque fué crucificado por flaqueza, empero vive por potencia de Dios. Pues también nosotros somos flacos con él, mas viviremos con él por la potencia de Dios para con vosotros."
+  ],
+  "second_corinthians.txt 13:4": [
+   "For though he was crucified through weakness, yet he liveth by the power of God. For we also are weak in him, but we shall live with him by the power of God toward you.",
+   "Examinaos á vosotros mismos si estáis en fe; probaos á vosotros mismos. ¿No os conocéis á vosotros mismos, que Jesucristo está en vosotros? si ya no sois reprobados."
+  ],
+  "second_corinthians.txt 13:5": [
+   "Examine yourselves, whether ye be in the faith; prove your own selves. Know ye not your own selves, how that Jesus Christ is in you, except ye be reprobates?",
+   "Mas espero que conoceréis que nosotros no somos reprobados."
+  ],
+  "second_corinthians.txt 13:6": [
+   "But I trust that ye shall know that we are not reprobates.",
+   "Y oramos á Dios que ninguna cosa mala hagáis; no para que nosotros seamos hallados aprobados, mas para que vosotros hagáis lo que es bueno, aunque nosotros seamos como reprobados."
+  ],
+  "second_corinthians.txt 13:7": [
+   "Now I pray to God that ye do no evil; not that we should appear approved, but that ye should do that which is honest, though we be as reprobates.",
+   "Porque ninguna cosa podemos contra la verdad, sino por la verdad."
+  ],
+  "second_corinthians.txt 13:8": [
+   "For we can do nothing against the truth, but for the truth.",
+   "Por lo cual nos gozamos que seamos nosotros flacos, y que vosotros estéis fuertes; y aun deseamos vuestra perfección."
+  ],
+  "second_corinthians.txt 13:9": [
+   "For we are glad, when we are weak, and ye are strong: and this also we wish, even your perfection.",
+   "Por tanto os escribo esto ausente, por no tratar presente con dureza, conforme á la potestad que el Señor me ha dado para edificación, y no para destrucción."
+  ],
+  "second_corinthians.txt 13:10": [
+   "Therefore I write these things being absent, lest being present I should use sharpness, according to the power which the Lord hath given me to edification, and not to destruction.",
+   "Resta, hermanos, que tengáis gozo, seáis perfectos, tengáis consolación, sintáis una misma cosa, tengáis paz; y el Dios de paz y de caridad será con vosotros."
+  ],
+  "second_corinthians.txt 13:11": [
+   "Finally, brethren, farewell. Be perfect, be of good comfort, be of one mind, live in peace; and the God of love and peace shall be with you.",
+   "Saludaos los unos á los otros con ósculo santo. Todos los santos os saludan."
+  ],
+  "second_corinthians.txt 13:12": [
+   "Greet one another with an holy kiss.",
+   "Saludaos los unos á los otros con ósculo santo. Todos los santos os saludan."
+  ],
+  "second_corinthians.txt 13:13": [
+   "All the saints salute you.",
+   "La gracia del Señor Jesucristo, y el amor de Dios, y la participación del Espíritu Santo sea con vosotros todos. Amén. La segunda Epístola á los Corintios fué enviada de Filipos de Macedonia con Tito y Lucas."
+  ],
+  "second_corinthians.txt 13:14": [
+   "The grace of the Lord Jesus Christ, and the love of God, and the communion of the Holy Ghost, be with you all. Amen.",
+   "[Este versículo no aparece en esta traducción.]"
+  ]
+ }
+}
