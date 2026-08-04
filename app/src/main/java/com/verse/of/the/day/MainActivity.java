@@ -596,7 +596,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SearchResult buildSearchResult(String verseRef, String query) {
         String[] parts = verseRef.split(":");
         int bookIndex = Integer.parseInt(parts[0]);
-        String displayRef = Bible.getProperName(bible.books[bookIndex]) + " " + parts[1] + ":" + parts[2];
+        String displayRef = Translations.properBook(thisapp, bible.books[bookIndex]) + " " + parts[1] + ":" + parts[2];
         return new SearchResult(displayRef, verseRef, SearchEngine.getVerseText(thisapp, verseRef), query);
     }
 

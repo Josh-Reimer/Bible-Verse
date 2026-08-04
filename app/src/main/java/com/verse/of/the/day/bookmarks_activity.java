@@ -49,7 +49,12 @@ public class bookmarks_activity extends AppCompatActivity {
             for(bookmark list:snapshot){
                 CharSequence text = redLetter.getSpanned(this, list.bible_reference);
                 if (text == null) text = new Verse(this, list.bible_reference).scripture_text;
-                rows.add(new Bookmark_recyclerview_model(text,list.book,list.bible_reference));
+                // The stored `book` is the name as it read when the bookmark was saved.
+                // Resolve it from the reference instead, so the row follows the current
+                // translation's language the same way its verse text already does.
+                int bookIndex = Integer.parseInt(list.bible_reference.split(":")[0]);
+                String book = Translations.properBook(this, new Bible().books[bookIndex]);
+                rows.add(new Bookmark_recyclerview_model(text,book,list.bible_reference));
             }
             runOnUiThread(() -> {
                 if (isFinishing() || isDestroyed()) return;
