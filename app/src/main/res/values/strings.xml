@@ -23,7 +23,8 @@
     <string name="show_translation_info">Show Translation Info</string>
     <string name="search_verses">Search Verses</string>
     <string name="daily_verse_notification">Daily Verse Notification</string>
-    <string name="daily_verse_notification_time">A random verse every morning at 8:00</string>
+    <string name="daily_verse_notification_time">A random verse every day at %1$s</string>
+    <string name="daily_verse_notification_time_picker_title">Daily verse time</string>
     <string name="notification_channel_name">Daily Verse</string>
     <string name="notification_channel_description">One random Bible verse each morning.</string>
     <string name="notification_permission_denied">Verse needs notification permission to send the daily verse.</string>

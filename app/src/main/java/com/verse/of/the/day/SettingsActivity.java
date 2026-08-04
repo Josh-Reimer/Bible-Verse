@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.text.format.DateFormat;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -28,12 +29,20 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NavUtils;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
+
+import java.time.LocalTime;
+import java.util.Calendar;
 
 public class SettingsActivity extends AppCompatActivity {
+
+    private static final String TIME_PICKER_TAG = "daily_verse_time_picker";
 
     public Tools tools = new Tools();
 
     private SwitchMaterial dailyVerseNotificationSwitch;
+    private TextView dailyVerseNotificationSubtitle;
     private ActivityResultLauncher<String> notificationPermissionLauncher;
     private boolean suppressNotificationListener;
 
@@ -190,6 +199,17 @@ public class SettingsActivity extends AppCompatActivity {
                 notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
             }
         });
+
+        // Time of day for that notification — the summary carries the value and opens the
+        // picker, so there is no separate row for it.
+        dailyVerseNotificationSubtitle = findViewById(R.id.dailyVerseNotificationSubtitle);
+        updateNotificationTimeSubtitle();
+        dailyVerseNotificationSubtitle.setOnClickListener(v -> showNotificationTimePicker());
+        // A picker showing across a recreation (a theme change, a rotation) is rebuilt by
+        // the FragmentManager without its listener, so re-attach one to the survivor.
+        MaterialTimePicker restored =
+                (MaterialTimePicker) getSupportFragmentManager().findFragmentByTag(TIME_PICKER_TAG);
+        if (restored != null) attachTimePickerListener(restored);
     }
 
     @Override
@@ -209,6 +229,41 @@ public class SettingsActivity extends AppCompatActivity {
             VerseNotifier.setEnabled(this, false);
         }
         setNotificationSwitchChecked(VerseNotifier.isEnabled(this));
+    }
+
+    private void showNotificationTimePicker() {
+        LocalTime current = VerseNotifier.notifyAt(this);
+        MaterialTimePicker picker = new MaterialTimePicker.Builder()
+                // Honour the reader's 12/24-hour system setting rather than picking one.
+                .setTimeFormat(DateFormat.is24HourFormat(this) ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H)
+                .setHour(current.getHour())
+                .setMinute(current.getMinute())
+                .setTitleText(R.string.daily_verse_notification_time_picker_title)
+                .setTheme(R.style.ThemeOverlay_VerseApp_TimePicker)
+                .build();
+        attachTimePickerListener(picker);
+        picker.show(getSupportFragmentManager(), TIME_PICKER_TAG);
+    }
+
+    private void attachTimePickerListener(MaterialTimePicker picker) {
+        picker.addOnPositiveButtonClickListener(v -> {
+            VerseNotifier.setNotifyAt(this, LocalTime.of(picker.getHour(), picker.getMinute()));
+            updateNotificationTimeSubtitle();
+        });
+    }
+
+    /**
+     * Writes the chosen time into the summary line, formatted the way the reader's locale
+     * and 12/24-hour setting want it — 8:00 AM, 08:00, 上午8:00.
+     */
+    private void updateNotificationTimeSubtitle() {
+        LocalTime time = VerseNotifier.notifyAt(this);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, time.getHour());
+        calendar.set(Calendar.MINUTE, time.getMinute());
+        String formatted = DateFormat.getTimeFormat(this).format(calendar.getTime());
+        dailyVerseNotificationSubtitle.setText(
+                getString(R.string.daily_verse_notification_time, formatted));
     }
 
     /** Moves the switch without the listener treating it as a user toggle. */
