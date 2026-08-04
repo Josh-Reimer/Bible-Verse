@@ -188,6 +188,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         thisapp = getApplicationContext();
         vod = new VerseOfTheDay(mainScanner, thisapp);
 
+        // A force-stopped app receives no broadcasts until it is launched by hand, so the
+        // system language can have changed with LocaleChangedReceiver never hearing about
+        // it. Re-check here, before the verse below is built, so the first verse on screen
+        // is already in the right translation.
+        if (Translations.syncWithDeviceLanguage(thisapp)) {
+            VerseWidgetProvider.refresh(thisapp);
+        }
+
             if(savedInstanceState == null) {
                 String widgetRef = getIntent().getStringExtra("verse_ref");  // set when launched from the home-screen widget
                 verse_displayed = widgetRef != null

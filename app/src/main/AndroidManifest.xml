@@ -61,6 +61,14 @@
         </receiver>
 
         <receiver
+            android:name=".LocaleChangedReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".VerseWidgetProvider"
             android:exported="true"
             android:label="@string/widget_label">
