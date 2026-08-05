@@ -17,7 +17,7 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 ```
 a small note on debugging with adb screenshoting, do not open the file on the users machine, this breaks the development cycle,
 never save the screenshots on the phone, always remove. only analyze the screenshots for your own use, the user does not need them, he has his own eyes.
-`JAVA_HOME` must be set; `./gradlew` fails without it on this machine.
+`JAVA_HOME` must be set; `./gradlew` fails without it on this machine. This is the normal build path — the Termux/proot section further down is only for building the APK on an Android phone directly, and applies nowhere else.
 
 ## Tests
 
@@ -32,9 +32,11 @@ never save the screenshots on the phone, always remove. only analyze the screens
 
 Tests cover logic, not appearance. Verify UI changes live with `adb` (`adb shell input tap`, `adb shell screencap`, `uiautomator dump`) against a connected device — there is no other way to check layout/contrast/dialog behaviour.
 
-### Building on this device (aarch64 proot environment)
+### Building the APK on an Android phone in Termux (aarch64 proot) — not the normal build path
 
-This dev environment (a proot-distro container on an aarch64 Android device, accessed via Termux) has no JDK and only a partial Android SDK preinstalled, and hits an architecture mismatch a normal dev machine never would. `scripts/build-termux.sh` automates all of the below (run with `bash scripts/build-termux.sh`, not `sh` — it uses `BASH_SOURCE`). It's idempotent: safe to re-run each session, since it detects what's already set up in stable (`~/tools`) paths and skips redoing it. This script is a port of the same one in the sibling `balloon-pop-game` repo, adjusted for this repo's plain single-module (`:app`) layout — no `android:` task prefix, `build.gradle` lives at `app/build.gradle` not `android/build.gradle`, and the APK lands at `app/build/outputs/apk/debug/app-debug.apk` not under an `android/` subdirectory. The manual steps it automates:
+**This section applies only when the shell you are in is Termux on the Android phone itself.** It is *not* how this repo is normally built: on a desktop or laptop the `## Build Commands` above are the whole story, and none of the workarounds below apply — no portable JDK download, no `qemu-x86_64` aapt2 wrapper, no `local.properties` pointing at `/root/coding/android-sdk`. Don't run `scripts/build-termux.sh` or follow these steps on a normal dev machine; they'd be pointless at best. Confirm which environment you're in before using any of this — on-device is `uname -m` = `aarch64` *and* `/data/data/com.termux` exists.
+
+In that on-device environment (a proot-distro container on aarch64, accessed via Termux) there is no JDK and only a partial Android SDK preinstalled, and it hits an architecture mismatch a normal dev machine never would. `scripts/build-termux.sh` automates all of the below (run with `bash scripts/build-termux.sh`, not `sh` — it uses `BASH_SOURCE`). It's idempotent: safe to re-run each session, since it detects what's already set up in stable (`~/tools`) paths and skips redoing it. This script is a port of the same one in the sibling `balloon-pop-game` repo, adjusted for this repo's plain single-module (`:app`) layout — no `android:` task prefix, `build.gradle` lives at `app/build.gradle` not `android/build.gradle`, and the APK lands at `app/build/outputs/apk/debug/app-debug.apk` not under an `android/` subdirectory. The manual steps it automates:
 
 1. **JDK**: none is installed system-wide, and there's no root/sudo (`sudo` isn't even on `PATH`; `apt-get install` fails with "requested operation requires superuser privilege"). Download a portable Temurin 21 tarball for `linux/aarch64` from Adoptium and extract it (no root needed):
    ```sh
