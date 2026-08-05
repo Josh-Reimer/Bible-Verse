@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Auto Backup rules for Android 11 (API 30) and below — minSdk is 27, so these devices
+    are still in scope. Android 12+ reads res/xml/data_extraction_rules.xml instead; keep
+    the two in step.
+
+    See that file for why the database domain is left to the default include rather than
+    named explicitly (the Room -wal file).
+-->
+<full-backup-content>
+    <!-- PlayStoreReviewPrompt's install-local counters; see data_extraction_rules.xml. -->
+    <exclude domain="sharedpref" path="review_prefs.xml" />
+</full-backup-content>

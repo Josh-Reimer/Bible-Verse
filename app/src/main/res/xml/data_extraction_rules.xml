@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Backup/transfer rules for Android 12 (API 31) and above. Devices on Android 11 and
+    below read res/xml/backup_rules.xml instead, which must be kept in step with this file.
+
+    Both sections are exclude-only, so everything else is still backed up: that is what
+    carries the bookmarks Room DB and SharedPreferences("settings") — theme, translation,
+    widget verse, notification time — onto a new device.
+
+    Do not convert these to <include> rules for the database domain. Room's default
+    journal mode is WAL, so the DB is bookmarks-database plus bookmarks-database-wal (and
+    -shm), and an <include> path matches that one exact file name — it would silently drop
+    the -wal, which is where recent bookmarks live until SQLite checkpoints them.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <!--
+            PlayStoreReviewPrompt's install-local counters (first launch, distinct launch
+            days, and the once-ever "already asked" flag). Restoring them would mean a
+            reader who moves to a new phone is never offered the in-app review, and the
+            launch history describes the old install, not the new one.
+        -->
+        <exclude domain="sharedpref" path="review_prefs.xml" />
+    </cloud-backup>
+
+    <device-transfer>
+        <exclude domain="sharedpref" path="review_prefs.xml" />
+    </device-transfer>
+</data-extraction-rules>
