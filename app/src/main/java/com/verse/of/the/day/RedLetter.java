@@ -1,7 +1,6 @@
 package com.verse.of.the.day;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.text.Html;
 import android.text.Spanned;
 import org.json.JSONObject;
@@ -35,8 +34,7 @@ public class RedLetter {
     }
 
     private String getTranslation(Context context) {
-        SharedPreferences sp = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
-        return sp.getString("translation", "kjv");
+        return Translations.current(context);
     }
 
     // Returns a Spanned (HTML) if this verse has red-letter markup, null otherwise.

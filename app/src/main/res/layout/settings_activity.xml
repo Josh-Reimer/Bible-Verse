@@ -52,7 +52,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="24dp"
 		android:layout_marginStart="24dp"
-		android:text="Translation"
+		android:text="@string/translation"
 		android:textSize="20sp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/settingsThemeTitle" />
@@ -105,12 +105,21 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/showTranslationInfoTitle" />
 
+	<!-- Tapping the summary opens the time picker, the way a settings row whose value is
+	     shown in its summary does. Margins are 8dp short of the title's and made up with
+	     padding, so the text sits exactly where it did before and only the touch target
+	     and its ripple are bigger. -->
 	<TextView
 		android:id="@+id/dailyVerseNotificationSubtitle"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="24dp"
-		android:layout_marginEnd="16dp"
+		android:layout_marginStart="16dp"
+		android:layout_marginEnd="8dp"
+		android:background="?attr/selectableItemBackground"
+		android:clickable="true"
+		android:focusable="true"
+		android:paddingHorizontal="8dp"
+		android:paddingVertical="12dp"
 		android:text="@string/daily_verse_notification_time"
 		android:textSize="14sp"
 		android:alpha="0.7"

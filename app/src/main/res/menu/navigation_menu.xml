@@ -4,13 +4,13 @@
 	<item
 		android:id="@+id/settings"
 		android:icon="@drawable/baseline_settings_24"
-		android:title="Settings"
+		android:title="@string/settings"
 
 		/>
 		<item
 			android:id="@+id/bookmarks"
 			android:icon="@drawable/bookmark_solid_48"
-			android:title="Bookmarks"
+			android:title="@string/bookmarks"
 
 			/>
 </menu>

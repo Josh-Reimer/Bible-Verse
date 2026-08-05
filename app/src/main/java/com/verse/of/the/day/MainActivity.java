@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     void showVerse(Verse v) {
         SharedPreferences sp = getSharedPreferences("settings", MODE_PRIVATE);
         boolean showTranslationInfo = sp.getBoolean("show_translation_info", false);
-        String translation = sp.getString("translation", "kjv").toUpperCase();
+        String translation = Translations.currentEntry(thisapp).label;
         Spanned spanned = redLetter.getSpanned(thisapp, v.reference);
 
         if (spanned != null) {
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(Intent.EXTRA_TEXT, verse.full_text);
-        startActivity(android.content.Intent.createChooser(sharingIntent, "Share via"));
+        startActivity(android.content.Intent.createChooser(sharingIntent, getString(R.string.share_via)));
     }
 
     @Override
@@ -187,6 +187,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         thisapp = getApplicationContext();
         vod = new VerseOfTheDay(mainScanner, thisapp);
+
+        // A force-stopped app receives no broadcasts until it is launched by hand, so the
+        // system language can have changed with LocaleChangedReceiver never hearing about
+        // it. Re-check here, before the verse below is built, so the first verse on screen
+        // is already in the right translation.
+        if (Translations.syncWithDeviceLanguage(thisapp)) {
+            VerseWidgetProvider.refresh(thisapp);
+        }
 
             if(savedInstanceState == null) {
                 String widgetRef = getIntent().getStringExtra("verse_ref");  // set when launched from the home-screen widget
@@ -596,7 +604,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SearchResult buildSearchResult(String verseRef, String query) {
         String[] parts = verseRef.split(":");
         int bookIndex = Integer.parseInt(parts[0]);
-        String displayRef = Bible.getProperName(bible.books[bookIndex]) + " " + parts[1] + ":" + parts[2];
+        String displayRef = Translations.properBook(thisapp, bible.books[bookIndex]) + " " + parts[1] + ":" + parts[2];
         return new SearchResult(displayRef, verseRef, SearchEngine.getVerseText(thisapp, verseRef), query);
     }
 

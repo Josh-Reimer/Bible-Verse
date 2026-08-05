@@ -4,4 +4,14 @@
         <item name="thumbTint">@color/switch_thumb_color</item>
         <item name="trackTint">@color/switch_track_color</item>
     </style>
+
+    <!-- colorPrimary is repurposed app-wide to match colorSurface (so the toolbar isn't
+         tinted), and the time picker paints the clock hand, the selected number and the
+         OK/Cancel text with it — all of which would vanish against the dialog's
+         surface-colored background in light theme. Give the picker a real accent back,
+         the same way SettingsActivity forces a color onto the AlertDialog buttons. -->
+    <style name="ThemeOverlay.VerseApp.TimePicker" parent="ThemeOverlay.Material3.MaterialTimePicker">
+        <item name="colorPrimary">@color/green_700_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
 </resources>

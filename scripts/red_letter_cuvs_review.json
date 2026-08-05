@@ -1,0 +1,21 @@
+{
+ "fallback_whole_verse": [
+  "41:6:20 (suffix)",
+  "41:20:23 (suffix)",
+  "43:11:16 (suffix)",
+  "43:22:7 (suffix)",
+  "43:22:8 (suffix)",
+  "43:22:10 (suffix)",
+  "43:22:18 (suffix)",
+  "43:26:14 (suffix)",
+  "43:26:15 (suffix)"
+ ],
+ "no_target_verse": [],
+ "placeholder": [],
+ "counts": {
+  "whole": 1403,
+  "anchored": 615,
+  "fallback": 9,
+  "skipped": 0
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "recovered": [
+  "matthew.txt 18:11",
+  "matthew.txt 23:14",
+  "mark.txt 7:16",
+  "mark.txt 15:28",
+  "luke.txt 17:36",
+  "luke.txt 23:17",
+  "john.txt 5:4",
+  "acts.txt 8:37",
+  "acts.txt 15:34",
+  "acts.txt 24:7",
+  "acts.txt 28:29"
+ ],
+ "placeheld": [
+  "john.txt 7:53"
+ ],
+ "beyond_kjv": [
+  "romans.txt 16:25",
+  "romans.txt 16:26",
+  "romans.txt 16:27",
+  "third_john.txt 1:15",
+  "revelation.txt 12:18"
+ ],
+ "realigned": [],
+ "missing_books": []
+}

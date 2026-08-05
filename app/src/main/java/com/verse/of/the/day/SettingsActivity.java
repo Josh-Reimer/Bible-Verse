@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.text.format.DateFormat;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -28,12 +29,20 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NavUtils;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
+
+import java.time.LocalTime;
+import java.util.Calendar;
 
 public class SettingsActivity extends AppCompatActivity {
+
+    private static final String TIME_PICKER_TAG = "daily_verse_time_picker";
 
     public Tools tools = new Tools();
 
     private SwitchMaterial dailyVerseNotificationSwitch;
+    private TextView dailyVerseNotificationSubtitle;
     private ActivityResultLauncher<String> notificationPermissionLauncher;
     private boolean suppressNotificationListener;
 
@@ -57,7 +66,8 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         // Theme spinner
-        String[] themeLabels = {"Light", "Dark", "Follow System"};
+        String[] themeLabels = {getString(R.string.theme_light), getString(R.string.theme_dark),
+                getString(R.string.theme_system)};
         String[] themeValues = {"light", "dark", "system"};
         Spinner themeSpinner = findViewById(R.id.themeSpinner);
         ArrayAdapter<String> themeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, themeLabels);
@@ -95,12 +105,12 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         // Translation spinner
-        String[] translations = {"KJV", "ASV", "BSB"};
-        String[] translationFullNames = {
-                "KJV — King James Version",
-                "ASV — American Standard Version",
-                "BSB — Berean Standard Bible"
-        };
+        String[] translations = new String[Translations.ALL.length];
+        String[] translationFullNames = new String[Translations.ALL.length];
+        for (int i = 0; i < Translations.ALL.length; i++) {
+            translations[i] = Translations.ALL[i].label;
+            translationFullNames[i] = Translations.ALL[i].fullName;
+        }
         Spinner translationSpinner = findViewById(R.id.translationSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, translations) {
             @Override
@@ -113,10 +123,10 @@ public class SettingsActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         translationSpinner.setAdapter(adapter);
 
-        String currentTranslation = sp.getString("translation", "kjv");
+        String currentTranslation = Translations.current(this);
         int translationIndex = 0;
-        for (int i = 0; i < translations.length; i++) {
-            if (translations[i].toLowerCase().equals(currentTranslation)) { translationIndex = i; break; }
+        for (int i = 0; i < Translations.ALL.length; i++) {
+            if (Translations.ALL[i].code.equals(currentTranslation)) { translationIndex = i; break; }
         }
         translationSpinner.setSelection(translationIndex);
         final int initialTranslationIndex = translationIndex;
@@ -132,25 +142,26 @@ public class SettingsActivity extends AppCompatActivity {
                 // which would otherwise re-show the BSB warning dialog.
                 if (position == committedIndex) return;
 
-                String selected = translations[position].toLowerCase();
+                Translations.Entry entry = Translations.ALL[position];
+                String selected = entry.code;
 
-                if (!selected.equals("bsb")) {
-                    spEditor.putString("translation", selected).apply();
+                if (!entry.approximateRedLetter) {
+                    Translations.choose(SettingsActivity.this, selected);
                     committedIndex = position;
                     VerseWidgetProvider.refresh(SettingsActivity.this);
                     return;
                 }
 
                 AlertDialog dialog = new AlertDialog.Builder(SettingsActivity.this)
-                        .setTitle("BSB Red-Letter Accuracy")
-                        .setMessage("Red-letter highlighting in BSB is algorithmically generated and may occasionally be inaccurate.")
+                        .setTitle(getString(R.string.red_letter_accuracy_title, entry.label))
+                        .setMessage(getString(R.string.red_letter_accuracy_message, entry.label))
                         .setCancelable(false)
-                        .setPositiveButton("OK", (d, which) -> {
-                            spEditor.putString("translation", selected).apply();
+                        .setPositiveButton(android.R.string.ok, (d, which) -> {
+                            Translations.choose(SettingsActivity.this, selected);
                             committedIndex = position;
                             VerseWidgetProvider.refresh(SettingsActivity.this);
                         })
-                        .setNegativeButton("Cancel", (d, which) -> translationSpinner.setSelection(committedIndex))
+                        .setNegativeButton(R.string.cancel, (d, which) -> translationSpinner.setSelection(committedIndex))
                         .create();
                 dialog.show();
                 // colorPrimary is repurposed app-wide to match the surface color (so the
@@ -188,6 +199,17 @@ public class SettingsActivity extends AppCompatActivity {
                 notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
             }
         });
+
+        // Time of day for that notification — the summary carries the value and opens the
+        // picker, so there is no separate row for it.
+        dailyVerseNotificationSubtitle = findViewById(R.id.dailyVerseNotificationSubtitle);
+        updateNotificationTimeSubtitle();
+        dailyVerseNotificationSubtitle.setOnClickListener(v -> showNotificationTimePicker());
+        // A picker showing across a recreation (a theme change, a rotation) is rebuilt by
+        // the FragmentManager without its listener, so re-attach one to the survivor.
+        MaterialTimePicker restored =
+                (MaterialTimePicker) getSupportFragmentManager().findFragmentByTag(TIME_PICKER_TAG);
+        if (restored != null) attachTimePickerListener(restored);
     }
 
     @Override
@@ -207,6 +229,41 @@ public class SettingsActivity extends AppCompatActivity {
             VerseNotifier.setEnabled(this, false);
         }
         setNotificationSwitchChecked(VerseNotifier.isEnabled(this));
+    }
+
+    private void showNotificationTimePicker() {
+        LocalTime current = VerseNotifier.notifyAt(this);
+        MaterialTimePicker picker = new MaterialTimePicker.Builder()
+                // Honour the reader's 12/24-hour system setting rather than picking one.
+                .setTimeFormat(DateFormat.is24HourFormat(this) ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H)
+                .setHour(current.getHour())
+                .setMinute(current.getMinute())
+                .setTitleText(R.string.daily_verse_notification_time_picker_title)
+                .setTheme(R.style.ThemeOverlay_VerseApp_TimePicker)
+                .build();
+        attachTimePickerListener(picker);
+        picker.show(getSupportFragmentManager(), TIME_PICKER_TAG);
+    }
+
+    private void attachTimePickerListener(MaterialTimePicker picker) {
+        picker.addOnPositiveButtonClickListener(v -> {
+            VerseNotifier.setNotifyAt(this, LocalTime.of(picker.getHour(), picker.getMinute()));
+            updateNotificationTimeSubtitle();
+        });
+    }
+
+    /**
+     * Writes the chosen time into the summary line, formatted the way the reader's locale
+     * and 12/24-hour setting want it — 8:00 AM, 08:00, 上午8:00.
+     */
+    private void updateNotificationTimeSubtitle() {
+        LocalTime time = VerseNotifier.notifyAt(this);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, time.getHour());
+        calendar.set(Calendar.MINUTE, time.getMinute());
+        String formatted = DateFormat.getTimeFormat(this).format(calendar.getTime());
+        dailyVerseNotificationSubtitle.setText(
+                getString(R.string.daily_verse_notification_time, formatted));
     }
 
     /** Moves the switch without the listener treating it as a user toggle. */

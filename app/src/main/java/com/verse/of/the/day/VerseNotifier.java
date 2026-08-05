@@ -40,30 +40,33 @@ import java.time.ZoneId;
 final class VerseNotifier {
 
     static final String PREF_ENABLED = "daily_verse_notification";
+    /** Time of day to post at, as minutes since midnight — one key, so it can't be half-set. */
+    static final String PREF_TIME = "daily_verse_notification_time";
     static final String ACTION_NOTIFY = "com.verse.of.the.day.DAILY_VERSE";
 
     private static final String CHANNEL_ID = "daily_verse";
     private static final int NOTIFICATION_ID = 1001;
     private static final int REQUEST_CODE = 2001;
 
-    /** Local time of day the notification is posted. */
-    private static final LocalTime NOTIFY_AT = LocalTime.of(8, 0);
+    /** Local time of day the notification is posted until the reader picks another. */
+    static final LocalTime DEFAULT_NOTIFY_AT = LocalTime.of(8, 0);
 
     private static final Bible bible = new Bible();
     private static final Tools tools = new Tools();
 
     private VerseNotifier() {}
 
+    private static SharedPreferences prefs(Context context) {
+        return context.getSharedPreferences("settings", Context.MODE_PRIVATE);
+    }
+
     static boolean isEnabled(Context context) {
-        return context.getSharedPreferences("settings", Context.MODE_PRIVATE)
-                .getBoolean(PREF_ENABLED, false);
+        return prefs(context).getBoolean(PREF_ENABLED, false);
     }
 
     /** Persists the preference and arms or cancels the alarm to match. */
     static void setEnabled(Context context, boolean enabled) {
-        context.getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
-                .putBoolean(PREF_ENABLED, enabled)
-                .apply();
+        prefs(context).edit().putBoolean(PREF_ENABLED, enabled).apply();
         if (enabled) {
             schedule(context);
         } else {
@@ -71,9 +74,35 @@ final class VerseNotifier {
         }
     }
 
+    /** The time of day the reader chose, or {@link #DEFAULT_NOTIFY_AT} if they never have. */
+    static LocalTime notifyAt(Context context) {
+        int minutes = prefs(context).getInt(PREF_TIME, minutesOf(DEFAULT_NOTIFY_AT));
+        // A value from a corrupted or hand-edited preference file shouldn't throw out of
+        // LocalTime.of() on a background thread that is only trying to arm an alarm.
+        if (minutes < 0 || minutes >= 24 * 60) return DEFAULT_NOTIFY_AT;
+        return LocalTime.of(minutes / 60, minutes % 60);
+    }
+
     /**
-     * Arms the alarm for the next {@link #NOTIFY_AT}, but only if the feature is on —
-     * safe to call unconditionally (boot, package replace, settings toggle).
+     * Persists the time of day and moves an already-armed alarm onto it. Re-setting the
+     * same PendingIntent replaces the pending alarm, so there is nothing to cancel first;
+     * if the feature is off there is nothing armed to move either.
+     *
+     * <p>A time earlier in the day than the one that already fired means the reader gets a
+     * second verse today, which is what asking for it at that time reads as.
+     */
+    static void setNotifyAt(Context context, LocalTime time) {
+        prefs(context).edit().putInt(PREF_TIME, minutesOf(time)).apply();
+        scheduleIfEnabled(context);
+    }
+
+    private static int minutesOf(LocalTime time) {
+        return time.getHour() * 60 + time.getMinute();
+    }
+
+    /**
+     * Arms the alarm for the next {@link #notifyAt}, but only if the feature is on —
+     * safe to call unconditionally (boot, package replace, settings toggle, time change).
      */
     static void scheduleIfEnabled(Context context) {
         if (isEnabled(context)) schedule(context);
@@ -82,7 +111,7 @@ final class VerseNotifier {
     static void schedule(Context context) {
         AlarmManager alarms = context.getSystemService(AlarmManager.class);
         if (alarms == null) return;
-        alarms.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextTriggerMillis(), alarmIntent(context));
+        alarms.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextTriggerMillis(context), alarmIntent(context));
     }
 
     static void cancel(Context context) {
@@ -155,10 +184,10 @@ final class VerseNotifier {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
-    /** The next {@link #NOTIFY_AT} that is still in the future, as epoch millis. */
-    private static long nextTriggerMillis() {
+    /** The next {@link #notifyAt} that is still in the future, as epoch millis. */
+    private static long nextTriggerMillis(Context context) {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime next = now.with(NOTIFY_AT);
+        LocalDateTime next = now.with(notifyAt(context));
         if (!next.isAfter(now)) next = next.plusDays(1);
         return next.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }

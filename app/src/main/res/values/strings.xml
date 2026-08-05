@@ -23,7 +23,8 @@
     <string name="show_translation_info">Show Translation Info</string>
     <string name="search_verses">Search Verses</string>
     <string name="daily_verse_notification">Daily Verse Notification</string>
-    <string name="daily_verse_notification_time">A random verse every morning at 8:00</string>
+    <string name="daily_verse_notification_time">A random verse every day at %1$s</string>
+    <string name="daily_verse_notification_time_picker_title">Daily verse time</string>
     <string name="notification_channel_name">Daily Verse</string>
     <string name="notification_channel_description">One random Bible verse each morning.</string>
     <string name="notification_permission_denied">Verse needs notification permission to send the daily verse.</string>
@@ -35,5 +36,21 @@
     <string name="widget_description">A daily Bible verse on your home screen.</string>
     <string name="widget_placeholder_reference">JOHN 3:16</string>
     <string name="widget_placeholder_translation">KJV</string>
+    <string name="add_bookmark">Add bookmark</string>
+    <string name="remove_bookmark">Remove bookmark</string>
+    <string name="share_verse">Share verse</string>
+    <string name="similar_verses">Similar verses</string>
+    <string name="search_results">Search Results</string>
+    <string name="share_via">Share via</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_system">Follow System</string>
+    <string name="translation">Translation</string>
+    <string name="red_letter_accuracy_title">%1$s Red-Letter Accuracy</string>
+    <string name="red_letter_accuracy_message">Red-letter highlighting in %1$s is algorithmically generated and may occasionally be inaccurate.</string>
     <string name="widget_placeholder_verse">For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.</string>
+    <plurals name="search_results_found">
+        <item quantity="one">Found %1$d result</item>
+        <item quantity="other">Found %1$d results</item>
+    </plurals>
 </resources>

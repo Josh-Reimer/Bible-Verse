@@ -59,7 +59,7 @@ public class VerseLookUpActivity extends AppCompatActivity implements VerseActio
 		int chapterNum = Integer.parseInt(parts[1]);
 		int targetVerse = Integer.parseInt(parts[2]);
 		String book = bible.books[bookIndex];
-		String properBook = Bible.getProperName(book);
+		String properBook = Translations.properBook(this, book);
 
 		setTitle(properBook + " " + chapterNum);
 
@@ -190,14 +190,14 @@ public class VerseLookUpActivity extends AppCompatActivity implements VerseActio
 		Intent sharingIntent = new Intent(Intent.ACTION_SEND);
 		sharingIntent.setType("text/plain");
 		sharingIntent.putExtra(Intent.EXTRA_TEXT, verse.full_text);
-		startActivity(Intent.createChooser(sharingIntent, "Share via"));
+		startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
 	}
 
 	@Override
 	public String verseActionLabel(String ref) {
 		String[] p = ref.split(":");
 		int bi = Integer.parseInt(p[0]);
-		return Bible.getProperName(bible.books[bi]) + " " + p[1] + ":" + p[2];
+		return Translations.properBook(this, bible.books[bi]) + " " + p[1] + ":" + p[2];
 	}
 
 	// The verse itself, for the top of the actions sheet: red-letter aware, current translation.
