@@ -32,6 +32,69 @@ never save the screenshots on the phone, always remove. only analyze the screens
 
 Tests cover logic, not appearance. Verify UI changes live with `adb` (`adb shell input tap`, `adb shell screencap`, `uiautomator dump`) against a connected device — there is no other way to check layout/contrast/dialog behaviour.
 
+### Building on this device (aarch64 proot environment)
+
+This dev environment (a proot-distro container on an aarch64 Android device, accessed via Termux) has no JDK and only a partial Android SDK preinstalled, and hits an architecture mismatch a normal dev machine never would. `scripts/build-termux.sh` automates all of the below (run with `bash scripts/build-termux.sh`, not `sh` — it uses `BASH_SOURCE`). It's idempotent: safe to re-run each session, since it detects what's already set up in stable (`~/tools`) paths and skips redoing it. This script is a port of the same one in the sibling `balloon-pop-game` repo, adjusted for this repo's plain single-module (`:app`) layout — no `android:` task prefix, `build.gradle` lives at `app/build.gradle` not `android/build.gradle`, and the APK lands at `app/build/outputs/apk/debug/app-debug.apk` not under an `android/` subdirectory. The manual steps it automates:
+
+1. **JDK**: none is installed system-wide, and there's no root/sudo (`sudo` isn't even on `PATH`; `apt-get install` fails with "requested operation requires superuser privilege"). Download a portable Temurin 21 tarball for `linux/aarch64` from Adoptium and extract it (no root needed):
+   ```sh
+   curl -sL "https://api.adoptium.net/v3/binary/latest/21/ga/linux/aarch64/jdk/hotspot/normal/eclipse" -o jdk21.tar.gz
+   tar xzf jdk21.tar.gz   # -> jdk-21.x.x+y/
+   export JAVA_HOME=".../jdk-21.x.x+y"
+   export PATH="$JAVA_HOME/bin:$PATH"
+   ```
+   These exports don't persist across shell invocations in this harness — set them before every `gradlew` call. `~/tools` is shared across every repo built on this device, so a JDK downloaded once (e.g. while building `balloon-pop-game`) is found and reused here without a second download.
+
+2. **Android SDK**: lives at `/root/coding/android-sdk` (a sibling of every repo, not inside any of them), with only `cmdline-tools/latest` present initially. Install the rest and accept licenses via `sdkmanager`, using *this* repo's `compileSdk` (36, read from `app/build.gradle`, not `android/build.gradle`):
+   ```sh
+   yes | sh /root/coding/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=/root/coding/android-sdk --licenses
+   sh /root/coding/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=/root/coding/android-sdk \
+     "platform-tools" "platforms;android-36" "build-tools;36.0.0"
+   ```
+   Then create `local.properties` in the repo root with `sdk.dir=/root/coding/android-sdk`. Because the SDK dir is shared, packages another repo already pulled (platform-tools, matching build-tools) don't need re-downloading — only this repo's specific `compileSdk` level might be missing.
+
+3. **The actual blocker — aapt2 is x86_64-only, this device is aarch64**: AGP's Maven-resolved `aapt2` binary (and the SDK's own `build-tools/*/aapt2`) only ship as x86_64 Linux ELF binaries; there is no aarch64 build for this AGP version. Running `./gradlew assembleDebug` fails at `:app:processDebugResources` with `AAPT2 ... Daemon startup failed`. Fix by running the x86_64 `aapt2` under `qemu-x86_64` (already installed on this device via Termux at `/data/data/com.termux/files/usr/bin/qemu-x86_64`) against a minimal x86_64 glibc sysroot:
+   ```sh
+   # Build a small x86_64 sysroot (no root needed — dpkg-deb -x just unpacks)
+   mkdir -p amd64root && cd amd64root
+   curl -sLO http://deb.debian.org/debian/pool/main/g/glibc/libc6_<ver>_amd64.deb
+   curl -sLO http://deb.debian.org/debian/pool/main/g/gcc-14/libgcc-s1_<ver>_amd64.deb
+   # (match <ver> to `dpkg -l libc6 libgcc-s1` on this arm64 host)
+   dpkg-deb -x libc6_*_amd64.deb sysroot
+   dpkg-deb -x libgcc-s1_*_amd64.deb sysroot
+   ln -sfn usr/lib64 sysroot/lib64
+   ln -sfn usr/lib   sysroot/lib
+
+   # Wrap the Maven-cached aapt2 (path varies by content hash — find it first):
+   AAPT2_DIR=$(dirname "$(find ~/.gradle/caches -path '*/transformed/aapt2-*-linux/aapt2' | head -1)")
+   mv "$AAPT2_DIR/aapt2" "$AAPT2_DIR/aapt2.real"
+   cat > "$AAPT2_DIR/aapt2" <<EOF
+   #!/bin/sh
+   exec /data/data/com.termux/files/usr/bin/qemu-x86_64 -L $(pwd)/amd64root/sysroot "$AAPT2_DIR/aapt2.real" "\$@"
+   EOF
+   chmod +x "$AAPT2_DIR/aapt2"
+   ```
+   This must target the *Maven-cached* copy under `~/.gradle/caches`, not the SDK's `build-tools/*/aapt2` — files under `/root/coding/android-sdk` are owned by a different uid than the build shell, and `chmod` on them silently no-ops (the exec bit never actually gets set), so they can't be made runnable this way. The `~/.gradle` cache is owned by the build shell's own user, so `chmod +x` there works normally. Since `~/.gradle/caches` is also shared across repos, this wrapper — once built for any repo on this device — is already in place here too.
+
+   Once wrapped, `./gradlew assembleDebug` succeeds normally. Since the wrapper lives under `~/.gradle/caches` (content-hash-keyed, and untouched by a plain rebuild) it survives repeat builds within the same environment, but not across a fresh container/session — redo this setup if `assembleDebug` again fails at `processDebugResources` with a daemon startup error.
+
+4. **`gh` isn't on `PATH` by default**: the `gh` CLI is installed on this device (already authenticated as `Josh-Reimer`) but lives at `~/tools/gh_<version>_linux_arm64/bin/gh`, not on `PATH`. There's no `apt`/`pkg` fallback either — `apt-get install gh` fails the same way as any other package (no root). Fix per-shell:
+   ```sh
+   export PATH="$HOME/tools/gh_2.97.0_linux_arm64/bin:$PATH"
+   gh auth status        # confirms it's already logged in
+   gh repo clone Josh-Reimer/Bible-Verse -- -b main   # e.g. cloning this repo fresh
+   ```
+   Needed for `gh repo clone`, and for `git push`/`git pull` over `https` (no stored git credentials otherwise) — run `gh auth setup-git` once per shell before the first push to wire `gh` in as git's credential helper.
+
+5. **Installing over a differently-signed build**: if the device already has a copy of this app installed from a different signing key (e.g. a release build, or a debug build from a different machine/keystore), `adb install -r app-debug.apk` fails with `INSTALL_FAILED_UPDATE_INCOMPATIBLE: ... signatures do not match`. There's no way around this short of `adb uninstall com.verse.of.the.day` first — which wipes the app's local Room DB (bookmarks) and `SharedPreferences` (theme/translation/widget state) on the device. Confirm with whoever owns the device before doing this, since it's a real (if easily-repopulated) data loss, not just a build hiccup.
+
+6. **Verifying a UI change live via adb**: this device's own screen is usually showing *this* Termux/Claude Code session, not the app under test — so a bare `adb shell input tap` can land on the terminal instead of the app if the app isn't actually frontmost at that moment (e.g. it lost focus between an earlier launch and a later tap in the same script). Guard every interaction:
+   ```sh
+   adb shell am start -n com.verse.of.the.day/.MainActivity
+   adb shell dumpsys window | grep mCurrentFocus   # must show .../com.verse.of.the.day/...Activity before tapping
+   ```
+   Screenshot with `adb shell screencap -p /sdcard/x.png`, `adb pull` it off, then `adb shell rm /sdcard/x.png` immediately — per the note above, screenshots are for on-device verification only and must never be left on the phone or opened on the user's machine.
+
 ## Project Overview
 
 Android app (Java, minSdk 27, targetSdk 36, Java 17) that displays a pseudo-random Bible verse on launch. Supports five translations — KJV (default), ASV, BSB, RVR1909 (Spanish) and CUVS (Mandarin) — each with red-letter (words of Christ) rendering. Users can bookmark verses, view the full chapter context, and share verses. All Bible text is bundled as plain-text assets — no network calls.
