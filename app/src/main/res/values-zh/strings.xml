@@ -22,7 +22,7 @@
     <string name="show_translation_info">显示译本信息</string>
     <string name="search_verses">搜索经文</string>
     <string name="daily_verse_notification">每日经文通知</string>
-    <string name="daily_verse_notification_time">每天 %1$s 推送一节随机经文</string>
+    <string name="daily_verse_notification_time">通知时间</string>
     <string name="daily_verse_notification_time_picker_title">每日经文推送时间</string>
     <string name="notification_channel_name">每日经文</string>
     <string name="notification_channel_description">每天早晨一节随机圣经经文。</string>

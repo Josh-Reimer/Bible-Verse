@@ -22,7 +22,7 @@
     <string name="show_translation_info">Mostrar la traducción</string>
     <string name="search_verses">Buscar versículos</string>
     <string name="daily_verse_notification">Versículo diario</string>
-    <string name="daily_verse_notification_time">Un versículo al azar cada día a las %1$s</string>
+    <string name="daily_verse_notification_time">Hora de notificación</string>
     <string name="daily_verse_notification_time_picker_title">Hora del versículo diario</string>
     <string name="notification_channel_name">Versículo diario</string>
     <string name="notification_channel_description">Un versículo bíblico al azar cada mañana.</string>

@@ -41,8 +41,12 @@ public class SettingsActivity extends AppCompatActivity {
 
     public Tools tools = new Tools();
 
+    /** Material's disabled-content opacity, for the time row while the notification is off. */
+    private static final float DISABLED_ALPHA = 0.38f;
+
     private SwitchMaterial dailyVerseNotificationSwitch;
-    private TextView dailyVerseNotificationSubtitle;
+    private TextView notificationTimeTitle;
+    private TextView notificationTimeValue;
     private ActivityResultLauncher<String> notificationPermissionLauncher;
     private boolean suppressNotificationListener;
 
@@ -184,6 +188,18 @@ public class SettingsActivity extends AppCompatActivity {
             VerseWidgetProvider.refresh(SettingsActivity.this);
         });
 
+        // Time of day for that notification — its own row, found before the switch below
+        // because syncNotificationSwitch() greys this row out to match.
+        notificationTimeTitle = findViewById(R.id.notificationTimeTitle);
+        notificationTimeValue = findViewById(R.id.notificationTimeValue);
+        updateNotificationTimeValue();
+        notificationTimeValue.setOnClickListener(v -> showNotificationTimePicker());
+        // A picker showing across a recreation (a theme change, a rotation) is rebuilt by
+        // the FragmentManager without its listener, so re-attach one to the survivor.
+        MaterialTimePicker restored =
+                (MaterialTimePicker) getSupportFragmentManager().findFragmentByTag(TIME_PICKER_TAG);
+        if (restored != null) attachTimePickerListener(restored);
+
         // Daily Verse Notification switch — opt-in, and the notification permission is
         // only ever requested here, when the user turns it on themselves.
         dailyVerseNotificationSwitch = findViewById(R.id.dailyVerseNotificationSwitch);
@@ -195,21 +211,13 @@ public class SettingsActivity extends AppCompatActivity {
             } else if (VerseNotifier.hasPermission(SettingsActivity.this)) {
                 VerseNotifier.setEnabled(SettingsActivity.this, true);
             } else {
-                // Nothing is persisted until the permission comes back granted.
+                // Nothing is persisted until the permission comes back granted, so the
+                // time row stays as it is until onNotificationPermissionResult.
                 notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                return;
             }
+            syncNotificationTimeRow();
         });
-
-        // Time of day for that notification — the summary carries the value and opens the
-        // picker, so there is no separate row for it.
-        dailyVerseNotificationSubtitle = findViewById(R.id.dailyVerseNotificationSubtitle);
-        updateNotificationTimeSubtitle();
-        dailyVerseNotificationSubtitle.setOnClickListener(v -> showNotificationTimePicker());
-        // A picker showing across a recreation (a theme change, a rotation) is rebuilt by
-        // the FragmentManager without its listener, so re-attach one to the survivor.
-        MaterialTimePicker restored =
-                (MaterialTimePicker) getSupportFragmentManager().findFragmentByTag(TIME_PICKER_TAG);
-        if (restored != null) attachTimePickerListener(restored);
     }
 
     @Override
@@ -248,22 +256,33 @@ public class SettingsActivity extends AppCompatActivity {
     private void attachTimePickerListener(MaterialTimePicker picker) {
         picker.addOnPositiveButtonClickListener(v -> {
             VerseNotifier.setNotifyAt(this, LocalTime.of(picker.getHour(), picker.getMinute()));
-            updateNotificationTimeSubtitle();
+            updateNotificationTimeValue();
         });
     }
 
     /**
-     * Writes the chosen time into the summary line, formatted the way the reader's locale
+     * Writes the chosen time into the row's value, formatted the way the reader's locale
      * and 12/24-hour setting want it — 8:00 AM, 08:00, 上午8:00.
      */
-    private void updateNotificationTimeSubtitle() {
+    private void updateNotificationTimeValue() {
         LocalTime time = VerseNotifier.notifyAt(this);
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, time.getHour());
         calendar.set(Calendar.MINUTE, time.getMinute());
-        String formatted = DateFormat.getTimeFormat(this).format(calendar.getTime());
-        dailyVerseNotificationSubtitle.setText(
-                getString(R.string.daily_verse_notification_time, formatted));
+        notificationTimeValue.setText(DateFormat.getTimeFormat(this).format(calendar.getTime()));
+    }
+
+    /**
+     * Greys the time row out while the notification is off — it still says what time the
+     * verse would arrive, but there is nothing to set until the switch is on. Disabling
+     * the value is what actually stops the tap; the alpha is what shows it.
+     */
+    private void syncNotificationTimeRow() {
+        boolean enabled = VerseNotifier.isEnabled(this);
+        float alpha = enabled ? 1f : DISABLED_ALPHA;
+        notificationTimeTitle.setAlpha(alpha);
+        notificationTimeValue.setAlpha(alpha);
+        notificationTimeValue.setEnabled(enabled);
     }
 
     /** Moves the switch without the listener treating it as a user toggle. */
@@ -271,11 +290,13 @@ public class SettingsActivity extends AppCompatActivity {
         suppressNotificationListener = true;
         dailyVerseNotificationSwitch.setChecked(checked);
         suppressNotificationListener = false;
+        syncNotificationTimeRow();
     }
 
     private void onNotificationPermissionResult(boolean granted) {
         if (granted) {
             VerseNotifier.setEnabled(this, true);
+            syncNotificationTimeRow();
             return;
         }
         setNotificationSwitchChecked(false);
