@@ -141,6 +141,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences shared_preferences = getSharedPreferences("settings", MODE_PRIVATE);
         applyTheme(shared_preferences);
 
+        // "search_history" persisted the last 20 queries but was never read back — no
+        // suggestions UI was ever built on it. Now that it is gone, drop the orphaned key
+        // from installs that already accumulated one, so a record of what the reader typed
+        // does not sit in preferences (and get backed up) for a feature that no longer
+        // exists. Guarded, so after the first launch this is a read with no write.
+        // Safe to delete once existing installs have all been through it.
+        if (shared_preferences.contains("search_history")) {
+            shared_preferences.edit().remove("search_history").apply();
+        }
+
         // Track app usage so an in-app review can be offered later once the user is established.
         PlayStoreReviewPrompt.recordAppOpen(this);
 
@@ -596,7 +606,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     showSearchResultsBottomSheet(results);
                 }
-                saveSearchHistory(query);
             });
         });
     }
@@ -621,32 +630,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             refs.add(reference.bookIndex + ":" + reference.chapter + ":" + verse);
         }
         return refs;
-    }
-
-    private void saveSearchHistory(String query) {
-        SharedPreferences sp = getSharedPreferences("settings", MODE_PRIVATE);
-        String historyJson = sp.getString("search_history", "[]");
-
-        try {
-            org.json.JSONArray history = new org.json.JSONArray(historyJson);
-
-            for (int i = 0; i < history.length(); i++) {
-                if (history.getString(i).equals(query)) {
-                    history.remove(i);
-                    break;
-                }
-            }
-
-            org.json.JSONArray newHistory = new org.json.JSONArray();
-            newHistory.put(query);
-            for (int i = 0; i < Math.min(19, history.length()); i++) {
-                newHistory.put(history.getString(i));
-            }
-
-            sp.edit().putString("search_history", newHistory.toString()).apply();
-        } catch (org.json.JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     private void showSearchResultsBottomSheet(List<SearchResult> results) {
