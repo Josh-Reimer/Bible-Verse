@@ -32,6 +32,8 @@ never save the screenshots on the phone, always remove. only analyze the screens
 
 Tests cover logic, not appearance. Verify UI changes live with `adb` (`adb shell input tap`, `adb shell screencap`, `uiautomator dump`) against a connected device — there is no other way to check layout/contrast/dialog behaviour.
 
+**Spaces in `adb shell input text` need `%s`, not a quoted space.** `adb shell` hands the command to the *device's* shell, which re-splits on whitespace no matter how it was quoted locally, so `adb shell input text "john 3:16"` passes `input` two arguments and types only `john`. Write `adb shell input text 'john%s3:16'`. This bites hardest on the search bar, where the truncated query is still *valid* and returns a full, plausible-looking result list — searching for a bare book name text-searches instead of resolving as a reference, which looks exactly like the reference parser being broken. Check the query that actually landed in the field before believing a search-related failure.
+
 ### Building the APK on an Android phone in Termux (aarch64 proot) — not the normal build path
 
 **This section applies only when the shell you are in is Termux on the Android phone itself.** It is *not* how this repo is normally built: on a desktop or laptop the `## Build Commands` above are the whole story, and none of the workarounds below apply — no portable JDK download, no `qemu-x86_64` aapt2 wrapper, no `local.properties` pointing at `/root/coding/android-sdk`. Don't run `scripts/build-termux.sh` or follow these steps on a normal dev machine; they'd be pointless at best. Confirm which environment you're in before using any of this — on-device is `uname -m` = `aarch64` *and* `/data/data/com.termux` exists.
