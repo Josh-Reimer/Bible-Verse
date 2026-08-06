@@ -25,6 +25,11 @@
     <string name="daily_verse_notification">Daily Verse Notification</string>
     <string name="daily_verse_notification_time">Notification Time</string>
     <string name="daily_verse_notification_time_picker_title">Daily verse time</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="privacy_policy_open">View</string>
+    <!-- Published from the privacypolicy-gpage branch; see CLAUDE.md before changing. -->
+    <string name="privacy_policy_url" translatable="false">https://josh-reimer.github.io/Bible-Verse/privacy_policy.html</string>
+    <string name="privacy_policy_no_browser">No app available to open the privacy policy.</string>
     <string name="notification_channel_name">Daily Verse</string>
     <string name="notification_channel_description">One random Bible verse each morning.</string>
     <string name="notification_permission_denied">Verse needs notification permission to send the daily verse.</string>

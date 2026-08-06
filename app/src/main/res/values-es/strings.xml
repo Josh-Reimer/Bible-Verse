@@ -24,6 +24,9 @@
     <string name="daily_verse_notification">Versículo diario</string>
     <string name="daily_verse_notification_time">Hora de notificación</string>
     <string name="daily_verse_notification_time_picker_title">Hora del versículo diario</string>
+    <string name="privacy_policy">Política de privacidad</string>
+    <string name="privacy_policy_open">Ver</string>
+    <string name="privacy_policy_no_browser">No hay ninguna aplicación para abrir la política de privacidad.</string>
     <string name="notification_channel_name">Versículo diario</string>
     <string name="notification_channel_description">Un versículo bíblico al azar cada mañana.</string>
     <string name="notification_permission_denied">Verse necesita permiso de notificaciones para enviar el versículo diario.</string>

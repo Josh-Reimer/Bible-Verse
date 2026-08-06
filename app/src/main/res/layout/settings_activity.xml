@@ -150,4 +150,46 @@
 		app:layout_constraintTop_toTopOf="@id/notificationTimeTitle"
 		app:layout_constraintBottom_toBottomOf="@id/notificationTimeTitle" />
 
+	<!-- Privacy Policy label. Not a setting — it opens the published policy in a browser —
+	     but it keeps the same row shape as everything above it, because a row that breaks
+	     the rhythm reads as description rather than as something you can tap (see the
+	     notification time note above, which was exactly that mistake).
+
+	     The 40dp top margin is the one deviation from the 24dp every other row uses. Rows
+	     here pair a ~24dp title with a 48dp boxed control, so at a 24dp pitch two *boxed*
+	     rows leave their boxes touching edge to edge, reading as one double-height box.
+	     This is the first time two boxed rows are adjacent — the time row used to be last,
+	     with nothing under it. Any further boxed row added below needs the same treatment. -->
+	<TextView
+		android:id="@+id/privacyPolicyTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="40dp"
+		android:layout_marginStart="24dp"
+		android:labelFor="@id/privacyPolicyValue"
+		android:text="@string/privacy_policy"
+		android:textSize="20sp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/notificationTimeTitle" />
+
+	<!-- Privacy Policy control — boxed like the time value so the two read as the same
+	     kind of affordance. Reuses time_value_background; the name is historical. -->
+	<TextView
+		android:id="@+id/privacyPolicyValue"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="32dp"
+		android:minHeight="48dp"
+		android:minWidth="96dp"
+		android:background="@drawable/time_value_background"
+		android:clickable="true"
+		android:focusable="true"
+		android:gravity="center"
+		android:paddingHorizontal="16dp"
+		android:text="@string/privacy_policy_open"
+		android:textSize="16sp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="@id/privacyPolicyTitle"
+		app:layout_constraintBottom_toBottomOf="@id/privacyPolicyTitle" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

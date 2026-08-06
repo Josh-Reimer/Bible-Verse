@@ -200,6 +200,10 @@ public class SettingsActivity extends AppCompatActivity {
                 (MaterialTimePicker) getSupportFragmentManager().findFragmentByTag(TIME_PICKER_TAG);
         if (restored != null) attachTimePickerListener(restored);
 
+        // Privacy policy — opens the published page in a browser. Unlike every other row
+        // here it writes no preference, so it needs no state to sync.
+        findViewById(R.id.privacyPolicyValue).setOnClickListener(v -> openPrivacyPolicy());
+
         // Daily Verse Notification switch — opt-in, and the notification permission is
         // only ever requested here, when the user turns it on themselves.
         dailyVerseNotificationSwitch = findViewById(R.id.dailyVerseNotificationSwitch);
@@ -270,6 +274,26 @@ public class SettingsActivity extends AppCompatActivity {
         calendar.set(Calendar.HOUR_OF_DAY, time.getHour());
         calendar.set(Calendar.MINUTE, time.getMinute());
         notificationTimeValue.setText(DateFormat.getTimeFormat(this).format(calendar.getTime()));
+    }
+
+    /**
+     * Opens the published privacy policy in whatever handles web links. The URL is served
+     * by GitHub Pages from the {@code privacypolicy-gpage} branch — see CLAUDE.md, which
+     * also explains why that branch must not be deleted.
+     *
+     * <p>This starts the intent and catches the failure rather than asking
+     * {@code resolveActivity} first: package visibility on API 30+ hides browsers from
+     * that query unless the manifest declares a {@code <queries>} element, so the check
+     * would report "no browser" on a device that has one.
+     */
+    private void openPrivacyPolicy() {
+        Intent browse = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.privacy_policy_url)));
+        try {
+            startActivity(browse);
+        } catch (android.content.ActivityNotFoundException e) {
+            Snackbar.make(findViewById(android.R.id.content),
+                    R.string.privacy_policy_no_browser, Snackbar.LENGTH_LONG).show();
+        }
     }
 
     /**
