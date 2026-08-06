@@ -3,6 +3,8 @@
 before making ui breaking changes, think about how things will look and realize that you don't have the ability to know what looks good and what is bad ux.
 preserve as much original logic and keep code diffs small unless refactors are necessary.
 
+**Never delete the `privacypolicy-gpage` branch**, local or remote. It is kept deliberately. It reports as already merged into `main`, so `git branch --merged` lists it and any routine "clean up merged branches" sweep will offer it for deletion — that is exactly why this note exists. Deleting branches is fine otherwise, but exclude this one by name every time, and never fold it into a bulk delete.
+
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
