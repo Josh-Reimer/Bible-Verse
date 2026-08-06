@@ -3,7 +3,9 @@
 before making ui breaking changes, think about how things will look and realize that you don't have the ability to know what looks good and what is bad ux.
 preserve as much original logic and keep code diffs small unless refactors are necessary.
 
-**Never delete the `privacypolicy-gpage` branch**, local or remote. It is kept deliberately. It reports as already merged into `main`, so `git branch --merged` lists it and any routine "clean up merged branches" sweep will offer it for deletion — that is exactly why this note exists. Deleting branches is fine otherwise, but exclude this one by name every time, and never fold it into a bulk delete.
+**Never delete the `privacypolicy-gpage` branch**, local or remote. It is the GitHub Pages source that publishes the app's privacy policy — live at <https://josh-reimer.github.io/Bible-Verse/privacy_policy.html>, built from `privacy_policy.html`/`privacy_policy.md` at the *root* of that branch (they are not on `main`). Deleting it takes the privacy policy URL offline, which the Play Store listing depends on. It reports as already merged into `main`, so `git branch --merged` lists it and any routine "clean up merged branches" sweep will offer it for deletion — that is exactly why this note exists. Exclude it by name every time, and never fold it into a bulk delete.
+
+Its Pages config is worth knowing before touching anything there: the GitHub API reports the source as branch `privacypolicy-gpage` path `/docs`, but no `docs/` directory exists on that branch and the site serves correctly anyway from the root files. Don't "fix" the mismatch by creating a `docs/` folder or repointing the source — the published URL currently works, and changing it is how it would break.
 
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
