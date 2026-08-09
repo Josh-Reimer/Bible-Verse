@@ -14,6 +14,8 @@
 .cxx
 local.properties
 *.jks
+# Upload-key location and passwords for the release signingConfig — never commit
+keystore.properties
 app/release
 *.png
 .idea/misc.xml

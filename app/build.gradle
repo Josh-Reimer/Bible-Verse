@@ -2,6 +2,16 @@ plugins {
     id 'com.android.application'
 }
 
+// Upload-key details live in keystore.properties at the repo root, which is git-ignored.
+// It is absent on any machine that has not been set up for release builds (and in CI), so
+// everything below is guarded — debug builds and `assembleRelease` still work without it,
+// the release build just comes out unsigned the way it always did.
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.withInputStream { keystoreProperties.load(it) }
+}
+
 android {
     compileSdk = 36
 
@@ -13,8 +23,22 @@ android {
         versionName = "2.0"
     }
 
+    signingConfigs {
+        if (keystorePropertiesFile.exists()) {
+            release {
+                storeFile = file(keystoreProperties['storeFile'])
+                storePassword = keystoreProperties['storePassword']
+                keyAlias = keystoreProperties['keyAlias']
+                keyPassword = keystoreProperties['keyPassword']
+            }
+        }
+    }
+
     buildTypes {
         release {
+            if (keystorePropertiesFile.exists()) {
+                signingConfig = signingConfigs.release
+            }
             minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
