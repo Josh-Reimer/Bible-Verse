@@ -63,6 +63,12 @@ public class SearchResultsBottomSheet extends BottomSheetDialogFragment {
         View touchOutside = getDialog() == null ? null
                 : getDialog().findViewById(com.google.android.material.R.id.touch_outside);
         if (touchOutside != null) {
+            // ClickableViewAccessibility is suppressed rather than answered with a
+            // performClick(): BottomSheetDialog's own OnClickListener on touch_outside is
+            // left in place, so TalkBack still dismisses the sheet by activating it (and
+            // back-press works either way). This listener exists only to learn *where*
+            // the tap landed, which a click listener isn't told.
+            //noinspection ClickableViewAccessibility
             touchOutside.setOnTouchListener((v, event) -> {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && isCancelable()) {
                     dismiss();

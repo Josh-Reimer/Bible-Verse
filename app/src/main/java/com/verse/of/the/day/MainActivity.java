@@ -262,8 +262,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
            }
         });
 
-        // Set up the content view's touch listener to detect swipes
-
+        // Set up the content view's touch listener to detect swipes.
+        // ClickableViewAccessibility is suppressed rather than answered with a
+        // performClick(): this listener only recognises the swipe that opens the drawer,
+        // a tap on the background does nothing, and the drawer's own accessible path is
+        // the hamburger button in the toolbar.
+        //noinspection ClickableViewAccessibility
         mainLayoutView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
