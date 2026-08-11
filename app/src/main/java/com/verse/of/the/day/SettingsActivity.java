@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
@@ -200,9 +201,12 @@ public class SettingsActivity extends AppCompatActivity {
                 (MaterialTimePicker) getSupportFragmentManager().findFragmentByTag(TIME_PICKER_TAG);
         if (restored != null) attachTimePickerListener(restored);
 
-        // Privacy policy — opens the published page in a browser. Unlike every other row
-        // here it writes no preference, so it needs no state to sync.
-        findViewById(R.id.privacyPolicyValue).setOnClickListener(v -> openPrivacyPolicy());
+        // Privacy policy — the footer link, not a settings row: it opens the published page
+        // in a browser and writes no preference, so it needs no state to sync. Underlined
+        // here rather than with <u> in the string, so the translations stay plain text.
+        TextView privacyPolicyLink = findViewById(R.id.privacyPolicyLink);
+        privacyPolicyLink.setPaintFlags(privacyPolicyLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        privacyPolicyLink.setOnClickListener(v -> openPrivacyPolicy());
 
         // Daily Verse Notification switch — opt-in, and the notification permission is
         // only ever requested here, when the user turns it on themselves.
