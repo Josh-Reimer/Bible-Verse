@@ -41,6 +41,10 @@
     <string name="share_verse">Compartir versículo</string>
     <string name="similar_verses">Versículos similares</string>
     <string name="search_results">Resultados de la búsqueda</string>
+    <string name="search_verses_hint">Buscar versículos…</string>
+    <string name="search_empty_query">Escribe algo para buscar</string>
+    <string name="search_no_results">No se encontraron versículos con \"%1$s\"</string>
+    <string name="no_similar_verses">No se encontraron versículos similares.</string>
     <string name="share_via">Compartir con</string>
     <string name="theme_light">Claro</string>
     <string name="theme_dark">Oscuro</string>

@@ -41,6 +41,10 @@
     <string name="share_verse">分享经文</string>
     <string name="similar_verses">相似经文</string>
     <string name="search_results">搜索结果</string>
+    <string name="search_verses_hint">搜索经文…</string>
+    <string name="search_empty_query">请输入搜索内容</string>
+    <string name="search_no_results">找不到包含「%1$s」的经文</string>
+    <string name="no_similar_verses">没有找到相似经文。</string>
     <string name="share_via">分享方式</string>
     <string name="theme_light">浅色</string>
     <string name="theme_dark">深色</string>

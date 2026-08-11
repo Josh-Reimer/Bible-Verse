@@ -163,7 +163,7 @@ public class VerseActionsBottomSheet extends BottomSheetDialogFragment {
 
 		if (results.isEmpty()) {
 			TextView empty = new TextView(ctx);
-			empty.setText("No similar verses found.");
+			empty.setText(R.string.no_similar_verses);
 			empty.setTextSize(15f);
 			android.util.TypedValue onSurface = new android.util.TypedValue();
 			ctx.getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnSurface, onSurface, true);

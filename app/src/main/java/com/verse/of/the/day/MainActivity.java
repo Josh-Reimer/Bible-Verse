@@ -341,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getMenuInflater().inflate(R.menu.main_activity_menu, menu);
         searchMenuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchMenuItem.getActionView();
-        searchView.setQueryHint("Search verses...");
+        searchView.setQueryHint(getString(R.string.search_verses_hint));
         searchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
@@ -559,7 +559,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void performSearch(String query) {
         if (query.trim().isEmpty()) {
-            Toast.makeText(this, "Enter a search term", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.search_empty_query, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -606,7 +606,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return;
                 }
                 if (results.isEmpty()) {
-                    Toast.makeText(this, "No verses found matching \"" + query + "\"", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.search_no_results, query), Toast.LENGTH_SHORT).show();
                 } else {
                     showSearchResultsBottomSheet(results);
                 }
