@@ -38,6 +38,7 @@ import android.content.Context;
 import android.util.Log;
 
 import java.lang.reflect.Field;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -583,7 +584,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             SearchEngineQuery searchQuery = new SearchEngineQuery(query);
             List<String> verseRefs = SearchEngine.searchByGrep(thisapp, searchQuery);
-            String lowerQuery = query.toLowerCase().trim();
+            // Locale.ROOT, matching the fold SearchEngine applies to the chapter text: the
+            // device locale must not decide whether a query matches (a Turkish locale
+            // lowercases "In" to "ın", which no query for "in" would ever find).
+            String lowerQuery = query.toLowerCase(Locale.ROOT).trim();
             List<QueryTokenizer.Token> queryTokens = QueryTokenizer.tokenize(query);
 
             for (String verseRef : verseRefs) {

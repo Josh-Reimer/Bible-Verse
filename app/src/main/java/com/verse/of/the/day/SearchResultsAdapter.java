@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.ViewHolder> {
@@ -84,8 +85,10 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     // word-by-word matching — a verse can match all tokens without containing the phrase.
     private Spannable highlightText(CharSequence text, String searchQuery) {
         SpannableString spannable = new SpannableString(text);
-        String lowerText = spannable.toString().toLowerCase();
-        String lowerQuery = searchQuery.toLowerCase().trim();
+        // Locale.ROOT, matching SearchEngine's fold — highlighting has to find exactly
+        // what the search matched, whatever locale the device is in.
+        String lowerText = spannable.toString().toLowerCase(Locale.ROOT);
+        String lowerQuery = searchQuery.toLowerCase(Locale.ROOT).trim();
 
         if (!lowerQuery.isEmpty() && lowerText.contains(lowerQuery)) {
             highlightOccurrences(spannable, lowerText, lowerQuery);

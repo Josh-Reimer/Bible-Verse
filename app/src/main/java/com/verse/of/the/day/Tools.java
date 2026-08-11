@@ -6,6 +6,7 @@ import android.content.Context.*;
 import android.util.Log;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 import android.content.res.*;
 import android.content.*;
@@ -61,7 +62,8 @@ return true;
 }
 
 public boolean isBook(String s, Bible bible) {
-s = s.toLowerCase().trim();
+// Locale.ROOT: compared against the English asset filenames.
+s = s.toLowerCase(Locale.ROOT).trim();
 
 for (String book : bible.books) {
 if (s.equals(book.replace(".txt", ""))) {
@@ -85,7 +87,7 @@ return false;
 }
 
 public boolean isBookChapter(String s, Bible bible) {
-String str = s.toLowerCase().trim();
+String str = s.toLowerCase(Locale.ROOT).trim();
 boolean containsbook = false;
 boolean containsdigit = false;
 boolean containsspace = false;

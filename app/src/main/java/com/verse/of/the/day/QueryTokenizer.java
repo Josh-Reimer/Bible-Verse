@@ -2,6 +2,7 @@ package com.verse.of.the.day;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,8 +35,11 @@ public class QueryTokenizer {
         List<String> quotedPhrases = extractQuotedPhrases(query);
         String remaining = removeQuotedPhrases(query);
 
+        // Locale.ROOT everywhere here: the chapter text these tokens are matched against
+        // is folded with ROOT too, and the device locale must not change the answer
+        // (Turkish would lowercase "I" to a dotless "ı" on one side only).
         for (String phrase : quotedPhrases) {
-            tokens.add(new Token(phrase.toLowerCase(), true, true));
+            tokens.add(new Token(phrase.toLowerCase(Locale.ROOT), true, true));
         }
 
         List<String> plusWords = new ArrayList<>();
@@ -45,7 +49,7 @@ public class QueryTokenizer {
             if (part.isEmpty()) continue;
 
             if (part.startsWith("+")) {
-                String word = part.substring(1).toLowerCase();
+                String word = part.substring(1).toLowerCase(Locale.ROOT);
                 if (!word.isEmpty()) {
                     plusWords.add(word);
                 }
@@ -55,7 +59,7 @@ public class QueryTokenizer {
                     tokens.add(new Token(multiwordPhrase, true, true));
                     plusWords.clear();
                 }
-                tokens.add(new Token(part.toLowerCase(), false, false));
+                tokens.add(new Token(part.toLowerCase(Locale.ROOT), false, false));
             }
         }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchEngine {
     private static final Bible bible = new Bible();
@@ -82,7 +83,7 @@ public class SearchEngine {
         if (lowerQuery.isEmpty()) {
             return Integer.MAX_VALUE;
         }
-        String lowerText = verseText.toLowerCase();
+        String lowerText = verseText.toLowerCase(Locale.ROOT);
 
         int pos = lowerText.indexOf(lowerQuery);
         if (pos != -1) {
@@ -163,7 +164,10 @@ public class SearchEngine {
             String[] bookChapters = splitIntoChapters(tools.getFile(context, bible.books[bookIndex]));
             String[] lowerChapters = new String[bookChapters.length];
             for (int i = 0; i < bookChapters.length; i++) {
-                lowerChapters[i] = bookChapters[i].toLowerCase();
+                // Locale.ROOT, not the device default: under a Turkish/Azeri locale
+                // "In" lowercases to "ın" (dotless i) and never matches a query's "in".
+                // Every case fold on the search path must agree, so they are all ROOT.
+                lowerChapters[i] = bookChapters[i].toLowerCase(Locale.ROOT);
             }
             orig[bookIndex] = bookChapters;
             lower[bookIndex] = lowerChapters;

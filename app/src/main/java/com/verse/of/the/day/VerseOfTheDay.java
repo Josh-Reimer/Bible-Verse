@@ -1,5 +1,6 @@
 package com.verse.of.the.day;
 
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 import java.io.File;
@@ -40,7 +41,7 @@ public class VerseOfTheDay {
 
 		//System.out.println("randomVerseNum is: " + randomVerseNum);
 
-		String bookOfVerse = bible.books[randomBookNum].replace(".txt", "").replace("_", " ").toUpperCase() + "\n";
+		String bookOfVerse = bible.books[randomBookNum].replace(".txt", "").replace("_", " ").toUpperCase(Locale.ROOT) + "\n";
 
 		String randomVerse = bookOfVerse + bible.getVerse(tools,context, randomBook, randomChapterNum, randomVerseNum);
 		return randomVerse;

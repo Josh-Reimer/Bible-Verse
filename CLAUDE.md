@@ -189,6 +189,17 @@ intersect progressively and bail as soon as a list comes back empty. Matching is
 CJK queries work without word boundaries; `relevanceScore()` then ranks 0 (whole-word run), 1
 (substring), else 2 + how far the smallest window covering every token overruns the query.
 
+**Every case fold on this path takes `Locale.ROOT` explicitly** — `SearchEngine`'s chapter cache and
+`relevanceScore`, `QueryTokenizer`'s tokens, `SearchResultsAdapter`'s highlighting, and
+`MainActivity.performSearch`'s `lowerQuery`. The no-arg `toLowerCase()` uses the *device* locale, and
+under Turkish/Azeri `I` folds to `ı` (dotless i), so the text side and the query side stopped agreeing:
+"In the beginning" became "ın the beginning" and a search for `in` matched nothing. Every
+sentence-initial word containing an i went missing, silently, for readers on a Turkish phone (who get
+the KJV, since no Turkish translation is bundled). `TurkishLocaleSearchTest` sets the default locale to
+`tr` and fails if any of these regress. `VerseReferenceParser` is already safe — it folds per character
+with `Character.toLowerCase(char)`, which has no locale. `Bible.getProperName` takes ROOT for the same
+reason (`PHİLİPPİANS` otherwise).
+
 Searches run on a background executor. Results go in an Activity-scoped `SearchResultsViewModel`, never
 into a saved-state `Bundle` — a broad search serialises to several MB and blows the ~1MB binder limit
 (`TransactionTooLargeException`). After process death the ViewModel comes back empty and the restored
