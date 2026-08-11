@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:installLocation="preferExternal"
-    android:versionCode="1"
-    android:versionName="1.0">
+<!-- installLocation stays internalOnly (the default): a widget provider, an alarm and a
+     BOOT_COMPLETED receiver all become unavailable while external storage is unmounted,
+     which would blank the widget and silently stop the daily verse. Don't set
+     preferExternal/auto here — the bundled Bible assets are the bulk of the APK, but
+     moving them off internal storage costs those three features. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!-- pending alarms are dropped on reboot; the receiver re-arms the daily one -->
