@@ -1,0 +1,33 @@
+<en-US>
+New in 2.0
+
+• Spanish (RVR1909) and Chinese (CUVS) Bibles — with the whole app in both languages
+• A home screen widget with a new verse each day
+• An optional daily verse notification, at a time you pick
+• Search by words, or by reference like "John 3:16"
+• Similar verses suggested for any verse you tap
+• Words of Christ in red in search, bookmarks and chapters
+• Bookmarks and settings now carry over to a new phone
+</en-US>
+<es-ES>
+Novedades de la versión 2.0
+
+• Biblias en español (RVR1909) y chino (CUVS), con toda la app en ambos idiomas
+• Un widget en la pantalla de inicio con un versículo nuevo cada día
+• Notificación diaria opcional, a la hora que elijas
+• Busca por palabras o por referencia, como «Juan 3:16»
+• Versículos similares para cada versículo que toques
+• Palabras de Cristo en rojo en búsquedas, marcadores y capítulos
+• Los marcadores y ajustes pasan a tu nuevo teléfono
+</es-ES>
+<zh-CN>
+2.0 版本新功能
+
+• 新增西班牙文（RVR1909）和中文（和合本）圣经，应用界面也支持这两种语言
+• 主屏幕小组件，每天一节新经文
+• 可选的每日经文提醒，时间由你决定
+• 支持按关键词或经文出处搜索，例如「约翰福音 3:16」
+• 为你点按的经文推荐相似经文
+• 搜索结果、书签和章节中均以红字显示耶稣的话
+• 书签和设置可迁移到新手机
+</zh-CN>
