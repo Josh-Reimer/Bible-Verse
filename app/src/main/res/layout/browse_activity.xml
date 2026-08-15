@@ -1,0 +1,68 @@
+<!-- browse_activity.xml — the book list and the chapter grid share this layout; the
+     filter row belongs to the book list and is hidden while the grid is showing. -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/browse_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/browse_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:titleCentered="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/browse_filter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/spinner_box"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:hint="@string/browse_filter_hint"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
+        android:maxLines="1"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/browse_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="LabelFor" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/browse_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="8dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/browse_filter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/browse_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/browse_no_books"
+        android:textSize="16sp"
+        android:alpha="0.7"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/browse_recyclerview"
+        app:layout_constraintBottom_toBottomOf="@id/browse_recyclerview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

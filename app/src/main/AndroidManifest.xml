@@ -37,6 +37,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity
+            android:name=".BrowseActivity"
+            android:exported="false"
+            android:label="@string/browse"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity android:name=".VerseLookUpActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -3,6 +3,12 @@
     <string name="nav_close">Cerrar</string>
     <string name="nav_open">Abrir</string>
     <string name="bookmarks">Marcadores</string>
+    <string name="browse">Explorar</string>
+    <string name="browse_filter_hint">Filtrar libros…</string>
+    <string name="browse_no_books">Ningún libro coincide</string>
+    <string name="browse_chapter_content_description">Capítulo %1$d</string>
+    <string name="old_testament">ANTIGUO TESTAMENTO</string>
+    <string name="new_testament">NUEVO TESTAMENTO</string>
     <string name="settings">Ajustes</string>
     <string name="bookmark_delete_content_description">eliminar marcador</string>
     <string name="bookmark_share_content_description">compartir marcador</string>

@@ -3,6 +3,12 @@
     <string name="nav_close">关闭</string>
     <string name="nav_open">打开</string>
     <string name="bookmarks">书签</string>
+    <string name="browse">浏览</string>
+    <string name="browse_filter_hint">筛选书卷…</string>
+    <string name="browse_no_books">没有匹配的书卷</string>
+    <string name="browse_chapter_content_description">第 %1$d 章</string>
+    <string name="old_testament">旧约</string>
+    <string name="new_testament">新约</string>
     <string name="settings">设置</string>
     <string name="bookmark_delete_content_description">删除书签</string>
     <string name="bookmark_share_content_description">分享书签</string>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- browse_chapter_tile with the accent outline verse_highlight_outline uses, marking
+     the chapter the reader last opened from the browse screen. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/spinner_fill" />
+            <stroke
+                android:width="2dp"
+                android:color="@color/green_700_primary" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</ripple>
