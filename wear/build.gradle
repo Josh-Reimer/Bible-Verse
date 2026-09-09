@@ -1,0 +1,57 @@
+// Standalone Wear OS companion — see CLAUDE.md for the scope this was built to (a single
+// "minimal verse view" screen: today's/a random verse and a die to reroll it — no share, since
+// a bare watch has no share target to send to). It bundles its own copy of three of the phone
+// app's translations (assets/, copied verbatim — see wear/src/main/assets) rather than
+// depending on the :app module, since :app is an application module and can't be a library
+// dependency; duplicating the handful of Kotlin files that read those assets keeps this module
+// free-standing without touching :app at all.
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.plugin.compose'
+}
+
+android {
+    namespace = 'com.verse.of.the.day.wear'
+    compileSdk = 36
+
+    defaultConfig {
+        applicationId = "com.verse.of.the.day.wear"
+        // Wear OS 3 (Compose for Wear's baseline); the phone app's minSdk 27 doesn't apply
+        // here since this targets watch hardware exclusively.
+        minSdk = 30
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        compose = true
+    }
+}
+
+dependencies {
+    implementation platform('androidx.compose:compose-bom:2024.10.01')
+    implementation 'androidx.activity:activity-compose:1.9.3'
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.material:material-icons-core'
+    implementation 'androidx.wear.compose:compose-material:1.4.1'
+    implementation 'androidx.wear.compose:compose-foundation:1.4.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
+    implementation 'org.json:json:20231013'
+
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+}

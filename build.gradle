@@ -1,5 +1,9 @@
 plugins {
     id 'com.android.application' version '9.3.1' apply false
+    // AGP 9.3.1 applies Kotlin support to a module on its own; a separate
+    // org.jetbrains.kotlin.android plugin conflicts with it ("Cannot add extension with name
+    // 'kotlin'"), so :wear only applies the Compose compiler plugin below.
+    id 'org.jetbrains.kotlin.plugin.compose' version '2.0.21' apply false
 }
 
 tasks.register("clean", Delete) {
