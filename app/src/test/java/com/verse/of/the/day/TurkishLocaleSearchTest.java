@@ -56,6 +56,6 @@ public class TurkishLocaleSearchTest {
     @Test
     public void properNameUpcasesIndependentlyOfLocale() {
         // "PHİLİPPİANS" is what the default fold produces here.
-        assertEquals("PHILIPIANS", Bible.getProperName("philipians.txt"));
+        assertEquals("PHILIPPIANS", Bible.getProperName("philipians.txt"));
     }
 }

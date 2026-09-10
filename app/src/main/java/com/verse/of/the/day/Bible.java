@@ -13,10 +13,29 @@ import android.content.Context;
 
 public class Bible {
 
+// Five asset filenames are misspelled. Renaming the files would touch every path that
+// reads an asset (and the red-letter/similar-verse data keyed off this order), so the
+// spelling is corrected here instead — this is the one place a filename becomes a name a
+// reader sees. VerseReferenceParser.EXTRA_NAMES corrects the same words on the way in,
+// for references the reader types.
+private static final String[][] MISSPELLED_STEMS = {
+    {"eccliasiastes", "ecclesiastes"},
+    {"ezekial", "ezekiel"},
+    {"philipians", "philippians"},
+    {"thesselonians", "thessalonians"},  // matches both first_ and second_
+};
+
 // Locale.ROOT: the filenames are English, and the device's locale must not decide how
-// they upcase (a Turkish locale would render "philipians" as "PHİLİPPİANS").
+// they upcase (a Turkish locale would render "philippians" as "PHİLİPPİANS").
 public static String getProperName(String bookFile) {
-    return bookFile.replace(".txt", "").replace("_", " ").toUpperCase(Locale.ROOT);
+    String stem = bookFile.replace(".txt", "");
+    for (String[] fix : MISSPELLED_STEMS) {
+        if (stem.endsWith(fix[0])) {
+            stem = stem.substring(0, stem.length() - fix[0].length()) + fix[1];
+            break;
+        }
+    }
+    return stem.replace("_", " ").toUpperCase(Locale.ROOT);
 }
 
 public String[] books = {"genesis.txt", "exodus.txt", "leviticus.txt", "numbers.txt", "deuteronomy.txt", "joshua.txt", "judges.txt", "ruth.txt", "first_samuel.txt", "second_samuel.txt", "first_kings.txt", "second_kings.txt", "first_chronicles.txt", "second_chronicles.txt", "ezra.txt", "nehemiah.txt", "esther.txt", "job.txt", "psalms.txt", "proverbs.txt", "eccliasiastes.txt", "song_of_solomon.txt", "isaiah.txt", "jeremiah.txt", "lamentations.txt", "ezekial.txt", "daniel.txt", "hosea.txt", "joel.txt", "amos.txt", "obadiah.txt", "jonah.txt", "micah.txt", "nahum.txt", "habakkuk.txt", "zephaniah.txt", "haggai.txt", "zechariah.txt", "malachi.txt", "matthew.txt", "mark.txt", "luke.txt", "john.txt", "acts.txt", "romans.txt", "first_corinthians.txt", "second_corinthians.txt", "galatians.txt", "ephesians.txt", "philipians.txt", "colossians.txt", "first_thesselonians.txt", "second_thesselonians.txt", "first_timothy.txt", "second_timothy.txt", "titus.txt", "philemon.txt", "hebrews.txt", "james.txt", "first_peter.txt", "second_peter.txt", "first_john.txt", "second_john.txt", "third_john.txt", "jude.txt", "revelation.txt"};

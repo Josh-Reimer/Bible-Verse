@@ -26,6 +26,18 @@ public class BibleTest {
         assertEquals("FIRST CORINTHIANS", Bible.getProperName("first_corinthians.txt"));
     }
 
+    // Five asset filenames are misspelled; the display name corrects them, and the
+    // correction must not touch a book that merely starts the same way (Philemon).
+    @Test
+    public void testGetProperName_correctsMisspelledFilenames() {
+        assertEquals("ECCLESIASTES", Bible.getProperName("eccliasiastes.txt"));
+        assertEquals("EZEKIEL", Bible.getProperName("ezekial.txt"));
+        assertEquals("PHILIPPIANS", Bible.getProperName("philipians.txt"));
+        assertEquals("FIRST THESSALONIANS", Bible.getProperName("first_thesselonians.txt"));
+        assertEquals("SECOND THESSALONIANS", Bible.getProperName("second_thesselonians.txt"));
+        assertEquals("PHILEMON", Bible.getProperName("philemon.txt"));
+    }
+
     @Test
     public void testGetProperName_withoutExtension() {
         assertEquals("GENESIS", Bible.getProperName("genesis"));
