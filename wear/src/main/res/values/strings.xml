@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Bible Verse</string>
+    <!-- Matches :app's app_name — same applicationId, same Play listing, same app. -->
+    <string name="app_name" translatable="false">Verse</string>
 </resources>
