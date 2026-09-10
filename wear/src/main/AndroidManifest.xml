@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Standalone Wear OS companion for the phone app: no Bluetooth/phone-relay permissions are
+     requested because this build never talks to the paired phone — it bundles its own copy of
+     the Bible text (see wear/src/main/assets) and works whether or not the phone app is
+     installed. android.hardware.type.watch is required so the Play Store (and adb) treat this
+     as a watch-only build rather than something a phone could also install. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-feature android:name="android.hardware.type.watch" android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/bible"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/bible"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.DeviceDefault"
+        >
+
+        <!-- Marks this APK as usable without the handheld app installed — see
+             https://developer.android.com/training/wearables/apps/standalone-apps. Without
+             this, Play treats it as a companion APK that only installs alongside a paired
+             phone app of the same package family. -->
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
+
+        <uses-library
+            android:name="com.google.android.wearable"
+            android:required="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:taskAffinity=""
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

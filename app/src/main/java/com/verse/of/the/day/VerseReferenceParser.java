@@ -156,7 +156,8 @@ public class VerseReferenceParser {
     }
 
     // Decomposes accented letters and drops the combining marks; leaves CJK alone.
-    private static String foldAccents(String text) {
+    // Package-private: BrowseActivity folds book names the same way for its filter box.
+    static String foldAccents(String text) {
         return Normalizer.normalize(text, Normalizer.Form.NFD)
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }

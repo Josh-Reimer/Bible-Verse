@@ -400,6 +400,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int itemId = item.getItemId();
         if (itemId == R.id.settings) {
             goToSettings();
+        } else if (itemId == R.id.browse) {
+            Intent i = new Intent(this, BrowseActivity.class);
+            startActivity(i);
         } else if (itemId == R.id.bookmarks) {
             Intent i = new Intent(this, bookmarks_activity.class);
             startActivity(i);
