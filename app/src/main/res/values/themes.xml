@@ -13,9 +13,9 @@
         <item name="colorSurfaceVariant">#EAEAEA</item>
         <item name="colorOutline">#9E9E9E</item>
 
-        <!-- Transparent system bars so toolbar + status bar match -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- Transparent system bars so toolbar + status bar match; set in code via
+             EdgeToEdge.enable() instead of the deprecated statusBarColor/navigationBarColor
+             theme attributes. -->
         <!-- Disable Material3 status bar tint -->
         <item name="statusBarForeground">@null</item>
         <!-- Auto-adjust system bar icons -->

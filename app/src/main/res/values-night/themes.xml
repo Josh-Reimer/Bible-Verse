@@ -1,9 +1,9 @@
 <resources>
     <style name="Theme.VerseApp" parent="Theme.Material3.DayNight.NoActionBar">
 
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <!-- Dark mode status bar -->
+        <!-- Dark mode status bar; transparent system bars set in code via
+             EdgeToEdge.enable() instead of the deprecated statusBarColor/navigationBarColor
+             theme attributes. -->
         <item name="colorPrimaryContainer">@color/green_700_primary</item>
         <item name="colorOnPrimaryContainer">@color/black</item>
         <item name="android:windowLightStatusBar">false</item>

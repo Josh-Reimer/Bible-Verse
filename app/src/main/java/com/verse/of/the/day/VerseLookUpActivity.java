@@ -1,12 +1,14 @@
 package com.verse.of.the.day;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spanned;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.room.Room;
 
@@ -28,7 +30,8 @@ public class VerseLookUpActivity extends AppCompatActivity implements VerseActio
 	@Override
 	protected void onCreate(Bundle SavedInstanceState){
 		super.onCreate(SavedInstanceState);
-		WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+		EdgeToEdge.enable(this, SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
+				SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT));
 		setContentView(R.layout.verse_lookup_activity);
 
 		db = Room.databaseBuilder(getApplicationContext(),
