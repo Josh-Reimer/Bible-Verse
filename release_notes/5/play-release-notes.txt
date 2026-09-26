@@ -1,0 +1,27 @@
+<en-US>
+New in 2.1
+
+• Wear OS app — the verse of the day on your watch, the same verse as on your phone
+• Browse the whole Bible by book and chapter, and continue reading where you left off
+• The widget, notification and app now share one verse of the day
+• Pull down on the verse to search
+• Corrected spellings in some words of Christ (KJV) and in five book names
+</en-US>
+<es-ES>
+Novedades de la versión 2.1
+
+• App para Wear OS: el versículo del día en tu reloj, el mismo que en tu teléfono
+• Explora toda la Biblia por libro y capítulo, y continúa leyendo donde lo dejaste
+• El widget, la notificación y la app comparten un mismo versículo del día
+• Desliza hacia abajo sobre el versículo para buscar
+• Ortografía corregida en algunas palabras de Cristo (KJV) y en cinco nombres de libros
+</es-ES>
+<zh-CN>
+2.1 版本新功能
+
+• 新增 Wear OS 手表应用：在手表上查看每日经文，与手机上的经文一致
+• 按书卷和章节浏览整本圣经，并可从上次阅读处继续
+• 小组件、通知和应用现在共用同一节每日经文
+• 在经文上向下拉即可搜索
+• 修正了部分耶稣的话（英王钦定本）和五个书卷名称的拼写
+</zh-CN>
