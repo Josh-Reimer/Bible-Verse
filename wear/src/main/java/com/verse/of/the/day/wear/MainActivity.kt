@@ -1,6 +1,7 @@
 package com.verse.of.the.day.wear
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -24,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
@@ -35,7 +37,9 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import com.google.android.gms.wearable.DataClient
 import com.google.android.gms.wearable.Wearable
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -73,20 +77,40 @@ fun WearApp() {
     val scope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
 
-    suspend fun show(load: () -> WearVerse) {
-        verse = withContext(Dispatchers.IO) { load() }
-        // Every new verse should open at its top, not wherever the previous one was scrolled to.
-        scrollState.scrollTo(0)
+    var failed by remember { mutableStateOf(false) }
+    var loading by remember { mutableStateOf<Job?>(null) }
+
+    // Each load cancels the one before it, so a slower earlier read (a quick double tap on the
+    // die, or a phone update landing mid-reroll) can never overwrite the newest verse.
+    fun show(load: () -> WearVerse) {
+        loading?.cancel()
+        loading = scope.launch {
+            try {
+                verse = withContext(Dispatchers.IO) { load() }
+                failed = false
+                // Every new verse should open at its top, not wherever the previous one was scrolled to.
+                scrollState.scrollTo(0)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                // A missing or unreadable asset. With a verse already on screen it stays there;
+                // with none, the error screen below offers a retry instead of a spinner forever.
+                Log.w("WearApp", "Couldn't load a verse", e)
+                failed = true
+            }
+        }
     }
 
-    LaunchedEffect(Unit) { show { WearDailyVerse.today(context, translation) } }
+    fun showToday() = show { WearDailyVerse.today(context, translation) }
+
+    LaunchedEffect(Unit) { showToday() }
 
     // Follow the phone while open: its day's verse can arrive after launch (the phone app
     // hadn't run yet today) or change (its widget's die rerolled it).
     DisposableEffect(Unit) {
         val listener = DataClient.OnDataChangedListener { events ->
             WearDailyVerse.refFromEvents(context, events)?.let { (book, chapter, verse) ->
-                scope.launch { show { WearVerseRepository.load(assets, translation, book, chapter, verse) } }
+                show { WearVerseRepository.load(assets, translation, book, chapter, verse) }
             }
         }
         val client = Wearable.getDataClient(context)
@@ -98,7 +122,29 @@ fun WearApp() {
         val current = verse
         if (current == null) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
+                if (failed) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = stringResource(R.string.verse_load_failed),
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(horizontal = 26.dp),
+                        )
+                        Button(
+                            onClick = { showToday() },
+                            modifier = Modifier
+                                .padding(top = 14.dp)
+                                .size(40.dp),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Refresh,
+                                contentDescription = stringResource(R.string.retry),
+                                modifier = Modifier.size(20.dp),
+                            )
+                        }
+                    }
+                } else {
+                    CircularProgressIndicator()
+                }
             }
             return@Scaffold
         }
@@ -138,7 +184,7 @@ fun WearApp() {
                     .padding(top = 8.dp),
             )
             Button(
-                onClick = { scope.launch { show { WearVerseRepository.randomVerse(assets, translation) } } },
+                onClick = { show { WearVerseRepository.randomVerse(assets, translation) } },
                 modifier = Modifier
                     .padding(top = 14.dp)
                     .size(40.dp),

@@ -1,0 +1,4 @@
+<resources>
+    <string name="verse_load_failed">No se pudo cargar un versículo</string>
+    <string name="retry">Reintentar</string>
+</resources>
