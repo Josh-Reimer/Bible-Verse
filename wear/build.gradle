@@ -11,8 +11,9 @@
 // closed-testing requirement) only when both the package name and the signing certificate
 // match — see the "same listing" discussion this was built for. versionCode/versionName are
 // plain literals rather than shared with :app via some root-level source of truth, so bump
-// both together by hand on each release; a two-module hobby project doesn't earn the
-// extra machinery.
+// both by hand on each release; a two-module hobby project doesn't earn the extra machinery.
+// The versionCode must NOT equal :app's: Play requires every bundle uploaded to one listing
+// to have its own, so keep this one above :app's.
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.plugin.compose'
@@ -37,8 +38,8 @@ android {
         // here since this targets watch hardware exclusively.
         minSdk = 30
         targetSdk = 36
-        versionCode = 4
-        versionName = "2.0"
+        versionCode = 6
+        versionName = "2.1"
     }
 
     signingConfigs {
