@@ -1,6 +1,5 @@
 package com.verse.of.the.day.wear
 
-import android.content.res.AssetManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +14,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,6 +23,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
@@ -32,17 +33,21 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
+import com.google.android.gms.wearable.DataClient
+import com.google.android.gms.wearable.Wearable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
  * The whole watch app: one screen showing a verse and a die to reroll it — see CLAUDE.md's
- * "minimal verse view" scope. Standalone (no phone pairing required): the Bible text, book
- * names and red-letter spans are bundled straight from the phone app's assets (kjv/rvr1909/cuvs
- * only — the three the phone would pick automatically by device language; see
- * `WearTranslations`), so a fresh random verse is just an asset read, same as the phone app's
- * cold start.
+ * "minimal verse view" scope. It opens on the day's verse — the phone's, synced over the Data
+ * Layer, when there is one (see `WearDailyVerse`) — and the die rolls a random verse for this
+ * screen only, leaving the day's verse alone, the same as the phone's main-screen dice.
+ * Standalone (no phone pairing required): the Bible text, book names and red-letter spans are
+ * bundled straight from the phone app's assets (kjv/rvr1909/cuvs only — the three the phone
+ * would pick automatically by device language; see `WearTranslations`), so a verse is just an
+ * asset read.
  *
  * No share action: Wear OS has no share targets to send to without a Bluetooth-paired phone or
  * Nearby Share, and `ACTION_SEND` on a bare watch just opens and immediately closes an empty
@@ -53,26 +58,41 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-                WearApp(assets = assets)
+                WearApp()
             }
         }
     }
 }
 
 @Composable
-fun WearApp(assets: AssetManager) {
+fun WearApp() {
+    val context = LocalContext.current.applicationContext
+    val assets = context.assets
     val translation = remember { WearTranslations.current() }
     var verse by remember { mutableStateOf<WearVerse?>(null) }
     val scope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
 
-    suspend fun reroll() {
-        verse = withContext(Dispatchers.IO) { WearVerseRepository.randomVerse(assets, translation) }
+    suspend fun show(load: () -> WearVerse) {
+        verse = withContext(Dispatchers.IO) { load() }
         // Every new verse should open at its top, not wherever the previous one was scrolled to.
         scrollState.scrollTo(0)
     }
 
-    LaunchedEffect(Unit) { reroll() }
+    LaunchedEffect(Unit) { show { WearDailyVerse.today(context, translation) } }
+
+    // Follow the phone while open: its day's verse can arrive after launch (the phone app
+    // hadn't run yet today) or change (its widget's die rerolled it).
+    DisposableEffect(Unit) {
+        val listener = DataClient.OnDataChangedListener { events ->
+            WearDailyVerse.refFromEvents(context, events)?.let { (book, chapter, verse) ->
+                scope.launch { show { WearVerseRepository.load(assets, translation, book, chapter, verse) } }
+            }
+        }
+        val client = Wearable.getDataClient(context)
+        client.addListener(listener)
+        onDispose { client.removeListener(listener) }
+    }
 
     Scaffold(timeText = { TimeText() }) {
         val current = verse
@@ -118,7 +138,7 @@ fun WearApp(assets: AssetManager) {
                     .padding(top = 8.dp),
             )
             Button(
-                onClick = { scope.launch { reroll() } },
+                onClick = { scope.launch { show { WearVerseRepository.randomVerse(assets, translation) } } },
                 modifier = Modifier
                     .padding(top = 14.dp)
                     .size(40.dp),
