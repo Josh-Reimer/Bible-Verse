@@ -1,4 +1,6 @@
 <resources>
     <!-- Matches :app's app_name — same applicationId, same Play listing, same app. -->
     <string name="app_name" translatable="false">Verse</string>
+    <string name="verse_load_failed">Couldn\'t load a verse</string>
+    <string name="retry">Try again</string>
 </resources>

@@ -37,7 +37,7 @@ android {
         // here since this targets watch hardware exclusively.
         minSdk = 30
         targetSdk = 36
-        versionCode = 3
+        versionCode = 4
         versionName = "2.0"
     }
 
@@ -83,6 +83,7 @@ dependencies {
     implementation 'androidx.wear.compose:compose-foundation:1.4.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
     implementation 'org.json:json:20231013'
+    implementation 'com.google.android.gms:play-services-wearable:19.0.0'
 
     debugImplementation 'androidx.compose.ui:ui-tooling'
 }
