@@ -24,12 +24,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.CircularProgressIndicator
+import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
@@ -61,12 +63,23 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme {
+            MaterialTheme(colors = VerseColors) {
                 WearApp()
             }
         }
     }
 }
+
+// The phone app's greens (app/src/main/res/values/colors.xml), used the way the phone uses
+// them: green_700_primary with black content for the buttons (its FABs), text left neutral.
+private val VerseColors = Colors(
+    primary = Color(0xFF388E3C),        // green_700_primary
+    primaryVariant = Color(0xFF1B5E20), // green_900_secondary
+    secondary = Color(0xFF6ABF69),      // green_light_primary
+    secondaryVariant = Color(0xFF4C8C4A),
+    onPrimary = Color.Black,
+    onSecondary = Color.Black,
+)
 
 @Composable
 fun WearApp() {
