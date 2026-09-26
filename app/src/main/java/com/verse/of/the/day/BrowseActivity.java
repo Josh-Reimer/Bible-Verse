@@ -105,7 +105,10 @@ public class BrowseActivity extends AppCompatActivity
 		continueCard = findViewById(R.id.browse_continue_card);
 		continueText = findViewById(R.id.browse_continue_text);
 		ImageButton continueDismiss = findViewById(R.id.browse_continue_dismiss);
-		continueDismiss.setOnClickListener(v -> continueCard.setVisibility(View.GONE));
+		continueDismiss.setOnClickListener(v -> {
+			continueCard.setVisibility(View.GONE);
+			AnalyticsHelper.logContinueReadingDismissed(this);
+		});
 
 		ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, insets) -> {
 			int bottomInset = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
@@ -208,7 +211,7 @@ public class BrowseActivity extends AppCompatActivity
 
 		continueText.setText(getString(R.string.browse_continue_prompt, displayNames[lastBook], lastChapter));
 		continueCard.setVisibility(View.VISIBLE);
-		continueCard.setOnClickListener(v -> openChapter(lastBook, lastChapter));
+		continueCard.setOnClickListener(v -> openChapter(lastBook, lastChapter, AnalyticsHelper.SOURCE_CONTINUE_READING));
 	}
 
 	private void loadBookNames() {
@@ -325,16 +328,17 @@ public class BrowseActivity extends AppCompatActivity
 
 	@Override
 	public void onBookClicked(int bookIndex) {
+		AnalyticsHelper.logBrowseBookOpened(this, bookIndex);
 		showChapters(bookIndex);
 	}
 
 	@Override
 	public void onChapterClicked(int chapter) {
-		openChapter(openBook, chapter);
+		openChapter(openBook, chapter, AnalyticsHelper.SOURCE_BROWSE);
 	}
 
 	/** Opens a chapter in {@link VerseLookUpActivity}, recording it as the last one read. */
-	private void openChapter(int bookIndex, int chapter) {
+	private void openChapter(int bookIndex, int chapter, String source) {
 		prefs().edit()
 				.putInt(PREF_LAST_BOOK, bookIndex)
 				.putInt(PREF_LAST_CHAPTER, chapter)
@@ -344,6 +348,7 @@ public class BrowseActivity extends AppCompatActivity
 		// Verse 0 matches no verse, so the chapter opens from the top with nothing
 		// singled out — browsing to a chapter is not the same as arriving at a verse.
 		intent.putExtra("verse_ref", bookIndex + ":" + chapter + ":0");
+		intent.putExtra(AnalyticsHelper.EXTRA_SOURCE, source);
 		startActivity(intent);
 	}
 

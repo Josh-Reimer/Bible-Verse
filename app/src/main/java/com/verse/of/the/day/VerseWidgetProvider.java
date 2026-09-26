@@ -53,12 +53,23 @@ public class VerseWidgetProvider extends AppWidgetProvider {
     }
 
     @Override
+    public void onEnabled(Context context) {
+        AnalyticsHelper.logWidget(context, true);
+    }
+
+    @Override
+    public void onDisabled(Context context) {
+        AnalyticsHelper.logWidget(context, false);
+    }
+
+    @Override
     public void onReceive(Context context, Intent intent) {
         if (ACTION_SHUFFLE.equals(intent.getAction())) {
             final PendingResult pending = goAsync();
             final Context appContext = context.getApplicationContext();
             executor.execute(() -> {
                 try {
+                    AnalyticsHelper.logDiceRoll(appContext, AnalyticsHelper.SOURCE_WIDGET);
                     render(appContext, DailyVerse.reroll(appContext));
                 } finally {
                     pending.finish();
@@ -114,6 +125,7 @@ public class VerseWidgetProvider extends AppWidgetProvider {
 
         Intent open = new Intent(context, MainActivity.class)
                 .putExtra("verse_ref", ref)
+                .putExtra(AnalyticsHelper.EXTRA_SOURCE, AnalyticsHelper.SOURCE_WIDGET)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         views.setOnClickPendingIntent(R.id.widget_card, PendingIntent.getActivity(
                 context, 0, open, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));

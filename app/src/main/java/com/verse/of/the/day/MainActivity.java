@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String view = translation + "/" + v.reference;
         if (view.equals(lastLoggedView)) return;
         lastLoggedView = view;
-        AnalyticsHelper.logVerseViewed(v.reference, translation);
+        AnalyticsHelper.logVerseViewed(thisapp, v.reference, translation);
     }
 
     void showVerse(Verse v) {
@@ -225,10 +225,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // is already in the right translation.
         if (Translations.syncWithDeviceLanguage(thisapp)) {
             VerseWidgetProvider.refresh(thisapp);
+            AnalyticsHelper.syncUserProperties(thisapp);
         }
 
             if(savedInstanceState == null) {
                 String widgetRef = getIntent().getStringExtra("verse_ref");  // set when launched from the home-screen widget or the notification
+                logOpenedFrom(getIntent());
                 verse_displayed = widgetRef != null
                         ? new Verse(thisapp, widgetRef)
                         : new Verse(thisapp, DailyVerse.today(thisapp));  // today's verse on a cold start, the same one the widget and notification show
@@ -325,6 +327,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (widgetRef != null) {
             verse_displayed = new Verse(thisapp, widgetRef);
         }
+        logOpenedFrom(intent);
+    }
+
+    private void logOpenedFrom(Intent intent) {
+        String source = intent.getStringExtra(AnalyticsHelper.EXTRA_SOURCE);
+        if (source != null) AnalyticsHelper.logAppOpenedFrom(thisapp, source);
     }
 
     @Override
@@ -396,7 +404,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // Saved at submit time: the menu rebuild after a sheet dismissal clears
                 // the old SearchView's text, so a change listener can't be trusted here.
                 searchQueryText = query;
-                performSearch(query);
+                performSearch(query, true);
                 return true;
             }
 
@@ -519,6 +527,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void onNewVerse() {
         verse_displayed = vod.getRandomRef(bible, tools, thisapp);
+        AnalyticsHelper.logDiceRoll(thisapp, AnalyticsHelper.SOURCE_MAIN);
         showVerse(verse_displayed);
         verse_displayed_is_bookmarked = !db.bookmark_dao().getBookmark(verse_displayed.reference).toString().equals("[]");
         updateBookmarkIcon();
@@ -526,7 +535,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void onLookUp() {
-        goToVerseLookUpActivity(verse_displayed.reference);
+        goToVerseLookUpActivity(verse_displayed.reference, AnalyticsHelper.SOURCE_MAIN);
         if (fabsExpanded) toggleFabs();
     }
 
@@ -534,10 +543,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (verse_displayed_is_bookmarked) {
             db.bookmark_dao().deleteBookmark(verse_displayed.reference);
             verse_displayed_is_bookmarked = false;
+            AnalyticsHelper.logBookmark(thisapp, verse_displayed.reference, false, AnalyticsHelper.SOURCE_MAIN);
         } else {
             bookmark new_bookmark = new bookmark(verse_displayed.full_text, verse_displayed.reference, verse_displayed.proper_book, verse_displayed.scripture_text);
             db.bookmark_dao().insertAll(new_bookmark);
             verse_displayed_is_bookmarked = true;
+            AnalyticsHelper.logBookmark(thisapp, verse_displayed.reference, true, AnalyticsHelper.SOURCE_MAIN);
             // Bookmarking is a completed task, not mid-flow — a safe moment to offer a review.
             PlayStoreReviewPrompt.maybeRequestReview(this);
         }
@@ -546,6 +557,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void onShare() {
         shareVerse(verse_displayed);
+        AnalyticsHelper.logShare(thisapp, verse_displayed.reference, AnalyticsHelper.SOURCE_MAIN);
         if (fabsExpanded) toggleFabs();
     }
 
@@ -563,9 +575,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    void goToVerseLookUpActivity(String verse) {
+    void goToVerseLookUpActivity(String verse, String source) {
         Intent intent = new Intent(this, VerseLookUpActivity.class);
         intent.putExtra("verse_ref", verse);
+        intent.putExtra(AnalyticsHelper.EXTRA_SOURCE, source);
         startActivity(intent);
     }
 
@@ -600,7 +613,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 || rawY < location[1] || rawY > location[1] + v.getHeight();
     }
 
-    private void performSearch(String query) {
+    private void performSearch(String query, boolean logSearch) {
         if (query.trim().isEmpty()) {
             Toast.makeText(this, R.string.search_empty_query, Toast.LENGTH_SHORT).show();
             return;
@@ -644,6 +657,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // Stable sort: equal scores keep canonical Bible order.
             results.sort((a, b) -> Integer.compare(a.relevanceScore, b.relevanceScore));
 
+            if (logSearch) {
+                AnalyticsHelper.logSearch(thisapp, reference != null, results.size());
+            }
             runOnUiThread(() -> {
                 if (isFinishing() || isDestroyed()) {
                     return;
@@ -700,7 +716,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onSearchResultSelected(SearchResult result) {
-        goToVerseLookUpActivity(result.verseReference);
+        goToVerseLookUpActivity(result.verseReference, AnalyticsHelper.SOURCE_SEARCH);
     }
 
     @Override
@@ -720,7 +736,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // so the sheet comes back populated instead of stranding the re-expanded
         // search bar over nothing.
         if (!searchQueryText.trim().isEmpty()) {
-            performSearch(searchQueryText);
+            // Not a new search by the reader, so it isn't counted as one.
+            performSearch(searchQueryText, false);
         } else {
             searchUiActive = false;
         }
@@ -752,6 +769,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 db.bookmark_dao().insertAll(new_bookmark);
                 nowBookmarked = true;
             }
+            AnalyticsHelper.logBookmark(thisapp, result.verseReference, nowBookmarked, AnalyticsHelper.SOURCE_SEARCH);
             // Keep the main-screen bookmark FAB in sync when the search result
             // is the verse currently displayed.
             if (verse_displayed != null && verse_displayed.reference.equals(result.verseReference)) {
