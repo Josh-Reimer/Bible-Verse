@@ -68,6 +68,7 @@ public class bookmarks_activity extends AppCompatActivity {
     }
     void deleteBookmark(int position){
         db.bookmark_dao().deleteBookmark(bookmarks_list.get(position).bible_reference);
+        AnalyticsHelper.logBookmark(this, bookmarks_list.get(position).bible_reference, false, AnalyticsHelper.SOURCE_BOOKMARKS);
         //remove from ui
         adapter.clearSelection(); // clear before removal so the stale position is not re-bound
         bookmarks_list.remove(position); // keep in sync with data so later positions still line up
@@ -89,6 +90,7 @@ public class bookmarks_activity extends AppCompatActivity {
         // Share the current translation's text so it matches what the row displays.
         sharingIntent.putExtra(Intent.EXTRA_TEXT, new Verse(this, bookmarks_list.get(position).bible_reference).full_text);
         startActivity(android.content.Intent.createChooser(sharingIntent, getString(R.string.share_via)));
+        AnalyticsHelper.logShare(this, bookmarks_list.get(position).bible_reference, AnalyticsHelper.SOURCE_BOOKMARKS);
     }
 
     void hideFabs(){

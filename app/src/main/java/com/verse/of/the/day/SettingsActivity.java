@@ -98,6 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
                 if (firstCall) { firstCall = false; return; }
                 String selected = themeValues[position];
                 spEditor.putString("theme_mode", selected).apply();
+                AnalyticsHelper.logSettingChanged(SettingsActivity.this, "theme", selected);
                 switch (selected) {
                     case "dark":
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -157,6 +158,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 if (!entry.approximateRedLetter) {
                     Translations.choose(SettingsActivity.this, selected);
+                    AnalyticsHelper.logSettingChanged(SettingsActivity.this, "translation", selected);
                     committedIndex = position;
                     VerseWidgetProvider.refresh(SettingsActivity.this);
                     return;
@@ -168,6 +170,7 @@ public class SettingsActivity extends AppCompatActivity {
                         .setCancelable(false)
                         .setPositiveButton(android.R.string.ok, (d, which) -> {
                             Translations.choose(SettingsActivity.this, selected);
+                            AnalyticsHelper.logSettingChanged(SettingsActivity.this, "translation", selected);
                             committedIndex = position;
                             VerseWidgetProvider.refresh(SettingsActivity.this);
                         })
@@ -191,6 +194,7 @@ public class SettingsActivity extends AppCompatActivity {
         showTranslationInfoSwitch.setChecked(showTranslationInfo);
         showTranslationInfoSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             spEditor.putBoolean("show_translation_info", isChecked).apply();
+            AnalyticsHelper.logSettingChanged(SettingsActivity.this, "translation_label", String.valueOf(isChecked));
             VerseWidgetProvider.refresh(SettingsActivity.this);
         });
 
@@ -221,8 +225,10 @@ public class SettingsActivity extends AppCompatActivity {
             if (suppressNotificationListener) return;
             if (!isChecked) {
                 VerseNotifier.setEnabled(SettingsActivity.this, false);
+                AnalyticsHelper.logSettingChanged(SettingsActivity.this, "daily_notification", "false");
             } else if (VerseNotifier.hasPermission(SettingsActivity.this)) {
                 VerseNotifier.setEnabled(SettingsActivity.this, true);
+                AnalyticsHelper.logSettingChanged(SettingsActivity.this, "daily_notification", "true");
             } else {
                 // Nothing is persisted until the permission comes back granted, so the
                 // time row stays as it is until onNotificationPermissionResult.
@@ -268,7 +274,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void attachTimePickerListener(MaterialTimePicker picker) {
         picker.addOnPositiveButtonClickListener(v -> {
-            VerseNotifier.setNotifyAt(this, LocalTime.of(picker.getHour(), picker.getMinute()));
+            LocalTime time = LocalTime.of(picker.getHour(), picker.getMinute());
+            VerseNotifier.setNotifyAt(this, time);
+            AnalyticsHelper.logSettingChanged(this, "notification_time", time.toString());
             updateNotificationTimeValue();
         });
     }
@@ -329,10 +337,12 @@ public class SettingsActivity extends AppCompatActivity {
     private void onNotificationPermissionResult(boolean granted) {
         if (granted) {
             VerseNotifier.setEnabled(this, true);
+            AnalyticsHelper.logSettingChanged(this, "daily_notification", "true");
             syncNotificationTimeRow();
             return;
         }
         setNotificationSwitchChecked(false);
+        AnalyticsHelper.logNotificationPermissionDenied(this);
         boolean permanentlyDenied = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
                 && !shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS);
         if (permanentlyDenied) {

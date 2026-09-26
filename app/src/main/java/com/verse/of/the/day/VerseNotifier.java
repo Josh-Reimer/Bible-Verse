@@ -136,6 +136,7 @@ final class VerseNotifier {
 
             Intent open = new Intent(context, MainActivity.class)
                     .putExtra("verse_ref", ref)
+                    .putExtra(AnalyticsHelper.EXTRA_SOURCE, AnalyticsHelper.SOURCE_NOTIFICATION)
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent contentIntent = PendingIntent.getActivity(context, REQUEST_CODE, open,
                     PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
@@ -155,6 +156,7 @@ final class VerseNotifier {
                     .build();
 
             NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification);
+            AnalyticsHelper.logNotificationShown(context);
         } catch (SecurityException e) {
             // Permission revoked between the check above and the post.
             Log.w("verse-notify", "not allowed to post the daily verse", e);

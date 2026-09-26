@@ -65,6 +65,10 @@ public class VerseLookUpActivity extends AppCompatActivity implements VerseActio
 		String properBook = Translations.properBook(this, book);
 
 		setTitle(properBook + " " + chapterNum);
+		if (SavedInstanceState == null) {
+			AnalyticsHelper.logChapterViewed(this, bookIndex, chapterNum,
+					getIntent().getStringExtra(AnalyticsHelper.EXTRA_SOURCE));
+		}
 
 		String[] str_verses = bible.getChapter(this, tools, book, chapterNum).split("\n");
 
@@ -135,6 +139,7 @@ public class VerseLookUpActivity extends AppCompatActivity implements VerseActio
 		verseView.setForeground(androidx.core.content.ContextCompat.getDrawable(this, fg.resourceId));
 		verseView.setOnClickListener(v -> {
 			highlightVerse(verseView);
+			AnalyticsHelper.logVerseActionsOpened(this, ref);
 			VerseActionsBottomSheet.newInstance(ref).show(getSupportFragmentManager(), "verse_actions");
 		});
 
@@ -179,11 +184,13 @@ public class VerseLookUpActivity extends AppCompatActivity implements VerseActio
 	public boolean toggleVerseBookmark(String ref) {
 		if (isVerseBookmarked(ref)) {
 			db.bookmark_dao().deleteBookmark(ref);
+			AnalyticsHelper.logBookmark(this, ref, false, AnalyticsHelper.SOURCE_CHAPTER);
 			return false;
 		}
 		Verse verse = new Verse(this, ref);
 		db.bookmark_dao().insertAll(new bookmark(
 				verse.full_text, verse.reference, verse.proper_book, verse.scripture_text));
+		AnalyticsHelper.logBookmark(this, ref, true, AnalyticsHelper.SOURCE_CHAPTER);
 		return true;
 	}
 
@@ -194,6 +201,7 @@ public class VerseLookUpActivity extends AppCompatActivity implements VerseActio
 		sharingIntent.setType("text/plain");
 		sharingIntent.putExtra(Intent.EXTRA_TEXT, verse.full_text);
 		startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
+		AnalyticsHelper.logShare(this, ref, AnalyticsHelper.SOURCE_CHAPTER);
 	}
 
 	@Override
@@ -236,6 +244,7 @@ public class VerseLookUpActivity extends AppCompatActivity implements VerseActio
 	public void openSimilarVerse(String ref) {
 		Intent intent = new Intent(this, VerseLookUpActivity.class);
 		intent.putExtra("verse_ref", ref);
+		intent.putExtra(AnalyticsHelper.EXTRA_SOURCE, AnalyticsHelper.SOURCE_SIMILAR_VERSE);
 		startActivity(intent);
 	}
 

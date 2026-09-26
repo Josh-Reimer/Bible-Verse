@@ -88,6 +88,7 @@ public class Bookmark_recyclerview_adapter extends
                     // Navigate to VerseLookup activity with verse details
                     Intent intent = new Intent(itemView.getContext(), VerseLookUpActivity.class);
                     intent.putExtra("verse_ref", data.get(position).ref);
+                    intent.putExtra(AnalyticsHelper.EXTRA_SOURCE, AnalyticsHelper.SOURCE_BOOKMARKS);
                     startActivity(itemView.getContext(),intent,null);
                 }
             });
