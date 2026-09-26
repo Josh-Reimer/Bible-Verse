@@ -19,6 +19,9 @@ The Bible text itself is stored inside the App, and reading it does not require 
 The App uses Google Analytics for Firebase to learn which features and verses people use, so the App can be improved. It collects:
 
 - **Verses viewed**: when a verse is shown on the main screen, the App records the verse reference (for example, John 3:16) and the translation it was shown in.
+- **Features used**: when you roll the dice for a new verse, add or remove a bookmark, share a verse, search, open a chapter (and whether you reached it from the main screen, a search, your bookmarks, Browse or a similar verse), open a book in Browse, or change a setting (theme, translation, translation label, daily notification and its time). Where the action concerns a verse or chapter, its reference is included. For searches, the App records only whether the search matched a verse reference and how many results it found — **the words you search for are never collected**.
+- **Widget and notification use**: when the home-screen widget is added or removed, when the daily notification is shown, and when the App is opened from the widget or the notification.
+- **Your settings**: your chosen translation, theme, and whether the daily notification is on, so usage can be grouped by them.
 - **Automatically collected events**: such as the App being opened for the first time, the start of a usage session, screens viewed, and App updates.
 - **Device and App information**: such as device model, operating system version, App version, language setting, and approximate country or region (derived by Google from your IP address; the App does not use GPS or precise location).
 - **Identifiers**: a randomly generated App instance ID and Firebase installation ID. These identify an installation of the App, not you personally, and are reset if you uninstall and reinstall the App.
@@ -93,4 +96,4 @@ If you have questions about this privacy policy or the App's data practices, ple
 
 ---
 
-**In Summary**: Bible-Verse collects usage analytics (such as which verses are viewed and in which translation) and crash reports through Google Firebase, to improve the App and fix problems. This data is not linked to your name or contact details. It does not collect your name, contact details, precise location or advertising ID, shows no ads, and does not sell your data. Your bookmarks and settings are never sent to the developer.
+**In Summary**: Bible-Verse collects usage analytics (such as which verses are viewed, which features are used, and your chosen translation) and crash reports through Google Firebase, to improve the App and fix problems. This data is not linked to your name or contact details. It does not collect your name, contact details, precise location or advertising ID, shows no ads, and does not sell your data. Your bookmarks and settings are never sent to the developer.
