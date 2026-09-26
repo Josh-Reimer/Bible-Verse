@@ -12,18 +12,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import java.time.LocalDate;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * Home-screen widget showing one verse a day.
  *
- * <p>The verse is picked once per calendar day and cached in the shared
- * {@code "settings"} preferences, so every placed widget shows the same verse and a
- * periodic update doesn't reshuffle it. The die button picks a new one on demand.
- * This is deliberately independent of the verse {@code MainActivity} is showing —
- * that one rerolls on every cold start.
+ * <p>The verse is {@link DailyVerse}'s — picked once per calendar day and shared with the
+ * daily notification and {@code MainActivity}'s cold start — so every placed widget shows
+ * the same verse and a periodic update doesn't reshuffle it. The die button replaces
+ * today's verse with a new one.
  *
  * <p>Colours come from {@code values}/{@code values-night}, i.e. the widget follows the
  * system light/dark setting rather than the app's {@code "theme_mode"} preference: a
@@ -34,15 +32,10 @@ public class VerseWidgetProvider extends AppWidgetProvider {
 
     static final String ACTION_SHUFFLE = "com.verse.of.the.day.WIDGET_SHUFFLE";
 
-    private static final String PREF_REF = "widget_verse_ref";
-    private static final String PREF_DAY = "widget_verse_day";
-
     // Rendering reads a whole book file from assets plus the red-letter JSON; that must
     // stay off the broadcast's main thread, which has only a few seconds before an ANR.
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    private static final Bible bible = new Bible();
-    private static final Tools tools = new Tools();
     private static final RedLetter redLetter = new RedLetter();
 
     @Override
@@ -52,7 +45,7 @@ public class VerseWidgetProvider extends AppWidgetProvider {
         final Context appContext = context.getApplicationContext();
         executor.execute(() -> {
             try {
-                render(appContext, currentRef(appContext));
+                render(appContext, DailyVerse.today(appContext));
             } finally {
                 pending.finish();
             }
@@ -66,7 +59,7 @@ public class VerseWidgetProvider extends AppWidgetProvider {
             final Context appContext = context.getApplicationContext();
             executor.execute(() -> {
                 try {
-                    render(appContext, pickNewVerse(appContext));
+                    render(appContext, DailyVerse.reroll(appContext));
                 } finally {
                     pending.finish();
                 }
@@ -82,7 +75,7 @@ public class VerseWidgetProvider extends AppWidgetProvider {
      */
     static void refresh(Context context) {
         final Context appContext = context.getApplicationContext();
-        executor.execute(() -> render(appContext, currentRef(appContext)));
+        executor.execute(() -> render(appContext, DailyVerse.today(appContext)));
     }
 
     private static void render(Context context, String ref) {
@@ -130,25 +123,6 @@ public class VerseWidgetProvider extends AppWidgetProvider {
                 context, 1, shuffle, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         return views;
-    }
-
-    /** Today's verse, picking (and storing) a new one if the stored one is from another day. */
-    private static String currentRef(Context context) {
-        SharedPreferences sp = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
-        String ref = sp.getString(PREF_REF, null);
-        if (ref != null && sp.getLong(PREF_DAY, 0) == LocalDate.now().toEpochDay()) {
-            return ref;
-        }
-        return pickNewVerse(context);
-    }
-
-    private static String pickNewVerse(Context context) {
-        String ref = new VerseOfTheDay(null, context).getRandomRef(bible, tools, context).reference;
-        context.getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
-                .putString(PREF_REF, ref)
-                .putLong(PREF_DAY, LocalDate.now().toEpochDay())
-                .apply();
-        return ref;
     }
 
     /** Bible.getVerse() hands back the raw asset line, which starts with "chapter:verse: ". */

@@ -213,10 +213,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
             if(savedInstanceState == null) {
-                String widgetRef = getIntent().getStringExtra("verse_ref");  // set when launched from the home-screen widget
+                String widgetRef = getIntent().getStringExtra("verse_ref");  // set when launched from the home-screen widget or the notification
                 verse_displayed = widgetRef != null
                         ? new Verse(thisapp, widgetRef)
-                        : vod.getRandomRef(bible, tools, thisapp);  // generate new verse if the savedInstanceState is null (when the app cold starts)
+                        : new Verse(thisapp, DailyVerse.today(thisapp));  // today's verse on a cold start, the same one the widget and notification show
             } else {
                 verse_displayed = new Verse(
                         thisapp,

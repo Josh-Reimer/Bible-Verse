@@ -34,8 +34,8 @@ import java.time.ZoneId;
  * <p>Alarms do not survive a reboot or a force-stop, so the receiver also re-arms on
  * {@code BOOT_COMPLETED} / {@code MY_PACKAGE_REPLACED}.
  *
- * <p>The verse is picked fresh when the alarm fires and is deliberately independent of
- * both {@code MainActivity}'s verse and the widget's.
+ * <p>The verse is {@link DailyVerse}'s, the same one the widget and {@code MainActivity}
+ * show that day.
  */
 final class VerseNotifier {
 
@@ -50,9 +50,6 @@ final class VerseNotifier {
 
     /** Local time of day the notification is posted until the reader picks another. */
     static final LocalTime DEFAULT_NOTIFY_AT = LocalTime.of(8, 0);
-
-    private static final Bible bible = new Bible();
-    private static final Tools tools = new Tools();
 
     private VerseNotifier() {}
 
@@ -127,13 +124,13 @@ final class VerseNotifier {
     }
 
     /**
-     * Picks a verse and posts the notification. Reads a whole book file from assets, so
+     * Posts today's verse as the notification. Reads a whole book file from assets, so
      * this must not run on the main thread.
      */
     static void notifyToday(Context context) {
         if (!hasPermission(context)) return;
         try {
-            String ref = new VerseOfTheDay(null, context).getRandomRef(bible, tools, context).reference;
+            String ref = DailyVerse.today(context);
             Verse verse = new Verse(context, ref);
             createChannel(context);
 
