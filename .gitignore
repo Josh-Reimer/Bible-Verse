@@ -24,3 +24,5 @@ scripts/.venv-embed/
 scripts/.cache-embed/
 
 scripts/__pycache__/
+# Firebase config (API key, project IDs) — download from the Firebase console into app/
+app/google-services.json

@@ -102,10 +102,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    // showVerse runs from both onCreate and onResume (the latter to pick up a translation change
+    // made in Settings), so a cold start would count the same verse twice; only a different verse
+    // or translation is a new view.
+    private String lastLoggedView;
+
+    private void logVerseViewed(Verse v) {
+        String translation = Translations.current(thisapp);
+        String view = translation + "/" + v.reference;
+        if (view.equals(lastLoggedView)) return;
+        lastLoggedView = view;
+        AnalyticsHelper.logVerseViewed(v.reference, translation);
+    }
+
     void showVerse(Verse v) {
         SharedPreferences sp = getSharedPreferences("settings", MODE_PRIVATE);
         boolean showTranslationInfo = sp.getBoolean("show_translation_info", false);
         String translation = Translations.currentEntry(thisapp).label;
+        logVerseViewed(v);
         Spanned spanned = redLetter.getSpanned(thisapp, v.reference);
 
         if (spanned != null) {
@@ -159,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Track app usage so an in-app review can be offered later once the user is established.
         PlayStoreReviewPrompt.recordAppOpen(this);
+        AnalyticsHelper.init(this);
 
         db = Room.databaseBuilder(getApplicationContext(),
                 bookmark_database.class, "bookmarks-database").allowMainThreadQueries().build();
