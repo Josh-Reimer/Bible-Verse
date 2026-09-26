@@ -26,6 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.view.animation.OvershootInterpolator;
 import android.content.Intent;
 import android.text.Spanned;
 import android.text.SpannableStringBuilder;
@@ -36,6 +37,7 @@ import android.text.Layout;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.inputmethod.InputMethodManager;
 import android.content.Context;
 import android.util.Log;
 
@@ -253,6 +255,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             private static final int SWIPE_THRESHOLD_DISTANCE = 100; // Distance threshold
 
             @Override
+            public boolean onDown(MotionEvent event) {
+                // GestureDetector only continues tracking this sequence when the initial
+                // down event is accepted.
+                return true;
+            }
+
+            @Override
           public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 // Detect left-to-right swipe (open drawer)
                 if (e1.getX() < e2.getX() && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY &&
@@ -261,23 +270,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     drawerLayout.openDrawer(GravityCompat.START);
                     return true;
                 }
+
+                // A downward pull from the reading area opens the existing search action
+                // view. Keep it away from the edge and require a strongly vertical fling so
+                // it does not compete with the drawer gesture or ordinary diagonal scrolling.
+                float distanceX = e2.getX() - e1.getX();
+                float distanceY = e2.getY() - e1.getY();
+                float edgeInset = 48 * getResources().getDisplayMetrics().density;
+                boolean startsInReadingArea = e1.getY() > toolbar.getBottom()
+                        && e1.getX() > edgeInset
+                        && e1.getX() < getResources().getDisplayMetrics().widthPixels - edgeInset;
+                if (startsInReadingArea
+                        && distanceY > SWIPE_THRESHOLD_DISTANCE
+                        && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY
+                        && distanceY > Math.abs(distanceX) * 1.5f
+                        && !drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    openSearchFromPullDown();
+                    return true;
+                }
                 return super.onFling(e1, e2, velocityX, velocityY);
            }
         });
-
-        // Set up the content view's touch listener to detect swipes.
-        // ClickableViewAccessibility is suppressed rather than answered with a
-        // performClick(): this listener only recognises the swipe that opens the drawer,
-        // a tap on the background does nothing, and the drawer's own accessible path is
-        // the hamburger button in the toolbar.
-        //noinspection ClickableViewAccessibility
-        mainLayoutView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
-            }
-        });
-
 
     }        //end of oncreate method
 
@@ -549,6 +562,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        // Observe the full stream without consuming it: the drawer, FABs, and normal taps
+        // must continue to receive their own touch events.
+        if (gestureDetector != null) {
+            gestureDetector.onTouchEvent(ev);
+        }
         // Tapping a non-focusable view never steals the SearchView's focus, so an
         // expanded search bar would stay open; collapse it on outside taps.
         if (ev.getAction() == MotionEvent.ACTION_DOWN && searchMenuItem != null && searchMenuItem.isActionViewExpanded()) {
@@ -733,6 +751,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (searchMenuItem != null && searchMenuItem.isActionViewExpanded()) {
             searchMenuItem.collapseActionView();
         }
+    }
+
+    private void openSearchFromPullDown() {
+        if (searchMenuItem == null) {
+            return;
+        }
+        if (!searchMenuItem.isActionViewExpanded()) {
+            searchMenuItem.expandActionView();
+        }
+        SearchView searchView = (SearchView) searchMenuItem.getActionView();
+        if (searchView == null) {
+            return;
+        }
+        float pullDistance = 28 * getResources().getDisplayMetrics().density;
+        searchView.setTranslationY(-pullDistance);
+        ObjectAnimator searchDrop = ObjectAnimator.ofFloat(searchView, View.TRANSLATION_Y,
+                -pullDistance, 0f);
+        searchDrop.setDuration(360);
+        searchDrop.setInterpolator(new OvershootInterpolator(1.25f));
+        searchDrop.start();
+        searchView.requestFocus();
+        searchView.post(() -> {
+            View queryField = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+            if (queryField != null) {
+                queryField.requestFocus();
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.showSoftInput(queryField, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
     }
 
     @Override

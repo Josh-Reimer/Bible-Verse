@@ -11,6 +11,8 @@ import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.swipeDown;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
@@ -64,6 +66,16 @@ public class MainActivityTest {
                 assert activity != null;
                 assert activity.drawerLayout != null;
             });
+        }
+    }
+
+    @Test
+    public void pullDownOnVerseOpensSearch() {
+        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
+            onView(withId(R.id.verse)).perform(swipeDown());
+
+            onView(withId(androidx.appcompat.R.id.search_src_text))
+                    .check(matches(isDisplayed()));
         }
     }
 }
