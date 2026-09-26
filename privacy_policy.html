@@ -58,6 +58,10 @@
             margin-top: 30px;
             border-radius: 4px;
         }
+        a {
+            color: #2980b9;
+            overflow-wrap: anywhere;
+        }
         strong {
             color: #2c3e50;
         }
@@ -71,54 +75,65 @@
 <body>
     <div class="container">
         <h1>Privacy Policy for Bible-Verse</h1>
-        <p class="last-updated"><strong>Last Updated:</strong> February 11, 2026</p>
+        <p class="last-updated"><strong>Last Updated:</strong> September 26, 2026</p>
 
         <h2>Introduction</h2>
-        <p>This privacy policy applies to the Bible-Verse Android application ("the App"). Bible-Verse is a simple Bible verse application that displays pseudo-random verses from the King James Version Bible. This policy describes how the App handles user information.</p>
+        <p>This privacy policy applies to the Bible-Verse Android application ("the App"). Bible-Verse displays Bible verses from translations bundled inside the App (King James Version, American Standard Version, Berean Standard Bible, Reina-Valera 1909 and the Chinese Union Version). This policy describes what information the App collects, why, and who it is shared with.</p>
 
         <h2>Developer Information</h2>
         <p>Bible-Verse is developed and maintained as an independent project. For questions or concerns about this privacy policy, please contact us through the GitHub repository or Google Play store listing.</p>
 
         <h2>Information Collection and Use</h2>
+        <p>The Bible text itself is stored inside the App, and reading it does not require an internet connection. The App does, however, use two Google Firebase services to understand how the App is used and to find and fix crashes. The App does not ask for your name, email address, phone number, contacts, photos or precise location, and it does not collect the advertising ID.</p>
 
-        <h3>Data We DO NOT Collect</h3>
-        <p>Bible-Verse is designed with privacy in mind. The App does <strong>not</strong> collect, transmit, or share any personal information, including but not limited to:</p>
+        <h3>Usage Analytics (Google Analytics for Firebase)</h3>
+        <p>The App uses Google Analytics for Firebase to learn which features and verses people use, so the App can be improved. It collects:</p>
         <ul>
-            <li>Personal identification information (name, email, phone number)</li>
-            <li>Device identifiers (IMEI, MAC address, advertising ID)</li>
-            <li>Location data</li>
-            <li>Usage analytics or statistics</li>
-            <li>Contact lists</li>
-            <li>Photos or media files</li>
-            <li>Any other personal or sensitive user data</li>
+            <li><strong>Verses viewed</strong>: when a verse is shown on the main screen, the App records the verse reference (for example, John 3:16) and the translation it was shown in.</li>
+            <li><strong>Automatically collected events</strong>: such as the App being opened for the first time, the start of a usage session, screens viewed, and App updates.</li>
+            <li><strong>Device and App information</strong>: such as device model, operating system version, App version, language setting, and approximate country or region (derived by Google from your IP address; the App does not use GPS or precise location).</li>
+            <li><strong>Identifiers</strong>: a randomly generated App instance ID and Firebase installation ID. These identify an installation of the App, not you personally, and are reset if you uninstall and reinstall the App.</li>
         </ul>
+        <p>Advertising ID collection is turned off, and this data is not used for advertising.</p>
 
-        <h3>Data Stored Locally</h3>
-        <p>The App stores the following data <strong>locally on your device only</strong>:</p>
+        <h3>Crash Reports (Firebase Crashlytics)</h3>
+        <p>If the App crashes, Firebase Crashlytics sends a crash report so the problem can be fixed. A crash report contains:</p>
         <ul>
-            <li><strong>Bookmarked Verses:</strong> When you bookmark Bible verses, this information is saved only on your device using local storage</li>
-            <li><strong>App Preferences:</strong> Any settings or preferences you configure within the App</li>
+            <li>Technical details of the crash (the stack trace and the part of the App that failed)</li>
+            <li>Device state at the time of the crash, such as device model, operating system version, orientation, and available memory and storage</li>
+            <li>The App's recent Analytics events leading up to the crash (for example, which verse was being viewed)</li>
+            <li>The Firebase installation ID described above</li>
         </ul>
+        <p>Crash reports are retained by Firebase for 90 days.</p>
 
-        <p>This locally stored data:</p>
+        <h3>Data Stored on Your Device</h3>
+        <p>The App stores the following data on your device:</p>
         <ul>
-            <li>Remains on your device at all times</li>
-            <li>Is never transmitted to external servers</li>
-            <li>Is not accessible to the developer or any third parties</li>
-            <li>Can be deleted by clearing the App's data through your device settings or uninstalling the App</li>
+            <li><strong>Bookmarked Verses</strong>: the verses you bookmark</li>
+            <li><strong>App Preferences</strong>: your settings, such as theme, translation, and notification time</li>
         </ul>
+        <p>This data is not sent to the developer. If you have turned on Android's backup service for your Google account, Android may include it in your device backup so it can be restored on a new device; that backup is handled by Google under your account's settings. You can delete this data by clearing the App's data in your device settings or uninstalling the App.</p>
 
         <h2>Third-Party Services</h2>
-        <p>Bible-Verse does not integrate with any third-party services, analytics platforms, or advertising networks.</p>
+        <p>The App uses the following services provided by Google:</p>
+        <ul>
+            <li><strong>Google Analytics for Firebase</strong> – usage analytics, described above</li>
+            <li><strong>Firebase Crashlytics</strong> – crash reporting, described above</li>
+        </ul>
+        <p>Data collected by these services is processed by Google on the developer's behalf. See Google's Privacy Policy (<a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a>) and Firebase's privacy information (<a href="https://firebase.google.com/support/privacy">https://firebase.google.com/support/privacy</a>) for how Google handles this data.</p>
+        <p>The App does not contain advertising, and your data is not sold.</p>
 
         <h2>Internet Permissions</h2>
-        <p>The App does not require internet connectivity to function. Any internet permissions in the App manifest are not actively used for data collection or transmission.</p>
+        <p>The App uses its internet permission only to send the analytics and crash-report data described above. Reading verses, bookmarks and all other features work without an internet connection.</p>
+
+        <h2>Data Retention</h2>
+        <p>Crash reports are retained for 90 days. Analytics data is retained for no longer than 14 months, after which Google deletes it. Data stored on your device remains until you delete it as described above.</p>
 
         <h2>Children's Privacy</h2>
-        <p>Bible-Verse does not knowingly collect any information from children under the age of 13 (or any users of any age). The App is safe for users of all ages.</p>
+        <p>The App does not knowingly collect personal information from children under the age of 13. The analytics and crash data described above does not identify any user by name or contact details and is not used for advertising.</p>
 
         <h2>Data Security</h2>
-        <p>Since the App does not collect or transmit any user data, there is no risk of data breaches or unauthorized access to personal information through the App's operation. Your bookmarks and preferences are protected by your device's standard security measures.</p>
+        <p>Analytics and crash data is sent to Google over encrypted connections and stored on Google's infrastructure. Bookmarks and preferences on your device are protected by your device's standard security measures.</p>
 
         <h2>Changes to This Privacy Policy</h2>
         <p>We may update this privacy policy from time to time. Any changes will be reflected by updating the "Last Updated" date at the top of this policy. Continued use of the App after changes constitutes acceptance of the updated policy.</p>
@@ -127,7 +142,7 @@
         <p>Bible-Verse is open source software. The source code is available on GitHub, allowing users to verify that the App operates as described in this privacy policy.</p>
 
         <h2>Your Rights</h2>
-        <p>Since we do not collect any personal data, there is no personal information to access, modify, or delete from our systems. You maintain full control over any locally stored data through your device's settings.</p>
+        <p>Depending on where you live, you may have the right to request access to, or deletion of, data collected about you. Because the analytics and crash data is tied only to a random installation ID and not to your name or contact details, the simplest way to stop all collection is to uninstall the App, which also discards that ID. You may also contact us, using the details below, with any request about your data.</p>
 
         <h2>Contact Us</h2>
         <p>If you have questions about this privacy policy or the App's data practices, please:</p>
@@ -136,20 +151,10 @@
             <li>Contact us through the Google Play store listing</li>
         </ul>
 
-        <h2>Compliance</h2>
-        <p>This privacy policy is designed to comply with:</p>
-        <ul>
-            <li>Google Play Store policies</li>
-            <li>General Data Protection Regulation (GDPR)</li>
-            <li>California Consumer Privacy Act (CCPA)</li>
-            <li>Other applicable data protection laws</li>
-        </ul>
-        <p>Since the App does not collect personal data, most data protection obligations do not apply.</p>
-
         <hr>
 
         <div class="summary">
-            <p><strong>In Summary:</strong> Bible-Verse is a privacy-focused application that does not collect, transmit, or share any personal information. All app data is stored locally on your device and remains under your control.</p>
+            <p><strong>In Summary:</strong> Bible-Verse collects usage analytics (such as which verses are viewed and in which translation) and crash reports through Google Firebase, to improve the App and fix problems. This data is not linked to your name or contact details. It does not collect your name, contact details, precise location or advertising ID, shows no ads, and does not sell your data. Your bookmarks and settings are never sent to the developer.</p>
         </div>
     </div>
 </body>
