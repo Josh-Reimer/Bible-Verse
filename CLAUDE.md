@@ -15,10 +15,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 ./gradlew assembleDebug          # build debug APK
-./gradlew installDebug           # build and install on connected device/emulator
+./gradlew :app:installDebug      # build and install on connected device/emulator
 ./gradlew clean                  # clean build outputs
 ./gradlew assembleRelease        # build release APK
 ```
+Always install with `:app:installDebug`, never a bare `installDebug`. The bare task also runs `:wear:installDebug`, and the Wear module shares the phone app's `applicationId` (`com.verse.of.the.day`), so the Wear APK installs over the phone app — the launcher then opens `.wear.MainActivity` and `am start -n com.verse.of.the.day/.MainActivity` fails with "Activity class does not exist". The same applies to `connectedDebugAndroidTest`: run it as `:app:connectedDebugAndroidTest`.
 a small note on debugging with adb screenshoting, do not open the file on the users machine, this breaks the development cycle,
 never save the screenshots on the phone, always remove. only analyze the screenshots for your own use, the user does not need them, he has his own eyes.
 `JAVA_HOME` must be set; `./gradlew` fails without it on this machine. This is the normal build path — the Termux/proot section further down is only for building the APK on an Android phone directly, and applies nowhere else.
@@ -29,10 +30,18 @@ never save the screenshots on the phone, always remove. only analyze the screens
 ./gradlew test                                                  # JVM unit tests
 ./gradlew testDebugUnitTest --tests "com.verse.of.the.day.BibleTest"   # one class
 ./gradlew testDebugUnitTest --tests "*.BibleTest.getChapter*"          # one method
-./gradlew connectedDebugAndroidTest                             # instrumented; needs a device
+./gradlew :app:connectedDebugAndroidTest                        # instrumented; needs a device
 ```
 
 `app/src/test` holds the JVM tests (`BibleTest`, `ToolsTest`, `RedLetterTest`, and activity tests) — plain JUnit 4 with Mockito for the `Context`/`AssetManager`, no Robolectric, so anything touching real framework classes belongs in the other source set. `app/src/androidTest` holds Espresso and UiAutomator tests (the `*UIAutomatorTest` classes drive the real UI).
+
+**Keep the emulator screen awake for the instrumented suite.** A full `:app:connectedDebugAndroidTest` run takes several minutes, longer than the emulator's 30s screen timeout, and once the display sleeps every remaining test fails spuriously — `NoActivityResumedException` from Espresso (logcat shows the task with `isSleeping=true`, the activity paused straight after resuming) and "not found" assertions from the UiAutomator tests. `adb shell svc power stayon true` does *not* help: the emulator reports itself as on battery (`mIsPowered=false`), so the stay-on-while-plugged-in setting never applies. Raise the timeout for the run and put it back afterwards:
+```sh
+adb shell settings put system screen_off_timeout 1800000
+adb shell input keyevent KEYCODE_WAKEUP && adb shell wm dismiss-keyguard
+./gradlew :app:connectedDebugAndroidTest
+adb shell settings put system screen_off_timeout 30000
+```
 
 Tests cover logic, not appearance. Verify UI changes live with `adb` (`adb shell input tap`, `adb shell screencap`, `uiautomator dump`) against a connected device — there is no other way to check layout/contrast/dialog behaviour.
 
