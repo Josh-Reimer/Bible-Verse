@@ -41,13 +41,66 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="LabelFor" />
 
+    <!-- Offers to jump back to the last chapter actually read from here; shown on a cold
+         start only, and only while the book list is up. Gone by default so it collapses
+         to no space when there is nothing to resume or once dismissed. -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/browse_continue_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="?attr/colorSurfaceVariant"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:layout_constraintTop_toBottomOf="@id/browse_filter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="4dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/browse_continue_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                tools:text="Continue reading GENESIS 1?" />
+
+            <ImageButton
+                android:id="@+id/browse_continue_dismiss"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:contentDescription="@string/browse_continue_dismiss_content_description"
+                app:srcCompat="@drawable/ic_close_20"
+                app:tint="?attr/colorOnSurfaceVariant" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/browse_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingTop="8dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/browse_filter"
+        app:layout_constraintTop_toBottomOf="@id/browse_continue_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

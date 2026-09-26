@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -45,7 +46,10 @@ import java.util.concurrent.Executors;
 public class BrowseActivity extends AppCompatActivity
 		implements BrowseBooksAdapter.OnBookClickListener, BrowseChaptersAdapter.OnChapterClickListener {
 
-	/** The book/chapter last opened from here, so browsing resumes where it left off. */
+	/**
+	 * The book/chapter last opened from here. Not resumed automatically — offered as a
+	 * dismissible nudge on the book list instead, see {@link #maybeShowContinueNudge()}.
+	 */
 	public static final String PREF_LAST_BOOK = "browse_last_book";
 	public static final String PREF_LAST_CHAPTER = "browse_last_chapter";
 
@@ -61,6 +65,8 @@ public class BrowseActivity extends AppCompatActivity
 	private EditText filterField;
 	private RecyclerView recyclerView;
 	private TextView emptyIndicator;
+	private View continueCard;
+	private TextView continueText;
 
 	private BrowseBooksAdapter booksAdapter;
 	private BrowseChaptersAdapter chaptersAdapter;
@@ -96,6 +102,10 @@ public class BrowseActivity extends AppCompatActivity
 		filterField = findViewById(R.id.browse_filter);
 		recyclerView = findViewById(R.id.browse_recyclerview);
 		emptyIndicator = findViewById(R.id.browse_empty);
+		continueCard = findViewById(R.id.browse_continue_card);
+		continueText = findViewById(R.id.browse_continue_text);
+		ImageButton continueDismiss = findViewById(R.id.browse_continue_dismiss);
+		continueDismiss.setOnClickListener(v -> continueCard.setVisibility(View.GONE));
 
 		ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, insets) -> {
 			int bottomInset = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
@@ -131,16 +141,18 @@ public class BrowseActivity extends AppCompatActivity
 		};
 		getOnBackPressedDispatcher().addCallback(this, backCallback);
 
+		// Only a configuration change (rotation) restores straight to a book's grid; a
+		// genuine cold start always lands on the book list, with maybeShowContinueNudge()
+		// offering to jump back in rather than doing it automatically.
 		int restoreBook = savedInstanceState != null
 				? savedInstanceState.getInt(STATE_OPEN_BOOK, -1)
-				// Reopen at the book last read from here; up and back both still step
-				// out to the full list.
-				: prefs().getInt(PREF_LAST_BOOK, -1);
+				: -1;
 
 		if (restoreBook >= 0 && restoreBook < bible.books.length) {
 			showChapters(restoreBook);
 		} else {
 			showBooks();
+			if (savedInstanceState == null) maybeShowContinueNudge();
 		}
 	}
 
@@ -186,6 +198,17 @@ public class BrowseActivity extends AppCompatActivity
 	private int lastReadChapter(int bookIndex) {
 		SharedPreferences prefs = prefs();
 		return prefs.getInt(PREF_LAST_BOOK, -1) == bookIndex ? prefs.getInt(PREF_LAST_CHAPTER, -1) : -1;
+	}
+
+	/** Offers to jump back to the last chapter read from here; a no-op if there is none. */
+	private void maybeShowContinueNudge() {
+		int lastBook = prefs().getInt(PREF_LAST_BOOK, -1);
+		int lastChapter = prefs().getInt(PREF_LAST_CHAPTER, -1);
+		if (lastBook < 0 || lastBook >= bible.books.length || lastChapter <= 0) return;
+
+		continueText.setText(getString(R.string.browse_continue_prompt, displayNames[lastBook], lastChapter));
+		continueCard.setVisibility(View.VISIBLE);
+		continueCard.setOnClickListener(v -> openChapter(lastBook, lastChapter));
 	}
 
 	private void loadBookNames() {
@@ -259,6 +282,7 @@ public class BrowseActivity extends AppCompatActivity
 		backCallback.setEnabled(true);
 		setTitle(displayNames[bookIndex]);
 		filterField.setVisibility(View.GONE);
+		continueCard.setVisibility(View.GONE);
 		hideKeyboard();
 		emptyIndicator.setVisibility(View.GONE);
 
@@ -306,15 +330,20 @@ public class BrowseActivity extends AppCompatActivity
 
 	@Override
 	public void onChapterClicked(int chapter) {
+		openChapter(openBook, chapter);
+	}
+
+	/** Opens a chapter in {@link VerseLookUpActivity}, recording it as the last one read. */
+	private void openChapter(int bookIndex, int chapter) {
 		prefs().edit()
-				.putInt(PREF_LAST_BOOK, openBook)
+				.putInt(PREF_LAST_BOOK, bookIndex)
 				.putInt(PREF_LAST_CHAPTER, chapter)
 				.apply();
 
 		Intent intent = new Intent(this, VerseLookUpActivity.class);
 		// Verse 0 matches no verse, so the chapter opens from the top with nothing
 		// singled out — browsing to a chapter is not the same as arriving at a verse.
-		intent.putExtra("verse_ref", openBook + ":" + chapter + ":0");
+		intent.putExtra("verse_ref", bookIndex + ":" + chapter + ":0");
 		startActivity(intent);
 	}
 

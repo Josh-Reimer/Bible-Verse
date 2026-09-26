@@ -9,6 +9,8 @@
     <string name="browse_filter_hint">Filter books…</string>
     <string name="browse_no_books">No books match</string>
     <string name="browse_chapter_content_description">Chapter %1$d</string>
+    <string name="browse_continue_prompt">Continue reading %1$s %2$d?</string>
+    <string name="browse_continue_dismiss_content_description">dismiss the continue reading prompt</string>
     <string name="old_testament">OLD TESTAMENT</string>
     <string name="new_testament">NEW TESTAMENT</string>
     <string name="settings">Settings</string>
