@@ -1,0 +1,30 @@
+<en-US>
+Verse is now on Wear OS
+
+• The verse of the day on your watch
+• Paired with your phone, it shows the same daily verse as the phone app
+• Works on its own too, with no phone needed
+• Words of Christ in red
+• Tap the die for a random verse
+• King James, Reina-Valera 1909 or Chinese Union Version, matching your watch's language
+</en-US>
+<es-ES>
+Verse llega a Wear OS
+
+• El versículo del día en tu reloj
+• Vinculado a tu teléfono, muestra el mismo versículo del día que la app del teléfono
+• También funciona solo, sin necesidad del teléfono
+• Palabras de Cristo en rojo
+• Toca el dado para ver un versículo al azar
+• King James, Reina-Valera 1909 o Versión Unión china, según el idioma de tu reloj
+</es-ES>
+<zh-CN>
+Verse 现已登陆 Wear OS
+
+• 在手表上查看每日经文
+• 与手机配对后，显示与手机应用相同的每日经文
+• 无需手机也可单独使用
+• 耶稣的话以红字显示
+• 点按骰子查看随机经文
+• 根据手表语言显示英王钦定本、雷纳-瓦莱拉 1909 或和合本
+</zh-CN>
