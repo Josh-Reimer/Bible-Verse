@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/go_to" android:title="@string/go_to" android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/browse" android:title="@string/browse" android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/bookmarks" android:title="@string/bookmarks" android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/settings" android:title="@string/settings" android:showAsAction="never" />
+</menu>

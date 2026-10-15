@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bottom-bar buttons: equal widths and a tall target for a dashboard screen. -->
+    <style name="BarButton" parent="@android:style/Widget.Holo.Button.Borderless">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:minHeight">64dp</item>
+        <item name="android:textSize">18sp</item>
+        <!-- The Holo button text is white; follow the theme so it reads on Light too. -->
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+</resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="?android:attr/dividerHorizontal"
+    android:orientation="vertical"
+    android:showDividers="middle">
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/reference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/verse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:lineSpacingMultiplier="1.15"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/translation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="end"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button android:id="@+id/random" style="@style/BarButton" android:text="@string/new_verse" />
+        <Button android:id="@+id/chapter" style="@style/BarButton" android:text="@string/chapter" />
+        <Button android:id="@+id/bookmark" style="@style/BarButton" android:text="@string/bookmark" />
+        <Button android:id="@+id/share" style="@style/BarButton" android:text="@string/share" />
+    </LinearLayout>
+</LinearLayout>

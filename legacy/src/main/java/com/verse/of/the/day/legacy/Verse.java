@@ -1,0 +1,48 @@
+package com.verse.of.the.day.legacy;
+import android.content.Context;
+import android.util.Log;
+
+import java.util.Scanner;
+
+
+public class Verse {
+	private Scanner scanner;
+	private final Context context;
+	Bible bible = new Bible();
+	Tools toolbox = new Tools();
+
+	String proper_book;
+	String book;
+	int chapter;
+	int verse;
+	int book_int;
+	String scripture_text;
+	String reference;
+	String full_text;
+
+	public Verse(Context con, int bo,int chap,int ver){
+		context = con;
+		book = bible.books[bo];
+		chapter = chap;
+		verse = ver;
+		book_int = bo;
+		finish();
+	}
+
+	public Verse(Context con,String verse_str) {
+		String[] split = verse_str.split(":");
+		book_int = Integer.parseInt(split[0]);
+        book = bible.books[book_int];
+		chapter = Integer.parseInt(split[1]);
+		verse = Integer.parseInt(split[2]);
+		context = con;
+		finish();
+	}
+
+	void finish(){
+		proper_book = Translations.properBook(context, book);
+		scripture_text = bible.getVerse(toolbox,context,book,chapter,verse);
+		full_text = proper_book + "\n" + scripture_text;
+		reference = book_int+":"+chapter+":"+verse;
+	}
+}

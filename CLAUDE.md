@@ -24,6 +24,10 @@ a small note on debugging with adb screenshoting, do not open the file on the us
 never save the screenshots on the phone, always remove. only analyze the screenshots for your own use, the user does not need them, he has his own eyes.
 `JAVA_HOME` must be set; `./gradlew` fails without it on this machine. This is the normal build path — the Termux/proot section further down is only for building the APK on an Android phone directly, and applies nowhere else.
 
+### `:legacy` — the API 15 build
+
+`./gradlew :legacy:assembleDebug` builds a cut-down app for Android 4.0.3 (a car head unit), applicationId `com.verse.of.the.day.legacy` so it installs beside the real one. `:app` can't go that low (its floor is 23 — see `MIN_SDK_INVESTIGATION.md`), so `:legacy` has no dependencies at all: framework Activities on Holo, bookmarks as a JSON array in prefs instead of Room. It reads `:app`'s assets in place, but carries its own copies of `Bible`, `Tools`, `Verse`, `RedLetter`, `Translations` and `VerseReferenceParser` (the `:wear` arrangement) — a fix to one of those in `:app` usually wants making there too. The copies differ only where `:app` uses an API above 15 (`StandardCharsets`, `Html.fromHtml` flags, `java.time`). Lint's `NewApi` is an error in this module, so `:legacy:lintDebug` is the check that it still runs on the head unit; no emulator image for API 15 runs on Apple Silicon.
+
 ## Tests
 
 ```bash

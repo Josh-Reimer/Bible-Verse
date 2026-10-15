@@ -1,0 +1,70 @@
+// Stripped-down build of the verse app for Android 4.0.3 (API 15) — written for a car head
+// unit stuck on that release. :app can't reach that far back: its floor is API 23, set by
+// Room and androidx.activity, with Material/AppCompat behind them at 21 (see
+// MIN_SDK_INVESTIGATION.md). So this module uses no libraries at all — plain framework
+// Activities on the Holo theme — and carries its own copies of the handful of :app classes
+// that read the Bible assets, the same arrangement :wear uses, since :app is an application
+// module and can't be depended on. The copies differ from :app only where :app relies on an
+// API above 15 (StandardCharsets is 19, Html.fromHtml with flags is 24, java.time is 26).
+//
+// The Bible text itself is read straight out of :app's assets rather than copied, so there
+// is one set of verse files to keep correct.
+//
+// Its own applicationId, so it installs beside the Play Store app instead of over it.
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace = 'com.verse.of.the.day.legacy'
+    compileSdk = 36
+
+    defaultConfig {
+        applicationId = "com.verse.of.the.day.legacy"
+        minSdk = 15
+        // Below 35 so a phone running Android 15+ doesn't force edge-to-edge on these
+        // framework-ActionBar screens, which have no inset handling.
+        targetSdk = 34
+        versionCode = 1
+        versionName = "2.1-legacy"
+    }
+
+    sourceSets {
+        main {
+            assets.srcDirs = ['../app/src/main/assets']
+        }
+    }
+
+    androidResources {
+        // AGP's default patterns, plus the two :app assets nothing here reads.
+        ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~:!similar_verses.bin:!verseoftheday.txt'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    lint {
+        // The point of this module — fail the build on any call the head unit doesn't have.
+        error 'NewApi'
+    }
+}
+
+// AGP 9's built-in Kotlin adds kotlin-stdlib to every module; this one is plain Java and
+// would only carry it as dead weight onto a slow head unit.
+// Only the APK's own classpaths: lint runs on Kotlin and needs it on its own.
+configurations.matching { it.name ==~ /(debug|release)(Runtime|Compile)Classpath/ }.configureEach {
+    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}

@@ -1,0 +1,104 @@
+package com.verse.of.the.day.legacy;
+
+import java.io.BufferedReader;
+import java.io.StringReader;
+import java.io.IOException;
+import java.util.Locale;
+import android.content.Context;
+
+public class Bible {
+
+// Five asset filenames are misspelled. Renaming the files would touch every path that
+// reads an asset (and the red-letter/similar-verse data keyed off this order), so the
+// spelling is corrected here instead — this is the one place a filename becomes a name a
+// reader sees. VerseReferenceParser.EXTRA_NAMES corrects the same words on the way in,
+// for references the reader types.
+private static final String[][] MISSPELLED_STEMS = {
+    {"eccliasiastes", "ecclesiastes"},
+    {"ezekial", "ezekiel"},
+    {"philipians", "philippians"},
+    {"thesselonians", "thessalonians"},  // matches both first_ and second_
+};
+
+// Locale.ROOT: the filenames are English, and the device's locale must not decide how
+// they upcase (a Turkish locale would render "philippians" as "PHİLİPPİANS").
+public static String getProperName(String bookFile) {
+    String stem = bookFile.replace(".txt", "");
+    for (String[] fix : MISSPELLED_STEMS) {
+        if (stem.endsWith(fix[0])) {
+            stem = stem.substring(0, stem.length() - fix[0].length()) + fix[1];
+            break;
+        }
+    }
+    return stem.replace("_", " ").toUpperCase(Locale.ROOT);
+}
+
+public String[] books = {"genesis.txt", "exodus.txt", "leviticus.txt", "numbers.txt", "deuteronomy.txt", "joshua.txt", "judges.txt", "ruth.txt", "first_samuel.txt", "second_samuel.txt", "first_kings.txt", "second_kings.txt", "first_chronicles.txt", "second_chronicles.txt", "ezra.txt", "nehemiah.txt", "esther.txt", "job.txt", "psalms.txt", "proverbs.txt", "eccliasiastes.txt", "song_of_solomon.txt", "isaiah.txt", "jeremiah.txt", "lamentations.txt", "ezekial.txt", "daniel.txt", "hosea.txt", "joel.txt", "amos.txt", "obadiah.txt", "jonah.txt", "micah.txt", "nahum.txt", "habakkuk.txt", "zephaniah.txt", "haggai.txt", "zechariah.txt", "malachi.txt", "matthew.txt", "mark.txt", "luke.txt", "john.txt", "acts.txt", "romans.txt", "first_corinthians.txt", "second_corinthians.txt", "galatians.txt", "ephesians.txt", "philipians.txt", "colossians.txt", "first_thesselonians.txt", "second_thesselonians.txt", "first_timothy.txt", "second_timothy.txt", "titus.txt", "philemon.txt", "hebrews.txt", "james.txt", "first_peter.txt", "second_peter.txt", "first_john.txt", "second_john.txt", "third_john.txt", "jude.txt", "revelation.txt"};
+
+
+public String getChapter(Context context,Tools tools,String book, int chapter) {
+String chap = "";
+String bookObject = tools.getFile(context,book);
+
+BufferedReader bf = null;
+try{
+String line;
+bf = new BufferedReader(new StringReader(bookObject));
+
+while ((line = bf.readLine()) != null) {
+String chapnum = line.split(":")[0];
+String chapnumstring = Integer.toString(chapter);
+
+if (chapnum.equals(chapnumstring)) {
+chap = chap + line + "\n";
+} else if (!chap.isEmpty()) {
+try {
+Integer.parseInt(chapnum.trim());
+break; // valid chapter number that isn't ours — we've passed the target chapter
+} catch (NumberFormatException e) {
+// blank line or non-verse annotation — skip and keep reading
+}
+}
+}
+try{bf.close();}catch(IOException e){return "io exception";}
+}catch(IOException e){
+try{bf.close();}catch(IOException exc){return "io exception";}
+return "io exception";}
+return chap;
+}
+public String getVerse(Tools tools,Context context, String book, int chapter, int verse) {
+String sChapter = getChapter(context,tools, book, chapter);
+String[] verses = sChapter.split("\n");
+// Translations don't all end a chapter on the same verse — the ASV, BSB and the two
+// non-English texts carry Romans 16:25-27 where the KJV stops at 24 — so a reference
+// saved or shared under one can overrun another. Fall back to the last verse there is
+// rather than letting an out-of-bounds index take the screen down.
+if (verse < 1 || verses.length == 0) {
+return "";
+}
+if (verse > verses.length) {
+return verses[verses.length - 1];
+}
+return verses[verse - 1];
+}
+
+public int getChapterLength(Context context,Tools tools, String book, int chapter) {
+String chapterstring = getChapter(context,tools, book, chapter);
+String[] lines = chapterstring.split("\n");
+int chapterlength = lines.length;
+return chapterlength;
+}
+
+public int getBookLength(Tools tools,Context context, String book) {
+//this function returns the number of chapters in the book asked for
+String bookObject = tools.getFile(context,book);
+
+// trim() rather than stripTrailing(), which is API 33 and above our minSdk. Only the
+// text after the last newline is read, so also dropping leading whitespace is a no-op.
+String stripped = bookObject.trim();
+String lastline = stripped.substring(stripped.lastIndexOf("\n") + 1);
+
+return Integer.parseInt(lastline.split(":")[0].trim());
+}
+
+}
