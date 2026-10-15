@@ -15,6 +15,14 @@ plugins {
     id 'com.android.application'
 }
 
+// Signed with the upload key from keystore.properties when it's present — the same guard
+// :app uses, so a checkout without it still builds (the release just comes out unsigned).
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.withInputStream { keystoreProperties.load(it) }
+}
+
 android {
     namespace = 'com.verse.of.the.day.legacy'
     compileSdk = 36
@@ -40,8 +48,22 @@ android {
         ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~:!similar_verses.bin:!verseoftheday.txt'
     }
 
+    signingConfigs {
+        if (keystorePropertiesFile.exists()) {
+            release {
+                storeFile = file(keystoreProperties['storeFile'])
+                storePassword = keystoreProperties['storePassword']
+                keyAlias = keystoreProperties['keyAlias']
+                keyPassword = keystoreProperties['keyPassword']
+            }
+        }
+    }
+
     buildTypes {
         release {
+            if (keystorePropertiesFile.exists()) {
+                signingConfig = signingConfigs.release
+            }
             minifyEnabled = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
         }
