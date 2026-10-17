@@ -70,4 +70,5 @@
         <item quantity="one">Found %1$d result</item>
         <item quantity="other">Found %1$d results</item>
     </plurals>
+    <string name="merry_christmas">Merry Christmas!</string>
 </resources>

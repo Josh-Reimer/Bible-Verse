@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Christmas Day easter egg (see Christmas.java): a nativity scene for the bottom of the
+     navigation drawer — angels singing over the stable under the Star of Bethlehem. Fixed
+     colors in both themes; the top of the sky fades to transparent so the scene melts into
+     the drawer under the menu items. MainActivity scales it to the drawer's full width,
+     anchored to the bottom. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="300dp"
+    android:height="460dp"
+    android:viewportWidth="300"
+    android:viewportHeight="460">
+        <path android:pathData="M0,0 L300,0 L300,460 L0,460 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient android:type="linear" android:startX="150" android:startY="0"
+                    android:endX="150" android:endY="420">
+                    <item android:offset="0" android:color="#000B1638" />
+                    <item android:offset="0.32" android:color="#FF0B1638" />
+                    <item android:offset="1" android:color="#FF2D4F86" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <group android:translateY="120">
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M100,38.7 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0 Z M24.4,166 a0.9,0.9 0 1,0 1.8,0 a0.9,0.9 0 1,0 -1.8,0 Z M111.5,21 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0 Z M70.2,26.3 a1.1,1.1 0 1,0 2.2,0 a1.1,1.1 0 1,0 -2.2,0 Z M30.2,27.2 a1.1,1.1 0 1,0 2.2,0 a1.1,1.1 0 1,0 -2.2,0 Z M272.1,129.8 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0 Z M23.8,173.1 a1.1,1.1 0 1,0 2.2,0 a1.1,1.1 0 1,0 -2.2,0 Z M126.3,112.7 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0 Z M186.9,80.8 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0 Z M181.4,104.3 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0 Z M172.5,96.1 a1.1,1.1 0 1,0 2.2,0 a1.1,1.1 0 1,0 -2.2,0 Z M226.1,25.6 a1.1,1.1 0 1,0 2.2,0 a1.1,1.1 0 1,0 -2.2,0 Z M281.4,32.4 a1.1,1.1 0 1,0 2.2,0 a1.1,1.1 0 1,0 -2.2,0 Z M276.1,24.7 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0 Z M193.9,21.5 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0 Z M122,62.8 a0.9,0.9 0 1,0 1.8,0 a0.9,0.9 0 1,0 -1.8,0 Z M275.4,38.7 a0.9,0.9 0 1,0 1.8,0 a0.9,0.9 0 1,0 -1.8,0 Z M14.4,167.9 a0.9,0.9 0 1,0 1.8,0 a0.9,0.9 0 1,0 -1.8,0 Z M83.4,10.8 a1.1,1.1 0 1,0 2.2,0 a1.1,1.1 0 1,0 -2.2,0 Z M98.5,33.8 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0 Z M272.9,134.4 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0 Z M25.5,180.9 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0 Z M120.7,29.7 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0 Z M121.6,46.2 a0.9,0.9 0 1,0 1.8,0 a0.9,0.9 0 1,0 -1.8,0 Z M176.4,29.5 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0 Z M52.6,29.3 a1.1,1.1 0 1,0 2.2,0 a1.1,1.1 0 1,0 -2.2,0 Z"
+            android:fillAlpha="0.85" />
+        <path
+            android:pathData="M150,58 L150,116 M143,55 L128,80 M157,55 L172,80"
+            android:strokeColor="@color/christmas_gold"
+            android:strokeWidth="1.6"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeAlpha="0.55" />
+        <path
+            android:fillColor="@color/christmas_gold"
+            android:pathData="M150.0,25.0 L153.5,35.1 L164.3,35.4 L155.7,41.9 L158.8,52.1 L150.0,46.0 L141.2,52.1 L144.3,41.9 L135.7,35.4 L146.5,35.1 Z" />
+        <path
+            android:fillColor="#FFF4C2"
+            android:pathData="M147,40 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z" />
+        <group android:translateX="58" android:translateY="88"
+            android:scaleX="1.1" android:scaleY="1.1">
+        <path
+            android:fillColor="#DCE6FF"
+            android:pathData="M-2,-4 C-22,-28 -38,-14 -34,2 C-26,-2 -14,0 -2,6 Z" />
+        <path
+            android:pathData="M-30,-6 C-22,-6 -14,-3 -6,1 M-24,-16 C-18,-12 -12,-6 -5,-2"
+            android:strokeColor="#A9BCEA"
+            android:strokeWidth="1"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M2,-8 C-6,-6 -10,8 -16,30 C-6,34 6,34 16,30 C12,10 10,-6 2,-8 Z" />
+        <path
+            android:fillColor="@color/christmas_gold"
+            android:pathData="M-12,26 C-4,29 6,29 13,26 L14,30 C6,34 -6,34 -15,30 Z" />
+        <path
+            android:fillColor="#EEF1FA"
+            android:pathData="M5,-2 C12,-3 18,-8 22,-12 L25,-9 C19,-3 12,4 5,4 Z" />
+        <path
+            android:fillColor="#E9B949"
+            android:pathData="M-6,-15 a7,7 0 1,0 14,0 a7,7 0 1,0 -14,0 Z" />
+        <path
+            android:fillColor="#F3CBA5"
+            android:pathData="M-1.5,-14 a5.5,5.5 0 1,0 11,0 a5.5,5.5 0 1,0 -11,0 Z" />
+        <path
+            android:fillColor="#B5524A"
+            android:pathData="M7.2,-12.3 a1.1,1.1 0 1,0 2.2,0 a1.1,1.1 0 1,0 -2.2,0 Z" />
+        <path
+            android:pathData="M-6,-25 a7,2.2 0 1,0 14,0 a7,2.2 0 1,0 -14,0"
+            android:strokeColor="@color/christmas_gold"
+            android:strokeWidth="1.6"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:fillColor="@color/christmas_gold"
+            android:pathData="M22,-22 a4,3 0 1,0 8,0 a4,3 0 1,0 -8,0 Z M29,-22 L29,-36 L30.6,-36 L30.6,-22 Z M30.6,-36 C36,-34 37,-30 34,-26 C35,-30 33,-32 30.6,-32 Z M34,-38 a4,3 0 1,0 8,0 a4,3 0 1,0 -8,0 Z M41,-38 L41,-52 L42.6,-52 L42.6,-38 Z M42.6,-52 C48,-50 49,-46 46,-42 C47,-46 45,-48 42.6,-48 Z"
+            android:fillAlpha="0.9" />
+    </group>
+        <group android:translateX="242" android:translateY="88"
+            android:scaleX="-1.1" android:scaleY="1.1">
+        <path
+            android:fillColor="#DCE6FF"
+            android:pathData="M-2,-4 C-22,-28 -38,-14 -34,2 C-26,-2 -14,0 -2,6 Z" />
+        <path
+            android:pathData="M-30,-6 C-22,-6 -14,-3 -6,1 M-24,-16 C-18,-12 -12,-6 -5,-2"
+            android:strokeColor="#A9BCEA"
+            android:strokeWidth="1"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M2,-8 C-6,-6 -10,8 -16,30 C-6,34 6,34 16,30 C12,10 10,-6 2,-8 Z" />
+        <path
+            android:fillColor="@color/christmas_gold"
+            android:pathData="M-12,26 C-4,29 6,29 13,26 L14,30 C6,34 -6,34 -15,30 Z" />
+        <path
+            android:fillColor="#EEF1FA"
+            android:pathData="M5,-2 C12,-3 18,-8 22,-12 L25,-9 C19,-3 12,4 5,4 Z" />
+        <path
+            android:fillColor="#E9B949"
+            android:pathData="M-6,-15 a7,7 0 1,0 14,0 a7,7 0 1,0 -14,0 Z" />
+        <path
+            android:fillColor="#F3CBA5"
+            android:pathData="M-1.5,-14 a5.5,5.5 0 1,0 11,0 a5.5,5.5 0 1,0 -11,0 Z" />
+        <path
+            android:fillColor="#B5524A"
+            android:pathData="M7.2,-12.3 a1.1,1.1 0 1,0 2.2,0 a1.1,1.1 0 1,0 -2.2,0 Z" />
+        <path
+            android:pathData="M-6,-25 a7,2.2 0 1,0 14,0 a7,2.2 0 1,0 -14,0"
+            android:strokeColor="@color/christmas_gold"
+            android:strokeWidth="1.6"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:fillColor="@color/christmas_gold"
+            android:pathData="M22,-22 a4,3 0 1,0 8,0 a4,3 0 1,0 -8,0 Z M29,-22 L29,-36 L30.6,-36 L30.6,-22 Z M30.6,-36 C36,-34 37,-30 34,-26 C35,-30 33,-32 30.6,-32 Z M34,-38 a4,3 0 1,0 8,0 a4,3 0 1,0 -8,0 Z M41,-38 L41,-52 L42.6,-52 L42.6,-38 Z M42.6,-52 C48,-50 49,-46 46,-42 C47,-46 45,-48 42.6,-48 Z"
+            android:fillAlpha="0.9" />
+    </group>
+        <path
+            android:fillColor="#1F4630"
+            android:pathData="M0,285 C50,262 110,278 160,270 C210,262 260,272 300,262 L300,340 L0,340 Z" />
+        <path
+            android:fillColor="#3A6E40"
+            android:pathData="M0,305 C80,298 220,298 300,305 L300,340 L0,340 Z" />
+        <path
+            android:fillColor="#3A2618"
+            android:pathData="M52,171 L150,126 L248,171 L248,306 L52,306 Z" />
+        <path android:pathData="M52,171 L150,126 L248,171 L248,306 L52,306 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient android:type="radial" android:centerX="150" android:centerY="262"
+                    android:gradientRadius="110"
+                    android:startColor="#B3FFC86B" android:endColor="#00FFC86B" />
+            </aapt:attr>
+        </path>
+        <path
+            android:fillColor="#D9A441"
+            android:pathData="M64,306 C100,298 200,298 236,306 Z" />
+        <path
+            android:pathData="M52,171 L52,306 M248,171 L248,306"
+            android:strokeColor="#8B5A2B"
+            android:strokeWidth="7"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M35,179 L150,119 L265,179"
+            android:strokeColor="#5D3A1A"
+            android:strokeWidth="10"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:fillColor="#3E6FD1"
+            android:pathData="M100,213 C88,213 84,225 86,237 C80,257 76,281 72,306 L124,306 C122,287 118,267 112,245 C116,227 112,213 100,213 Z" />
+        <path
+            android:fillColor="#2A54A8"
+            android:pathData="M95,236 C99,256 101,282 100,306 L108,306 C108,282 106,258 101,238 Z" />
+        <path
+            android:fillColor="#F3CBA5"
+            android:pathData="M99,228 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0 Z" />
+        <path
+            android:pathData="M222,306 L222,183 C222,171 234,171 234,181"
+            android:strokeColor="#7B4A22"
+            android:strokeWidth="3.5"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:fillColor="#B5652B"
+            android:pathData="M192,189 C180,189 176,201 178,213 C174,240 178,275 180,306 L218,306 C216,275 212,240 206,213 C208,201 204,189 192,189 Z" />
+        <path
+            android:fillColor="#7A3E12"
+            android:pathData="M178,252 L214,252 L214,258 L179,258 Z" />
+        <path
+            android:fillColor="#D9B77E"
+            android:pathData="M192,189 C182,189 178,198 179,208 L205,208 C206,198 202,189 192,189 Z" />
+        <path
+            android:fillColor="#F3CBA5"
+            android:pathData="M182,206 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0 Z" />
+        <path
+            android:pathData="M134,277 L124,306 M138,277 L146,306 M166,277 L176,306 M162,277 L154,306"
+            android:strokeColor="#6B4320"
+            android:strokeWidth="3.5"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:fillColor="#8B5A2B"
+            android:pathData="M124,265 L176,265 L170,279 L130,279 Z" />
+        <path
+            android:fillColor="#E8B84A"
+            android:pathData="M124,266 L126,261 L128,266 L130,263 L132,266 L134,261 L136,266 L138,263 L140,266 L142,261 L144,266 L146,263 L148,266 L150,261 L152,266 L154,263 L156,266 L158,261 L160,266 L162,263 L164,266 L166,261 L168,266 L170,263 L172,266 L174,261 L176,266 Z" />
+        <path
+            android:fillColor="#FAF6EC"
+            android:pathData="M144,257 L163,257 C169,257 169,265 163,265 L144,265 Z" />
+        <path
+            android:fillColor="#F3CBA5"
+            android:pathData="M131.5,261 a5.5,5.5 0 1,0 11,0 a5.5,5.5 0 1,0 -11,0 Z" />
+        <path
+            android:pathData="M128,260 a9,9 0 1,0 18,0 a9,9 0 1,0 -18,0 Z"
+            android:strokeColor="@color/christmas_gold"
+            android:strokeWidth="1.6"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        </group>
+</vector>

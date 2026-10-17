@@ -14,4 +14,17 @@
         <item name="colorPrimary">@color/green_700_primary</item>
         <item name="colorOnPrimary">@color/white</item>
     </style>
+
+    <!-- Christmas Day easter egg (see Christmas.java), applied by MainActivity on Dec 25.
+         The dark overlay turns everything the toolbar draws — title, drawer toggle, search
+         icon and the expanded SearchView's text — light, to sit on the red. -->
+    <style name="Theme.VerseApp.Christmas">
+        <item name="toolbarStyle">@style/Widget.VerseApp.Toolbar.Christmas</item>
+    </style>
+
+    <style name="Widget.VerseApp.Toolbar.Christmas" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/christmas_red</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3.Dark.ActionBar</item>
+    </style>
 </resources>

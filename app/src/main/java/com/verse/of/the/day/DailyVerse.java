@@ -52,7 +52,8 @@ final class DailyVerse {
             publishToWatch(context, ref, day);
             return ref;
         }
-        ref = reroll(context);
+        // Christmas Day's verse is the nativity, not a random pick; the die still rerolls it.
+        ref = Christmas.isToday() ? store(context, Christmas.NATIVITY_REF) : reroll(context);
         // A new day's verse picked here by the app or the notification would otherwise sit
         // unseen until the widget's next hourly update, showing yesterday's verse meanwhile.
         VerseWidgetProvider.refresh(context);
@@ -61,7 +62,10 @@ final class DailyVerse {
 
     /** Replaces today's verse with a new random one (the widget's die). */
     static synchronized String reroll(Context context) {
-        String ref = new VerseOfTheDay(null, context).getRandomRef(bible, tools, context).reference;
+        return store(context, new VerseOfTheDay(null, context).getRandomRef(bible, tools, context).reference);
+    }
+
+    private static String store(Context context, String ref) {
         long day = LocalDate.now().toEpochDay();
         context.getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
                 .putString(PREF_REF, ref)

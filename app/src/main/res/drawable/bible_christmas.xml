@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Christmas Day easter egg (see Christmas.java): the app icon (@drawable/bible) dressed
+     for Christmas — red cover and snow along the top. Same book, cross and V
+     geometry as the everyday icon, so it still reads as the same app. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+  <!-- book, in Christmas red -->
+  <path
+      android:fillColor="#C62828"
+      android:pathData="m14.94,7.064h19.048c1.999,0 3.609,1.609 3.609,3.609V37.781c0,1.999 -1.609,3.609 -3.609,3.609H14.94c-1.999,0 -3.609,-1.609 -3.609,-3.609V10.673c0,-1.999 1.609,-3.609 3.609,-3.609z" />
+  <!-- cross -->
+  <path
+      android:fillColor="#F5F5F5"
+      android:pathData="M24.627,12.151L24.816,12.151A1.904,1.904 0,0 1,26.721 14.056L26.721,35.392A1.904,1.904 0,0 1,24.816 37.297L24.627,37.297A1.904,1.904 0,0 1,22.723 35.392L22.723,14.056A1.904,1.904 0,0 1,24.627 12.151z" />
+  <path
+      android:fillColor="#F5F5F5"
+      android:pathData="M17.969,19.302L31.904,19.302A1.694,1.694 0,0 1,33.598 20.996L33.598,20.996A1.694,1.694 0,0 1,31.904 22.691L17.969,22.691A1.694,1.694 0,0 1,16.275 20.996L16.275,20.996A1.694,1.694 0,0 1,17.969 19.302z" />
+  <!-- the V, in holly green -->
+  <path
+      android:fillColor="#1E7B34"
+      android:fillAlpha="0.92"
+      android:pathData="m12.547,10.712h3.818l7.505,25.21q0.207,0.734 0.922,0.734 0.715,0 0.94,-0.734L33.238,10.712h3.818l-7.825,26.338q-0.451,1.43 -1.674,2.352 -1.204,0.922 -2.765,0.922 -1.561,0 -2.784,-0.922 -1.223,-0.941 -1.636,-2.352z" />
+  <!-- snow on the cover -->
+  <path
+      android:fillColor="#FFFFFF"
+      android:pathData="M11.33,10.67C11.33,8.67 12.94,7.06 14.94,7.06L33.99,7.06C35.99,7.06 37.6,8.67 37.6,10.67L37.6,11.4Q36.50,13.40 35.40,12.40Q34.20,13.40 33.00,11.60Q31.60,14.40 30.20,13.40Q28.90,14.40 27.60,11.80Q26.30,13.60 25.00,12.60Q23.60,13.60 22.20,11.60Q20.90,14.60 19.60,13.60Q18.30,14.60 17.00,11.80Q15.70,13.80 14.40,12.80Q12.87,13.80 11.33,11.40Z" />
+</vector>

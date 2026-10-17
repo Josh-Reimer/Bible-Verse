@@ -154,8 +154,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        boolean christmas = Christmas.isToday();
+        if (christmas) setTheme(R.style.Theme_VerseApp_Christmas);
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this, SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
+        // The Christmas toolbar is red under the status bar in both themes, so its icons go light.
+        EdgeToEdge.enable(this, christmas
+                        ? SystemBarStyle.dark(Color.TRANSPARENT)
+                        : SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
                 SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT));
 
         SharedPreferences shared_preferences = getSharedPreferences("settings", MODE_PRIVATE);
@@ -205,6 +210,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ConstraintLayout mainLayoutView = findViewById(R.id.mainLayoutView);
         verseview = findViewById(R.id.verse);
+
+        if (christmas) {
+            setTitle(R.string.merry_christmas);
+            // Index 0: behind the verse and the FABs, and under the opaque toolbar.
+            mainLayoutView.addView(new SnowfallView(this, getColor(R.color.christmas_snow)), 0,
+                    new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,
+                            ConstraintLayout.LayoutParams.MATCH_PARENT));
+        }
 
         mainLayoutView.setOnClickListener(v -> {
             if (fabsExpanded) toggleFabs();
@@ -262,6 +275,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
 
         NavigationView navigationView = findViewById(R.id.nv);
+        if (christmas) {
+            addMangerScene(navigationView);
+            // In-app only: swapping the launcher icon (activity-aliases) can drop the reader's
+            // home-screen shortcut on the switch days.
+            ((android.widget.ImageView) navigationView.getHeaderView(0).findViewById(R.id.headpic))
+                    .setImageResource(R.drawable.bible_christmas);
+        }
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -447,6 +467,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(i);
         }
         return true;
+    }
+
+    // Christmas Day: a nativity scene across the bottom of the drawer, edge to edge. It is
+    // scaled to the drawer's width and anchored to the bottom; its sky fades out at the top,
+    // and it sits behind the menu (index 0), so the menu items stay on top and tappable.
+    // Capped at 3/5 of the drawer — anything taller is clipped off the already-faded top.
+    private void addMangerScene(NavigationView nv) {
+        android.widget.ImageView manger = new android.widget.ImageView(this);
+        manger.setImageResource(R.drawable.christmas_manger);
+        manger.setScaleType(android.widget.ImageView.ScaleType.MATRIX);
+        manger.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        nv.addView(manger, 0, new android.widget.FrameLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT, 0, android.view.Gravity.BOTTOM));
+        nv.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
+            int height = (b - t) * 3 / 5;
+            if (manger.getLayoutParams().height != height) {
+                manger.getLayoutParams().height = height;
+                manger.post(manger::requestLayout);
+            }
+        });
+        manger.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
+            android.graphics.drawable.Drawable scene = manger.getDrawable();
+            float scale = (float) (r - l) / scene.getIntrinsicWidth();
+            android.graphics.Matrix matrix = new android.graphics.Matrix();
+            matrix.setScale(scale, scale);
+            matrix.postTranslate(0, (b - t) - scene.getIntrinsicHeight() * scale);
+            manger.setImageMatrix(matrix);
+        });
     }
 
     private void setNavigationViewListener() {

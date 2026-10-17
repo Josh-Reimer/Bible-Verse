@@ -34,4 +34,10 @@
 <color name="widget_muted">#757575</color>
 <color name="widget_ripple">#33388e3c</color>
 
+<!--Christmas Day easter egg (see Christmas.java)-->
+<color name="christmas_red">#B71C1C</color>
+<color name="christmas_gold">#E8B023</color>
+<!--snow: a soft blue-grey, since white flakes vanish on the light theme's white-->
+<color name="christmas_snow">#8CA9BCCF</color>
+
 </resources>

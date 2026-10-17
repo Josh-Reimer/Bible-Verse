@@ -11,4 +11,7 @@
     <color name="widget_muted">#9E9E9E</color>
     <color name="widget_ripple">#336abf69</color>
 
+    <color name="christmas_red">#8E1616</color>
+    <color name="christmas_snow">#80FFFFFF</color>
+
 </resources>
