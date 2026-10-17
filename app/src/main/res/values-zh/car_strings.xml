@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android Auto screen (CarVerseScreen) -->
+<resources>
+    <string name="car_new_verse">换一节</string>
+    <string name="car_today">今日</string>
+</resources>

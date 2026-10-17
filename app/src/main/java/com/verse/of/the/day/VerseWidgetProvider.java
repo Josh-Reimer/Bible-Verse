@@ -138,7 +138,7 @@ public class VerseWidgetProvider extends AppWidgetProvider {
     }
 
     /** Bible.getVerse() hands back the raw asset line, which starts with "chapter:verse: ". */
-    private static String scriptureOnly(String line) {
+    static String scriptureOnly(String line) {
         String[] parts = line.split(":", 3);
         return parts.length == 3 ? parts[2].trim() : line.trim();
     }

@@ -102,6 +102,24 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/verse_widget_info" />
         </receiver>
+
+        <!-- Android Auto. No category fits a verse reader; IOT is only there so the host
+             binds, and the app appears only with Android Auto's "Unknown sources" developer
+             setting on — see CarVerseService. -->
+        <service
+            android:name=".CarVerseService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="androidx.car.app.CarAppService" />
+                <category android:name="androidx.car.app.category.IOT" />
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+        <meta-data
+            android:name="androidx.car.app.minCarApiLevel"
+            android:value="1" />
     </application>
 
 </manifest>
