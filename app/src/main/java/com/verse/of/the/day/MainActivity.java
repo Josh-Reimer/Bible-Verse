@@ -154,8 +154,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Easter.Day easter = Easter.today();
+        if (easter != null) setTheme(easter.theme);
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this, SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
+        // The Easter toolbars are dark under the status bar in both themes, so its icons go light.
+        EdgeToEdge.enable(this, easter != null
+                        ? SystemBarStyle.dark(Color.TRANSPARENT)
+                        : SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
                 SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT));
 
         SharedPreferences shared_preferences = getSharedPreferences("settings", MODE_PRIVATE);
@@ -205,6 +210,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ConstraintLayout mainLayoutView = findViewById(R.id.mainLayoutView);
         verseview = findViewById(R.id.verse);
+
+        if (easter != null) {
+            setTitle(easter.title);
+            if (easter == Easter.Day.EASTER_SUNDAY) {
+                // Index 0: behind the verse and the FABs, and under the opaque toolbar.
+                mainLayoutView.addView(new RisingLightView(this, getColor(R.color.resurrection_light)), 0,
+                        new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,
+                                ConstraintLayout.LayoutParams.MATCH_PARENT));
+            }
+        }
 
         mainLayoutView.setOnClickListener(v -> {
             if (fabsExpanded) toggleFabs();
@@ -262,6 +277,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
 
         NavigationView navigationView = findViewById(R.id.nv);
+        if (easter != null) {
+            addDrawerScene(navigationView, easter.drawerScene);
+            // In-app only: swapping the launcher icon (activity-aliases) can drop the reader's
+            // home-screen shortcut on the switch days.
+            ((android.widget.ImageView) navigationView.getHeaderView(0).findViewById(R.id.headpic))
+                    .setImageResource(easter.logo);
+        }
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -447,6 +469,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(i);
         }
         return true;
+    }
+
+    // Easter: a scene across the bottom of the drawer, edge to edge. It is scaled to the
+    // drawer's width and anchored to the bottom; its sky fades out at the top, and it sits
+    // behind the menu (index 0), so the menu items stay on top and tappable. Capped at 3/5
+    // of the drawer — anything taller is clipped off the already-faded top.
+    private void addDrawerScene(NavigationView nv, int sceneRes) {
+        android.widget.ImageView scene = new android.widget.ImageView(this);
+        scene.setImageResource(sceneRes);
+        scene.setScaleType(android.widget.ImageView.ScaleType.MATRIX);
+        scene.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        nv.addView(scene, 0, new android.widget.FrameLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT, 0, android.view.Gravity.BOTTOM));
+        nv.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
+            int height = (b - t) * 3 / 5;
+            if (scene.getLayoutParams().height != height) {
+                scene.getLayoutParams().height = height;
+                scene.post(scene::requestLayout);
+            }
+        });
+        scene.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
+            android.graphics.drawable.Drawable d = scene.getDrawable();
+            float scale = (float) (r - l) / d.getIntrinsicWidth();
+            android.graphics.Matrix matrix = new android.graphics.Matrix();
+            matrix.setScale(scale, scale);
+            matrix.postTranslate(0, (b - t) - d.getIntrinsicHeight() * scale);
+            scene.setImageMatrix(matrix);
+        });
     }
 
     private void setNavigationViewListener() {

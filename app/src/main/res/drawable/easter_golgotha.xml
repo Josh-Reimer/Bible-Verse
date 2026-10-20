@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Good Friday and Holy Saturday (see Easter.java): three crosses on Golgotha against a
+     dusk sky, under a darkened sun ("and the sun was darkened", Luke 23:45). Fixed colors in
+     both themes; the top of the sky fades to transparent so the scene blends into the
+     drawer under the menu items. MainActivity scales it to the drawer's full width, anchored
+     to the bottom. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="300dp"
+    android:height="460dp"
+    android:viewportWidth="300"
+    android:viewportHeight="460">
+    <!-- sky -->
+    <path android:pathData="M0,0 L300,0 L300,460 L0,460 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="linear" android:startX="150" android:startY="0"
+                android:endX="150" android:endY="400">
+                <item android:offset="0" android:color="#002A152F" />
+                <item android:offset="0.35" android:color="#FF2A152F" />
+                <item android:offset="0.75" android:color="#FF5A1F33" />
+                <item android:offset="1" android:color="#FF9A3B2E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- the darkened sun: a dark disc with a dim red rim -->
+    <path
+        android:fillColor="#B86A3A"
+        android:fillAlpha="0.35"
+        android:pathData="M193,232 a31,31 0 1,0 62,0 a31,31 0 1,0 -62,0 Z" />
+    <path
+        android:fillColor="#1E0F22"
+        android:strokeColor="#D9774A"
+        android:strokeAlpha="0.7"
+        android:strokeWidth="1.5"
+        android:pathData="M200,232 a24,24 0 1,0 48,0 a24,24 0 1,0 -48,0 Z" />
+    <!-- low clouds -->
+    <path
+        android:fillColor="#1E0F22"
+        android:fillAlpha="0.6"
+        android:pathData="M20,262 Q60,252 110,258 Q150,250 190,260 Q150,268 100,266 Q60,270 20,262 Z M170,282 Q220,272 280,280 Q300,282 300,284 L300,290 Q240,292 170,282 Z M0,296 Q40,288 90,294 Q50,300 0,302 Z" />
+    <!-- far hills -->
+    <path
+        android:fillColor="#2E1426"
+        android:pathData="M0,460 L0,352 Q70,328 150,348 Q230,366 300,338 L300,460 Z" />
+    <!-- Golgotha -->
+    <path
+        android:fillColor="#150A17"
+        android:pathData="M0,460 L0,384 Q60,366 100,350 Q130,334 150,331 Q170,334 200,350 Q240,366 300,378 L300,460 Z" />
+    <!-- the three crosses; the middle one taller -->
+    <path
+        android:fillColor="#150A17"
+        android:pathData="M147,200 L153,200 L153,226 L172,226 L172,232 L153,232 L153,334 L147,334 L147,232 L128,232 L128,226 L147,226 Z M98,266 L102,266 L102,282 L114,282 L114,286 L102,286 L102,354 L98,354 L98,286 L86,286 L86,282 L98,282 Z M198,266 L202,266 L202,282 L214,282 L214,286 L202,286 L202,354 L198,354 L198,286 L186,286 L186,282 L198,282 Z" />
+    <!-- the title over the middle cross -->
+    <path
+        android:fillColor="#150A17"
+        android:pathData="M143,206 L157,206 L157,212 L143,212 Z" />
+</vector>

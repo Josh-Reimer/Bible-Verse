@@ -66,4 +66,7 @@
         <item quantity="one">%1$d resultado encontrado</item>
         <item quantity="other">%1$d resultados encontrados</item>
     </plurals>
+    <string name="good_friday">Viernes Santo</string>
+    <string name="holy_saturday">Sábado Santo</string>
+    <string name="he_is_risen">¡Ha resucitado!</string>
 </resources>

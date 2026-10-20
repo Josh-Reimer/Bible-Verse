@@ -70,4 +70,7 @@
         <item quantity="one">Found %1$d result</item>
         <item quantity="other">Found %1$d results</item>
     </plurals>
+    <string name="good_friday">Good Friday</string>
+    <string name="holy_saturday">Holy Saturday</string>
+    <string name="he_is_risen">He is risen!</string>
 </resources>

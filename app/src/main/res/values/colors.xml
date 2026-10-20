@@ -34,4 +34,10 @@
 <color name="widget_muted">#757575</color>
 <color name="widget_ripple">#33388e3c</color>
 
+<!--Easter easter egg (see Easter.java)-->
+<color name="passion_purple">#3D1F42</color>
+<color name="resurrection_gold">#9C6A00</color>
+<!--rising light behind the verse on Easter Sunday: deeper on the light theme's white-->
+<color name="resurrection_light">#B3D9A21E</color>
+
 </resources>

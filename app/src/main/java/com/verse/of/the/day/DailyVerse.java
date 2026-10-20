@@ -52,7 +52,9 @@ final class DailyVerse {
             publishToWatch(context, ref, day);
             return ref;
         }
-        ref = reroll(context);
+        // Good Friday to Easter Sunday each have their own verse; the die still rerolls it.
+        Easter.Day easter = Easter.today();
+        ref = easter != null ? store(context, easter.verseRef) : reroll(context);
         // A new day's verse picked here by the app or the notification would otherwise sit
         // unseen until the widget's next hourly update, showing yesterday's verse meanwhile.
         VerseWidgetProvider.refresh(context);
@@ -61,7 +63,10 @@ final class DailyVerse {
 
     /** Replaces today's verse with a new random one (the widget's die). */
     static synchronized String reroll(Context context) {
-        String ref = new VerseOfTheDay(null, context).getRandomRef(bible, tools, context).reference;
+        return store(context, new VerseOfTheDay(null, context).getRandomRef(bible, tools, context).reference);
+    }
+
+    private static String store(Context context, String ref) {
         long day = LocalDate.now().toEpochDay();
         context.getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
                 .putString(PREF_REF, ref)

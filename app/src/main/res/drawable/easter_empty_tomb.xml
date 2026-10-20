@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Easter Sunday (see Easter.java): the empty garden tomb at sunrise, its stone rolled
+     away and the linen clothes lying inside (John 20:5-7), with the three empty crosses on
+     the far hill against the rising sun. Fixed colors in both themes; the top of the sky
+     fades to transparent so the scene blends into the drawer under the menu items.
+     MainActivity scales it to the drawer's full width, anchored to the bottom. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="300dp"
+    android:height="460dp"
+    android:viewportWidth="300"
+    android:viewportHeight="460">
+    <!-- dawn sky -->
+    <path android:pathData="M0,0 L300,0 L300,460 L0,460 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="linear" android:startX="150" android:startY="0"
+                android:endX="150" android:endY="340">
+                <item android:offset="0" android:color="#00FBE7B5" />
+                <item android:offset="0.35" android:color="#FFFBE7B5" />
+                <item android:offset="0.75" android:color="#FFF8C17E" />
+                <item android:offset="1" android:color="#FFEE9C62" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- sunrays fanning up from behind the far hill -->
+    <path android:pathData="M250,316 L40,110 L70,95 Z M250,316 L120,60 L155,55 Z M250,316 L215,40 L250,40 Z M250,316 L300,60 L300,105 Z M250,316 L0,215 L0,250 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="250" android:centerY="316"
+                android:gradientRadius="290">
+                <item android:offset="0" android:color="#66FFFFFF" />
+                <item android:offset="0.6" android:color="#33FFFFFF" />
+                <item android:offset="1" android:color="#00FFFFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- the rising sun and its glow -->
+    <path
+        android:fillColor="#FFF6D5"
+        android:fillAlpha="0.5"
+        android:pathData="M206,316 a44,44 0 1,0 88,0 a44,44 0 1,0 -88,0 Z" />
+    <path
+        android:fillColor="#FFF9E3"
+        android:pathData="M222,316 a28,28 0 1,0 56,0 a28,28 0 1,0 -56,0 Z" />
+    <!-- far hill -->
+    <path
+        android:fillColor="#C48A6C"
+        android:pathData="M0,460 L0,346 Q90,334 180,342 Q215,322 250,318 Q280,318 300,326 L300,460 Z" />
+    <!-- the three crosses, empty -->
+    <path
+        android:fillColor="#8A5A58"
+        android:pathData="M248.8,286 L251.2,286 L251.2,295 L257,295 L257,297.4 L251.2,297.4 L251.2,319 L248.8,319 L248.8,297.4 L243,297.4 L243,295 L248.8,295 Z M234.2,298 L236,298 L236,304 L240.5,304 L240.5,305.8 L236,305.8 L236,321 L234.2,321 L234.2,305.8 L229.7,305.8 L229.7,304 L234.2,304 Z M264,298 L265.8,298 L265.8,304 L270.3,304 L270.3,305.8 L265.8,305.8 L265.8,321 L264,321 L264,305.8 L259.5,305.8 L259.5,304 L264,304 Z" />
+    <!-- the tomb, hewn in the rock -->
+    <path
+        android:fillColor="#9A8774"
+        android:pathData="M0,425 L0,330 Q28,300 78,296 Q138,294 168,328 Q186,350 190,412 L190,425 Z" />
+    <path
+        android:fillColor="#7E6D5D"
+        android:pathData="M0,425 L0,368 Q20,352 30,372 Q36,398 60,410 Q120,420 190,412 L190,425 Z M150,312 Q170,322 178,350 Q170,340 160,336 Z" />
+    <!-- the open doorway, dark and empty -->
+    <path
+        android:fillColor="#2B211C"
+        android:pathData="M80,416 L80,372 A24,24 0 0,1 128,372 L128,416 Z" />
+    <!-- the linen clothes lying -->
+    <path
+        android:fillColor="#F3EEE3"
+        android:pathData="M86,413 L114,413 L112,406 L88,406 Z" />
+    <path
+        android:fillColor="#F3EEE3"
+        android:pathData="M115,413 L124,413 L123,408 L116,408 Z" />
+    <!-- the stone, rolled away -->
+    <path
+        android:fillColor="#B3A18E"
+        android:strokeColor="#6E5F51"
+        android:strokeWidth="2"
+        android:pathData="M132,394 a26,26 0 1,0 52,0 a26,26 0 1,0 -52,0 Z" />
+    <path
+        android:strokeColor="#8C7B6A"
+        android:strokeWidth="1.5"
+        android:pathData="M144,394 a14,14 0 1,0 28,0 a14,14 0 1,0 -28,0 Z" />
+    <!-- the garden -->
+    <path
+        android:fillColor="#6E8C45"
+        android:pathData="M0,460 L0,418 Q80,408 150,416 Q230,424 300,404 L300,460 Z" />
+    <path
+        android:fillColor="#5A7638"
+        android:pathData="M0,460 L0,440 Q100,430 200,440 Q260,444 300,432 L300,460 Z" />
+    <!-- lilies -->
+    <path
+        android:strokeColor="#4E6A2F"
+        android:strokeWidth="1.4"
+        android:strokeLineCap="round"
+        android:pathData="M30,432 L30,416 M42,434 L43,420 M220,428 L220,412 M234,430 L235,416 M262,424 L262,410" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,416 L26,410 L30,412 L34,410 Z M43,420 L39,414 L43,416 L47,414 Z M220,412 L216,406 L220,408 L224,406 Z M235,416 L231,410 L235,412 L239,410 Z M262,410 L258,404 L262,406 L266,404 Z" />
+</vector>
