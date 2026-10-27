@@ -24,16 +24,20 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults
+import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
@@ -89,6 +93,7 @@ fun WearApp() {
     var verse by remember { mutableStateOf<WearVerse?>(null) }
     val scope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
+    val focusRequester = remember { FocusRequester() }
 
     var failed by remember { mutableStateOf(false) }
     var loading by remember { mutableStateOf<Job?>(null) }
@@ -131,7 +136,13 @@ fun WearApp() {
         onDispose { client.removeListener(listener) }
     }
 
-    Scaffold(timeText = { TimeText() }) {
+    // The scrollbar is a Play requirement for Wear apps (Wear App Quality: "Show the
+    // scrollbar"); a long verse overflows a small round face, and without it Play rejected
+    // the release. It hides itself when the verse fits, and while loading/error nothing scrolls.
+    Scaffold(
+        timeText = { TimeText() },
+        positionIndicator = { if (verse != null) PositionIndicator(scrollState = scrollState) },
+    ) {
         val current = verse
         if (current == null) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -167,9 +178,13 @@ fun WearApp() {
         // button down into the round bezel's curve, clipping it. The explicit top/bottom
         // padding here instead leaves clearance for TimeText above and the bezel curve
         // below, verified live against a round Wear OS emulator.
+        // Rotary input (crown or bezel) only reaches a focused node, so the column takes focus
+        // as soon as there is a verse to scroll. Also a Wear App Quality requirement.
+        LaunchedEffect(Unit) { focusRequester.requestFocus() }
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .rotaryScrollable(RotaryScrollableDefaults.behavior(scrollState), focusRequester)
                 .verticalScroll(scrollState)
                 .padding(horizontal = 26.dp)
                 // A small round watch face (e.g. 192dp) leaves very little vertical room —
